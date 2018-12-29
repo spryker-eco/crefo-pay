@@ -3,6 +3,8 @@ namespace: CrefoPay
 include:
     - tests/SprykerEcoTest/Zed/CrefoPay
 
+actor: Tester
+
 paths:
     tests: tests
     support: .
@@ -19,4 +21,6 @@ settings:
 
 coverage:
     enabled: true
-    whitelist: { include: ['src/*'] }
+    whitelist:
+        include:
+            - 'src/*.php'
