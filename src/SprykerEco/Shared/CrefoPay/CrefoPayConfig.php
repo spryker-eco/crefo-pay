@@ -11,6 +11,8 @@ use Spryker\Shared\Kernel\AbstractBundleConfig;
 
 class CrefoPayConfig extends AbstractBundleConfig
 {
+    public const PROVIDER_NAME = 'crefoPay';
+
     public const INTEGRATION_TYPE = 'API'; //Possible values: API, SecureFields, HostedPageBefore, HostedPageAfter.
     public const CONTEXT = 'ONLINE'; //Possible values: ONLINE, OFFLINE.
     public const USER_TYPE = 'PRIVATE'; //Possible values: PRIVATE, BUSINESS.
