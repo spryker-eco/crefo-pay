@@ -45,4 +45,24 @@
         <property name="crefoPaySofort" type="CrefoPaySofortPayment" />
     </transfer>
 
+    <transfer name="PaymentCrefoPay">
+        <property name="idPaymentCrefoPay" type="int" />
+        <property name="fkSalesOrder" type="int" />
+    </transfer>
+
+    <transfer name="PaymentCrefoPayOrderItem">
+        <property name="idPaymentCrefoPayOrderItem" type="int" />
+        <property name="fkPaymentCrefoPay" type="int" />
+        <property name="fkSalesOrderItem" type="int" />
+        <property name="status" type="string" />
+    </transfer>
+
+    <transfer name="PaymentCrefoPayNotification">
+        <property name="idPaymentCrefoPayNotification" type="int" />
+    </transfer>
+
+    <transfer name="PaymentCrefoPayApiLog">
+        <property name="idPaymentCrefoPayApiLog" type="int" />
+    </transfer>
+
 </transfers>
