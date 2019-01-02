@@ -3,8 +3,46 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
 
-    <transfer name="CrefoPay">
+    <transfer name="CrefoPayBillPayment">
         <property name="data" type="string" />
+    </transfer>
+
+    <transfer name="CrefoPayCashOnDeliveryPayment">
+        <property name="data" type="string" />
+    </transfer>
+
+    <transfer name="CrefoPayDirectDebitPayment">
+        <property name="data" type="string" />
+    </transfer>
+
+    <transfer name="CrefoPayPayPalPayment">
+        <property name="data" type="string" />
+    </transfer>
+
+    <transfer name="CrefoPayPrepaidPayment">
+        <property name="data" type="string" />
+    </transfer>
+
+    <transfer name="CrefoPaySofortPayment">
+        <property name="data" type="string" />
+    </transfer>
+
+    <transfer name="Payment">
+        <property name="crefoPayBill" type="CrefoPayBillPayment" />
+        <property name="crefoPayCashOnDelivery" type="CrefoPayCashOnDeliveryPayment" />
+        <property name="crefoPayDirectDebit" type="CrefoPayDirectDebitPayment" />
+        <property name="crefoPayPayPal" type="CrefoPayPayPalPayment" />
+        <property name="crefoPayPrepaid" type="CrefoPayPrepaidPayment" />
+        <property name="crefoPaySofort" type="CrefoPaySofortPayment" />
+    </transfer>
+
+    <transfer name="Order">
+        <property name="crefoPayBill" type="CrefoPayBillPayment" />
+        <property name="crefoPayCashOnDelivery" type="CrefoPayCashOnDeliveryPayment" />
+        <property name="crefoPayDirectDebit" type="CrefoPayDirectDebitPayment" />
+        <property name="crefoPayPayPal" type="CrefoPayPayPalPayment" />
+        <property name="crefoPayPrepaid" type="CrefoPayPrepaidPayment" />
+        <property name="crefoPaySofort" type="CrefoPaySofortPayment" />
     </transfer>
 
 </transfers>
