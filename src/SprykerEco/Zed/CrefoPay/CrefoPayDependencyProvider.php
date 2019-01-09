@@ -10,6 +10,7 @@ namespace SprykerEco\Zed\CrefoPay;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCalculationFacadeBridge;
+use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeBridge;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToSalesFacadeBridge;
 
 class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
@@ -27,6 +28,7 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
+        $container = $this->addCrefoPayApiFacade($container);
 
         return $container;
     }
@@ -41,6 +43,20 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
         $container = parent::provideCommunicationLayerDependencies($container);
         $container = $this->addSalesFacade($container);
         $container = $this->addCalculationFacade($container);
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCrefoPayApiFacade(Container $container): Container
+    {
+        $container[static::FACADE_CREFO_APY_API] = function (Container $container) {
+            return new CrefoPayToCrefoPayApiFacadeBridge($container->getLocator()->crefoPayApi()->facade());
+        };
 
         return $container;
     }

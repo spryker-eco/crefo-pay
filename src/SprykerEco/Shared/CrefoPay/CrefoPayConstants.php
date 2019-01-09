@@ -12,5 +12,7 @@ namespace SprykerEco\Shared\CrefoPay;
  */
 interface CrefoPayConstants
 {
-    public const AUTO_CAPTURE = 'CREFOPAY:AUTO_CAPTURE'; //false, true
+    public const AUTO_CAPTURE = 'CREFOPAY:AUTO_CAPTURE';
+    public const MERCHANT_ID = 'CREFOPAY:MERCHANT_ID';
+    public const STORE_ID = 'CREFOPAY:STORE_ID';
 }

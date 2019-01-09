@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Client\CrefoPay;
 
+use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
@@ -14,4 +15,15 @@ use Spryker\Client\Kernel\AbstractClient;
  */
 class CrefoPayClient extends AbstractClient implements CrefoPayClientInterface
 {
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\QuoteTransfer
+     */
+    public function startCrefoPayTransaction(QuoteTransfer $quoteTransfer): QuoteTransfer
+    {
+        return $this->getFactory()
+            ->createZedCrefoPayStub()
+            ->startCrefoPayTransaction($quoteTransfer);
+    }
 }

@@ -27,6 +27,24 @@
         <property name="data" type="string" />
     </transfer>
 
+    <transfer name="CrefoPayTransaction">
+        <property name="clientIp" type="string" />
+        <property name="orderReference" type="string" />
+        <property name="resultCode" type="int" />
+        <property name="message" type="string" />
+        <property name="userData" type="CrefoPayApiPerson" />
+        <property name="billingAddress" type="CrefoPayApiAddress" />
+        <property name="companyData" type="CrefoPayApiCompany" />
+        <property name="allowedPaymentMethods" type="string[]" singular="paymentMethod" />
+        <property name="redirectUrl" type="string" />
+        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error" />
+        <property name="salt" type="string" />
+    </transfer>
+
+    <transfer name="Quote">
+        <property name="crefoPayTransaction" type="CrefoPayTransaction" />
+    </transfer>
+
     <transfer name="Payment">
         <property name="crefoPayBill" type="CrefoPayBillPayment" />
         <property name="crefoPayCashOnDelivery" type="CrefoPayCashOnDeliveryPayment" />

@@ -5,16 +5,18 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerEco\Client\CrefoPay;
+namespace SprykerEco\Yves\CrefoPay\Quote;
 
 use Generated\Shared\Transfer\QuoteTransfer;
+use Symfony\Component\HttpFoundation\Request;
 
-interface CrefoPayClientInterface
+interface CrefoPayQuoteExpanderInterface
 {
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    public function startCrefoPayTransaction(QuoteTransfer $quoteTransfer): QuoteTransfer;
+    public function expand(Request $request, QuoteTransfer $quoteTransfer): QuoteTransfer;
 }

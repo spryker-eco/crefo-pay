@@ -7,6 +7,14 @@
 
 namespace SprykerEco\Client\CrefoPay\Zed;
 
+use Generated\Shared\Transfer\QuoteTransfer;
+
 interface CrefoPayStubInterface
 {
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\QuoteTransfer
+     */
+    public function startCrefoPayTransaction(QuoteTransfer $quoteTransfer): QuoteTransfer;
 }

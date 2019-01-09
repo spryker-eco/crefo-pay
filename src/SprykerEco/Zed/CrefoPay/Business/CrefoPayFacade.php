@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business;
 
+use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -14,4 +15,15 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
  */
 class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
 {
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\QuoteTransfer
+     */
+    public function startCrefoPayTransaction(QuoteTransfer $quoteTransfer): QuoteTransfer
+    {
+        return $this->getFactory()
+            ->createQuoteExpander()
+            ->expand($quoteTransfer);
+    }
 }
