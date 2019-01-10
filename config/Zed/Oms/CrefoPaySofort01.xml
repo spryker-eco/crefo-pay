@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<statemachine
+        xmlns="spryker:oms-01"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="spryker:oms-01 http://static.spryker.com/oms-01.xsd">
+
+    <process name="CrefoPaySofort01" main="true">
+        <states>
+            <state name="new" reserved="true" />
+            <state name="reserved" reserved="true" />
+            <state name="canceled" reserved="false" />
+            <state name="captured" reserved="true" />
+            <state name="shipped" reserved="true" />
+            <state name="refunded" reserved="false" />
+            <state name="finished" reserved="false" />
+            <state name="closed" reserved="false" />
+        </states>
+
+        <events>
+            <event name="cancel" manual="true" command="CrefoPay/Cancel" />
+            <event name="capture" manual="true" command="CrefoPay/Capture" />
+            <event name="ship" manual="true" />
+            <event name="refund" manual="true" command="CrefoPay/Refund" />
+            <event name="finish" manual="true" command="CrefoPay/Finish" />
+            <event name="close" manual="true" />
+        </events>
+
+        <transitions>
+
+            <transition condition="CrefoPay/IsReserved" happy="true">
+                <source>new</source>
+                <target>reserved</target>
+            </transition>
+
+            <transition condition="CrefoPay/IsCanceled">
+                <source>reserved</source>
+                <target>canceled</target>
+                <event>cancel</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsCaptured" happy="true">
+                <source>reserved</source>
+                <target>captured</target>
+                <event>capture</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsRefunded">
+                <source>captured</source>
+                <target>refunded</target>
+                <event>refund</event>
+            </transition>
+
+            <transition happy="true">
+                <source>captured</source>
+                <target>shipped</target>
+                <event>ship</event>
+            </transition>
+
+            <transition happy="true">
+                <source>shipped</source>
+                <target>finished</target>
+                <event>finish</event>
+            </transition>
+
+            <transition>
+                <source>refunded</source>
+                <target>finished</target>
+                <event>finish</event>
+            </transition>
+
+            <transition happy="true">
+                <source>finished</source>
+                <target>closed</target>
+                <event>close</event>
+            </transition>
+
+        </transitions>
+    </process>
+</statemachine>

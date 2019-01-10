@@ -7,7 +7,6 @@
 
 namespace SprykerEco\Zed\CrefoPay;
 
-use Generated\Shared\Transfer\PaymentTransfer;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 use SprykerEco\Shared\CrefoPay\CrefoPayConfig as SharedCrefoPayConfig;
 use SprykerEco\Shared\CrefoPay\CrefoPayConstants;
@@ -76,12 +75,12 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getAvailablePaymentMethodsMapping(): array
     {
         return [
-            SharedCrefoPayConfig::PAYMENT_METHOD_BILL => PaymentTransfer::CREFO_PAY_BILL,
-            SharedCrefoPayConfig::PAYMENT_METHOD_CASH_ON_DELIVERY => PaymentTransfer::CREFO_PAY_CASH_ON_DELIVERY,
-            SharedCrefoPayConfig::PAYMENT_METHOD_DIRECT_DEBIT => PaymentTransfer::CREFO_PAY_DIRECT_DEBIT,
-            SharedCrefoPayConfig::PAYMENT_METHOD_PAYPAL => PaymentTransfer::CREFO_PAY_PAY_PAL,
-            SharedCrefoPayConfig::PAYMENT_METHOD_PREPAID => PaymentTransfer::CREFO_PAY_PREPAID,
-            SharedCrefoPayConfig::PAYMENT_METHOD_SOFORT => PaymentTransfer::CREFO_PAY_SOFORT,
+            SharedCrefoPayConfig::PAYMENT_METHOD_BILL => SharedCrefoPayConfig::CREFO_PAY_BILL,
+            SharedCrefoPayConfig::PAYMENT_METHOD_CASH_ON_DELIVERY => SharedCrefoPayConfig::CREFO_PAY_CASH_ON_DELIVERY,
+            SharedCrefoPayConfig::PAYMENT_METHOD_DIRECT_DEBIT => SharedCrefoPayConfig::CREFO_PAY_DIRECT_DEBIT,
+            SharedCrefoPayConfig::PAYMENT_METHOD_PAYPAL => SharedCrefoPayConfig::CREFO_PAY_PAY_PAL,
+            SharedCrefoPayConfig::PAYMENT_METHOD_PREPAID => SharedCrefoPayConfig::CREFO_PAY_PREPAID,
+            SharedCrefoPayConfig::PAYMENT_METHOD_SOFORT => SharedCrefoPayConfig::CREFO_PAY_SOFORT,
         ];
     }
 }
