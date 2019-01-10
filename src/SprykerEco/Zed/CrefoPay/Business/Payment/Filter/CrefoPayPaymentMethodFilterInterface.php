@@ -5,32 +5,14 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerEco\Zed\CrefoPay\Business;
+namespace SprykerEco\Zed\CrefoPay\Business\Payment\Filter;
 
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
-interface CrefoPayFacadeInterface
+interface CrefoPayPaymentMethodFilterInterface
 {
     /**
-     * Specification:
-     *  - Starts transaction in CrefoPay system.
-     *  - Expands QuoteTransfer with response from CreateTransaction API call.
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
-    public function startCrefoPayTransaction(QuoteTransfer $quoteTransfer): QuoteTransfer;
-
-    /**
-     * Specification:
-     *  - Filters available payment methods by response from CreateTransaction API call.
-     *
-     * @api
-     *
      * @param \Generated\Shared\Transfer\PaymentMethodsTransfer $paymentMethodsTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *

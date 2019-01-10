@@ -8,6 +8,8 @@
 namespace SprykerEco\Zed\CrefoPay\Business;
 
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
+use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilterInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpander;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpanderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpanderMapper;
@@ -37,6 +39,14 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createQuoteExpanderMapper(): CrefoPayQuoteExpanderMapperInterface
     {
         return new CrefoPayQuoteExpanderMapper();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilterInterface
+     */
+    public function createPaymentMethodFilter(): CrefoPayPaymentMethodFilterInterface
+    {
+        return new CrefoPayPaymentMethodFilter($this->getConfig());
     }
 
     /**

@@ -33,6 +33,6 @@ class CrefoPayPaymentMethodFilterPlugin extends AbstractPlugin implements Paymen
         PaymentMethodsTransfer $paymentMethodsTransfer,
         QuoteTransfer $quoteTransfer
     ): PaymentMethodsTransfer {
-        //return $this->getFacade()->filterPaymentMethods($paymentMethodsTransfer, $quoteTransfer);
+        return $this->getFacade()->filterPaymentMethods($paymentMethodsTransfer, $quoteTransfer);
     }
 }
