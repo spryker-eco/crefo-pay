@@ -5,12 +5,12 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerEco\Yves\CrefoPay\Plugin\Quote;
+namespace SprykerEco\Yves\CrefoPay\Payment;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Symfony\Component\HttpFoundation\Request;
 
-interface CrefoPayQuoteExpanderPluginInterface
+interface CrefoPayPaymentExpanderInterface
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -18,5 +18,5 @@ interface CrefoPayQuoteExpanderPluginInterface
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    public function startCrefoPayTransaction(Request $request, QuoteTransfer $quoteTransfer): QuoteTransfer;
+    public function addPaymentToQuote(Request $request, QuoteTransfer $quoteTransfer): QuoteTransfer;
 }

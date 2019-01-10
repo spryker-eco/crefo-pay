@@ -8,7 +8,6 @@
 namespace SprykerEco\Yves\CrefoPay\Form;
 
 use Generated\Shared\Transfer\CrefoPayPrepaidPaymentTransfer;
-use Generated\Shared\Transfer\PaymentTransfer;
 use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
@@ -32,7 +31,7 @@ class PrepaidSubForm extends AbstractSubFormType implements SubFormInterface, Su
      */
     public function getName(): string
     {
-        return PaymentTransfer::CREFO_PAY_PREPAID;
+        return CrefoPayConfig::CREFO_PAY_PREPAID;
     }
 
     /**
@@ -40,7 +39,7 @@ class PrepaidSubForm extends AbstractSubFormType implements SubFormInterface, Su
      */
     public function getPropertyPath(): string
     {
-        return PaymentTransfer::CREFO_PAY_PREPAID;
+        return CrefoPayConfig::CREFO_PAY_PREPAID;
     }
 
     /**
