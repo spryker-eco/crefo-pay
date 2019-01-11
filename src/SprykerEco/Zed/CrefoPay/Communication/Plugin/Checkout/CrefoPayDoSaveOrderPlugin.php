@@ -30,6 +30,6 @@ class CrefoPayDoSaveOrderPlugin extends AbstractPlugin implements CheckoutDoSave
      */
     public function saveOrder(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer)
     {
-        //$this->getFacade()->saveOrderPayment($quoteTransfer, $saveOrderTransfer);
+        $this->getFacade()->saveOrderPayment($quoteTransfer, $saveOrderTransfer);
     }
 }

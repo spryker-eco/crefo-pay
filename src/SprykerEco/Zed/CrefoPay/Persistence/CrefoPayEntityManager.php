@@ -11,6 +11,10 @@ use Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
+use Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer;
+use Generated\Shared\Transfer\SpyPaymentCrefoPayEntityTransfer;
+use Generated\Shared\Transfer\SpyPaymentCrefoPayNotificationEntityTransfer;
+use Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemEntityTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 use SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapperInterface;
 
@@ -27,7 +31,10 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
     public function savePaymentCrefoPay(PaymentCrefoPayTransfer $paymentCrefoPayTransfer): PaymentCrefoPayTransfer
     {
         $entityTransfer = $this->getMapper()
-            ->mapPaymentCrefoPayTransferToEntityTransfer($paymentCrefoPayTransfer);
+            ->mapPaymentCrefoPayTransferToEntityTransfer(
+                $paymentCrefoPayTransfer,
+                new SpyPaymentCrefoPayEntityTransfer()
+            );
 
         /** @var \Generated\Shared\Transfer\SpyPaymentCrefoPayEntityTransfer $entityTransfer */
         $entityTransfer = $this->save($entityTransfer);
@@ -50,7 +57,10 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
         PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
     ): PaymentCrefoPayOrderItemTransfer {
         $entityTransfer = $this->getMapper()
-            ->mapPaymentCrefoPayOrderItemTransferToEntityTransfer($paymentCrefoPayOrderItemTransfer);
+            ->mapPaymentCrefoPayOrderItemTransferToEntityTransfer(
+                $paymentCrefoPayOrderItemTransfer,
+                new SpyPaymentCrefoPayOrderItemEntityTransfer()
+            );
 
         /** @var \Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemEntityTransfer $entityTransfer */
         $entityTransfer = $this->save($entityTransfer);
@@ -73,7 +83,10 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
         PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
     ): PaymentCrefoPayApiLogTransfer {
         $entityTransfer = $this->getMapper()
-            ->mapPaymentCrefoPayApiLogTransferToEntityTransfer($paymentCrefoPayApiLogTransfer);
+            ->mapPaymentCrefoPayApiLogTransferToEntityTransfer(
+                $paymentCrefoPayApiLogTransfer,
+                new SpyPaymentCrefoPayApiLogEntityTransfer()
+            );
 
         /** @var \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer $entityTransfer */
         $entityTransfer = $this->save($entityTransfer);
@@ -96,7 +109,10 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
         PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer
     ): PaymentCrefoPayNotificationTransfer {
         $entityTransfer = $this->getMapper()
-            ->mapPaymentCrefoPayNotificationTransferToEntityTransfer($paymentCrefoPayNotificationTransfer);
+            ->mapPaymentCrefoPayNotificationTransferToEntityTransfer(
+                $paymentCrefoPayNotificationTransfer,
+                new SpyPaymentCrefoPayNotificationEntityTransfer()
+            );
 
         /** @var \Generated\Shared\Transfer\SpyPaymentCrefoPayNotificationEntityTransfer $entityTransfer */
         $entityTransfer = $this->save($entityTransfer);

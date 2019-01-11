@@ -20,14 +20,18 @@ class CrefoPayPersistenceMapper implements CrefoPayPersistenceMapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer $paymentCrefoPayTransfer
+     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayEntityTransfer $paymentCrefoPayEntityTransfer
      *
      * @return \Generated\Shared\Transfer\SpyPaymentCrefoPayEntityTransfer
      */
     public function mapPaymentCrefoPayTransferToEntityTransfer(
-        PaymentCrefoPayTransfer $paymentCrefoPayTransfer
+        PaymentCrefoPayTransfer $paymentCrefoPayTransfer,
+        SpyPaymentCrefoPayEntityTransfer $paymentCrefoPayEntityTransfer
     ): SpyPaymentCrefoPayEntityTransfer {
-        $paymentCrefoPayEntityTransfer = (new SpyPaymentCrefoPayEntityTransfer())
-            ->fromArray($paymentCrefoPayTransfer->modifiedToArray(), true);
+        $paymentCrefoPayEntityTransfer->fromArray(
+            $paymentCrefoPayTransfer->modifiedToArray(),
+            true
+        );
 
         return $paymentCrefoPayEntityTransfer;
     }
@@ -42,21 +46,28 @@ class CrefoPayPersistenceMapper implements CrefoPayPersistenceMapperInterface
         SpyPaymentCrefoPayEntityTransfer $paymentCrefoPayEntityTransfer,
         PaymentCrefoPayTransfer $paymentCrefoPayTransfer
     ): PaymentCrefoPayTransfer {
-        $paymentCrefoPayTransfer->fromArray($paymentCrefoPayEntityTransfer->toArray(), true);
+        $paymentCrefoPayTransfer->fromArray(
+            $paymentCrefoPayEntityTransfer->toArray(),
+            true
+        );
 
         return $paymentCrefoPayTransfer;
     }
 
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
+     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemEntityTransfer $paymentCrefoPayOrderItemEntityTransfer
      *
      * @return \Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemEntityTransfer
      */
     public function mapPaymentCrefoPayOrderItemTransferToEntityTransfer(
-        PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
+        PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer,
+        SpyPaymentCrefoPayOrderItemEntityTransfer $paymentCrefoPayOrderItemEntityTransfer
     ): SpyPaymentCrefoPayOrderItemEntityTransfer {
-        $paymentCrefoPayOrderItemEntityTransfer = (new SpyPaymentCrefoPayOrderItemEntityTransfer())
-            ->fromArray($paymentCrefoPayOrderItemTransfer->modifiedToArray(), true);
+        $paymentCrefoPayOrderItemEntityTransfer->fromArray(
+            $paymentCrefoPayOrderItemTransfer->modifiedToArray(),
+            true
+        );
 
         return $paymentCrefoPayOrderItemEntityTransfer;
     }
@@ -81,14 +92,18 @@ class CrefoPayPersistenceMapper implements CrefoPayPersistenceMapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
+     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer
      *
      * @return \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer
      */
     public function mapPaymentCrefoPayApiLogTransferToEntityTransfer(
-        PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
+        PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer,
+        SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer
     ): SpyPaymentCrefoPayApiLogEntityTransfer {
-        $paymentCrefoPayApiLogEntityTransfer = (new SpyPaymentCrefoPayApiLogEntityTransfer())
-            ->fromArray($paymentCrefoPayApiLogTransfer->modifiedToArray(), true);
+        $paymentCrefoPayApiLogEntityTransfer->fromArray(
+            $paymentCrefoPayApiLogTransfer->modifiedToArray(),
+            true
+        );
 
         return $paymentCrefoPayApiLogEntityTransfer;
     }
@@ -113,14 +128,18 @@ class CrefoPayPersistenceMapper implements CrefoPayPersistenceMapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer
+     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayNotificationEntityTransfer $paymentCrefoPayNotificationEntityTransfer
      *
      * @return \Generated\Shared\Transfer\SpyPaymentCrefoPayNotificationEntityTransfer
      */
     public function mapPaymentCrefoPayNotificationTransferToEntityTransfer(
-        PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer
+        PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer,
+        SpyPaymentCrefoPayNotificationEntityTransfer $paymentCrefoPayNotificationEntityTransfer
     ): SpyPaymentCrefoPayNotificationEntityTransfer {
-        $paymentCrefoPayNotificationEntityTransfer = (new SpyPaymentCrefoPayNotificationEntityTransfer())
-            ->fromArray($paymentCrefoPayNotificationTransfer->modifiedToArray(), true);
+        $paymentCrefoPayNotificationEntityTransfer->fromArray(
+            $paymentCrefoPayNotificationTransfer->modifiedToArray(),
+            true
+        );
 
         return $paymentCrefoPayNotificationEntityTransfer;
     }

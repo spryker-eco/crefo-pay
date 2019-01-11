@@ -10,16 +10,21 @@ namespace SprykerEco\Zed\CrefoPay\Business;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilterInterface;
+use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaver;
+use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpander;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpanderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpanderMapper;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpanderMapperInterface;
+use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriter;
+use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayDependencyProvider;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterface;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface;
 
 /**
  * @method \SprykerEco\Zed\CrefoPay\CrefoPayConfig getConfig()
+ * @method \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayEntityManagerInterface getEntityManager()
  */
 class CrefoPayBusinessFactory extends AbstractBusinessFactory
 {
@@ -51,6 +56,25 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createPaymentMethodFilter(): CrefoPayPaymentMethodFilterInterface
     {
         return new CrefoPayPaymentMethodFilter($this->getConfig());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaverInterface
+     */
+    public function createOrderPaymentSaver(): CrefoPayOrderPaymentSaverInterface
+    {
+        return new CrefoPayOrderPaymentSaver($this->createWriter());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface
+     */
+    public function createWriter(): CrefoPayWriterInterface
+    {
+        return new CrefoPayWriter(
+            $this->getEntityManager(),
+            $this->getConfig()
+        );
     }
 
     /**

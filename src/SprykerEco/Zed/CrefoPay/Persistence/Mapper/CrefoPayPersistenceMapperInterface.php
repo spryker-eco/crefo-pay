@@ -20,11 +20,13 @@ interface CrefoPayPersistenceMapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer $paymentCrefoPayTransfer
+     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayEntityTransfer $paymentCrefoPayEntityTransfer
      *
      * @return \Generated\Shared\Transfer\SpyPaymentCrefoPayEntityTransfer
      */
     public function mapPaymentCrefoPayTransferToEntityTransfer(
-        PaymentCrefoPayTransfer $paymentCrefoPayTransfer
+        PaymentCrefoPayTransfer $paymentCrefoPayTransfer,
+        SpyPaymentCrefoPayEntityTransfer $paymentCrefoPayEntityTransfer
     ): SpyPaymentCrefoPayEntityTransfer;
 
     /**
@@ -40,11 +42,13 @@ interface CrefoPayPersistenceMapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
+     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemEntityTransfer $paymentCrefoPayOrderItemEntityTransfer
      *
      * @return \Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemEntityTransfer
      */
     public function mapPaymentCrefoPayOrderItemTransferToEntityTransfer(
-        PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
+        PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer,
+        SpyPaymentCrefoPayOrderItemEntityTransfer $paymentCrefoPayOrderItemEntityTransfer
     ): SpyPaymentCrefoPayOrderItemEntityTransfer;
 
     /**
@@ -60,11 +64,13 @@ interface CrefoPayPersistenceMapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
+     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer
      *
      * @return \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer
      */
     public function mapPaymentCrefoPayApiLogTransferToEntityTransfer(
-        PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
+        PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer,
+        SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer
     ): SpyPaymentCrefoPayApiLogEntityTransfer;
 
     /**
@@ -80,11 +86,13 @@ interface CrefoPayPersistenceMapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer
+     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayNotificationEntityTransfer $paymentCrefoPayNotificationEntityTransfer
      *
      * @return \Generated\Shared\Transfer\SpyPaymentCrefoPayNotificationEntityTransfer
      */
     public function mapPaymentCrefoPayNotificationTransferToEntityTransfer(
-        PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer
+        PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer,
+        SpyPaymentCrefoPayNotificationEntityTransfer $paymentCrefoPayNotificationEntityTransfer
     ): SpyPaymentCrefoPayNotificationEntityTransfer;
 
     /**

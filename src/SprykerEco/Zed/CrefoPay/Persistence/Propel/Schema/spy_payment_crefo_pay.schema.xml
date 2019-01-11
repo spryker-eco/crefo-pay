@@ -9,6 +9,11 @@
         <column name="id_payment_crefo_pay" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
         <column name="fk_sales_order" required="true" type="INTEGER" />
 
+        <column name="order_reference" required="true" type="VARCHAR" />
+        <column name="crefo_pay_order_id" required="true" type="VARCHAR" />
+        <column name="payment_method" required="true" type="VARCHAR" />
+        <column name="client_ip" required="true" type="VARCHAR" />
+
         <foreign-key name="spy_payment_crefo_pay-fk_sales_order" foreignTable="spy_sales_order" phpName="SpySalesOrder">
             <reference foreign="id_sales_order" local="fk_sales_order"/>
         </foreign-key>
@@ -45,6 +50,12 @@
     <table name="spy_payment_crefo_pay_api_log">
         <column name="id_payment_crefo_pay_api_log" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
 
+        <column name="result_code" required="true" type="INTEGER" />
+        <column name="message" required="false" type="VARCHAR" />
+        <column name="salt" required="true" type="VARCHAR" />
+        <column name="is_success" required="true" type="BOOLEAN"/>
+        <column name="request" required="true" type="VARCHAR"/>
+        <column name="response" required="true" type="VARCHAR"/>
 
         <behavior name="timestampable"/>
 

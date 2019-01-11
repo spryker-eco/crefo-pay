@@ -13,6 +13,13 @@ use SprykerEco\Shared\CrefoPay\CrefoPayConstants;
 
 class CrefoPayConfig extends AbstractBundleConfig
 {
+    protected const OMS_STATUS_NEW = 'new';
+    protected const OMS_STATUS_RESERVED = 'reserved';
+    protected const OMS_STATUS_CAPTURED = 'captured';
+    protected const OMS_STATUS_CANCELED = 'canceled';
+    protected const OMS_STATUS_REFUNDED = 'refunded';
+    protected const OMS_STATUS_FINISHED = 'finished';
+
     /**
      * @return string
      */
@@ -82,5 +89,53 @@ class CrefoPayConfig extends AbstractBundleConfig
             SharedCrefoPayConfig::PAYMENT_METHOD_PREPAID => SharedCrefoPayConfig::CREFO_PAY_PREPAID,
             SharedCrefoPayConfig::PAYMENT_METHOD_SOFORT => SharedCrefoPayConfig::CREFO_PAY_SOFORT,
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getOmsStatusNew(): string
+    {
+        return static::OMS_STATUS_NEW;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOmsStatusReserved(): string
+    {
+        return static::OMS_STATUS_RESERVED;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOmsStatusCaptured(): string
+    {
+        return static::OMS_STATUS_CAPTURED;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOmsStatusCanceled(): string
+    {
+        return static::OMS_STATUS_CANCELED;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOmsStatusRefunded(): string
+    {
+        return static::OMS_STATUS_REFUNDED;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOmsStatusFinished(): string
+    {
+        return static::OMS_STATUS_FINISHED;
     }
 }

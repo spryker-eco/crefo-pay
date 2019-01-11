@@ -51,7 +51,7 @@ class CrefoPayQuoteExpander implements CrefoPayQuoteExpanderInterface
             );
 
         $quoteTransfer->getCrefoPayTransaction()
-            ->setOrderReference($requestTransfer->getCreateTransactionRequest()->getOrderID());
+            ->setCrefoPayOrderId($requestTransfer->getCreateTransactionRequest()->getOrderID());
 
         $responseTransfer = $this->crefoPayApiFacade->performCreateTransactionApiCall($requestTransfer);
         $quoteTransfer = $this->addResponseDataToQuoteTransfer($quoteTransfer, $responseTransfer);

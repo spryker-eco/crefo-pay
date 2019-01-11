@@ -30,7 +30,7 @@
     <transfer name="CrefoPayTransaction">
         <property name="isSuccess" type="bool" />
         <property name="clientIp" type="string" />
-        <property name="orderReference" type="string" />
+        <property name="crefoPayOrderId" type="string" />
         <property name="resultCode" type="int" />
         <property name="message" type="string" />
         <property name="userData" type="CrefoPayApiPerson" />
@@ -67,6 +67,10 @@
     <transfer name="PaymentCrefoPay">
         <property name="idPaymentCrefoPay" type="int" />
         <property name="fkSalesOrder" type="int" />
+        <property name="orderReference" type="string" />
+        <property name="crefoPayOrderId" type="string" />
+        <property name="paymentMethod" type="string" />
+        <property name="clientIp" type="string" />
     </transfer>
 
     <transfer name="PaymentCrefoPayOrderItem">
