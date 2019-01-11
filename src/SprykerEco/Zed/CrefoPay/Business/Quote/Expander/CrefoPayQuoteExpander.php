@@ -72,7 +72,8 @@ class CrefoPayQuoteExpander implements CrefoPayQuoteExpanderInterface
         $quoteTransfer->getCrefoPayTransaction()->fromArray(
             $responseTransfer->getCreateTransactionResponse()->toArray(true, true),
             true
-        );
+        )
+        ->setIsSuccess($responseTransfer->getIsSuccess());
 
         return $quoteTransfer;
     }

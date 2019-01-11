@@ -17,6 +17,9 @@ class CrefoPayConfig extends AbstractBundleConfig
     public const CONTEXT = 'ONLINE'; //Possible values: ONLINE, OFFLINE.
     public const USER_TYPE = 'PRIVATE'; //Possible values: PRIVATE, BUSINESS.
     public const USER_RISK_CLASS = 0; //Possible values: 0 -> trusted user, 1 -> default risk user, 2 -> high risk user.
+    public const PRODUCT_TYPE_DEFAULT = 'DEFAULT'; //DEFAULT, SHIPPINGCOSTS, COUPON
+    public const PRODUCT_TYPE_SHIPPING = 'SHIPPINGCOSTS'; //DEFAULT, SHIPPINGCOSTS, COUPON
+    public const PRODUCT_RISK_CLASS = 0;
 
     public const PAYMENT_METHOD_BILL = 'BILL';
     public const PAYMENT_METHOD_CASH_ON_DELIVERY = 'COD';

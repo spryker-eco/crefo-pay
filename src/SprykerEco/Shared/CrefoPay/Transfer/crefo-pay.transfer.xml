@@ -28,6 +28,7 @@
     </transfer>
 
     <transfer name="CrefoPayTransaction">
+        <property name="isSuccess" type="bool" />
         <property name="clientIp" type="string" />
         <property name="orderReference" type="string" />
         <property name="resultCode" type="int" />
@@ -37,7 +38,7 @@
         <property name="companyData" type="CrefoPayApiCompany" />
         <property name="allowedPaymentMethods" type="string[]" singular="paymentMethod" />
         <property name="redirectUrl" type="string" />
-        <property name="errorDetails" type="CrefoPayApiErrorDetails[]" singular="error" />
+        <property name="error" type="CrefoPayApiErrorResponse" />
         <property name="salt" type="string" />
     </transfer>
 

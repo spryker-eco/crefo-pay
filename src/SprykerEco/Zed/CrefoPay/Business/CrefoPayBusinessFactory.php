@@ -16,6 +16,7 @@ use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpander
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpanderMapperInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayDependencyProvider;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterface;
+use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface;
 
 /**
  * @method \SprykerEco\Zed\CrefoPay\CrefoPayConfig getConfig()
@@ -38,7 +39,10 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
      */
     public function createQuoteExpanderMapper(): CrefoPayQuoteExpanderMapperInterface
     {
-        return new CrefoPayQuoteExpanderMapper();
+        return new CrefoPayQuoteExpanderMapper(
+            $this->getConfig(),
+            $this->getLocaleFacade()
+        );
     }
 
     /**
@@ -55,5 +59,13 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function getCrefoPayApiFacade(): CrefoPayToCrefoPayApiFacadeInterface
     {
         return $this->getProvidedDependency(CrefoPayDependencyProvider::FACADE_CREFO_APY_API);
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface
+     */
+    public function getLocaleFacade(): CrefoPayToLocaleFacadeInterface
+    {
+        return $this->getProvidedDependency(CrefoPayDependencyProvider::FACADE_LOCALE);
     }
 }

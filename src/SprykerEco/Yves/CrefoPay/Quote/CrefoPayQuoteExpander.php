@@ -35,6 +35,11 @@ class CrefoPayQuoteExpander implements CrefoPayQuoteExpanderInterface
      */
     public function expand(Request $request, QuoteTransfer $quoteTransfer): QuoteTransfer
     {
+        $crefoPayTransaction = $quoteTransfer->getCrefoPayTransaction();
+        if ($crefoPayTransaction !== null && $crefoPayTransaction->getIsSuccess()) {
+            return $quoteTransfer;
+        }
+
         $quoteTransfer->setCrefoPayTransaction(
             $this->createCrefoPayTransactionTransfer($request)
         );
