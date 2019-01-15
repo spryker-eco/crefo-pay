@@ -7,11 +7,9 @@
 
 namespace SprykerEco\Zed\CrefoPay\Persistence\Mapper;
 
-use Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
-use Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer;
 use Generated\Shared\Transfer\SpyPaymentCrefoPayEntityTransfer;
 use Generated\Shared\Transfer\SpyPaymentCrefoPayNotificationEntityTransfer;
 use Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemEntityTransfer;
@@ -61,28 +59,6 @@ interface CrefoPayPersistenceMapperInterface
         SpyPaymentCrefoPayOrderItemEntityTransfer $paymentCrefoPayOrderItemEntityTransfer,
         PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
     ): PaymentCrefoPayOrderItemTransfer;
-
-    /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
-     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer
-     *
-     * @return \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer
-     */
-    public function mapPaymentCrefoPayApiLogTransferToEntityTransfer(
-        PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer,
-        SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer
-    ): SpyPaymentCrefoPayApiLogEntityTransfer;
-
-    /**
-     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
-     *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer
-     */
-    public function mapEntityTransferToPaymentCrefoPayApiLogTransfer(
-        SpyPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayApiLogEntityTransfer,
-        PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
-    ): PaymentCrefoPayApiLogTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer

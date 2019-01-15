@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business;
 
+use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
@@ -53,6 +54,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
      *
@@ -63,5 +68,22 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
         $this->getFactory()
             ->createOrderPaymentSaver()
             ->saveOrderPayment($quoteTransfer, $saveOrderTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponse
+     *
+     * @return void
+     */
+    public function executePostSaveHook(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponse): void
+    {
+        $this->getFactory()
+            ->createCheckoutPostSaveHook()
+            ->execute($quoteTransfer, $checkoutResponse);
     }
 }

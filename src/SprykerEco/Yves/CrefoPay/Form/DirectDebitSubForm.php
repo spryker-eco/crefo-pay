@@ -7,7 +7,7 @@
 
 namespace SprykerEco\Yves\CrefoPay\Form;
 
-use Generated\Shared\Transfer\CrefoPayDirectDebitPaymentTransfer;
+use Generated\Shared\Transfer\CrefoPayPaymentTransfer;
 use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
@@ -58,7 +58,7 @@ class DirectDebitSubForm extends AbstractSubFormType implements SubFormInterface
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => CrefoPayDirectDebitPaymentTransfer::class,
+            'data_class' => CrefoPayPaymentTransfer::class,
         ])->setRequired(static::OPTIONS_FIELD_NAME);
     }
 }

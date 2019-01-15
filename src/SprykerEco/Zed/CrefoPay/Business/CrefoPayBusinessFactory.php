@@ -8,6 +8,12 @@
 namespace SprykerEco\Zed\CrefoPay\Business;
 
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\CrefoPayCheckoutHookInterface;
+use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\CrefoPayCheckoutPostSaveHook;
+use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutHookMapperInterface;
+use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutPostSaveHookMapper;
+use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutHookSaverInterface;
+use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutPostSaveHookSaver;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilterInterface;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaver;
@@ -16,6 +22,8 @@ use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpander;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpanderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpanderMapper;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpanderMapperInterface;
+use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReader;
+use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriter;
 use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayDependencyProvider;
@@ -25,6 +33,7 @@ use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface;
 /**
  * @method \SprykerEco\Zed\CrefoPay\CrefoPayConfig getConfig()
  * @method \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayEntityManagerInterface getEntityManager()
+ * @method \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface getRepository()
  */
 class CrefoPayBusinessFactory extends AbstractBusinessFactory
 {
@@ -67,6 +76,38 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\CrefoPayCheckoutHookInterface
+     */
+    public function createCheckoutPostSaveHook(): CrefoPayCheckoutHookInterface
+    {
+        return new CrefoPayCheckoutPostSaveHook(
+            $this->getCrefoPayApiFacade(),
+            $this->createCheckoutPostSaveHookMapper(),
+            $this->createCheckoutPostSaveHookSaver()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutHookMapperInterface
+     */
+    public function createCheckoutPostSaveHookMapper(): CrefoPayCheckoutHookMapperInterface
+    {
+        return new CrefoPayCheckoutPostSaveHookMapper($this->getConfig());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutHookSaverInterface
+     */
+    public function createCheckoutPostSaveHookSaver(): CrefoPayCheckoutHookSaverInterface
+    {
+        return new CrefoPayCheckoutPostSaveHookSaver(
+            $this->createReader(),
+            $this->createWriter(),
+            $this->getConfig()
+        );
+    }
+
+    /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface
      */
     public function createWriter(): CrefoPayWriterInterface
@@ -75,6 +116,14 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
             $this->getEntityManager(),
             $this->getConfig()
         );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface
+     */
+    public function createReader(): CrefoPayReaderInterface
+    {
+        return new CrefoPayReader($this->getRepository());
     }
 
     /**

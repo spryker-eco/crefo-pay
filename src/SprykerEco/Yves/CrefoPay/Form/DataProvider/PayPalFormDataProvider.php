@@ -7,7 +7,7 @@
 
 namespace SprykerEco\Yves\CrefoPay\Form\DataProvider;
 
-use Generated\Shared\Transfer\CrefoPayPayPalPaymentTransfer;
+use Generated\Shared\Transfer\CrefoPayPaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 
@@ -23,7 +23,7 @@ class PayPalFormDataProvider extends AbstractFormDataProvider
         $quoteTransfer = $this->updateQuoteWithPaymentData($quoteTransfer);
 
         if ($quoteTransfer->getPayment()->getCrefoPayPayPal() === null) {
-            $quoteTransfer->getPayment()->setCrefoPayPayPal(new CrefoPayPayPalPaymentTransfer());
+            $quoteTransfer->getPayment()->setCrefoPayPayPal(new CrefoPayPaymentTransfer());
         }
 
         $this->quoteClient->setQuote($quoteTransfer);

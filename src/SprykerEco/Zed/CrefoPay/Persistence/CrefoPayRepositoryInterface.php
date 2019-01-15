@@ -7,58 +7,22 @@
 
 namespace SprykerEco\Zed\CrefoPay\Persistence;
 
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 
 interface CrefoPayRepositoryInterface
 {
     /**
-     * @param string $reference
+     * @param string $crefoPayOrderId
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function getPaymentCrefoPayByReference(string $reference): PaymentCrefoPayTransfer;
+    public function findPaymentCrefoPayByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayTransfer;
 
     /**
-     * @param int $idSalesOrder
+     * @param string $crefoPayOrderId
      *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function getPaymentCrefoPayByIdSalesOrder(int $idSalesOrder): PaymentCrefoPayTransfer;
-
-    /**
-     * @param string $pspReference
-     *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
-     */
-    public function getPaymentCrefoPayByPspReference(string $pspReference): PaymentCrefoPayTransfer;
-
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer[]
-     */
-    public function getAllPaymentCrefoPayOrderItemsByIdSalesOrder(int $idSalesOrder): array;
-
-    /**
-     * @param int[] $orderItemIds
-     *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer[]
-     */
-    public function getOrderItemsByIdsSalesOrderItems(array $orderItemIds): array;
-
-    /**
-     * @param int $idSalesOrder
-     * @param int[] $orderItemIds
-     *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer[]
-     */
-    public function getRemainingPaymentCrefoPayOrderItems(int $idSalesOrder, array $orderItemIds): array;
-
-    /**
-     * @param int $idSalesOrder
-     * @param int[] $orderItemIds
-     *
-     * @return int[]
-     */
-    public function getRemainingSalesOrderItemIds(int $idSalesOrder, array $orderItemIds): array;
+    public function findAllPaymentCrefoPayOrderItemsByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer;
 }

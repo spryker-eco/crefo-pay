@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Reader;
 
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface;
 
 class CrefoPayReader implements CrefoPayReaderInterface
@@ -22,5 +24,25 @@ class CrefoPayReader implements CrefoPayReaderInterface
     public function __construct(CrefoPayRepositoryInterface $repository)
     {
         $this->repository = $repository;
+    }
+
+    /**
+     * @param string $crefoPayOrderId
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
+     */
+    public function findPaymentCrefoPayByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayTransfer
+    {
+        return $this->repository->findPaymentCrefoPayByCrefoPayOrderId($crefoPayOrderId);
+    }
+
+    /**
+     * @param string $crefoPayOrderId
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
+     */
+    public function findAllPaymentCrefoPayOrderItemsByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer
+    {
+        return $this->repository->findAllPaymentCrefoPayOrderItemsByCrefoPayOrderId($crefoPayOrderId);
     }
 }

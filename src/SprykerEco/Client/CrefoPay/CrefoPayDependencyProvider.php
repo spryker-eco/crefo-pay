@@ -23,7 +23,7 @@ class CrefoPayDependencyProvider extends AbstractDependencyProvider
     public function provideServiceLayerDependencies(Container $container): Container
     {
         $container = parent::provideServiceLayerDependencies($container);
-        $container = $this->addServiceZed($container);
+        $container = $this->addZedRequestClient($container);
 
         return $container;
     }
@@ -33,7 +33,7 @@ class CrefoPayDependencyProvider extends AbstractDependencyProvider
      *
      * @return \Spryker\Client\Kernel\Container
      */
-    protected function addServiceZed(Container $container): Container
+    protected function addZedRequestClient(Container $container): Container
     {
         $container[self::CLIENT_ZED_REQUEST] = function (Container $container) {
             return new CrefoPayToZedRequestClientBridge($container->getLocator()->zedRequest()->client());

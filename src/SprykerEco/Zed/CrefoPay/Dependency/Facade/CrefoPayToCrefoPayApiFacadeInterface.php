@@ -18,4 +18,11 @@ interface CrefoPayToCrefoPayApiFacadeInterface
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
      */
     public function performCreateTransactionApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
+     */
+    public function performReserveApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer;
 }

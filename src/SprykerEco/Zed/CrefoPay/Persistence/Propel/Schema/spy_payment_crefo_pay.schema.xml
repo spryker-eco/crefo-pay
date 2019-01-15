@@ -13,6 +13,7 @@
         <column name="crefo_pay_order_id" required="true" type="VARCHAR" />
         <column name="payment_method" required="true" type="VARCHAR" />
         <column name="client_ip" required="true" type="VARCHAR" />
+        <column name="additional_data" required="false" type="VARCHAR" />
 
         <foreign-key name="spy_payment_crefo_pay-fk_sales_order" foreignTable="spy_sales_order" phpName="SpySalesOrder">
             <reference foreign="id_sales_order" local="fk_sales_order"/>
@@ -45,21 +46,6 @@
         </unique>
 
         <id-method-parameter value="spy_payment_crefo_pay_order_item_pk_seq"/>
-    </table>
-
-    <table name="spy_payment_crefo_pay_api_log">
-        <column name="id_payment_crefo_pay_api_log" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
-
-        <column name="result_code" required="true" type="INTEGER" />
-        <column name="message" required="false" type="VARCHAR" />
-        <column name="salt" required="true" type="VARCHAR" />
-        <column name="is_success" required="true" type="BOOLEAN"/>
-        <column name="request" required="true" type="VARCHAR"/>
-        <column name="response" required="true" type="VARCHAR"/>
-
-        <behavior name="timestampable"/>
-
-        <id-method-parameter value="spy_payment_crefo_pay_api_log_pk_seq"/>
     </table>
 
     <table name="spy_payment_crefo_pay_notification">

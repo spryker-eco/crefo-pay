@@ -7,11 +7,9 @@
 
 namespace SprykerEco\Zed\CrefoPay\Persistence;
 
-use Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
-use Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer;
 use Generated\Shared\Transfer\SpyPaymentCrefoPayEntityTransfer;
 use Generated\Shared\Transfer\SpyPaymentCrefoPayNotificationEntityTransfer;
 use Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemEntityTransfer;
@@ -72,32 +70,6 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
             );
 
         return $paymentCrefoPayOrderItemTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
-     *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer
-     */
-    public function savePaymentCrefoPayApiLog(
-        PaymentCrefoPayApiLogTransfer $paymentCrefoPayApiLogTransfer
-    ): PaymentCrefoPayApiLogTransfer {
-        $entityTransfer = $this->getMapper()
-            ->mapPaymentCrefoPayApiLogTransferToEntityTransfer(
-                $paymentCrefoPayApiLogTransfer,
-                new SpyPaymentCrefoPayApiLogEntityTransfer()
-            );
-
-        /** @var \Generated\Shared\Transfer\SpyPaymentCrefoPayApiLogEntityTransfer $entityTransfer */
-        $entityTransfer = $this->save($entityTransfer);
-
-        $paymentCrefoPayApiLogTransfer = $this->getMapper()
-            ->mapEntityTransferToPaymentCrefoPayApiLogTransfer(
-                $entityTransfer,
-                $paymentCrefoPayApiLogTransfer
-            );
-
-        return $paymentCrefoPayApiLogTransfer;
     }
 
     /**

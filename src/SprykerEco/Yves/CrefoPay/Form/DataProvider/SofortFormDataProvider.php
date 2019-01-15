@@ -7,7 +7,7 @@
 
 namespace SprykerEco\Yves\CrefoPay\Form\DataProvider;
 
-use Generated\Shared\Transfer\CrefoPaySofortPaymentTransfer;
+use Generated\Shared\Transfer\CrefoPayPaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 
@@ -23,7 +23,7 @@ class SofortFormDataProvider extends AbstractFormDataProvider
         $quoteTransfer = $this->updateQuoteWithPaymentData($quoteTransfer);
 
         if ($quoteTransfer->getPayment()->getCrefoPaySofort() === null) {
-            $quoteTransfer->getPayment()->setCrefoPaySofort(new CrefoPaySofortPaymentTransfer());
+            $quoteTransfer->getPayment()->setCrefoPaySofort(new CrefoPayPaymentTransfer());
         }
 
         $this->quoteClient->setQuote($quoteTransfer);

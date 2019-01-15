@@ -7,9 +7,7 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Writer;
 
-use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
-use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
-use Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
@@ -29,27 +27,14 @@ interface CrefoPayWriterInterface
 
     /**
      * @param string $status
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer[] $paymentCrefoPayOrderItemTransfers
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer
      * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer|null $paymentCrefoPayTransfer
      *
      * @return void
      */
     public function updatePaymentEntities(
         string $status,
-        array $paymentCrefoPayOrderItemTransfers,
+        PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer,
         ?PaymentCrefoPayTransfer $paymentCrefoPayTransfer = null
     ): void;
-
-    /**
-     * @param string $type
-     * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $request
-     * @param \Generated\Shared\Transfer\CrefoPayApiResponseTransfer $response
-     *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer
-     */
-    public function saveApiLog(
-        string $type,
-        CrefoPayApiRequestTransfer $request,
-        CrefoPayApiResponseTransfer $response
-    ): PaymentCrefoPayApiLogTransfer;
 }

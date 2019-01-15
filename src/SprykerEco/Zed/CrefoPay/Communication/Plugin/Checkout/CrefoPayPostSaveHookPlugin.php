@@ -30,6 +30,6 @@ class CrefoPayPostSaveHookPlugin extends AbstractPlugin implements CheckoutPostS
      */
     public function executeHook(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponse)
     {
-        //$this->getFacade()->executePostSaveHook($quoteTransfer, $checkoutResponse);
+        $this->getFacade()->executePostSaveHook($quoteTransfer, $checkoutResponse);
     }
 }

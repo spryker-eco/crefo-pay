@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business;
 
+use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
@@ -43,10 +44,31 @@ interface CrefoPayFacadeInterface
     ): PaymentMethodsTransfer;
 
     /**
+     * Specification:
+     * - Creates payment entities and saves them to DB.
+     * - Saves order payment method data according to quote and checkout response transfer data.
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
      *
      * @return void
      */
     public function saveOrderPayment(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer): void;
+
+    /**
+     * Specification:
+     * - Makes reserve request to CrefoPay API.
+     * - Updates payment entities and saves them to DB.
+     * - Updates order items with necessary OMS statuses.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponse
+     *
+     * @return void
+     */
+    public function executePostSaveHook(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponse): void;
 }
