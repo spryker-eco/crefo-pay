@@ -77,11 +77,10 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
         return (new CrefoPayApiCreateTransactionRequestTransfer())
             ->setMerchantID($this->config->getMerchantId())
             ->setStoreID($this->config->getStoreId())
-            ->setOrderID($this->generateOrderReference($quoteTransfer))
+            ->setOrderID($this->generateCrefoPayOrderId($quoteTransfer))
             ->setUserID($quoteTransfer->getCustomerReference())
             ->setIntegrationType($this->config->getIntegrationType())
             ->setAutoCapture($this->config->getAutoCapture())
-            ->setMerchantReference($this->generateReference())
             ->setContext($this->config->getContext())
             ->setUserType($this->config->getUserType())
             ->setUserRiskClass($this->config->getUserRiskClass())
@@ -99,14 +98,9 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
      *
      * @return string
      */
-    protected function generateOrderReference(QuoteTransfer $quoteTransfer): string
+    protected function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
     {
         return uniqid($quoteTransfer->getCustomerReference() . '-', true);
-    }
-
-    protected function generateReference()
-    {
-        return 'reference';
     }
 
     /**
