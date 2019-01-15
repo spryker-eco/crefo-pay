@@ -29,8 +29,8 @@ class IsCanceledPlugin extends AbstractPlugin implements ConditionInterface
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        /*$crefoPayOrderItem = $orderItem->getSpyPaymentCrefoPayOrderItems()->getLast();
+        $crefoPayOrderItem = $orderItem->getSpyPaymentCrefoPayOrderItems()->getLast();
 
-        return $crefoPayOrderItem->getStatus() === $this->getConfig()->getOmsStatusCanceled();*/
+        return $crefoPayOrderItem->getStatus() === $this->getConfig()->getOmsStatusCanceled();
     }
 }

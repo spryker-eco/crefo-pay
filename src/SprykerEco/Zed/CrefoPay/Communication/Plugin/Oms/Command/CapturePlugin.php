@@ -8,13 +8,14 @@
 namespace SprykerEco\Zed\CrefoPay\Communication\Plugin\Oms\Command;
 
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
+use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 use Spryker\Zed\Oms\Dependency\Plugin\Command\CommandByOrderInterface;
 
 /**
- * @method \SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface getFacade()
+ * @method \SprykerEco\Zed\CrefoPay\Communication\CrefoPayCommunicationFactory getFactory()
  */
-class CapturePlugin extends AbstractCommandPlugin implements CommandByOrderInterface
+class CapturePlugin extends AbstractPlugin implements CommandByOrderInterface
 {
     /**
      * {@inheritdoc}
@@ -29,12 +30,9 @@ class CapturePlugin extends AbstractCommandPlugin implements CommandByOrderInter
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
     {
-        /*$this->getFacade()
-            ->handleCaptureCommand(
-                $orderItems,
-                $this->getOrderTransfer($orderEntity),
-                $data->getArrayCopy()
-            );*/
+        $this->getFactory()
+            ->createCaptureOmsCommand()
+            ->execute($orderItems, $orderEntity, $data);
 
         return [];
     }

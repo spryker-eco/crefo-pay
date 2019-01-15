@@ -29,8 +29,8 @@ class IsCapturedPlugin extends AbstractPlugin implements ConditionInterface
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        /*$crefoPayOrderItem = $orderItem->getSpyPaymentCrefoPayOrderItems()->getLast();
+        $crefoPayOrderItem = $orderItem->getSpyPaymentCrefoPayOrderItems()->getLast();
 
-        return $crefoPayOrderItem->getStatus() === $this->getConfig()->getOmsStatusCaptured();*/
+        return $crefoPayOrderItem->getStatus() === $this->getConfig()->getOmsStatusCaptured();
     }
 }

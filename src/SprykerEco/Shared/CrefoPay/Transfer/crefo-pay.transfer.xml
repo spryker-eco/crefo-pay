@@ -7,6 +7,10 @@
         <property name="data" type="string" />
     </transfer>
 
+    <transfer name="CrefoPayOrderItemsData">
+        <property name="orderItemIds" type="int[]" singular="orderItemId" />
+    </transfer>
+
     <transfer name="CrefoPayTransaction">
         <property name="isSuccess" type="bool" />
         <property name="clientIp" type="string" />

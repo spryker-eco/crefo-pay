@@ -8,6 +8,8 @@
 namespace SprykerEco\Zed\CrefoPay\Business;
 
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
+use Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
@@ -85,5 +87,65 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
         $this->getFactory()
             ->createCheckoutPostSaveHook()
             ->execute($quoteTransfer, $checkoutResponse);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     *
+     * @return void
+     */
+    public function executeCancelCommand(OrderTransfer $orderTransfer, CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer): void
+    {
+        // TODO: Implement executeCancelCommand() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     *
+     * @return void
+     */
+    public function executeCaptureCommand(OrderTransfer $orderTransfer, CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer): void
+    {
+        // TODO: Implement executeCaptureCommand() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     *
+     * @return void
+     */
+    public function executeRefundCommand(OrderTransfer $orderTransfer, CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer): void
+    {
+        // TODO: Implement executeRefundCommand() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     *
+     * @return void
+     */
+    public function executeFinishCommand(OrderTransfer $orderTransfer, CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer): void
+    {
+        // TODO: Implement executeFinishCommand() method.
     }
 }

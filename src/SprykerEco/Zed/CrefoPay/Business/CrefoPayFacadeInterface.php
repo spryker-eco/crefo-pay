@@ -8,6 +8,8 @@
 namespace SprykerEco\Zed\CrefoPay\Business;
 
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
+use Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
@@ -71,4 +73,72 @@ interface CrefoPayFacadeInterface
      * @return void
      */
     public function executePostSaveHook(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponse): void;
+
+    /**
+     * Specification:
+     * - Makes cancel request to CrefoPay API.
+     * - Updates order items status.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     *
+     * @return void
+     */
+    public function executeCancelCommand(
+        OrderTransfer $orderTransfer,
+        CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+    ): void;
+
+    /**
+     * Specification:
+     * - Makes capture request to CrefoPay API.
+     * - Updates order items status.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     *
+     * @return void
+     */
+    public function executeCaptureCommand(
+        OrderTransfer $orderTransfer,
+        CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+    ): void;
+
+    /**
+     * Specification:
+     * - Makes refund request to CrefoPay API.
+     * - Updates order items status.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     *
+     * @return void
+     */
+    public function executeRefundCommand(
+        OrderTransfer $orderTransfer,
+        CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+    ): void;
+
+    /**
+     * Specification:
+     * - Makes finish request to CrefoPay API.
+     * - Updates order items status.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     *
+     * @return void
+     */
+    public function executeFinishCommand(
+        OrderTransfer $orderTransfer,
+        CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+    ): void;
 }
