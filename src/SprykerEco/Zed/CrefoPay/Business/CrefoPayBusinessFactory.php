@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\CrefoPay\Business;
 
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use SprykerEco\Service\CrefoPay\CrefoPayServiceInterface;
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\CrefoPayCheckoutHookInterface;
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\CrefoPayCheckoutPostSaveHook;
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutHookMapperInterface;
@@ -54,6 +55,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createQuoteExpanderMapper(): CrefoPayQuoteExpanderMapperInterface
     {
         return new CrefoPayQuoteExpanderMapper(
+            $this->getCrefoPayService(),
             $this->getConfig(),
             $this->getLocaleFacade()
         );
@@ -140,5 +142,13 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function getLocaleFacade(): CrefoPayToLocaleFacadeInterface
     {
         return $this->getProvidedDependency(CrefoPayDependencyProvider::FACADE_LOCALE);
+    }
+
+    /**
+     * @return \SprykerEco\Service\CrefoPay\CrefoPayServiceInterface
+     */
+    public function getCrefoPayService(): CrefoPayServiceInterface
+    {
+        return $this->getProvidedDependency(CrefoPayDependencyProvider::SERVICE_CREFO_PAY);
     }
 }

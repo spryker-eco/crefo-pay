@@ -22,6 +22,8 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
     public const FACADE_OMS = 'FACADE_OMS';
     public const FACADE_LOCALE = 'FACADE_LOCALE';
 
+    public const SERVICE_CREFO_PAY = 'SERVICE_CREFO_PAY';
+
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
@@ -32,6 +34,7 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
         $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addCrefoPayApiFacade($container);
         $container = $this->addLocaleFacade($container);
+        $container = $this->addCrefoPayService($container);
 
         return $container;
     }
@@ -101,6 +104,20 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_LOCALE] = function (Container $container) {
             return new CrefoPayToLocaleFacadeBridge($container->getLocator()->locale()->facade());
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCrefoPayService(Container $container): Container
+    {
+        $container[static::SERVICE_CREFO_PAY] = function (Container $container) {
+            return $container->getLocator()->crefoPay()->service();
         };
 
         return $container;

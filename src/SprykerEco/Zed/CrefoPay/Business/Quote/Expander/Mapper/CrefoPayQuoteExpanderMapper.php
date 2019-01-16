@@ -18,6 +18,7 @@ use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
+use SprykerEco\Service\CrefoPay\CrefoPayServiceInterface;
 use SprykerEco\Shared\CrefoPay\CrefoPayConfig as SharedCrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface;
@@ -27,6 +28,11 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     protected const SALUTATION_MAPPING = ['Mr' => 'M', 'Ms' => 'F', 'Mrs' => 'F', 'Dr' => 'M'];
     protected const AVAILABLE_LOCALES = ['EN', 'DE', 'ES', 'FR', 'IT', 'NL'];
     protected const DEFAULT_LOCALE = 'EN';
+
+    /**
+     * @var \SprykerEco\Service\CrefoPay\CrefoPayServiceInterface
+     */
+    protected $service;
 
     /**
      * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
@@ -39,13 +45,16 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     protected $localeFacade;
 
     /**
+     * @param \SprykerEco\Service\CrefoPay\CrefoPayServiceInterface $service
      * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
      * @param \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface $localeFacade
      */
     public function __construct(
+        CrefoPayServiceInterface $service,
         CrefoPayConfig $config,
         CrefoPayToLocaleFacadeInterface $localeFacade
     ) {
+        $this->service = $service;
         $this->config = $config;
         $this->localeFacade = $localeFacade;
     }
@@ -100,7 +109,7 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
      */
     protected function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
     {
-        return uniqid($quoteTransfer->getCustomerReference() . '-', true);
+        return $this->service->generateCrefoPayOrderId($quoteTransfer);
     }
 
     /**
