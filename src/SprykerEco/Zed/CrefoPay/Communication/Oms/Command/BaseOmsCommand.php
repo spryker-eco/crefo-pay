@@ -7,7 +7,9 @@
 
 namespace SprykerEco\Zed\CrefoPay\Communication\Oms\Command;
 
-use Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer;
+use ArrayObject;
+use Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer;
+use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
@@ -64,18 +66,24 @@ class BaseOmsCommand
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $orderItems
      *
-     * @return \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer
+     * @return \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer
      */
-    protected function createOrderItemsDataTransfer(array $orderItems): CrefoPayOrderItemsDataTransfer
+    protected function createOrderItemsDataTransfer(array $orderItems): CrefoPayToSalesOrderItemCollectionTransfer
     {
-        $orderItemIds = array_map(
+        $crefoPayToSalesOrderItems = array_map(
             function (SpySalesOrderItem $orderItem) {
-                return $orderItem->getIdSalesOrderItem();
+                return (new CrefoPayToSalesOrderItemTransfer())
+                    ->setIdSalesOrderItem($orderItem->getIdSalesOrderItem())
+                    ->setAmount($orderItem->getPriceToPayAggregation())
+                    ->setVatAmount($orderItem->getTaxAmountFullAggregation())
+                    ->setVatRate($orderItem->getTaxRate())
+                    ->setRefundableAmount($orderItem->getRefundableAmount())
+                    ->setQuantity($orderItem->getQuantity());
             },
             $orderItems
         );
 
-        return (new CrefoPayOrderItemsDataTransfer())
-            ->setOrderItemIds($orderItemIds);
+        return (new CrefoPayToSalesOrderItemCollectionTransfer())
+            ->setCrefoPayToSalesOrderItems(new ArrayObject($crefoPayToSalesOrderItems));
     }
 }

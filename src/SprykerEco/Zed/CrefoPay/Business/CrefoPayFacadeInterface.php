@@ -8,7 +8,7 @@
 namespace SprykerEco\Zed\CrefoPay\Business;
 
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
-use Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer;
+use Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -82,13 +82,13 @@ interface CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
      *
      * @return void
      */
     public function executeCancelCommand(
         OrderTransfer $orderTransfer,
-        CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
     ): void;
 
     /**
@@ -99,13 +99,13 @@ interface CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
      *
      * @return void
      */
     public function executeCaptureCommand(
         OrderTransfer $orderTransfer,
-        CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
     ): void;
 
     /**
@@ -116,13 +116,13 @@ interface CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
      *
      * @return void
      */
     public function executeRefundCommand(
         OrderTransfer $orderTransfer,
-        CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
     ): void;
 
     /**
@@ -133,12 +133,12 @@ interface CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
      *
      * @return void
      */
     public function executeFinishCommand(
         OrderTransfer $orderTransfer,
-        CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
     ): void;
 }

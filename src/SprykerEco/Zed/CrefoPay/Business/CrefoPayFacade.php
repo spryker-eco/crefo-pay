@@ -8,7 +8,7 @@
 namespace SprykerEco\Zed\CrefoPay\Business;
 
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
-use Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer;
+use Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -95,12 +95,14 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
      *
      * @return void
      */
-    public function executeCancelCommand(OrderTransfer $orderTransfer, CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer): void
-    {
+    public function executeCancelCommand(
+        OrderTransfer $orderTransfer,
+        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+    ): void {
         // TODO: Implement executeCancelCommand() method.
     }
 
@@ -110,12 +112,14 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
      *
      * @return void
      */
-    public function executeCaptureCommand(OrderTransfer $orderTransfer, CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer): void
-    {
+    public function executeCaptureCommand(
+        OrderTransfer $orderTransfer,
+        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+    ): void {
         // TODO: Implement executeCaptureCommand() method.
     }
 
@@ -125,12 +129,14 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
      *
      * @return void
      */
-    public function executeRefundCommand(OrderTransfer $orderTransfer, CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer): void
-    {
+    public function executeRefundCommand(
+        OrderTransfer $orderTransfer,
+        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+    ): void {
         // TODO: Implement executeRefundCommand() method.
     }
 
@@ -140,12 +146,14 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
      *
      * @return void
      */
-    public function executeFinishCommand(OrderTransfer $orderTransfer, CrefoPayOrderItemsDataTransfer $orderItemsDataTransfer): void
-    {
+    public function executeFinishCommand(
+        OrderTransfer $orderTransfer,
+        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+    ): void {
         // TODO: Implement executeFinishCommand() method.
     }
 }

@@ -7,8 +7,17 @@
         <property name="data" type="string" />
     </transfer>
 
-    <transfer name="CrefoPayOrderItemsData">
-        <property name="orderItemIds" type="int[]" singular="orderItemId" />
+    <transfer name="CrefoPayToSalesOrderItemCollection">
+        <property name="crefoPayToSalesOrderItems" type="CrefoPayToSalesOrderItem[]" singular="crefoPayToSalesOrderItem" />
+    </transfer>
+
+    <transfer name="CrefoPayToSalesOrderItem">
+        <property name="idSalesOrderItem" type="int" />
+        <property name="amount" type="int" />
+        <property name="vatAmount" type="int" />
+        <property name="vatRate" type="float" />
+        <property name="refundableAmount" type="int" />
+        <property name="quantity" type="int" />
     </transfer>
 
     <transfer name="CrefoPayTransaction">
