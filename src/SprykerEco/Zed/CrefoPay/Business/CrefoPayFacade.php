@@ -67,7 +67,9 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      */
     public function processNotification(CrefoPayNotificationTransfer $notificationTransfer): CrefoPayNotificationTransfer
     {
-        // TODO: Implement executeFinishCommand() method.
+        return $this->getFactory()
+            ->createCrefoPayNotificationProcessor()
+            ->processNotification($notificationTransfer);
     }
 
     /**

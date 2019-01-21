@@ -60,7 +60,7 @@
         <column name="currency" required="false" type="VARCHAR" />
         <column name="transaction_status" required="false" type="VARCHAR" />
         <column name="order_status" required="false" type="VARCHAR" />
-        <column name="timestamp" required="false" type="INTEGER" />
+        <column name="timestamp" required="false" type="VARCHAR" />
         <column name="version" required="false" type="VARCHAR" />
 
         <behavior name="timestampable"/>

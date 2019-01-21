@@ -19,6 +19,10 @@ use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilterInterface;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaver;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaverInterface;
+use SprykerEco\Zed\CrefoPay\Business\Processor\CrefoPayNotificationProcessor;
+use SprykerEco\Zed\CrefoPay\Business\Processor\CrefoPayNotificationProcessorInterface;
+use SprykerEco\Zed\CrefoPay\Business\Processor\Mapper\CrefoPayNotificationStatusMapper;
+use SprykerEco\Zed\CrefoPay\Business\Processor\Mapper\CrefoPayNotificationStatusMapperInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpander;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpanderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpanderMapper;
@@ -67,6 +71,26 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createPaymentMethodFilter(): CrefoPayPaymentMethodFilterInterface
     {
         return new CrefoPayPaymentMethodFilter($this->getConfig());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Processor\CrefoPayNotificationProcessorInterface
+     */
+    public function createCrefoPayNotificationProcessor(): CrefoPayNotificationProcessorInterface
+    {
+        return new CrefoPayNotificationProcessor(
+            $this->createCrefoPayNotificationStatusMapper(),
+            $this->createReader(),
+            $this->createWriter()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Processor\Mapper\CrefoPayNotificationStatusMapperInterface
+     */
+    public function createCrefoPayNotificationStatusMapper(): CrefoPayNotificationStatusMapperInterface
+    {
+        return new CrefoPayNotificationStatusMapper($this->getConfig());
     }
 
     /**

@@ -23,11 +23,18 @@ class GatewayController extends AbstractGatewayController
      */
     public function startCrefoPayTransactionAction(QuoteTransfer $quoteTransfer): QuoteTransfer
     {
-        return $this->getFacade()->startCrefoPayTransaction($quoteTransfer);
+        return $this->getFacade()
+            ->startCrefoPayTransaction($quoteTransfer);
     }
 
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayNotificationTransfer
+     */
     public function processNotificationAction(CrefoPayNotificationTransfer $notificationTransfer): CrefoPayNotificationTransfer
     {
-        return $this->getFacade()->processNotificationAction($notificationTransfer);
+        return $this->getFacade()
+            ->processNotification($notificationTransfer);
     }
 }

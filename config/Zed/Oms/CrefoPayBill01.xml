@@ -8,6 +8,8 @@
         <states>
             <state name="new" reserved="true" />
             <state name="reserved" reserved="true" />
+            <state name="authorized" reserved="true" />
+            <state name="waiting for capture" reserved="true" />
             <state name="canceled" reserved="false" />
             <state name="captured" reserved="true" />
             <state name="shipped" reserved="true" />
@@ -32,14 +34,36 @@
                 <target>reserved</target>
             </transition>
 
+            <transition condition="CrefoPay/IsAuthorized" happy="true">
+                <source>reserved</source>
+                <target>authorized</target>
+            </transition>
+
+            <transition condition="CrefoPay/IsWaitingForCapture" happy="true">
+                <source>authorized</source>
+                <target>waiting for capture</target>
+            </transition>
+
             <transition condition="CrefoPay/IsCanceled">
                 <source>reserved</source>
                 <target>canceled</target>
                 <event>cancel</event>
             </transition>
 
+            <transition condition="CrefoPay/IsCanceled">
+                <source>authorized</source>
+                <target>canceled</target>
+                <event>cancel</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsCanceled">
+                <source>waiting for capture</source>
+                <target>canceled</target>
+                <event>cancel</event>
+            </transition>
+
             <transition condition="CrefoPay/IsCaptured" happy="true">
-                <source>reserved</source>
+                <source>waiting for capture</source>
                 <target>captured</target>
                 <event>capture</event>
             </transition>
@@ -56,13 +80,19 @@
                 <event>ship</event>
             </transition>
 
-            <transition happy="true">
+            <transition condition="CrefoPay/IsFinished" happy="true">
                 <source>shipped</source>
                 <target>finished</target>
                 <event>finish</event>
             </transition>
 
-            <transition>
+            <transition condition="CrefoPay/IsFinished">
+                <source>canceled</source>
+                <target>finished</target>
+                <event>finish</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsFinished">
                 <source>refunded</source>
                 <target>finished</target>
                 <event>finish</event>

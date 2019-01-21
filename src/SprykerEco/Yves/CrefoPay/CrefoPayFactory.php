@@ -71,7 +71,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createCrefoPayNotificationProcessorMapper(): CrefoPayNotificationProcessorMapperInterface
     {
-        return new CrefoPayNotificationProcessorMapper($this->getUtilEncodingService());
+        return new CrefoPayNotificationProcessorMapper();
     }
 
     /**

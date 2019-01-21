@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Writer;
 
+use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -37,4 +38,11 @@ interface CrefoPayWriterInterface
         PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer,
         ?PaymentCrefoPayTransfer $paymentCrefoPayTransfer = null
     ): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
+     *
+     * @return void
+     */
+    public function saveNotification(CrefoPayNotificationTransfer $notificationTransfer): void;
 }

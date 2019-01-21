@@ -7,10 +7,9 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Writer;
 
-use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
-use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
+use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Generated\Shared\Transfer\PaymentCrefoPayApiLogTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
@@ -90,6 +89,20 @@ class CrefoPayWriter implements CrefoPayWriterInterface
     }
 
     /**
+     * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
+     *
+     * @return void
+     */
+    public function saveNotification(CrefoPayNotificationTransfer $notificationTransfer): void
+    {
+        $this->getTransactionHandler()->handleTransaction(
+            function () use ($notificationTransfer) {
+                $this->savePaymentCrefoPayNotification($notificationTransfer);
+            }
+        );
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\SaveOrderTransfer $saveOrderTransfer
      *
@@ -125,5 +138,28 @@ class CrefoPayWriter implements CrefoPayWriterInterface
             ->setStatus($this->config->getOmsStatusNew());
 
         return $this->entityManager->savePaymentCrefoPayOrderItem($paymentCrefoPayOrderItemTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer
+     */
+    protected function savePaymentCrefoPayNotification(CrefoPayNotificationTransfer $notificationTransfer): PaymentCrefoPayNotificationTransfer
+    {
+        $paymentCrefoPayNotificationTransfer = (new PaymentCrefoPayNotificationTransfer())
+            ->setCrefoPayOrderId($notificationTransfer->getOrderID())
+            ->setCaptureId($notificationTransfer->getCaptureID())
+            ->setMerchantReference($notificationTransfer->getMerchantReference())
+            ->setPaymentReference($notificationTransfer->getPaymentReference())
+            ->setUserId($notificationTransfer->getUserID())
+            ->setAmount($notificationTransfer->getAmount())
+            ->setCurrency($notificationTransfer->getCurrency())
+            ->setTransactionStatus($notificationTransfer->getTransactionStatus())
+            ->setOrderStatus($notificationTransfer->getOrderStatus())
+            ->setTimestamp($notificationTransfer->getTimestamp())
+            ->setVersion($notificationTransfer->getVersion());
+
+        return $this->entityManager->savePaymentCrefoPayNotification($paymentCrefoPayNotificationTransfer);
     }
 }

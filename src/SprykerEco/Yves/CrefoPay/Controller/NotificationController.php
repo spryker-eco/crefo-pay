@@ -23,6 +23,10 @@ class NotificationController extends AbstractController
      */
     public function indexAction(Request $request): Response
     {
+        $this->getFactory()
+            ->createCrefoPayNotificationProcessor()
+            ->processNotification($request);
+
         return $this->createAcceptedResponse();
     }
 
