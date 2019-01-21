@@ -177,12 +177,4 @@ class CrefoPayFactory extends AbstractFactory
     {
         return $this->getProvidedDependency(CrefoPayDependencyProvider::CLIENT_QUOTE);
     }
-
-    /**
-     * @return \SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToUtilEncodingServiceInterface
-     */
-    public function getUtilEncodingService(): CrefoPayToUtilEncodingServiceInterface
-    {
-        return $this->getProvidedDependency(CrefoPayDependencyProvider::SERVICE_UTIL_ENCODING);
-    }
 }
