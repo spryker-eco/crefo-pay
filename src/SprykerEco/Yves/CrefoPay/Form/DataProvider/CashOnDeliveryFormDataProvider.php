@@ -20,13 +20,12 @@ class CashOnDeliveryFormDataProvider extends AbstractFormDataProvider
      */
     public function getData(AbstractTransfer $quoteTransfer): QuoteTransfer
     {
-        $quoteTransfer = $this->updateQuoteWithPaymentData($quoteTransfer);
-
-        if ($quoteTransfer->getPayment()->getCrefoPayCashOnDelivery() === null) {
-            $quoteTransfer->getPayment()->setCrefoPayCashOnDelivery(new CrefoPayPaymentTransfer());
+        $quoteTransfer = parent::getData($quoteTransfer);
+        if ($quoteTransfer->getPayment()->getCrefoPayCashOnDelivery() !== null) {
+            return $quoteTransfer;
         }
 
-        $this->quoteClient->setQuote($quoteTransfer);
+        $quoteTransfer->getPayment()->setCrefoPayCashOnDelivery(new CrefoPayPaymentTransfer());
 
         return $quoteTransfer;
     }

@@ -20,13 +20,12 @@ class SofortFormDataProvider extends AbstractFormDataProvider
      */
     public function getData(AbstractTransfer $quoteTransfer): QuoteTransfer
     {
-        $quoteTransfer = $this->updateQuoteWithPaymentData($quoteTransfer);
-
-        if ($quoteTransfer->getPayment()->getCrefoPaySofort() === null) {
-            $quoteTransfer->getPayment()->setCrefoPaySofort(new CrefoPayPaymentTransfer());
+        $quoteTransfer = parent::getData($quoteTransfer);
+        if ($quoteTransfer->getPayment()->getCrefoPaySofort() !== null) {
+            return $quoteTransfer;
         }
 
-        $this->quoteClient->setQuote($quoteTransfer);
+        $quoteTransfer->getPayment()->setCrefoPaySofort(new CrefoPayPaymentTransfer());
 
         return $quoteTransfer;
     }

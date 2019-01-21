@@ -20,13 +20,12 @@ class PayPalFormDataProvider extends AbstractFormDataProvider
      */
     public function getData(AbstractTransfer $quoteTransfer): QuoteTransfer
     {
-        $quoteTransfer = $this->updateQuoteWithPaymentData($quoteTransfer);
-
-        if ($quoteTransfer->getPayment()->getCrefoPayPayPal() === null) {
-            $quoteTransfer->getPayment()->setCrefoPayPayPal(new CrefoPayPaymentTransfer());
+        $quoteTransfer = parent::getData($quoteTransfer);
+        if ($quoteTransfer->getPayment()->getCrefoPayPayPal() !== null) {
+            return $quoteTransfer;
         }
 
-        $this->quoteClient->setQuote($quoteTransfer);
+        $quoteTransfer->getPayment()->setCrefoPayPayPal(new CrefoPayPaymentTransfer());
 
         return $quoteTransfer;
     }

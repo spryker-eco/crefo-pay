@@ -20,13 +20,12 @@ class DirectDebitFormDataProvider extends AbstractFormDataProvider
      */
     public function getData(AbstractTransfer $quoteTransfer): QuoteTransfer
     {
-        $quoteTransfer = $this->updateQuoteWithPaymentData($quoteTransfer);
-
-        if ($quoteTransfer->getPayment()->getCrefoPayDirectDebit() === null) {
-            $quoteTransfer->getPayment()->setCrefoPayDirectDebit(new CrefoPayPaymentTransfer());
+        $quoteTransfer = parent::getData($quoteTransfer);
+        if ($quoteTransfer->getPayment()->getCrefoPayDirectDebit() !== null) {
+            return $quoteTransfer;
         }
 
-        $this->quoteClient->setQuote($quoteTransfer);
+        $quoteTransfer->getPayment()->setCrefoPayDirectDebit(new CrefoPayPaymentTransfer());
 
         return $quoteTransfer;
     }

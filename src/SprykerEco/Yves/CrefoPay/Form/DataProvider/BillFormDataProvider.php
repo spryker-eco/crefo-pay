@@ -20,13 +20,12 @@ class BillFormDataProvider extends AbstractFormDataProvider
      */
     public function getData(AbstractTransfer $quoteTransfer): QuoteTransfer
     {
-        $quoteTransfer = $this->updateQuoteWithPaymentData($quoteTransfer);
-
-        if ($quoteTransfer->getPayment()->getCrefoPayBill() === null) {
-            $quoteTransfer->getPayment()->setCrefoPayBill(new CrefoPayPaymentTransfer());
+        $quoteTransfer = parent::getData($quoteTransfer);
+        if ($quoteTransfer->getPayment()->getCrefoPayBill() !== null) {
+            return $quoteTransfer;
         }
 
-        $this->quoteClient->setQuote($quoteTransfer);
+        $quoteTransfer->getPayment()->setCrefoPayBill(new CrefoPayPaymentTransfer());
 
         return $quoteTransfer;
     }

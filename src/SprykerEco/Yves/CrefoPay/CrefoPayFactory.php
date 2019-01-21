@@ -10,8 +10,6 @@ namespace SprykerEco\Yves\CrefoPay;
 use Spryker\Yves\Kernel\AbstractFactory;
 use Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
-use SprykerEco\Yves\CrefoPay\Dependency\Client\CrefoPayToQuoteClientInterface;
-use SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToUtilEncodingServiceInterface;
 use SprykerEco\Yves\CrefoPay\Form\BillSubForm;
 use SprykerEco\Yves\CrefoPay\Form\CashOnDeliverySubForm;
 use SprykerEco\Yves\CrefoPay\Form\DataProvider\BillFormDataProvider;
@@ -127,7 +125,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createBillFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new BillFormDataProvider($this->getQuoteClient());
+        return new BillFormDataProvider();
     }
 
     /**
@@ -135,7 +133,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createCashOnDeliveryFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new CashOnDeliveryFormDataProvider($this->getQuoteClient());
+        return new CashOnDeliveryFormDataProvider();
     }
 
     /**
@@ -143,7 +141,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createDirectDebitFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new DirectDebitFormDataProvider($this->getQuoteClient());
+        return new DirectDebitFormDataProvider();
     }
 
     /**
@@ -151,7 +149,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createPayPalFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new PayPalFormDataProvider($this->getQuoteClient());
+        return new PayPalFormDataProvider();
     }
 
     /**
@@ -159,7 +157,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createPrepaidFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new PrepaidFormDataProvider($this->getQuoteClient());
+        return new PrepaidFormDataProvider();
     }
 
     /**
@@ -167,14 +165,6 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createSofortFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new SofortFormDataProvider($this->getQuoteClient());
-    }
-
-    /**
-     * @return \SprykerEco\Yves\CrefoPay\Dependency\Client\CrefoPayToQuoteClientInterface
-     */
-    public function getQuoteClient(): CrefoPayToQuoteClientInterface
-    {
-        return $this->getProvidedDependency(CrefoPayDependencyProvider::CLIENT_QUOTE);
+        return new SofortFormDataProvider();
     }
 }
