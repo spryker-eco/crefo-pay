@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\CrefoPay\Business;
 
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
+use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
@@ -53,6 +54,20 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
         return $this->getFactory()
             ->createPaymentMethodFilter()
             ->filterPaymentMethods($paymentMethodsTransfer, $quoteTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayNotificationTransfer
+     */
+    public function processNotification(CrefoPayNotificationTransfer $notificationTransfer): CrefoPayNotificationTransfer
+    {
+        // TODO: Implement executeFinishCommand() method.
     }
 
     /**

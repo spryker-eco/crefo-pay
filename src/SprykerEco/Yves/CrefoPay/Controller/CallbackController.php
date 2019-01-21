@@ -24,7 +24,7 @@ class CallbackController extends AbstractController
      */
     public function confirmationAction(Request $request): RedirectResponse
     {
-        return $this->handleRedirect();
+        return $this->redirectResponseInternal(CheckoutPageControllerProvider::CHECKOUT_SUCCESS);
     }
 
     /**
@@ -34,7 +34,7 @@ class CallbackController extends AbstractController
      */
     public function successAction(Request $request): RedirectResponse
     {
-        return $this->handleRedirect();
+        return $this->redirectResponseInternal(CheckoutPageControllerProvider::CHECKOUT_SUCCESS);
     }
 
     /**
@@ -43,14 +43,6 @@ class CallbackController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function failureAction(Request $request): RedirectResponse
-    {
-        return $this->handleRedirect();
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    protected function handleRedirect(): RedirectResponse
     {
         return $this->redirectResponseInternal(CheckoutPageControllerProvider::CHECKOUT_ERROR);
     }

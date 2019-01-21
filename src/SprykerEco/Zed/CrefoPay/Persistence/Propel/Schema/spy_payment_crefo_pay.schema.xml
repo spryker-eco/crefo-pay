@@ -51,6 +51,17 @@
     <table name="spy_payment_crefo_pay_notification">
         <column name="id_payment_crefo_pay_notification" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
 
+        <column name="crefo_pay_order_id" required="true" type="VARCHAR" />
+        <column name="capture_id" required="false" type="VARCHAR" />
+        <column name="merchant_reference" required="false" type="VARCHAR" />
+        <column name="payment_reference" required="false" type="VARCHAR" />
+        <column name="user_id" required="true" type="VARCHAR" />
+        <column name="amount" required="false" type="VARCHAR" />
+        <column name="currency" required="false" type="VARCHAR" />
+        <column name="transaction_status" required="false" type="VARCHAR" />
+        <column name="order_status" required="false" type="VARCHAR" />
+        <column name="timestamp" required="false" type="INTEGER" />
+        <column name="version" required="false" type="VARCHAR" />
 
         <behavior name="timestampable"/>
 

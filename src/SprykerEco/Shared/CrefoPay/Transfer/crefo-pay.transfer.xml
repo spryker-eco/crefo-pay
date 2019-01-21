@@ -7,6 +7,21 @@
         <property name="data" type="string" />
     </transfer>
 
+    <transfer name="CrefoPayNotification">
+        <property name="orderID" type="string" />
+        <property name="captureID" type="string" />
+        <property name="merchantReference" type="string" />
+        <property name="paymentReference" type="string" />
+        <property name="userID" type="string" />
+        <property name="amount" type="int" />
+        <property name="currency" type="string" />
+        <property name="transactionStatus" type="string" />
+        <property name="orderStatus" type="string" />
+        <property name="timestamp" type="int" />
+        <property name="version" type="string" />
+        <property name="mac" type="string" />
+    </transfer>
+
     <transfer name="CrefoPayToSalesOrderItemCollection">
         <property name="crefoPayToSalesOrderItems" type="CrefoPayToSalesOrderItem[]" singular="crefoPayToSalesOrderItem" />
     </transfer>
@@ -80,6 +95,17 @@
 
     <transfer name="PaymentCrefoPayNotification">
         <property name="idPaymentCrefoPayNotification" type="int" />
+        <property name="crefoPayOrderId" type="string" />
+        <property name="captureId" type="string" />
+        <property name="merchantReference" type="string" />
+        <property name="paymentReference" type="string" />
+        <property name="userId" type="string" />
+        <property name="amount" type="string" />
+        <property name="currency" type="string" />
+        <property name="transactionStatus" type="string" />
+        <property name="orderStatus" type="string" />
+        <property name="timestamp" type="int" />
+        <property name="version" type="string" />
     </transfer>
 
 </transfers>

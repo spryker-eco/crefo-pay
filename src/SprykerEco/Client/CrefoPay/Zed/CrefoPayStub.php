@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Client\CrefoPay\Zed;
 
+use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use SprykerEco\Client\CrefoPay\Dependency\Client\CrefoPayToZedRequestClientInterface;
 
@@ -36,5 +37,18 @@ class CrefoPayStub implements CrefoPayStubInterface
         $quoteTransfer = $this->zedRequestClient->call('/crefo-pay/gateway/start-crefo-pay-transaction', $quoteTransfer);
 
         return $quoteTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayNotificationTransfer
+     */
+    public function processNotification(CrefoPayNotificationTransfer $notificationTransfer): CrefoPayNotificationTransfer
+    {
+        /** @var \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer */
+        $notificationTransfer = $this->zedRequestClient->call('/crefo-pay/gateway/process-notification', $notificationTransfer);
+
+        return $notificationTransfer;
     }
 }

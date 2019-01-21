@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Client\CrefoPay;
 
+use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
 interface CrefoPayClientInterface
@@ -17,4 +18,11 @@ interface CrefoPayClientInterface
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
     public function startCrefoPayTransaction(QuoteTransfer $quoteTransfer): QuoteTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayNotificationTransfer
+     */
+    public function processNotification(CrefoPayNotificationTransfer $notificationTransfer): CrefoPayNotificationTransfer;
 }

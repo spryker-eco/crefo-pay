@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\CrefoPay\Communication\Controller;
 
+use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
@@ -23,5 +24,10 @@ class GatewayController extends AbstractGatewayController
     public function startCrefoPayTransactionAction(QuoteTransfer $quoteTransfer): QuoteTransfer
     {
         return $this->getFacade()->startCrefoPayTransaction($quoteTransfer);
+    }
+
+    public function processNotificationAction(CrefoPayNotificationTransfer $notificationTransfer): CrefoPayNotificationTransfer
+    {
+        return $this->getFacade()->processNotificationAction($notificationTransfer);
     }
 }

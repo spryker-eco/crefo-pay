@@ -11,6 +11,7 @@ use Spryker\Yves\Kernel\AbstractFactory;
 use Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use SprykerEco\Yves\CrefoPay\Dependency\Client\CrefoPayToQuoteClientInterface;
+use SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToUtilEncodingServiceInterface;
 use SprykerEco\Yves\CrefoPay\Form\BillSubForm;
 use SprykerEco\Yves\CrefoPay\Form\CashOnDeliverySubForm;
 use SprykerEco\Yves\CrefoPay\Form\DataProvider\BillFormDataProvider;
@@ -25,6 +26,10 @@ use SprykerEco\Yves\CrefoPay\Form\PrepaidSubForm;
 use SprykerEco\Yves\CrefoPay\Form\SofortSubForm;
 use SprykerEco\Yves\CrefoPay\Payment\CrefoPayPaymentExpander;
 use SprykerEco\Yves\CrefoPay\Payment\CrefoPayPaymentExpanderInterface;
+use SprykerEco\Yves\CrefoPay\Processor\CrefoPayNotificationProcessor;
+use SprykerEco\Yves\CrefoPay\Processor\CrefoPayNotificationProcessorInterface;
+use SprykerEco\Yves\CrefoPay\Processor\Mapper\CrefoPayNotificationProcessorMapper;
+use SprykerEco\Yves\CrefoPay\Processor\Mapper\CrefoPayNotificationProcessorMapperInterface;
 use SprykerEco\Yves\CrefoPay\Quote\CrefoPayQuoteExpander;
 use SprykerEco\Yves\CrefoPay\Quote\CrefoPayQuoteExpanderInterface;
 
@@ -48,6 +53,25 @@ class CrefoPayFactory extends AbstractFactory
     public function createPaymentExpander(): CrefoPayPaymentExpanderInterface
     {
         return new CrefoPayPaymentExpander();
+    }
+
+    /**
+     * @return \SprykerEco\Yves\CrefoPay\Processor\CrefoPayNotificationProcessorInterface
+     */
+    public function createCrefoPayNotificationProcessor(): CrefoPayNotificationProcessorInterface
+    {
+        return new CrefoPayNotificationProcessor(
+            $this->createCrefoPayNotificationProcessorMapper(),
+            $this->getClient()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Yves\CrefoPay\Processor\Mapper\CrefoPayNotificationProcessorMapperInterface
+     */
+    public function createCrefoPayNotificationProcessorMapper(): CrefoPayNotificationProcessorMapperInterface
+    {
+        return new CrefoPayNotificationProcessorMapper($this->getUtilEncodingService());
     }
 
     /**
@@ -152,5 +176,13 @@ class CrefoPayFactory extends AbstractFactory
     public function getQuoteClient(): CrefoPayToQuoteClientInterface
     {
         return $this->getProvidedDependency(CrefoPayDependencyProvider::CLIENT_QUOTE);
+    }
+
+    /**
+     * @return \SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToUtilEncodingServiceInterface
+     */
+    public function getUtilEncodingService(): CrefoPayToUtilEncodingServiceInterface
+    {
+        return $this->getProvidedDependency(CrefoPayDependencyProvider::SERVICE_UTIL_ENCODING);
     }
 }

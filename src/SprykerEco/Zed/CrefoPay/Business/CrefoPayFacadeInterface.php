@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\CrefoPay\Business;
 
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
+use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
@@ -44,6 +45,19 @@ interface CrefoPayFacadeInterface
         PaymentMethodsTransfer $paymentMethodsTransfer,
         QuoteTransfer $quoteTransfer
     ): PaymentMethodsTransfer;
+
+    /**
+     * Specification:
+     *  - Saves notification.
+     *  - Updates order items status depends on notification transaction/order status.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayNotificationTransfer
+     */
+    public function processNotification(CrefoPayNotificationTransfer $notificationTransfer): CrefoPayNotificationTransfer;
 
     /**
      * Specification:
