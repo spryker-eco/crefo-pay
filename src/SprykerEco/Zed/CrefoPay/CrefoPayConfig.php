@@ -17,10 +17,13 @@ class CrefoPayConfig extends AbstractBundleConfig
     protected const OMS_STATUS_RESERVED = 'reserved';
     protected const OMS_STATUS_AUTHORIZED = 'authorized';
     protected const OMS_STATUS_WAITING_FOR_CAPTURE = 'waiting for capture';
+    protected const OMS_STATUS_CAPTURE_PENDING = 'capture pending';
     protected const OMS_STATUS_CAPTURED = 'captured';
     protected const OMS_STATUS_CANCELED = 'canceled';
     protected const OMS_STATUS_REFUNDED = 'refunded';
     protected const OMS_STATUS_FINISHED = 'finished';
+
+    protected const CREFO_PAY_API_CAPTURE_ID_LENGTH = 30;
 
     /**
      * @return string
@@ -128,6 +131,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getOmsStatusCapturePending(): string
+    {
+        return static::OMS_STATUS_CAPTURE_PENDING;
+    }
+
+    /**
+     * @return string
+     */
     public function getOmsStatusCaptured(): string
     {
         return static::OMS_STATUS_CAPTURED;
@@ -155,5 +166,13 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getOmsStatusFinished(): string
     {
         return static::OMS_STATUS_FINISHED;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCrefoPayApiCaptureIdLength(): int
+    {
+        return static::CREFO_PAY_API_CAPTURE_ID_LENGTH;
     }
 }

@@ -21,20 +21,18 @@ interface CrefoPayWriterInterface
      *
      * @return void
      */
-    public function savePaymentEntities(
+    public function createPaymentEntities(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer
     ): void;
 
     /**
-     * @param string $status
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer
      * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer|null $paymentCrefoPayTransfer
      *
      * @return void
      */
     public function updatePaymentEntities(
-        string $status,
         PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer,
         ?PaymentCrefoPayTransfer $paymentCrefoPayTransfer = null
     ): void;
@@ -44,5 +42,5 @@ interface CrefoPayWriterInterface
      *
      * @return void
      */
-    public function saveNotification(CrefoPayNotificationTransfer $notificationTransfer): void;
+    public function createNotificationEntity(CrefoPayNotificationTransfer $notificationTransfer): void;
 }

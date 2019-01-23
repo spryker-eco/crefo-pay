@@ -137,7 +137,9 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
         OrderTransfer $orderTransfer,
         CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
     ): void {
-        // TODO: Implement executeCaptureCommand() method.
+        $this->getFactory()
+            ->createCaptureOmsCommand()
+            ->execute($orderTransfer, $crefoPayToSalesOrderItemCollection);
     }
 
     /**

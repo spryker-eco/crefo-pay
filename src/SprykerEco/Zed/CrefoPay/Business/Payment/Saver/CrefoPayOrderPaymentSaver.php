@@ -39,6 +39,6 @@ class CrefoPayOrderPaymentSaver implements CrefoPayOrderPaymentSaverInterface
             return;
         }
 
-        $this->writer->savePaymentEntities($quoteTransfer, $saveOrderTransfer);
+        $this->writer->createPaymentEntities($quoteTransfer, $saveOrderTransfer);
     }
 }

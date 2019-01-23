@@ -80,6 +80,9 @@
         <property name="paymentMethod" type="string" />
         <property name="clientIp" type="string" />
         <property name="additionalData" type="string" />
+        <property name="authorizedAmount" type="int" />
+        <property name="capturedAmount" type="int" />
+        <property name="refundedAmount" type="int" />
     </transfer>
 
     <transfer name="PaymentCrefoPayOrderItem">
@@ -87,6 +90,7 @@
         <property name="fkPaymentCrefoPay" type="int" />
         <property name="fkSalesOrderItem" type="int" />
         <property name="status" type="string" />
+        <property name="captureId" type="string" />
     </transfer>
 
     <transfer name="PaymentCrefoPayOrderItemCollection">
@@ -106,6 +110,13 @@
         <property name="orderStatus" type="string" />
         <property name="timestamp" type="int" />
         <property name="version" type="string" />
+    </transfer>
+
+    <transfer name="SaveCrefoPayEntities">
+        <property name="request" type="CrefoPayApiRequest" />
+        <property name="response" type="CrefoPayApiResponse" />
+        <property name="paymentCrefoPay" type="PaymentCrefoPay" />
+        <property name="paymentCrefoPayOrderItemCollection" type="PaymentCrefoPayOrderItemCollection" />
     </transfer>
 
 </transfers>

@@ -5,11 +5,11 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerEco\Zed\CrefoPay\Business\Processor\Mapper;
+namespace SprykerEco\Zed\CrefoPay\Business\Oms\Mapper;
 
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
-class CrefoPayNotificationStatusMapper implements CrefoPayNotificationStatusMapperInterface
+class CrefoPayOmsStatusMapper implements CrefoPayOmsStatusMapperInterface
 {
     protected const NOTIFICATION_TRANSACTION_STATUS_ACKNOWLEDGE_PENDING = 'ACKNOWLEDGEPENDING';
     protected const NOTIFICATION_TRANSACTION_STATUS_FRAUD_PENDING = 'FRAUDPENDING';
@@ -43,35 +43,35 @@ class CrefoPayNotificationStatusMapper implements CrefoPayNotificationStatusMapp
     }
 
     /**
-     * @param string $notificationTransactionStatus
+     * @param string $apiStatus
      *
      * @return string|null
      */
-    public function mapNotificationTransactionStatusToOmsStatus(string $notificationTransactionStatus): ?string
+    public function mapNotificationTransactionStatusToOmsStatus(string $apiStatus): ?string
     {
         $statuses = $this->getMappedTransactionStatuses();
 
-        if (!array_key_exists($notificationTransactionStatus, $statuses)) {
+        if (!array_key_exists($apiStatus, $statuses)) {
             return null;
         }
 
-        return $statuses[$notificationTransactionStatus];
+        return $statuses[$apiStatus];
     }
 
     /**
-     * @param string $notificationOrderStatus
+     * @param string $apiStatus
      *
      * @return string|null
      */
-    public function mapNotificationOrderStatusToOmsStatus(string $notificationOrderStatus): ?string
+    public function mapNotificationOrderStatusToOmsStatus(string $apiStatus): ?string
     {
         $statuses = $this->getMappedOrderStatuses();
 
-        if (!array_key_exists($notificationOrderStatus, $statuses)) {
+        if (!array_key_exists($apiStatus, $statuses)) {
             return null;
         }
 
-        return $statuses[$notificationOrderStatus];
+        return $statuses[$apiStatus];
     }
 
     /**
@@ -98,8 +98,8 @@ class CrefoPayNotificationStatusMapper implements CrefoPayNotificationStatusMapp
     protected function getMappedOrderStatuses(): array
     {
         return [
-            static::NOTIFICATION_ORDER_STATUS_PAY_PENDING => $this->config->getOmsStatusNew(),
-            static::NOTIFICATION_ORDER_STATUS_PAID => $this->config->getOmsStatusNew(),
+            static::NOTIFICATION_ORDER_STATUS_PAY_PENDING => $this->config->getOmsStatusCapturePending(),
+            static::NOTIFICATION_ORDER_STATUS_PAID => $this->config->getOmsStatusCaptured(),
             static::NOTIFICATION_ORDER_STATUS_CLEARED => $this->config->getOmsStatusNew(),
             static::NOTIFICATION_ORDER_STATUS_PAYMENT_FAILED => $this->config->getOmsStatusNew(),
             static::NOTIFICATION_ORDER_STATUS_CHARGE_BACK => $this->config->getOmsStatusNew(),

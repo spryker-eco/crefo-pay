@@ -26,7 +26,7 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function savePaymentCrefoPay(PaymentCrefoPayTransfer $paymentCrefoPayTransfer): PaymentCrefoPayTransfer
+    public function savePaymentCrefoPayEntity(PaymentCrefoPayTransfer $paymentCrefoPayTransfer): PaymentCrefoPayTransfer
     {
         $entityTransfer = $this->getMapper()
             ->mapPaymentCrefoPayTransferToEntityTransfer(
@@ -51,7 +51,7 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer
      */
-    public function savePaymentCrefoPayOrderItem(
+    public function savePaymentCrefoPayOrderItemEntity(
         PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
     ): PaymentCrefoPayOrderItemTransfer {
         $entityTransfer = $this->getMapper()
@@ -77,7 +77,7 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer
      */
-    public function savePaymentCrefoPayNotification(
+    public function savePaymentCrefoPayNotificationEntity(
         PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer
     ): PaymentCrefoPayNotificationTransfer {
         $entityTransfer = $this->getMapper()

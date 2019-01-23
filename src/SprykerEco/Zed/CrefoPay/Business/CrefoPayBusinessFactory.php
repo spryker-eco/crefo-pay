@@ -15,14 +15,20 @@ use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutHookMa
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutPostSaveHookMapper;
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutHookSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutPostSaveHookSaver;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CaptureOmsCommandRequestBuilder;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CaptureOmsCommand;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandInterface;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CaptureOmsCommandSaver;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilterInterface;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaver;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Processor\CrefoPayNotificationProcessor;
 use SprykerEco\Zed\CrefoPay\Business\Processor\CrefoPayNotificationProcessorInterface;
-use SprykerEco\Zed\CrefoPay\Business\Processor\Mapper\CrefoPayNotificationStatusMapper;
-use SprykerEco\Zed\CrefoPay\Business\Processor\Mapper\CrefoPayNotificationStatusMapperInterface;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapper;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpander;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpanderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpanderMapper;
@@ -34,6 +40,7 @@ use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayDependencyProvider;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterface;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface;
+use SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface;
 
 /**
  * @method \SprykerEco\Zed\CrefoPay\CrefoPayConfig getConfig()
@@ -79,18 +86,18 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createCrefoPayNotificationProcessor(): CrefoPayNotificationProcessorInterface
     {
         return new CrefoPayNotificationProcessor(
-            $this->createCrefoPayNotificationStatusMapper(),
+            $this->createCrefoPayOmsStatusMapper(),
             $this->createReader(),
             $this->createWriter()
         );
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Business\Processor\Mapper\CrefoPayNotificationStatusMapperInterface
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface
      */
-    public function createCrefoPayNotificationStatusMapper(): CrefoPayNotificationStatusMapperInterface
+    public function createCrefoPayOmsStatusMapper(): CrefoPayOmsStatusMapperInterface
     {
-        return new CrefoPayNotificationStatusMapper($this->getConfig());
+        return new CrefoPayOmsStatusMapper($this->getConfig());
     }
 
     /**
@@ -153,6 +160,42 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandInterface
+     */
+    public function createCaptureOmsCommand(): CrefoPayOmsCommandInterface
+    {
+        return new CaptureOmsCommand(
+            $this->createCaptureOmsCommandRequestBuilder(),
+            $this->createReader(),
+            $this->createCaptureOmsCommandSaver(),
+            $this->getCrefoPayApiFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface
+     */
+    public function createCaptureOmsCommandRequestBuilder(): CrefoPayOmsCommandRequestBuilderInterface
+    {
+        return new CaptureOmsCommandRequestBuilder(
+            $this->getUtilTextService(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface
+     */
+    public function createCaptureOmsCommandSaver(): CrefoPayOmsCommandSaverInterface
+    {
+        return new CaptureOmsCommandSaver(
+            $this->createWriter(),
+            $this->createCrefoPayOmsStatusMapper(),
+            $this->getConfig()
+        );
+    }
+
+    /**
      * @return \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterface
      */
     public function getCrefoPayApiFacade(): CrefoPayToCrefoPayApiFacadeInterface
@@ -174,5 +217,13 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function getCrefoPayService(): CrefoPayServiceInterface
     {
         return $this->getProvidedDependency(CrefoPayDependencyProvider::SERVICE_CREFO_PAY);
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface
+     */
+    public function getUtilTextService(): CrefoPayToUtilTextServiceInterface
+    {
+        return $this->getProvidedDependency(CrefoPayDependencyProvider::SERVICE_UTIL_TEXT);
     }
 }

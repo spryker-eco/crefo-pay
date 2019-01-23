@@ -15,6 +15,11 @@ class CancelOmsCommand implements CrefoPayOmsCommandInterface
     protected $mapper;
 
     /**
+     * @var \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface
+     */
+    protected $reader;
+
+    /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
      *
@@ -24,7 +29,5 @@ class CancelOmsCommand implements CrefoPayOmsCommandInterface
         OrderTransfer $orderTransfer,
         CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
     ): void {
-        $request = $this->mapper->buildRequestTransfer($orderItems, $orderTransfer);
-        $response = $this->sendApiRequest($request);
     }
 }

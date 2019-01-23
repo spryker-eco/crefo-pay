@@ -18,14 +18,14 @@ interface CrefoPayEntityManagerInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function savePaymentCrefoPay(PaymentCrefoPayTransfer $paymentCrefoPayTransfer): PaymentCrefoPayTransfer;
+    public function savePaymentCrefoPayEntity(PaymentCrefoPayTransfer $paymentCrefoPayTransfer): PaymentCrefoPayTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer
      */
-    public function savePaymentCrefoPayOrderItem(
+    public function savePaymentCrefoPayOrderItemEntity(
         PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
     ): PaymentCrefoPayOrderItemTransfer;
 
@@ -34,7 +34,7 @@ interface CrefoPayEntityManagerInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer
      */
-    public function savePaymentCrefoPayNotification(
+    public function savePaymentCrefoPayNotificationEntity(
         PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer
     ): PaymentCrefoPayNotificationTransfer;
 }

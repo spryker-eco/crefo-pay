@@ -7,15 +7,17 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Processor;
 
+use ArrayObject;
 use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
-use SprykerEco\Zed\CrefoPay\Business\Processor\Mapper\CrefoPayNotificationStatusMapperInterface;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
 
 class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInterface
 {
     /**
-     * @var \SprykerEco\Zed\CrefoPay\Business\Processor\Mapper\CrefoPayNotificationStatusMapperInterface
+     * @var \SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface
      */
     protected $statusMapper;
 
@@ -30,12 +32,12 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
     protected $writer;
 
     /**
-     * @param \SprykerEco\Zed\CrefoPay\Business\Processor\Mapper\CrefoPayNotificationStatusMapperInterface $statusMapper
+     * @param \SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface $statusMapper
      * @param \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface $reader
      * @param \SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface $writer
      */
     public function __construct(
-        CrefoPayNotificationStatusMapperInterface $statusMapper,
+        CrefoPayOmsStatusMapperInterface $statusMapper,
         CrefoPayReaderInterface $reader,
         CrefoPayWriterInterface $writer
     ) {
@@ -51,7 +53,7 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
      */
     public function processNotification(CrefoPayNotificationTransfer $notificationTransfer): CrefoPayNotificationTransfer
     {
-        $this->writer->saveNotification($notificationTransfer);
+        $this->writer->createNotificationEntity($notificationTransfer);
         $this->updateCrefoPayOrderItemStatuses($notificationTransfer);
 
         return $notificationTransfer;
@@ -69,13 +71,19 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
             return;
         }
 
-        $paymentCrefoPayOrderItemCollection = $this->reader
-            ->findAllPaymentCrefoPayOrderItemsByCrefoPayOrderId($notificationTransfer->getOrderID());
+        $paymentCrefoPayOrderItemCollectionTransfer = $this->reader
+            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderId($notificationTransfer->getOrderID());
 
-        $this->writer->updatePaymentEntities(
-            $status,
-            $paymentCrefoPayOrderItemCollection
+        $paymentCrefoPayOrderItems = array_map(
+            function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status) {
+                return $paymentCrefoPayOrderItemTransfer->setStatus($status);
+            },
+            $paymentCrefoPayOrderItemCollectionTransfer->getCrefoPayOrderItems()->getArrayCopy()
         );
+
+        $paymentCrefoPayOrderItemCollectionTransfer->setCrefoPayOrderItems(new ArrayObject($paymentCrefoPayOrderItems));
+
+        $this->writer->updatePaymentEntities($paymentCrefoPayOrderItemCollectionTransfer);
     }
 
     /**

@@ -22,6 +22,27 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositoryInterface
 {
     /**
+     * @param int $fkSalesOrder
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
+     */
+    public function findPaymentCrefoPayByFkSalesOrder(int $fkSalesOrder): PaymentCrefoPayTransfer
+    {
+        $query = $this->getPaymentCrefoPayQuery()
+            ->filterByFkSalesOrder($fkSalesOrder);
+
+        $entityTransfer = $this->buildQueryFromCriteria($query)->findOne();
+
+        if ($entityTransfer === null) {
+            return new PaymentCrefoPayTransfer();
+        }
+
+        return $this->getFactory()
+            ->createCrefoPayPersistenceMapper()
+            ->mapEntityTransferToPaymentCrefoPayTransfer($entityTransfer, new PaymentCrefoPayTransfer());
+    }
+
+    /**
      * @param string $crefoPayOrderId
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
@@ -48,12 +69,39 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findAllPaymentCrefoPayOrderItemsByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer
+    public function findPaymentCrefoPayOrderItemsByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer
     {
         $query = $this->getPaymentCrefoPayOrderItemQuery()
             ->useSpyPaymentCrefoPayQuery()
                 ->filterByCrefoPayOrderId($crefoPayOrderId)
             ->endUse();
+
+        $entityTransfers = $this->buildQueryFromCriteria($query)->find();
+
+        $mapper = $this->getFactory()->createCrefoPayPersistenceMapper();
+        $result = new ArrayObject();
+
+        foreach ($entityTransfers as $entityTransfer) {
+            $paymentCrefoPayOrderItemTransfer = $mapper->mapEntityTransferToPaymentCrefoPayOrderItemTransfer(
+                $entityTransfer,
+                new PaymentCrefoPayOrderItemTransfer()
+            );
+            $result->append($paymentCrefoPayOrderItemTransfer);
+        }
+
+        return (new PaymentCrefoPayOrderItemCollectionTransfer())
+            ->setCrefoPayOrderItems($result);
+    }
+
+    /**
+     * @param int[] $salesOrderItemIds
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
+     */
+    public function findPaymentCrefoPayOrderItemsBySalesOrderItemIds(array $salesOrderItemIds): PaymentCrefoPayOrderItemCollectionTransfer
+    {
+        $query = $this->getPaymentCrefoPayOrderItemQuery()
+            ->filterByFkSalesOrderItem_In($salesOrderItemIds);
 
         $entityTransfers = $this->buildQueryFromCriteria($query)->find();
 

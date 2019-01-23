@@ -51,38 +51,35 @@ class CrefoPayWriter implements CrefoPayWriterInterface
      *
      * @return void
      */
-    public function savePaymentEntities(
+    public function createPaymentEntities(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer
     ): void {
-        $paymentCrefoPayTransfer = $this->savePaymentCrefoPay($quoteTransfer, $saveOrderTransfer);
+        $paymentCrefoPayTransfer = $this->createPaymentCrefoPayEntity($quoteTransfer, $saveOrderTransfer);
 
         foreach ($saveOrderTransfer->getOrderItems() as $orderItem) {
-            $this->savePaymentCrefoPayOrderItem($paymentCrefoPayTransfer, $orderItem);
+            $this->createPaymentCrefoPayOrderItemEntity($paymentCrefoPayTransfer, $orderItem);
         }
     }
 
     /**
-     * @param string $status
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer
      * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer|null $paymentCrefoPayTransfer
      *
      * @return void
      */
     public function updatePaymentEntities(
-        string $status,
         PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer,
         ?PaymentCrefoPayTransfer $paymentCrefoPayTransfer = null
     ): void {
         $this->getTransactionHandler()->handleTransaction(
-            function () use ($status, $paymentCrefoPayOrderItemCollectionTransfer, $paymentCrefoPayTransfer) {
+            function () use ($paymentCrefoPayOrderItemCollectionTransfer, $paymentCrefoPayTransfer) {
                 if ($paymentCrefoPayTransfer !== null) {
-                    $this->entityManager->savePaymentCrefoPay($paymentCrefoPayTransfer);
+                    $this->entityManager->savePaymentCrefoPayEntity($paymentCrefoPayTransfer);
                 }
 
                 foreach ($paymentCrefoPayOrderItemCollectionTransfer->getCrefoPayOrderItems() as $paymentCrefoPayOrderItemTransfer) {
-                    $paymentCrefoPayOrderItemTransfer->setStatus($status);
-                    $this->entityManager->savePaymentCrefoPayOrderItem($paymentCrefoPayOrderItemTransfer);
+                    $this->entityManager->savePaymentCrefoPayOrderItemEntity($paymentCrefoPayOrderItemTransfer);
                 }
             }
         );
@@ -93,11 +90,11 @@ class CrefoPayWriter implements CrefoPayWriterInterface
      *
      * @return void
      */
-    public function saveNotification(CrefoPayNotificationTransfer $notificationTransfer): void
+    public function createNotificationEntity(CrefoPayNotificationTransfer $notificationTransfer): void
     {
         $this->getTransactionHandler()->handleTransaction(
             function () use ($notificationTransfer) {
-                $this->savePaymentCrefoPayNotification($notificationTransfer);
+                $this->createPaymentCrefoPayNotificationEntity($notificationTransfer);
             }
         );
     }
@@ -108,7 +105,7 @@ class CrefoPayWriter implements CrefoPayWriterInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    protected function savePaymentCrefoPay(
+    protected function createPaymentCrefoPayEntity(
         QuoteTransfer $quoteTransfer,
         SaveOrderTransfer $saveOrderTransfer
     ): PaymentCrefoPayTransfer {
@@ -119,7 +116,7 @@ class CrefoPayWriter implements CrefoPayWriterInterface
             ->setPaymentMethod($quoteTransfer->getPayment()->getPaymentSelection())
             ->setClientIp($quoteTransfer->getCrefoPayTransaction()->getClientIp());
 
-        return $this->entityManager->savePaymentCrefoPay($paymentCrefoPayTransfer);
+        return $this->entityManager->savePaymentCrefoPayEntity($paymentCrefoPayTransfer);
     }
 
     /**
@@ -128,7 +125,7 @@ class CrefoPayWriter implements CrefoPayWriterInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer
      */
-    protected function savePaymentCrefoPayOrderItem(
+    protected function createPaymentCrefoPayOrderItemEntity(
         PaymentCrefoPayTransfer $paymentCrefoPayTransfer,
         ItemTransfer $orderItem
     ): PaymentCrefoPayOrderItemTransfer {
@@ -137,7 +134,7 @@ class CrefoPayWriter implements CrefoPayWriterInterface
             ->setFkPaymentCrefoPay($paymentCrefoPayTransfer->getIdPaymentCrefoPay())
             ->setStatus($this->config->getOmsStatusNew());
 
-        return $this->entityManager->savePaymentCrefoPayOrderItem($paymentCrefoPayOrderItemTransfer);
+        return $this->entityManager->savePaymentCrefoPayOrderItemEntity($paymentCrefoPayOrderItemTransfer);
     }
 
     /**
@@ -145,7 +142,7 @@ class CrefoPayWriter implements CrefoPayWriterInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer
      */
-    protected function savePaymentCrefoPayNotification(CrefoPayNotificationTransfer $notificationTransfer): PaymentCrefoPayNotificationTransfer
+    protected function createPaymentCrefoPayNotificationEntity(CrefoPayNotificationTransfer $notificationTransfer): PaymentCrefoPayNotificationTransfer
     {
         $paymentCrefoPayNotificationTransfer = (new PaymentCrefoPayNotificationTransfer())
             ->setCrefoPayOrderId($notificationTransfer->getOrderID())
@@ -160,6 +157,6 @@ class CrefoPayWriter implements CrefoPayWriterInterface
             ->setTimestamp($notificationTransfer->getTimestamp())
             ->setVersion($notificationTransfer->getVersion());
 
-        return $this->entityManager->savePaymentCrefoPayNotification($paymentCrefoPayNotificationTransfer);
+        return $this->entityManager->savePaymentCrefoPayNotificationEntity($paymentCrefoPayNotificationTransfer);
     }
 }

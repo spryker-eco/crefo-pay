@@ -13,16 +13,17 @@ use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCalculationFacadeBridge;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeBridge;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeBridge;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToSalesFacadeBridge;
+use SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceBridge;
 
 class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
 {
     public const FACADE_CREFO_APY_API = 'FACADE_CREFO_APY_API';
     public const FACADE_SALES = 'FACADE_SALES';
     public const FACADE_CALCULATION = 'FACADE_CALCULATION';
-    public const FACADE_OMS = 'FACADE_OMS';
     public const FACADE_LOCALE = 'FACADE_LOCALE';
 
     public const SERVICE_CREFO_PAY = 'SERVICE_CREFO_PAY';
+    public const SERVICE_UTIL_TEXT = 'SERVICE_UTIL_TEXT';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -35,6 +36,7 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addCrefoPayApiFacade($container);
         $container = $this->addLocaleFacade($container);
         $container = $this->addCrefoPayService($container);
+        $container = $this->addUtilTextService($container);
 
         return $container;
     }
@@ -118,6 +120,20 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::SERVICE_CREFO_PAY] = function (Container $container) {
             return $container->getLocator()->crefoPay()->service();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addUtilTextService(Container $container): Container
+    {
+        $container[static::SERVICE_UTIL_TEXT] = function (Container $container) {
+            return new CrefoPayToUtilTextServiceBridge($container->getLocator()->utilText()->service()) ;
         };
 
         return $container;
