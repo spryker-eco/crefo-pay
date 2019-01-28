@@ -15,10 +15,17 @@ use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutHookMa
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutPostSaveHookMapper;
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutHookSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutPostSaveHookSaver;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CancelOmsCommandRequestBuilder;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CaptureOmsCommandRequestBuilder;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CaptureOmsCommand;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CancelOmsCommandClient;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CaptureOmsCommandClient;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\FinishOmsCommandClient;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\RefundOmsCommandClient;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommand;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandInterface;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CancelOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CaptureOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
@@ -141,6 +148,108 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandInterface
+     */
+    public function createCaptureOmsCommand(): CrefoPayOmsCommandInterface
+    {
+        return new CrefoPayOmsCommand(
+            $this->createCaptureOmsCommandRequestBuilder(),
+            $this->createReader(),
+            $this->createCaptureOmsCommandClient(),
+            $this->createCaptureOmsCommandSaver()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandInterface
+     */
+    public function createCancelOmsCommand(): CrefoPayOmsCommandInterface
+    {
+        return new CrefoPayOmsCommand(
+            $this->createCancelOmsCommandRequestBuilder(),
+            $this->createReader(),
+            $this->createCancelOmsCommandClient(),
+            $this->createCancelOmsCommandSaver()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface
+     */
+    public function createCaptureOmsCommandRequestBuilder(): CrefoPayOmsCommandRequestBuilderInterface
+    {
+        return new CaptureOmsCommandRequestBuilder(
+            $this->getUtilTextService(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface
+     */
+    public function createCancelOmsCommandRequestBuilder(): CrefoPayOmsCommandRequestBuilderInterface
+    {
+        return new CancelOmsCommandRequestBuilder($this->getConfig());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface
+     */
+    public function createCaptureOmsCommandClient(): CrefoPayOmsCommandClientInterface
+    {
+        return new CaptureOmsCommandClient($this->getCrefoPayApiFacade());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface
+     */
+    public function createCancelOmsCommandClient(): CrefoPayOmsCommandClientInterface
+    {
+        return new CancelOmsCommandClient($this->getCrefoPayApiFacade());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface
+     */
+    public function createRefundOmsCommandClient(): CrefoPayOmsCommandClientInterface
+    {
+        return new RefundOmsCommandClient($this->getCrefoPayApiFacade());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface
+     */
+    public function createFinishOmsCommandClient(): CrefoPayOmsCommandClientInterface
+    {
+        return new FinishOmsCommandClient($this->getCrefoPayApiFacade());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface
+     */
+    public function createCaptureOmsCommandSaver(): CrefoPayOmsCommandSaverInterface
+    {
+        return new CaptureOmsCommandSaver(
+            $this->createReader(),
+            $this->createWriter(),
+            $this->createCrefoPayOmsStatusMapper(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface
+     */
+    public function createCancelOmsCommandSaver(): CrefoPayOmsCommandSaverInterface
+    {
+        return new CancelOmsCommandSaver(
+            $this->createReader(),
+            $this->createWriter(),
+            $this->getConfig()
+        );
+    }
+
+    /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface
      */
     public function createWriter(): CrefoPayWriterInterface
@@ -157,42 +266,6 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createReader(): CrefoPayReaderInterface
     {
         return new CrefoPayReader($this->getRepository());
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandInterface
-     */
-    public function createCaptureOmsCommand(): CrefoPayOmsCommandInterface
-    {
-        return new CaptureOmsCommand(
-            $this->createCaptureOmsCommandRequestBuilder(),
-            $this->createReader(),
-            $this->createCaptureOmsCommandSaver(),
-            $this->getCrefoPayApiFacade()
-        );
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface
-     */
-    public function createCaptureOmsCommandRequestBuilder(): CrefoPayOmsCommandRequestBuilderInterface
-    {
-        return new CaptureOmsCommandRequestBuilder(
-            $this->getUtilTextService(),
-            $this->getConfig()
-        );
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface
-     */
-    public function createCaptureOmsCommandSaver(): CrefoPayOmsCommandSaverInterface
-    {
-        return new CaptureOmsCommandSaver(
-            $this->createWriter(),
-            $this->createCrefoPayOmsStatusMapper(),
-            $this->getConfig()
-        );
     }
 
     /**

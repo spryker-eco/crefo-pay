@@ -7,14 +7,14 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver;
 
-use Generated\Shared\Transfer\SaveCrefoPayEntitiesTransfer;
+use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
 
 interface CrefoPayOmsCommandSaverInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\SaveCrefoPayEntitiesTransfer $saveCrefoPayEntitiesTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
      * @return void
      */
-    public function savePaymentEntities(SaveCrefoPayEntitiesTransfer $saveCrefoPayEntitiesTransfer): void;
+    public function savePaymentEntities(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): void;
 }

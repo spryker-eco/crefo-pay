@@ -120,7 +120,9 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
         OrderTransfer $orderTransfer,
         CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
     ): void {
-        // TODO: Implement executeCancelCommand() method.
+        $this->getFactory()
+            ->createCancelOmsCommand()
+            ->execute($orderTransfer, $crefoPayToSalesOrderItemCollection);
     }
 
     /**

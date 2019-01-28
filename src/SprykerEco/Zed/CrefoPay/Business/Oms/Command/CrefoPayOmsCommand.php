@@ -9,13 +9,13 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command;
 
 use Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
-use Generated\Shared\Transfer\SaveCrefoPayEntitiesTransfer;
+use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
-use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterface;
 
-class CaptureOmsCommand implements CrefoPayOmsCommandInterface
+class CrefoPayOmsCommand implements CrefoPayOmsCommandInterface
 {
     /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface
@@ -28,31 +28,31 @@ class CaptureOmsCommand implements CrefoPayOmsCommandInterface
     protected $reader;
 
     /**
+     * @var \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface
+     */
+    protected $omsCommandClient;
+
+    /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface
      */
     protected $saver;
 
     /**
-     * @var \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterface
-     */
-    protected $crefoPayApiFacade;
-
-    /**
      * @param \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface $requestBuilder
      * @param \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface $reader
+     * @param \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface $omsCommandClient
      * @param \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface $saver
-     * @param \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterface $crefoPayApiFacade
      */
     public function __construct(
         CrefoPayOmsCommandRequestBuilderInterface $requestBuilder,
         CrefoPayReaderInterface $reader,
-        CrefoPayOmsCommandSaverInterface $saver,
-        CrefoPayToCrefoPayApiFacadeInterface $crefoPayApiFacade
+        CrefoPayOmsCommandClientInterface $omsCommandClient,
+        CrefoPayOmsCommandSaverInterface $saver
     ) {
         $this->requestBuilder = $requestBuilder;
         $this->reader = $reader;
+        $this->omsCommandClient = $omsCommandClient;
         $this->saver = $saver;
-        $this->crefoPayApiFacade = $crefoPayApiFacade;
     }
 
     /**
@@ -65,47 +65,37 @@ class CaptureOmsCommand implements CrefoPayOmsCommandInterface
         OrderTransfer $orderTransfer,
         CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollectionTransfer
     ): void {
-        $saveCrefoPayEntitiesTransfer = $this->createSaveCrefoPayEntitiesTransfer(
+        $crefoPayOmsCommandTransfer = $this->createCrefoPayOmsCommandTransfer(
             $orderTransfer,
             $crefoPayToSalesOrderItemCollectionTransfer
         );
 
-        $saveCrefoPayEntitiesTransfer->setRequest(
-            $this->requestBuilder
-                ->buildRequestTransfer(
-                    $saveCrefoPayEntitiesTransfer->getPaymentCrefoPay(),
-                    $orderTransfer,
-                    $crefoPayToSalesOrderItemCollectionTransfer
-                )
-        );
+        $requestTransfer = $this->requestBuilder
+            ->buildRequestTransfer($orderTransfer, $crefoPayOmsCommandTransfer);
+        $responseTransfer = $this->omsCommandClient->performApiCall($requestTransfer);
 
-        $saveCrefoPayEntitiesTransfer->setResponse(
-            $this->crefoPayApiFacade->performCaptureApiCall($saveCrefoPayEntitiesTransfer->getRequest())
-        );
+        $crefoPayOmsCommandTransfer
+            ->setRequest($requestTransfer)
+            ->setResponse($responseTransfer);
 
-        $this->saver->savePaymentEntities($saveCrefoPayEntitiesTransfer);
+        $this->saver->savePaymentEntities($crefoPayOmsCommandTransfer);
     }
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollectionTransfer
      *
-     * @return \Generated\Shared\Transfer\SaveCrefoPayEntitiesTransfer
+     * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
      */
-    protected function createSaveCrefoPayEntitiesTransfer(
+    protected function createCrefoPayOmsCommandTransfer(
         OrderTransfer $orderTransfer,
         CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollectionTransfer
-    ): SaveCrefoPayEntitiesTransfer {
+    ): CrefoPayOmsCommandTransfer {
         $paymentCrefoPayTransfer = $this->reader
             ->findPaymentCrefoPayByFkSalesOrder($orderTransfer->getIdSalesOrder());
 
-        $paymentCrefoPayOrderItemCollectionTransfer = $this->reader
-            ->findPaymentCrefoPayOrderItemsByCrefoPayToSalesOrderItemCollection(
-                $crefoPayToSalesOrderItemCollectionTransfer
-            );
-
-        return (new SaveCrefoPayEntitiesTransfer)
+        return (new CrefoPayOmsCommandTransfer)
             ->setPaymentCrefoPay($paymentCrefoPayTransfer)
-            ->setPaymentCrefoPayOrderItemCollection($paymentCrefoPayOrderItemCollectionTransfer);
+            ->setCrefoPayToSalesOrderItemCollection($crefoPayToSalesOrderItemCollectionTransfer);
     }
 }

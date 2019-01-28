@@ -10,6 +10,7 @@
             <state name="reserved" reserved="true" />
             <state name="authorized" reserved="true" />
             <state name="waiting for capture" reserved="true" />
+            <state name="cancellation pending" reserved="false" />
             <state name="canceled" reserved="false" />
             <state name="capture pending" reserved="true" />
             <state name="captured" reserved="true" />
@@ -45,21 +46,26 @@
                 <target>waiting for capture</target>
             </transition>
 
-            <transition condition="CrefoPay/IsCanceled">
+            <transition condition="CrefoPay/IsCancellationPending">
                 <source>reserved</source>
-                <target>canceled</target>
+                <target>cancellation pending</target>
                 <event>cancel</event>
             </transition>
 
             <transition condition="CrefoPay/IsCanceled">
-                <source>authorized</source>
+                <source>cancellation pending</source>
                 <target>canceled</target>
+            </transition>
+
+            <transition condition="CrefoPay/IsCanceled">
+                <source>authorized</source>
+                <target>cancellation pending</target>
                 <event>cancel</event>
             </transition>
 
             <transition condition="CrefoPay/IsCanceled">
                 <source>waiting for capture</source>
-                <target>canceled</target>
+                <target>cancellation pending</target>
                 <event>cancel</event>
             </transition>
 

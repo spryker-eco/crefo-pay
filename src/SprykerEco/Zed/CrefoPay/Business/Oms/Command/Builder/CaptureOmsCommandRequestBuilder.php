@@ -10,6 +10,7 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder;
 use Generated\Shared\Transfer\CrefoPayApiAmountTransfer;
 use Generated\Shared\Transfer\CrefoPayApiCaptureRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
+use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
 use Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use Generated\Shared\Transfer\ExpenseTransfer;
@@ -43,23 +44,22 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
     }
 
     /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer $paymentCrefoPayTransfer
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiRequestTransfer
      */
     public function buildRequestTransfer(
-        PaymentCrefoPayTransfer $paymentCrefoPayTransfer,
         OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+        CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
     ): CrefoPayApiRequestTransfer {
-        $captureRequestTransfer = $this->createCaptureRequestTransfer($paymentCrefoPayTransfer);
+        $captureRequestTransfer = $this->createCaptureRequestTransfer(
+            $crefoPayOmsCommandTransfer->getPaymentCrefoPay()
+        );
         $captureRequestTransfer->setAmount(
             $this->createAmountTransfer(
-                $paymentCrefoPayTransfer,
                 $orderTransfer,
-                $crefoPayToSalesOrderItemCollection
+                $crefoPayOmsCommandTransfer
             )
         );
 
@@ -86,18 +86,18 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
     }
 
     /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer $paymentCrefoPayTransfer
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiAmountTransfer
      */
     protected function createAmountTransfer(
-        PaymentCrefoPayTransfer $paymentCrefoPayTransfer,
         OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+        CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
     ): CrefoPayApiAmountTransfer {
         $amountTransfer = new CrefoPayApiAmountTransfer();
+        $crefoPayToSalesOrderItemCollection = $crefoPayOmsCommandTransfer->getCrefoPayToSalesOrderItemCollection();
+        $paymentCrefoPayTransfer = $crefoPayOmsCommandTransfer->getPaymentCrefoPay();
 
         if ($this->isFullCapture($orderTransfer, $crefoPayToSalesOrderItemCollection)) {
             return $amountTransfer

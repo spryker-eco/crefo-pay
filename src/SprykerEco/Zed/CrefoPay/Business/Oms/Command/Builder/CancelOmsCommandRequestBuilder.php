@@ -9,27 +9,52 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder;
 
 use Generated\Shared\Transfer\CrefoPayApiCancelRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer;
+use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
+use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class CancelOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilderInterface
 {
     /**
+     * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
+     */
+    protected $config;
+
+    /**
+     * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
+     */
+    public function __construct(CrefoPayConfig $config)
+    {
+        $this->config = $config;
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiRequestTransfer
      */
     public function buildRequestTransfer(
         OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+        CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
     ): CrefoPayApiRequestTransfer {
         return (new CrefoPayApiRequestTransfer())
-            ->setCancelRequest();
+            ->setCancelRequest(
+                $this->createCancelRequestTransfer($crefoPayOmsCommandTransfer->getPaymentCrefoPay())
+            );
     }
 
-    protected function createCancelRequestTransfer(): CrefoPayApiCancelRequestTransfer
+    /**
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer $paymentCrefoPayTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayApiCancelRequestTransfer
+     */
+    protected function createCancelRequestTransfer(PaymentCrefoPayTransfer $paymentCrefoPayTransfer): CrefoPayApiCancelRequestTransfer
     {
-        return (new CrefoPayApiCancelRequestTransfer());
+        return (new CrefoPayApiCancelRequestTransfer())
+            ->setMerchantID($this->config->getMerchantId())
+            ->setStoreID($this->config->getStoreId())
+            ->setOrderID($paymentCrefoPayTransfer->getCrefoPayOrderId());
     }
 }

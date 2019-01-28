@@ -54,4 +54,34 @@ class CrefoPayToCrefoPayApiFacadeBridge implements CrefoPayToCrefoPayApiFacadeIn
     {
         return $this->crefoPayApiFacade->performCaptureApiCall($requestTransfer);
     }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
+     */
+    public function performCancelApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
+    {
+        return $this->crefoPayApiFacade->performCancelApiCall($requestTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
+     */
+    public function performRefundApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
+    {
+        return $this->crefoPayApiFacade->performRefundApiCall($requestTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
+     */
+    public function performFinishApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
+    {
+        return $this->crefoPayApiFacade->performFinishApiCall($requestTransfer);
+    }
 }

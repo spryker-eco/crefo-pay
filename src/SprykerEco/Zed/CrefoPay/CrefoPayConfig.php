@@ -19,6 +19,7 @@ class CrefoPayConfig extends AbstractBundleConfig
     protected const OMS_STATUS_WAITING_FOR_CAPTURE = 'waiting for capture';
     protected const OMS_STATUS_CAPTURE_PENDING = 'capture pending';
     protected const OMS_STATUS_CAPTURED = 'captured';
+    protected const OMS_STATUS_CANCELLATION_PENDING = 'cancellation pending';
     protected const OMS_STATUS_CANCELED = 'canceled';
     protected const OMS_STATUS_REFUNDED = 'refunded';
     protected const OMS_STATUS_FINISHED = 'finished';
@@ -142,6 +143,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getOmsStatusCaptured(): string
     {
         return static::OMS_STATUS_CAPTURED;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOmsStatusCancellationPending(): string
+    {
+        return static::OMS_STATUS_CANCELLATION_PENDING;
     }
 
     /**
