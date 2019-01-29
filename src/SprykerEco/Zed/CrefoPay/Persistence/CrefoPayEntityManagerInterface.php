@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\CrefoPay\Persistence;
 
 use Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 
@@ -37,4 +38,13 @@ interface CrefoPayEntityManagerInterface
     public function savePaymentCrefoPayNotificationEntity(
         PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer
     ): PaymentCrefoPayNotificationTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     */
+    public function savePaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntity(
+        PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+    ): PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
 }

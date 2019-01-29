@@ -9,6 +9,7 @@ namespace SprykerEco\Zed\CrefoPay\Persistence;
 
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayNotificationQuery;
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemQuery;
+use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogQuery;
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayQuery;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
@@ -34,6 +35,14 @@ class CrefoPayPersistenceFactory extends AbstractPersistenceFactory
     public function createPaymentCrefoPayOrderItemQuery(): SpyPaymentCrefoPayOrderItemQuery
     {
         return SpyPaymentCrefoPayOrderItemQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogQuery
+     */
+    public function createPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogQuery(): SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogQuery
+    {
+        return SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogQuery::create();
     }
 
     /**

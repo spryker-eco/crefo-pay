@@ -85,7 +85,7 @@ class CrefoPayOmsStatusMapper implements CrefoPayOmsStatusMapperInterface
             static::NOTIFICATION_TRANSACTION_STATUS_FRAUD_CANCELLED => $this->config->getOmsStatusNew(),
             static::NOTIFICATION_TRANSACTION_STATUS_CIA_PENDING => $this->config->getOmsStatusNew(),
             static::NOTIFICATION_TRANSACTION_STATUS_MERCHANT_PENDING => $this->config->getOmsStatusWaitingForCapture(),
-            static::NOTIFICATION_TRANSACTION_STATUS_CANCELLED => $this->config->getOmsStatusNew(),
+            static::NOTIFICATION_TRANSACTION_STATUS_CANCELLED => $this->config->getOmsStatusCanceled(),
             static::NOTIFICATION_TRANSACTION_STATUS_EXPIRED => $this->config->getOmsStatusNew(),
             static::NOTIFICATION_TRANSACTION_STATUS_IN_PROGRESS => $this->config->getOmsStatusNew(),
             static::NOTIFICATION_TRANSACTION_STATUS_DONE => $this->config->getOmsStatusNew(),

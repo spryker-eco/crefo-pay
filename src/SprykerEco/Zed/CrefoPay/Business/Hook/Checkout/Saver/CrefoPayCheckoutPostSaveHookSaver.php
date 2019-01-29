@@ -65,7 +65,8 @@ class CrefoPayCheckoutPostSaveHookSaver implements CrefoPayCheckoutHookSaverInte
 
         $this->writer->updatePaymentEntities(
             $this->getPaymentCrefoPayOrderItemCollectionTransfer($requestTransfer),
-            $this->getPaymentCrefoPayTransfer($requestTransfer, $responseTransfer)
+            $this->getPaymentCrefoPayTransfer($requestTransfer, $responseTransfer),
+            $responseTransfer->getCrefoPayApiLogId()
         );
     }
 

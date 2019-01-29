@@ -30,11 +30,14 @@ interface CrefoPayWriterInterface
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer
      * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer|null $paymentCrefoPayTransfer
      *
+     * @param int|null $crefoPayApiLogId
+     *
      * @return void
      */
     public function updatePaymentEntities(
         PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer,
-        ?PaymentCrefoPayTransfer $paymentCrefoPayTransfer = null
+        ?PaymentCrefoPayTransfer $paymentCrefoPayTransfer = null,
+        ?int $crefoPayApiLogId = null
     ): void;
 
     /**

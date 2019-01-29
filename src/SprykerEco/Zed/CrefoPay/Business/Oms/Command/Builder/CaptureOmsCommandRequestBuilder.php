@@ -11,7 +11,7 @@ use Generated\Shared\Transfer\CrefoPayApiAmountTransfer;
 use Generated\Shared\Transfer\CrefoPayApiCaptureRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer;
+use Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer;
 use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use Generated\Shared\Transfer\ExpenseTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
@@ -96,15 +96,15 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
         CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
     ): CrefoPayApiAmountTransfer {
         $amountTransfer = new CrefoPayApiAmountTransfer();
-        $crefoPayToSalesOrderItemCollection = $crefoPayOmsCommandTransfer->getCrefoPayToSalesOrderItemCollection();
+        $crefoPayToSalesOrderItemsCollection = $crefoPayOmsCommandTransfer->getCrefoPayToSalesOrderItemsCollection();
         $paymentCrefoPayTransfer = $crefoPayOmsCommandTransfer->getPaymentCrefoPay();
 
-        if ($this->isFullCapture($orderTransfer, $crefoPayToSalesOrderItemCollection)) {
+        if ($this->isFullCapture($orderTransfer, $crefoPayToSalesOrderItemsCollection)) {
             return $amountTransfer
                 ->setAmount($orderTransfer->getTotals()->getGrandTotal());
         }
 
-        $captureAmount = $this->calculateOrderItemsAmount($crefoPayToSalesOrderItemCollection);
+        $captureAmount = $this->calculateOrderItemsAmount($crefoPayToSalesOrderItemsCollection);
         if (!$paymentCrefoPayTransfer->getCapturedAmount()) {
             $captureAmount += $this->calculateExpensesAmount($orderTransfer);
         }
@@ -115,15 +115,15 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
      *
      * @return bool
      */
     protected function isFullCapture(
         OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
     ): bool {
-        return $orderTransfer->getItems()->count() === $crefoPayToSalesOrderItemCollection->getCrefoPayToSalesOrderItems()->count();
+        return $orderTransfer->getItems()->count() === $crefoPayToSalesOrderItemsCollection->getCrefoPayToSalesOrderItems()->count();
     }
 
     /**
@@ -137,18 +137,18 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
      *
      * @return int
      */
-    protected function calculateOrderItemsAmount(CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection): int
+    protected function calculateOrderItemsAmount(CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection): int
     {
         return array_sum(
             array_map(
                 function (CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItem) {
                     return $crefoPayToSalesOrderItem->getAmount();
                 },
-                $crefoPayToSalesOrderItemCollection->getCrefoPayToSalesOrderItems()->getArrayCopy()
+                $crefoPayToSalesOrderItemsCollection->getCrefoPayToSalesOrderItems()->getArrayCopy()
             )
         );
     }

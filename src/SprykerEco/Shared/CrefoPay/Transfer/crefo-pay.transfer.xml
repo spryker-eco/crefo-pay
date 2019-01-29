@@ -22,7 +22,7 @@
         <property name="mac" type="string" />
     </transfer>
 
-    <transfer name="CrefoPayToSalesOrderItemCollection">
+    <transfer name="CrefoPayToSalesOrderItemsCollection">
         <property name="crefoPayToSalesOrderItems" type="CrefoPayToSalesOrderItem[]" singular="crefoPayToSalesOrderItem" />
     </transfer>
 
@@ -112,11 +112,17 @@
         <property name="version" type="string" />
     </transfer>
 
+    <transfer name="PaymentCrefoPayOrderItemToPaymentCrefoPayApiLog">
+        <property name="idPaymentCrefoPayOrderItemToPaymentCrefoPayApiLog" type="int" />
+        <property name="fkPaymentCrefoPayOrderItem" type="int" />
+        <property name="fkPaymentCrefoPayApiLog" type="int" />
+    </transfer>
+
     <transfer name="CrefoPayOmsCommand">
         <property name="request" type="CrefoPayApiRequest" />
         <property name="response" type="CrefoPayApiResponse" />
         <property name="paymentCrefoPay" type="PaymentCrefoPay" />
-        <property name="crefoPayToSalesOrderItemCollection" type="CrefoPayToSalesOrderItemCollection" />
+        <property name="crefoPayToSalesOrderItemsCollection" type="CrefoPayToSalesOrderItemsCollection" />
     </transfer>
 
 </transfers>

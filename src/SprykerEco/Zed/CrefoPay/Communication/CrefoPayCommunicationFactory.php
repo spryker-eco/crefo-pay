@@ -13,6 +13,10 @@ use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CaptureOmsCommand;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandInterface;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\FinishOmsCommand;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\RefundOmsCommand;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsReservedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapper;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayDependencyProvider;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCalculationFacadeInterface;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToSalesFacadeInterface;
@@ -29,8 +33,7 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     public function createCancelOmsCommand(): CrefoPayOmsCommandInterface
     {
         return new CancelOmsCommand(
-            $this->getSalesFacade(),
-            $this->getCalculationFacade(),
+            $this->createCrefoPayOmsMapper(),
             $this->getFacade()
         );
     }
@@ -41,8 +44,7 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     public function createCaptureOmsCommand(): CrefoPayOmsCommandInterface
     {
         return new CaptureOmsCommand(
-            $this->getSalesFacade(),
-            $this->getCalculationFacade(),
+            $this->createCrefoPayOmsMapper(),
             $this->getFacade()
         );
     }
@@ -53,8 +55,7 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     public function createRefundOmsCommand(): CrefoPayOmsCommandInterface
     {
         return new RefundOmsCommand(
-            $this->getSalesFacade(),
-            $this->getCalculationFacade(),
+            $this->createCrefoPayOmsMapper(),
             $this->getFacade()
         );
     }
@@ -65,9 +66,30 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     public function createFinishOmsCommand(): CrefoPayOmsCommandInterface
     {
         return new FinishOmsCommand(
-            $this->getSalesFacade(),
-            $this->getCalculationFacade(),
+            $this->createCrefoPayOmsMapper(),
             $this->getFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsReservedOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsReservedOmsCondition(
+            $this->createCrefoPayOmsMapper(),
+            $this->getFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface
+     */
+    public function createCrefoPayOmsMapper(): CrefoPayOmsMapperInterface
+    {
+        return new CrefoPayOmsMapper(
+            $this->getSalesFacade(),
+            $this->getCalculationFacade()
         );
     }
 

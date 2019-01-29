@@ -7,8 +7,9 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Reader;
 
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer;
+use Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 
 interface CrefoPayReaderInterface
@@ -35,11 +36,22 @@ interface CrefoPayReaderInterface
     public function findPaymentCrefoPayOrderItemsByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollectionTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsByCrefoPayToSalesOrderItemCollection(
-        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollectionTransfer
+    public function findPaymentCrefoPayOrderItemsByCrefoPayToSalesOrderItemsCollection(
+        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
     ): PaymentCrefoPayOrderItemCollectionTransfer;
+
+    /**
+     * @param int $idSalesOrderItem
+     * @param string $apiLogRequestType
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     */
+    public function findPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogByIdSalesOrderItemAndRequestType(
+        int $idSalesOrderItem,
+        string $apiLogRequestType
+    ): PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
 }

@@ -9,7 +9,8 @@ namespace SprykerEco\Zed\CrefoPay\Business;
 
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer;
+use Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer;
+use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -112,17 +113,17 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
      *
      * @return void
      */
     public function executeCancelCommand(
         OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
     ): void {
         $this->getFactory()
             ->createCancelOmsCommand()
-            ->execute($orderTransfer, $crefoPayToSalesOrderItemCollection);
+            ->execute($orderTransfer, $crefoPayToSalesOrderItemsCollection);
     }
 
     /**
@@ -131,17 +132,17 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
      *
      * @return void
      */
     public function executeCaptureCommand(
         OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
     ): void {
         $this->getFactory()
             ->createCaptureOmsCommand()
-            ->execute($orderTransfer, $crefoPayToSalesOrderItemCollection);
+            ->execute($orderTransfer, $crefoPayToSalesOrderItemsCollection);
     }
 
     /**
@@ -150,13 +151,13 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
      *
      * @return void
      */
     public function executeRefundCommand(
         OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
     ): void {
         // TODO: Implement executeRefundCommand() method.
     }
@@ -167,14 +168,30 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
      *
      * @return void
      */
     public function executeFinishCommand(
         OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemCollectionTransfer $crefoPayToSalesOrderItemCollection
+        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
     ): void {
         // TODO: Implement executeFinishCommand() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsReservedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
+    {
+        return $this->getFactory()
+            ->createIsReservedOmsCondition()
+            ->check($crefoPayToSalesOrderItemTransfer);
     }
 }

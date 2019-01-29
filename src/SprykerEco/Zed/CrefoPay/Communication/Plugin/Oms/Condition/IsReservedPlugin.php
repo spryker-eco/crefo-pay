@@ -29,8 +29,8 @@ class IsReservedPlugin extends AbstractPlugin implements ConditionInterface
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        $crefoPayOrderItem = $orderItem->getSpyPaymentCrefoPayOrderItems()->getLast();
-
-        return $crefoPayOrderItem->getStatus() === $this->getConfig()->getOmsStatusReserved();
+        return $this->getFactory()
+            ->createIsReservedOmsCondition()
+            ->check($orderItem);
     }
 }

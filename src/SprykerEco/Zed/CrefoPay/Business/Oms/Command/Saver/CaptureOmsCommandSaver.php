@@ -70,7 +70,8 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
 
         $this->writer->updatePaymentEntities(
             $this->getPaymentCrefoPayOrderItemCollection($crefoPayOmsCommandTransfer),
-            $this->getPaymentCrefoPay($crefoPayOmsCommandTransfer)
+            $this->getPaymentCrefoPay($crefoPayOmsCommandTransfer),
+            $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId()
         );
     }
 
@@ -89,8 +90,8 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             );
         $captureId = $crefoPayOmsCommandTransfer->getRequest()->getCaptureRequest()->getCaptureID();
         $paymentCrefoPayOrderItemCollectionTransfer = $this->reader
-            ->findPaymentCrefoPayOrderItemsByCrefoPayToSalesOrderItemCollection(
-                $crefoPayOmsCommandTransfer->getCrefoPayToSalesOrderItemCollection()
+            ->findPaymentCrefoPayOrderItemsByCrefoPayToSalesOrderItemsCollection(
+                $crefoPayOmsCommandTransfer->getCrefoPayToSalesOrderItemsCollection()
             );
         $paymentCrefoPayOrderItems = array_map(
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status, $captureId) {

@@ -11,6 +11,7 @@ use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -66,20 +67,30 @@ class CrefoPayWriter implements CrefoPayWriterInterface
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer
      * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer|null $paymentCrefoPayTransfer
      *
+     * @param int|null $crefoPayApiLogId
+     *
      * @return void
      */
     public function updatePaymentEntities(
         PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer,
-        ?PaymentCrefoPayTransfer $paymentCrefoPayTransfer = null
+        ?PaymentCrefoPayTransfer $paymentCrefoPayTransfer = null,
+        ?int $crefoPayApiLogId = null
     ): void {
         $this->getTransactionHandler()->handleTransaction(
-            function () use ($paymentCrefoPayOrderItemCollectionTransfer, $paymentCrefoPayTransfer) {
+            function () use ($paymentCrefoPayOrderItemCollectionTransfer, $paymentCrefoPayTransfer, $crefoPayApiLogId) {
                 if ($paymentCrefoPayTransfer !== null) {
                     $this->entityManager->savePaymentCrefoPayEntity($paymentCrefoPayTransfer);
                 }
 
                 foreach ($paymentCrefoPayOrderItemCollectionTransfer->getCrefoPayOrderItems() as $paymentCrefoPayOrderItemTransfer) {
-                    $this->entityManager->savePaymentCrefoPayOrderItemEntity($paymentCrefoPayOrderItemTransfer);
+                    $paymentCrefoPayOrderItemTransfer = $this->entityManager
+                        ->savePaymentCrefoPayOrderItemEntity($paymentCrefoPayOrderItemTransfer);
+                    if ($crefoPayApiLogId !== null) {
+                        $this->createPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntity(
+                            $paymentCrefoPayOrderItemTransfer->getIdPaymentCrefoPayOrderItem(),
+                            $crefoPayApiLogId
+                        );
+                    }
                 }
             }
         );
@@ -158,5 +169,23 @@ class CrefoPayWriter implements CrefoPayWriterInterface
             ->setVersion($notificationTransfer->getVersion());
 
         return $this->entityManager->savePaymentCrefoPayNotificationEntity($paymentCrefoPayNotificationTransfer);
+    }
+
+    /**
+     * @param int $crefoPayOrderItemId
+     * @param int $crefoPayApiLogId
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     */
+    protected function createPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntity(
+        int $crefoPayOrderItemId,
+        int $crefoPayApiLogId
+    ): PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer {
+        $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer = (new PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer())
+            ->setFkPaymentCrefoPayOrderItem($crefoPayOrderItemId)
+            ->setFkPaymentCrefoPayApiLog($crefoPayApiLogId);
+
+        return $this->entityManager
+            ->savePaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntity($paymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer);
     }
 }

@@ -8,11 +8,13 @@
 namespace SprykerEco\Zed\CrefoPay\Persistence\Mapper;
 
 use Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use Generated\Shared\Transfer\SpyPaymentCrefoPayEntityTransfer;
 use Generated\Shared\Transfer\SpyPaymentCrefoPayNotificationEntityTransfer;
 use Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemEntityTransfer;
+use Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntityTransfer;
 
 interface CrefoPayPersistenceMapperInterface
 {
@@ -81,4 +83,26 @@ interface CrefoPayPersistenceMapperInterface
         SpyPaymentCrefoPayNotificationEntityTransfer $paymentCrefoPayNotificationEntityTransfer,
         PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer
     ): PaymentCrefoPayNotificationTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntityTransfer
+     *
+     * @return \Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntityTransfer
+     */
+    public function mapPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransferToEntityTransfer(
+        PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer,
+        SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntityTransfer
+    ): SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntityTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntityTransfer
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     */
+    public function mapEntityTransferToPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer(
+        SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntityTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntityTransfer,
+        PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+    ): PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
 }

@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\CrefoPay\Persistence;
 
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 
 interface CrefoPayRepositoryInterface
@@ -39,4 +40,15 @@ interface CrefoPayRepositoryInterface
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
     public function findPaymentCrefoPayOrderItemsBySalesOrderItemIds(array $salesOrderItemIds): PaymentCrefoPayOrderItemCollectionTransfer;
+
+    /**
+     * @param int $idSalesOrderItem
+     * @param string $apiLogRequestType
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     */
+    public function findPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogByIdSalesOrderItemAndRequestType(
+        int $idSalesOrderItem,
+        string $apiLogRequestType
+    ): PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
 }

@@ -59,7 +59,9 @@ class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
         }
 
         $this->writer->updatePaymentEntities(
-            $this->getPaymentCrefoPayOrderItemCollection($crefoPayOmsCommandTransfer)
+            $this->getPaymentCrefoPayOrderItemCollection($crefoPayOmsCommandTransfer),
+            null,
+            $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId()
         );
     }
 
