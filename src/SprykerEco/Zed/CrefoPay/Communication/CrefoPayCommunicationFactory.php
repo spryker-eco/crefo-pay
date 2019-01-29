@@ -14,6 +14,7 @@ use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandInterfac
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\FinishOmsCommand;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\RefundOmsCommand;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsAuthorizedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsReservedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapper;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface;
@@ -77,6 +78,17 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     public function createIsReservedOmsCondition(): CrefoPayOmsConditionInterface
     {
         return new IsReservedOmsCondition(
+            $this->createCrefoPayOmsMapper(),
+            $this->getFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsAuthorizedOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsAuthorizedOmsCondition(
             $this->createCrefoPayOmsMapper(),
             $this->getFacade()
         );

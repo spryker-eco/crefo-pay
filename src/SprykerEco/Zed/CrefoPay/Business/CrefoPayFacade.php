@@ -194,4 +194,20 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
             ->createIsReservedOmsCondition()
             ->check($crefoPayToSalesOrderItemTransfer);
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsAuthorizedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
+    {
+        return $this->getFactory()
+            ->createIsAuthorizedOmsCondition()
+            ->check($crefoPayToSalesOrderItemTransfer);
+    }
 }

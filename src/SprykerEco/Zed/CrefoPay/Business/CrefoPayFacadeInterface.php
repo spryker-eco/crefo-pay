@@ -159,7 +159,7 @@ interface CrefoPayFacadeInterface
 
     /**
      * Specification:
-     * -
+     * - Checks if reserve api call was successfully performed for given order item.
      *
      * @api
      *
@@ -168,4 +168,16 @@ interface CrefoPayFacadeInterface
      * @return bool
      */
     public function checkIsReservedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+
+    /**
+     * Specification:
+     * - Checks if ACKNOWLEDGEPENDING notification was received for given order item.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsAuthorizedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
 }

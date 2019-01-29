@@ -53,37 +53,26 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
      */
     public function processNotification(CrefoPayNotificationTransfer $notificationTransfer): CrefoPayNotificationTransfer
     {
-        $this->writer->createNotificationEntity($notificationTransfer);
-        $this->updateCrefoPayOrderItemStatuses($notificationTransfer);
-
-        return $notificationTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
-     *
-     * @return void
-     */
-    protected function updateCrefoPayOrderItemStatuses(CrefoPayNotificationTransfer $notificationTransfer): void
-    {
         $status = $this->getOmsStatus($notificationTransfer);
-        if ($status === null) {
-            return;
-        }
 
-        $paymentCrefoPayOrderItemCollectionTransfer = $this->reader
+        $paymentCrefoPayOrderItemsCollection = $this->reader
             ->findPaymentCrefoPayOrderItemsByCrefoPayOrderId($notificationTransfer->getOrderID());
 
         $paymentCrefoPayOrderItems = array_map(
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status) {
                 return $paymentCrefoPayOrderItemTransfer->setStatus($status);
             },
-            $paymentCrefoPayOrderItemCollectionTransfer->getCrefoPayOrderItems()->getArrayCopy()
+            $paymentCrefoPayOrderItemsCollection->getCrefoPayOrderItems()->getArrayCopy()
         );
 
-        $paymentCrefoPayOrderItemCollectionTransfer->setCrefoPayOrderItems(new ArrayObject($paymentCrefoPayOrderItems));
+        $paymentCrefoPayOrderItemsCollection->setCrefoPayOrderItems(new ArrayObject($paymentCrefoPayOrderItems));
 
-        $this->writer->updatePaymentEntities($paymentCrefoPayOrderItemCollectionTransfer);
+        $this->writer->createNotificationEntities(
+            $notificationTransfer,
+            $paymentCrefoPayOrderItemsCollection
+        );
+
+        return $notificationTransfer;
     }
 
     /**

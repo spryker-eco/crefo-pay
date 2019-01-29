@@ -8,7 +8,8 @@
 namespace SprykerEco\Zed\CrefoPay\Persistence;
 
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
-use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 
 interface CrefoPayRepositoryInterface
@@ -45,10 +46,21 @@ interface CrefoPayRepositoryInterface
      * @param int $idSalesOrderItem
      * @param string $apiLogRequestType
      *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer
      */
-    public function findPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogByIdSalesOrderItemAndRequestType(
+    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestType(
         int $idSalesOrderItem,
         string $apiLogRequestType
-    ): PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
+    ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer;
+
+    /**
+     * @param int $idSalesOrderItem
+     * @param string $notificationTransactionStatus
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer
+     */
+    public function findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
+        int $idSalesOrderItem,
+        string $notificationTransactionStatus
+    ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer;
 }

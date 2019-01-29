@@ -72,8 +72,8 @@
         <id-method-parameter value="spy_payment_crefo_pay_notification_pk_seq"/>
     </table>
 
-    <table name="spy_payment_crefo_pay_order_item_to_payment_crefo_pay_api_log" idMethod="native" allowPkInsert="true" isCrossRef="true">
-        <column name="id_payment_crefo_pay_order_item_to_payment_crefo_pay_api_log" required="true" type="INTEGER" autoIncrement="true" primaryKey="true" />
+    <table name="spy_payment_crefo_pay_order_item_to_crefo_pay_api_log" idMethod="native" allowPkInsert="true" isCrossRef="true">
+        <column name="id_payment_crefo_pay_order_item_to_crefo_pay_api_log" required="true" type="INTEGER" autoIncrement="true" primaryKey="true" />
         <column name="fk_payment_crefo_pay_order_item" required="true" type="INTEGER"/>
         <column name="fk_payment_crefo_pay_api_log" required="true" type="INTEGER"/>
 
@@ -96,7 +96,34 @@
             <unique-column name="fk_payment_crefo_pay_api_log"/>
         </unique>
 
-        <id-method-parameter value="id_payment_crefo_pay_order_item_to_payment_crefo_pay_api_log_pk_seq"/>
+        <id-method-parameter value="id_payment_crefo_pay_order_item_to_crefo_pay_api_log_pk_seq"/>
+    </table>
+
+    <table name="spy_payment_crefo_pay_order_item_to_crefo_pay_notification" idMethod="native" allowPkInsert="true" isCrossRef="true">
+        <column name="id_payment_crefo_pay_order_item_to_crefo_pay_notification" required="true" type="INTEGER" autoIncrement="true" primaryKey="true" />
+        <column name="fk_payment_crefo_pay_order_item" required="true" type="INTEGER"/>
+        <column name="fk_payment_crefo_pay_notification" required="true" type="INTEGER"/>
+
+        <foreign-key name="spy_crefo_pay_item_to_notification-fk_crefo_pay_order_item" foreignTable="spy_payment_crefo_pay_order_item" onDelete="CASCADE">
+            <reference local="fk_payment_crefo_pay_order_item" foreign="id_payment_crefo_pay_order_item"/>
+        </foreign-key>
+        <foreign-key name="spy_crefo_pay_item_to_notification-fk_crefo_pay_notification" foreignTable="spy_payment_crefo_pay_notification"  onDelete="CASCADE">
+            <reference local="fk_payment_crefo_pay_notification" foreign="id_payment_crefo_pay_notification"/>
+        </foreign-key>
+
+        <index name="index-spy_crefo_pay_order_item_to_notification-fk_order_item">
+            <index-column name="fk_payment_crefo_pay_order_item"/>
+        </index>
+        <index name="index-spy_crefo_pay_order_item_to_notification-fk_notification">
+            <index-column name="fk_payment_crefo_pay_notification"/>
+        </index>
+
+        <unique name="fk_payment_crefo_pay_order_item-fk_payment_crefo_pay_notification">
+            <unique-column name="fk_payment_crefo_pay_order_item"/>
+            <unique-column name="fk_payment_crefo_pay_notification"/>
+        </unique>
+
+        <id-method-parameter value="id_payment_crefo_pay_order_item_to_crefo_pay_notification_pk_seq"/>
     </table>
 
 </database>

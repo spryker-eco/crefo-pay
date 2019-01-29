@@ -112,10 +112,16 @@
         <property name="version" type="string" />
     </transfer>
 
-    <transfer name="PaymentCrefoPayOrderItemToPaymentCrefoPayApiLog">
-        <property name="idPaymentCrefoPayOrderItemToPaymentCrefoPayApiLog" type="int" />
+    <transfer name="PaymentCrefoPayOrderItemToCrefoPayApiLog">
+        <property name="idPaymentCrefoPayOrderItemToCrefoPayApiLog" type="int" />
         <property name="fkPaymentCrefoPayOrderItem" type="int" />
         <property name="fkPaymentCrefoPayApiLog" type="int" />
+    </transfer>
+
+    <transfer name="PaymentCrefoPayOrderItemToCrefoPayNotification">
+        <property name="idPaymentCrefoPayOrderItemToCrefoPayNotification" type="int" />
+        <property name="fkPaymentCrefoPayOrderItem" type="int" />
+        <property name="fkPaymentCrefoPayNotification" type="int" />
     </transfer>
 
     <transfer name="CrefoPayOmsCommand">

@@ -10,7 +10,8 @@ namespace SprykerEco\Zed\CrefoPay\Business\Reader;
 use Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer;
 use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
-use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface;
 
@@ -81,16 +82,33 @@ class CrefoPayReader implements CrefoPayReaderInterface
      * @param int $idSalesOrderItem
      * @param string $apiLogRequestType
      *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer
      */
-    public function findPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogByIdSalesOrderItemAndRequestType(
+    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestType(
         int $idSalesOrderItem,
         string $apiLogRequestType
-    ): PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer {
+    ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer {
         return $this->repository
-            ->findPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogByIdSalesOrderItemAndRequestType(
+            ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestType(
                 $idSalesOrderItem,
                 $apiLogRequestType
+            );
+    }
+
+    /**
+     * @param int $idSalesOrderItem
+     * @param string $notificationTransactionStatus
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer
+     */
+    public function findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
+        int $idSalesOrderItem,
+        string $notificationTransactionStatus
+    ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer {
+        return $this->repository
+            ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
+                $idSalesOrderItem,
+                $notificationTransactionStatus
             );
     }
 }

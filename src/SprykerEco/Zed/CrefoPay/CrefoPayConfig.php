@@ -13,6 +13,24 @@ use SprykerEco\Shared\CrefoPay\CrefoPayConstants;
 
 class CrefoPayConfig extends AbstractBundleConfig
 {
+    protected const NOTIFICATION_TRANSACTION_STATUS_ACKNOWLEDGE_PENDING = 'ACKNOWLEDGEPENDING';
+    protected const NOTIFICATION_TRANSACTION_STATUS_FRAUD_PENDING = 'FRAUDPENDING';
+    protected const NOTIFICATION_TRANSACTION_STATUS_FRAUD_CANCELLED = 'FRAUDCANCELLED';
+    protected const NOTIFICATION_TRANSACTION_STATUS_CIA_PENDING = 'CIAPENDING';
+    protected const NOTIFICATION_TRANSACTION_STATUS_MERCHANT_PENDING = 'MERCHANTPENDING';
+    protected const NOTIFICATION_TRANSACTION_STATUS_CANCELLED = 'CANCELLED';
+    protected const NOTIFICATION_TRANSACTION_STATUS_EXPIRED = 'EXPIRED';
+    protected const NOTIFICATION_TRANSACTION_STATUS_IN_PROGRESS = 'INPROGRESS';
+    protected const NOTIFICATION_TRANSACTION_STATUS_DONE = 'DONE';
+
+    protected const NOTIFICATION_ORDER_STATUS_PAY_PENDING = 'PAYPENDING';
+    protected const NOTIFICATION_ORDER_STATUS_PAID = 'PAID';
+    protected const NOTIFICATION_ORDER_STATUS_CLEARED = 'CLEARED';
+    protected const NOTIFICATION_ORDER_STATUS_PAYMENT_FAILED = 'PAYMENTFAILED';
+    protected const NOTIFICATION_ORDER_STATUS_CHARGE_BACK = 'CHARGEBACK';
+    protected const NOTIFICATION_ORDER_STATUS_IN_DUNNING = 'INDUNNING';
+    protected const NOTIFICATION_ORDER_STATUS_IN_COLLECTION = 'IN_COLLECTION';
+
     protected const OMS_STATUS_NEW = 'new';
     protected const OMS_STATUS_RESERVED = 'reserved';
     protected const OMS_STATUS_AUTHORIZED = 'authorized';
@@ -95,6 +113,46 @@ class CrefoPayConfig extends AbstractBundleConfig
             SharedCrefoPayConfig::PAYMENT_METHOD_PREPAID => SharedCrefoPayConfig::CREFO_PAY_PREPAID,
             SharedCrefoPayConfig::PAYMENT_METHOD_SOFORT => SharedCrefoPayConfig::CREFO_PAY_SOFORT,
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getNotificationTransactionStatusAcknowledgePending(): string
+    {
+        return static::NOTIFICATION_TRANSACTION_STATUS_ACKNOWLEDGE_PENDING;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNotificationTransactionStatusMerchantPending(): string
+    {
+        return static::NOTIFICATION_TRANSACTION_STATUS_MERCHANT_PENDING;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNotificationTransactionStatusCancelled(): string
+    {
+        return static::NOTIFICATION_TRANSACTION_STATUS_CANCELLED;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNotificationOrderStatusPayPending(): string
+    {
+        return static::NOTIFICATION_ORDER_STATUS_PAY_PENDING;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNotificationOrderStatusPaid(): string
+    {
+        return static::NOTIFICATION_ORDER_STATUS_PAID;
     }
 
     /**

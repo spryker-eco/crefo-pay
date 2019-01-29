@@ -9,8 +9,9 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Condition;
 
 use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
+use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
-class IsReservedOmsCondition implements CrefoPayOmsConditionInterface
+class IsAuthorizedOmsCondition implements CrefoPayOmsConditionInterface
 {
     protected const REQUEST_TYPE = 'reserve';
 
@@ -20,11 +21,20 @@ class IsReservedOmsCondition implements CrefoPayOmsConditionInterface
     protected $reader;
 
     /**
-     * @param \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface $reader
+     * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
      */
-    public function __construct(CrefoPayReaderInterface $reader)
-    {
+    protected $config;
+
+    /**
+     * @param \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface $reader
+     * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
+     */
+    public function __construct(
+        CrefoPayReaderInterface $reader,
+        CrefoPayConfig $config
+    ) {
         $this->reader = $reader;
+        $this->config = $config;
     }
 
     /**
@@ -35,11 +45,11 @@ class IsReservedOmsCondition implements CrefoPayOmsConditionInterface
     public function check(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
     {
         $relationTransfer = $this->reader
-            ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestType(
+            ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $crefoPayToSalesOrderItemTransfer->getIdSalesOrderItem(),
-                static::REQUEST_TYPE
+                $this->config->getNotificationTransactionStatusAcknowledgePending()
             );
 
-        return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayApiLog() !== null;
+        return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;
     }
 }

@@ -7,7 +7,7 @@
 
 namespace SprykerEco\Zed\CrefoPay\Persistence\Propel;
 
-use Orm\Zed\CrefoPay\Persistence\Base\SpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogQuery as BaseSpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogQuery;
+use Orm\Zed\CrefoPay\Persistence\Base\SpyPaymentCrefoPayOrderItemToCrefoPayNotificationQuery as BaseSpyPaymentCrefoPayOrderItemToCrefoPayNotificationQuery;
 
 /**
  * Skeleton subclass for performing query and update operations on the 'spy_payment_crefo_pay_order_item' table.
@@ -19,6 +19,6 @@ use Orm\Zed\CrefoPay\Persistence\Base\SpyPaymentCrefoPayOrderItemToPaymentCrefoP
  * long as it does not already exist in the output directory.
  *
  */
-abstract class AbstractSpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogQuery extends BaseSpyPaymentCrefoPayOrderItemToPaymentCrefoPayApiLogQuery
+abstract class AbstractSpyPaymentCrefoPayOrderItemToCrefoPayNotificationQuery extends BaseSpyPaymentCrefoPayOrderItemToCrefoPayNotificationQuery
 {
 }

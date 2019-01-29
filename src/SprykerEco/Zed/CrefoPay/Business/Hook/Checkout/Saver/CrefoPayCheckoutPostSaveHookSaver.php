@@ -105,31 +105,31 @@ class CrefoPayCheckoutPostSaveHookSaver implements CrefoPayCheckoutHookSaverInte
      */
     protected function getPaymentCrefoPayOrderItemCollectionTransfer(CrefoPayApiRequestTransfer $requestTransfer): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        $paymentCrefoPayOrderItemCollectionTransfer = $this->reader
+        $paymentCrefoPayOrderItemCollection = $this->reader
             ->findPaymentCrefoPayOrderItemsByCrefoPayOrderId(
                 $requestTransfer->getReserveRequest()->getOrderID()
             );
 
-        return $this->setOrderItemsStatus($paymentCrefoPayOrderItemCollectionTransfer);
+        return $this->setOrderItemsStatus($paymentCrefoPayOrderItemCollection);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
     protected function setOrderItemsStatus(
-        PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer
+        PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
     ): PaymentCrefoPayOrderItemCollectionTransfer {
         $status = $this->config->getOmsStatusReserved();
         $paymentCrefoPayOrderItems = array_map(
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status) {
                 return $paymentCrefoPayOrderItemTransfer->setStatus($status);
             },
-            $paymentCrefoPayOrderItemCollectionTransfer->getCrefoPayOrderItems()->getArrayCopy()
+            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy()
         );
 
-        return $paymentCrefoPayOrderItemCollectionTransfer
+        return $paymentCrefoPayOrderItemCollection
             ->setCrefoPayOrderItems(new ArrayObject($paymentCrefoPayOrderItems));
     }
 }

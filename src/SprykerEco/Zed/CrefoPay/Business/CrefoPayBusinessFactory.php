@@ -29,6 +29,7 @@ use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CancelOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CaptureOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsAuthorizedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsReservedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilterInterface;
@@ -257,6 +258,17 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createIsReservedOmsCondition(): CrefoPayOmsConditionInterface
     {
         return new IsReservedOmsCondition($this->createReader());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsAuthorizedOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsAuthorizedOmsCondition(
+            $this->createReader(),
+            $this->getConfig()
+        );
     }
 
     /**

@@ -27,7 +27,7 @@ interface CrefoPayWriterInterface
     ): void;
 
     /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
      * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer|null $paymentCrefoPayTransfer
      *
      * @param int|null $crefoPayApiLogId
@@ -35,7 +35,7 @@ interface CrefoPayWriterInterface
      * @return void
      */
     public function updatePaymentEntities(
-        PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollectionTransfer,
+        PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection,
         ?PaymentCrefoPayTransfer $paymentCrefoPayTransfer = null,
         ?int $crefoPayApiLogId = null
     ): void;
@@ -43,7 +43,12 @@ interface CrefoPayWriterInterface
     /**
      * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
      *
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
+     *
      * @return void
      */
-    public function createNotificationEntity(CrefoPayNotificationTransfer $notificationTransfer): void;
+    public function createNotificationEntities(
+        CrefoPayNotificationTransfer $notificationTransfer,
+        PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
+    ): void;
 }

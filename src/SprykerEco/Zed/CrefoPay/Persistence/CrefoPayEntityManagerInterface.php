@@ -8,7 +8,8 @@
 namespace SprykerEco\Zed\CrefoPay\Persistence;
 
 use Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer;
-use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 
@@ -40,11 +41,20 @@ interface CrefoPayEntityManagerInterface
     ): PaymentCrefoPayNotificationTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer
      *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer
      */
-    public function savePaymentCrefoPayOrderItemToPaymentCrefoPayApiLogEntity(
-        PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer $paymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer
-    ): PaymentCrefoPayOrderItemToPaymentCrefoPayApiLogTransfer;
+    public function savePaymentCrefoPayOrderItemToCrefoPayApiLogEntity(
+        PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer
+    ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer
+     */
+    public function savePaymentCrefoPayOrderItemToCrefoPayNotificationEntity(
+        PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer
+    ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer;
 }
