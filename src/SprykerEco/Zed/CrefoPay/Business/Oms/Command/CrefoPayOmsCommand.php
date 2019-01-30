@@ -14,6 +14,7 @@ use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandReque
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
+use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToOmsFacadeInterface;
 
 class CrefoPayOmsCommand implements CrefoPayOmsCommandInterface
 {

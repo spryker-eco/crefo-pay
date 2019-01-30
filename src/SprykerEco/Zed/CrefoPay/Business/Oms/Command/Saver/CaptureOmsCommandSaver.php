@@ -30,31 +30,31 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     protected $writer;
 
     /**
-     * @var \SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface
-     */
-    protected $statusMapper;
-
-    /**
      * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
      */
     protected $config;
 
     /**
+     * @var \SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface
+     */
+    protected $statusMapper;
+
+    /**
      * @param \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface $reader
      * @param \SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface $writer
-     * @param \SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface $statusMapper
      * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
+     * @param \SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface $statusMapper
      */
     public function __construct(
         CrefoPayReaderInterface $reader,
         CrefoPayWriterInterface $writer,
-        CrefoPayOmsStatusMapperInterface $statusMapper,
-        CrefoPayConfig $config
+        CrefoPayConfig $config,
+        CrefoPayOmsStatusMapperInterface $statusMapper
     ) {
         $this->reader = $reader;
         $this->writer = $writer;
-        $this->statusMapper = $statusMapper;
         $this->config = $config;
+        $this->statusMapper = $statusMapper;
     }
 
     /**

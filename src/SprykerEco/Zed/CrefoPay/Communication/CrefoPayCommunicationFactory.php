@@ -15,7 +15,10 @@ use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\FinishOmsCommand;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\RefundOmsCommand;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsAuthorizedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsCanceledOmsCondition;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsCancellationPendingOmsCondition;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsReservedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsWaitingForCaptureOmsCondition;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapper;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayDependencyProvider;
@@ -89,6 +92,39 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     public function createIsAuthorizedOmsCondition(): CrefoPayOmsConditionInterface
     {
         return new IsAuthorizedOmsCondition(
+            $this->createCrefoPayOmsMapper(),
+            $this->getFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsWaitingForCaptureOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsWaitingForCaptureOmsCondition(
+            $this->createCrefoPayOmsMapper(),
+            $this->getFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsCancellationPendingOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsCancellationPendingOmsCondition(
+            $this->createCrefoPayOmsMapper(),
+            $this->getFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsCanceledOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsCanceledOmsCondition(
             $this->createCrefoPayOmsMapper(),
             $this->getFacade()
         );

@@ -11,7 +11,7 @@ use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
-class IsAuthorizedOmsCondition implements CrefoPayOmsConditionInterface
+class IsCanceledOmsCondition implements CrefoPayOmsConditionInterface
 {
     /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface
@@ -45,7 +45,7 @@ class IsAuthorizedOmsCondition implements CrefoPayOmsConditionInterface
         $relationTransfer = $this->reader
             ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $crefoPayToSalesOrderItemTransfer->getIdSalesOrderItem(),
-                $this->config->getNotificationTransactionStatusAcknowledgePending()
+                $this->config->getNotificationTransactionStatusCancelled()
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;

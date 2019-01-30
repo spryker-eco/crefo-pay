@@ -29,8 +29,8 @@ class IsWaitingForCapturePlugin extends AbstractPlugin implements ConditionInter
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        $crefoPayOrderItem = $orderItem->getSpyPaymentCrefoPayOrderItems()->getLast();
-
-        return $crefoPayOrderItem->getStatus() === $this->getConfig()->getOmsStatusWaitingForCapture();
+        return $this->getFactory()
+            ->createIsWaitingForCaptureOmsCondition()
+            ->check($orderItem);
     }
 }

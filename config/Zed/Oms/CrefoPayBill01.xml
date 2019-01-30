@@ -47,7 +47,7 @@
             </transition>
 
             <transition condition="CrefoPay/IsCancellationPending">
-                <source>reserved</source>
+                <source>waiting for capture</source>
                 <target>cancellation pending</target>
                 <event>cancel</event>
             </transition>
@@ -55,18 +55,6 @@
             <transition condition="CrefoPay/IsCanceled">
                 <source>cancellation pending</source>
                 <target>canceled</target>
-            </transition>
-
-            <transition condition="CrefoPay/IsCanceled">
-                <source>authorized</source>
-                <target>cancellation pending</target>
-                <event>cancel</event>
-            </transition>
-
-            <transition condition="CrefoPay/IsCanceled">
-                <source>waiting for capture</source>
-                <target>cancellation pending</target>
-                <event>cancel</event>
             </transition>
 
             <transition condition="CrefoPay/IsCapturePending" happy="true">

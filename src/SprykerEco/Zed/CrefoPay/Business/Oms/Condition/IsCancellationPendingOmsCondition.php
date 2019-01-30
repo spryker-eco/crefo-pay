@@ -9,30 +9,22 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Condition;
 
 use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
-use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
-class IsAuthorizedOmsCondition implements CrefoPayOmsConditionInterface
+class IsCancellationPendingOmsCondition implements CrefoPayOmsConditionInterface
 {
+    protected const REQUEST_TYPE = 'cancel';
+
     /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface
      */
     protected $reader;
 
     /**
-     * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
-     */
-    protected $config;
-
-    /**
      * @param \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface $reader
-     * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
      */
-    public function __construct(
-        CrefoPayReaderInterface $reader,
-        CrefoPayConfig $config
-    ) {
+    public function __construct(CrefoPayReaderInterface $reader)
+    {
         $this->reader = $reader;
-        $this->config = $config;
     }
 
     /**
@@ -43,11 +35,11 @@ class IsAuthorizedOmsCondition implements CrefoPayOmsConditionInterface
     public function check(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
     {
         $relationTransfer = $this->reader
-            ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
+            ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestType(
                 $crefoPayToSalesOrderItemTransfer->getIdSalesOrderItem(),
-                $this->config->getNotificationTransactionStatusAcknowledgePending()
+                static::REQUEST_TYPE
             );
 
-        return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;
+        return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayApiLog() !== null;
     }
 }

@@ -12,6 +12,7 @@ use Spryker\Zed\Kernel\Container;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCalculationFacadeBridge;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeBridge;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeBridge;
+use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToOmsFacadeBridge;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToSalesFacadeBridge;
 use SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceBridge;
 
@@ -21,6 +22,7 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
     public const FACADE_SALES = 'FACADE_SALES';
     public const FACADE_CALCULATION = 'FACADE_CALCULATION';
     public const FACADE_LOCALE = 'FACADE_LOCALE';
+    public const FACADE_OMS = 'FACADE_OMS';
 
     public const SERVICE_CREFO_PAY = 'SERVICE_CREFO_PAY';
     public const SERVICE_UTIL_TEXT = 'SERVICE_UTIL_TEXT';
@@ -35,6 +37,7 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
         $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addCrefoPayApiFacade($container);
         $container = $this->addLocaleFacade($container);
+        $container = $this->addOmsFacade($container);
         $container = $this->addCrefoPayService($container);
         $container = $this->addUtilTextService($container);
 
@@ -106,6 +109,20 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container[static::FACADE_LOCALE] = function (Container $container) {
             return new CrefoPayToLocaleFacadeBridge($container->getLocator()->locale()->facade());
+        };
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addOmsFacade(Container $container): Container
+    {
+        $container[static::FACADE_OMS] = function (Container $container) {
+            return new CrefoPayToOmsFacadeBridge($container->getLocator()->oms()->facade());
         };
 
         return $container;

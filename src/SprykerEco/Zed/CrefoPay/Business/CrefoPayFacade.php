@@ -210,4 +210,52 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
             ->createIsAuthorizedOmsCondition()
             ->check($crefoPayToSalesOrderItemTransfer);
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsWaitingForCaptureCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
+    {
+        return $this->getFactory()
+            ->createIsWaitingForCaptureOmsCondition()
+            ->check($crefoPayToSalesOrderItemTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsCancellationPendingCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
+    {
+        return $this->getFactory()
+            ->createIsCancellationPendingOmsCondition()
+            ->check($crefoPayToSalesOrderItemTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsCanceledCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
+    {
+        return $this->getFactory()
+            ->createIsCanceledOmsCondition()
+            ->check($crefoPayToSalesOrderItemTransfer);
+    }
 }

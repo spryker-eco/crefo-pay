@@ -180,4 +180,40 @@ interface CrefoPayFacadeInterface
      * @return bool
      */
     public function checkIsAuthorizedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+
+    /**
+     * Specification:
+     * - Checks if MERCHANTPENDING notification was received for given order item.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsWaitingForCaptureCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+
+    /**
+     * Specification:
+     * - Checks if cancel api call was successfully performed for given order item.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsCancellationPendingCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+
+    /**
+     * Specification:
+     * - Checks if CANCELLED notification was received for given order item.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsCanceledCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
 }

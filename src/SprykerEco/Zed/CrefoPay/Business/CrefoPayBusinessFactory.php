@@ -30,7 +30,10 @@ use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CaptureOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsAuthorizedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCanceledOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCancellationPendingOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsReservedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsWaitingForCaptureOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilterInterface;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaver;
@@ -50,6 +53,7 @@ use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayDependencyProvider;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterface;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface;
+use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToOmsFacadeInterface;
 use SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface;
 
 /**
@@ -235,8 +239,8 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
         return new CaptureOmsCommandSaver(
             $this->createReader(),
             $this->createWriter(),
-            $this->createCrefoPayOmsStatusMapper(),
-            $this->getConfig()
+            $this->getConfig(),
+            $this->createCrefoPayOmsStatusMapper()
         );
     }
 
@@ -248,7 +252,8 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
         return new CancelOmsCommandSaver(
             $this->createReader(),
             $this->createWriter(),
-            $this->getConfig()
+            $this->getConfig(),
+            $this->getOmsFacade()
         );
     }
 
@@ -266,6 +271,36 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createIsAuthorizedOmsCondition(): CrefoPayOmsConditionInterface
     {
         return new IsAuthorizedOmsCondition(
+            $this->createReader(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsWaitingForCaptureOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsWaitingForCaptureOmsCondition(
+            $this->createReader(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsCancellationPendingOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsCancellationPendingOmsCondition($this->createReader());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsCanceledOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsCanceledOmsCondition(
             $this->createReader(),
             $this->getConfig()
         );
@@ -304,6 +339,14 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function getLocaleFacade(): CrefoPayToLocaleFacadeInterface
     {
         return $this->getProvidedDependency(CrefoPayDependencyProvider::FACADE_LOCALE);
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToOmsFacadeInterface
+     */
+    public function getOmsFacade(): CrefoPayToOmsFacadeInterface
+    {
+        return $this->getProvidedDependency(CrefoPayDependencyProvider::FACADE_OMS);
     }
 
     /**
