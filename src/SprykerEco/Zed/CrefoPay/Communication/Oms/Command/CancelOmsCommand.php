@@ -12,6 +12,7 @@ use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 use SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface;
+use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class CancelOmsCommand implements CrefoPayOmsCommandInterface
 {
@@ -26,15 +27,23 @@ class CancelOmsCommand implements CrefoPayOmsCommandInterface
     protected $facade;
 
     /**
+     * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
+     */
+    protected $config;
+
+    /**
      * @param \SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface $mapper
      * @param \SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface $facade
+     * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
      */
     public function __construct(
         CrefoPayOmsMapperInterface $mapper,
-        CrefoPayFacadeInterface $facade
+        CrefoPayFacadeInterface $facade,
+        CrefoPayConfig $config
     ) {
         $this->mapper = $mapper;
         $this->facade = $facade;
+        $this->config = $config;
     }
 
     /**
@@ -46,6 +55,10 @@ class CancelOmsCommand implements CrefoPayOmsCommandInterface
      */
     public function execute(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): void
     {
+        if (array_search($this->config->getCrefoPayAutomaticOmsTrigger(), $data->getArrayCopy()) !== false) {
+            return;
+        }
+
         $orderTransfer = $this->mapper->mapSpySalesOrderToOrderTransfer($orderEntity);
         $crefoPayToSalesOrderItemsCollection = $this->mapper
             ->mapSpySalesOrderItemsToCrefoPayToSalesOrderItemsCollection(

@@ -16,7 +16,7 @@ use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToOmsFacadeInterface;
 
-class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
+class FinishOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
 {
     /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface
@@ -84,9 +84,8 @@ class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
         );
 
         $this->omsFacade->triggerEventForOrderItems(
-            $this->config->getOmsEventCancel(),
-            $affectedSalesOrderItemIds,
-            [$this->config->getCrefoPayAutomaticOmsTrigger()]
+            $this->config->getOmsStatusCanceled(),
+            $affectedSalesOrderItemIds
         );
     }
 

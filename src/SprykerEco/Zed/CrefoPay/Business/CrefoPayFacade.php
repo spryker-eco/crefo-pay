@@ -159,7 +159,9 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
         OrderTransfer $orderTransfer,
         CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
     ): void {
-        // TODO: Implement executeRefundCommand() method.
+        $this->getFactory()
+            ->createRefundOmsCommand()
+            ->execute($orderTransfer, $crefoPayToSalesOrderItemsCollection);
     }
 
     /**
@@ -176,7 +178,9 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
         OrderTransfer $orderTransfer,
         CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
     ): void {
-        // TODO: Implement executeFinishCommand() method.
+        $this->getFactory()
+            ->createFinishOmsCommand()
+            ->execute($orderTransfer, $crefoPayToSalesOrderItemsCollection);
     }
 
     /**
@@ -256,6 +260,22 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     {
         return $this->getFactory()
             ->createIsCanceledOmsCondition()
+            ->check($crefoPayToSalesOrderItemTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsExpiredCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
+    {
+        return $this->getFactory()
+            ->createIsExpiredOmsCondition()
             ->check($crefoPayToSalesOrderItemTransfer);
     }
 }

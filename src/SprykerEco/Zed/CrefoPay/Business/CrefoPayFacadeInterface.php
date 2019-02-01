@@ -216,4 +216,16 @@ interface CrefoPayFacadeInterface
      * @return bool
      */
     public function checkIsCanceledCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+
+    /**
+     * Specification:
+     * - Checks if EXPIRED notification was received for given order item.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsExpiredCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
 }

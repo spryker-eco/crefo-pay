@@ -18,6 +18,8 @@ use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutPostSav
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CancelOmsCommandRequestBuilder;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CaptureOmsCommandRequestBuilder;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\FinishOmsCommandRequestBuilder;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\RefundOmsCommandRequestBuilder;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CancelOmsCommandClient;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CaptureOmsCommandClient;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface;
@@ -28,10 +30,13 @@ use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CancelOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CaptureOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\FinishOmsCommandSaver;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\RefundOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsAuthorizedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCanceledOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCancellationPendingOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsExpiredOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsReservedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsWaitingForCaptureOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
@@ -181,6 +186,32 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandInterface
+     */
+    public function createRefundOmsCommand(): CrefoPayOmsCommandInterface
+    {
+        return new CrefoPayOmsCommand(
+            $this->createRefundOmsCommandRequestBuilder(),
+            $this->createReader(),
+            $this->createRefundOmsCommandClient(),
+            $this->createRefundOmsCommandSaver()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandInterface
+     */
+    public function createFinishOmsCommand(): CrefoPayOmsCommandInterface
+    {
+        return new CrefoPayOmsCommand(
+            $this->createFinishOmsCommandRequestBuilder(),
+            $this->createReader(),
+            $this->createFinishOmsCommandClient(),
+            $this->createFinishOmsCommandSaver()
+        );
+    }
+
+    /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface
      */
     public function createCaptureOmsCommandRequestBuilder(): CrefoPayOmsCommandRequestBuilderInterface
@@ -197,6 +228,22 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createCancelOmsCommandRequestBuilder(): CrefoPayOmsCommandRequestBuilderInterface
     {
         return new CancelOmsCommandRequestBuilder($this->getConfig());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface
+     */
+    public function createRefundOmsCommandRequestBuilder(): CrefoPayOmsCommandRequestBuilderInterface
+    {
+        return new RefundOmsCommandRequestBuilder($this->getConfig());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface
+     */
+    public function createFinishOmsCommandRequestBuilder(): CrefoPayOmsCommandRequestBuilderInterface
+    {
+        return new FinishOmsCommandRequestBuilder($this->getConfig());
     }
 
     /**
@@ -258,6 +305,32 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface
+     */
+    public function createRefundOmsCommandSaver(): CrefoPayOmsCommandSaverInterface
+    {
+        return new RefundOmsCommandSaver(
+            $this->createReader(),
+            $this->createWriter(),
+            $this->getConfig(),
+            $this->getOmsFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface
+     */
+    public function createFinishOmsCommandSaver(): CrefoPayOmsCommandSaverInterface
+    {
+        return new FinishOmsCommandSaver(
+            $this->createReader(),
+            $this->createWriter(),
+            $this->getConfig(),
+            $this->getOmsFacade()
+        );
+    }
+
+    /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
     public function createIsReservedOmsCondition(): CrefoPayOmsConditionInterface
@@ -301,6 +374,17 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createIsCanceledOmsCondition(): CrefoPayOmsConditionInterface
     {
         return new IsCanceledOmsCondition(
+            $this->createReader(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsExpiredOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsExpiredOmsCondition(
             $this->createReader(),
             $this->getConfig()
         );
