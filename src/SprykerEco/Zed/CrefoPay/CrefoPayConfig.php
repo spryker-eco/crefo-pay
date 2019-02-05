@@ -45,6 +45,7 @@ class CrefoPayConfig extends AbstractBundleConfig
 
     protected const OMS_EVENT_CANCEL = 'cancel';
     protected const OMS_EVENT_NO_CANCELLATION = 'no cancellation';
+    protected const OMS_EVENT_FINISH = 'finish';
 
     protected const CREFO_PAY_API_CAPTURE_ID_LENGTH = 30;
 
@@ -151,6 +152,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getNotificationTransactionStatusExpired(): string
     {
         return static::NOTIFICATION_TRANSACTION_STATUS_EXPIRED;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNotificationTransactionStatusDone(): string
+    {
+        return static::NOTIFICATION_TRANSACTION_STATUS_DONE;
     }
 
     /**
@@ -271,6 +280,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getOmsEventNoCancellation(): string
     {
         return static::OMS_EVENT_NO_CANCELLATION;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOmsEventFinish(): string
+    {
+        return static::OMS_EVENT_FINISH;
     }
 
     /**

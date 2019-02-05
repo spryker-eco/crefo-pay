@@ -29,8 +29,8 @@ class IsFinishedPlugin extends AbstractPlugin implements ConditionInterface
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        $crefoPayOrderItem = $orderItem->getSpyPaymentCrefoPayOrderItems()->getLast();
-
-        return $crefoPayOrderItem->getStatus() === $this->getConfig()->getOmsStatusFinished();
+        return $this->getFactory()
+            ->createIsFinishedOmsCondition()
+            ->check($orderItem);
     }
 }

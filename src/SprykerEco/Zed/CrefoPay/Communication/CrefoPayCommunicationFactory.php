@@ -17,7 +17,11 @@ use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInte
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsAuthorizedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsCanceledOmsCondition;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsCancellationPendingOmsCondition;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsCapturedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsCapturePendingOmsCondition;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsDoneOmsCondition;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsExpiredOmsCondition;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsFinishedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsReservedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsWaitingForCaptureOmsCondition;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapper;
@@ -73,7 +77,8 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     {
         return new FinishOmsCommand(
             $this->createCrefoPayOmsMapper(),
-            $this->getFacade()
+            $this->getFacade(),
+            $this->getConfig()
         );
     }
 
@@ -138,6 +143,50 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     public function createIsExpiredOmsCondition(): CrefoPayOmsConditionInterface
     {
         return new IsExpiredOmsCondition(
+            $this->createCrefoPayOmsMapper(),
+            $this->getFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsCapturePendingOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsCapturePendingOmsCondition(
+            $this->createCrefoPayOmsMapper(),
+            $this->getFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsCapturedOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsCapturedOmsCondition(
+            $this->createCrefoPayOmsMapper(),
+            $this->getFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsFinishedOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsFinishedOmsCondition(
+            $this->createCrefoPayOmsMapper(),
+            $this->getFacade()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsDoneOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsDoneOmsCondition(
             $this->createCrefoPayOmsMapper(),
             $this->getFacade()
         );

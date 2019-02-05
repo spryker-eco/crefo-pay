@@ -29,8 +29,8 @@ class IsCapturePendingPlugin extends AbstractPlugin implements ConditionInterfac
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        $crefoPayOrderItem = $orderItem->getSpyPaymentCrefoPayOrderItems()->getLast();
-
-        return $crefoPayOrderItem->getStatus() === $this->getConfig()->getOmsStatusCapturePending();
+        return $this->getFactory()
+            ->createIsCapturePendingOmsCondition()
+            ->check($orderItem);
     }
 }

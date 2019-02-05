@@ -84,8 +84,9 @@ class FinishOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
         );
 
         $this->omsFacade->triggerEventForOrderItems(
-            $this->config->getOmsStatusCanceled(),
-            $affectedSalesOrderItemIds
+            $this->config->getOmsEventFinish(),
+            $affectedSalesOrderItemIds,
+            [$this->config->getCrefoPayAutomaticOmsTrigger()]
         );
     }
 

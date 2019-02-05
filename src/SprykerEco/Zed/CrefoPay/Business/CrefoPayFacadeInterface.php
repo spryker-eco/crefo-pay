@@ -228,4 +228,52 @@ interface CrefoPayFacadeInterface
      * @return bool
      */
     public function checkIsExpiredCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+
+    /**
+     * Specification:
+     * - Checks if capture API call was successfully performed for given order item.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsCapturePendingCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+
+    /**
+     * Specification:
+     * - Checks if PAID notification was received for given order item.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsCapturedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+
+    /**
+     * Specification:
+     * - Checks if finish API call was successfully performed for given order item.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsFinishedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+
+    /**
+     * Specification:
+     * - Checks if DONE notification was received for given order item.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsDoneCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
 }

@@ -63,4 +63,15 @@ interface CrefoPayRepositoryInterface
         int $idSalesOrderItem,
         string $notificationTransactionStatus
     ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer;
+
+    /**
+     * @param int $idSalesOrderItem
+     * @param string $notificationOrderStatus
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer
+     */
+    public function findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
+        int $idSalesOrderItem,
+        string $notificationOrderStatus
+    ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer;
 }

@@ -19,6 +19,7 @@
             <state name="shipped" reserved="true" />
             <state name="refunded" reserved="false" />
             <state name="finished" reserved="false" />
+            <state name="done" reserved="false" />
             <state name="closed" reserved="false" />
         </states>
 
@@ -118,6 +119,12 @@
                 <event>finish</event>
             </transition>
 
+            <transition condition="CrefoPay/IsFinished">
+                <source>capture pending</source>
+                <target>finished</target>
+                <event>finish</event>
+            </transition>
+
             <transition condition="CrefoPay/IsFinished" happy="true">
                 <source>shipped</source>
                 <target>finished</target>
@@ -136,8 +143,13 @@
                 <event>finish</event>
             </transition>
 
-            <transition happy="true">
+            <transition condition="CrefoPay/IsDone" happy="true">
                 <source>finished</source>
+                <target>done</target>
+            </transition>
+
+            <transition happy="true">
+                <source>done</source>
                 <target>closed</target>
                 <event>close</event>
             </transition>

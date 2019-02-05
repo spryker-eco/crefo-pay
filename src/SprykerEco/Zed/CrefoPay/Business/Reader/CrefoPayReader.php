@@ -111,4 +111,21 @@ class CrefoPayReader implements CrefoPayReaderInterface
                 $notificationTransactionStatus
             );
     }
+
+    /**
+     * @param int $idSalesOrderItem
+     * @param string $notificationOredrStatus
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer
+     */
+    public function findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
+        int $idSalesOrderItem,
+        string $notificationOredrStatus
+    ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer {
+        return $this->repository
+            ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
+                $idSalesOrderItem,
+                $notificationOredrStatus
+            );
+    }
 }

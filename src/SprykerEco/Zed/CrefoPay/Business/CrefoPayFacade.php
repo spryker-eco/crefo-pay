@@ -278,4 +278,68 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
             ->createIsExpiredOmsCondition()
             ->check($crefoPayToSalesOrderItemTransfer);
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsCapturePendingCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
+    {
+        return $this->getFactory()
+            ->createIsCapturePendingOmsCondition()
+            ->check($crefoPayToSalesOrderItemTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsCapturedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
+    {
+        return $this->getFactory()
+            ->createIsCapturedOmsCondition()
+            ->check($crefoPayToSalesOrderItemTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsFinishedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
+    {
+        return $this->getFactory()
+            ->createIsFinishedOmsCondition()
+            ->check($crefoPayToSalesOrderItemTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     *
+     * @return bool
+     */
+    public function checkIsDoneCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
+    {
+        return $this->getFactory()
+            ->createIsDoneOmsCondition()
+            ->check($crefoPayToSalesOrderItemTransfer);
+    }
 }

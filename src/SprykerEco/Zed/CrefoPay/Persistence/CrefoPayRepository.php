@@ -189,6 +189,38 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
     }
 
     /**
+     * @param int $idSalesOrderItem
+     * @param string $notificationOrderStatus
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer
+     */
+    public function findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
+        int $idSalesOrderItem,
+        string $notificationOrderStatus
+    ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer {
+        $query = $this->getPaymentCrefoPayOrderItemToCrefoPayNotificationQuery()
+            ->useSpyPaymentCrefoPayOrderItemQuery()
+                ->filterByFkSalesOrderItem($idSalesOrderItem)
+            ->endUse()
+            ->useSpyPaymentCrefoPayNotificationQuery()
+                ->filterByOrderStatus($notificationOrderStatus)
+            ->endUse();
+
+        $entityTransfer = $this->buildQueryFromCriteria($query)->findOne();
+
+        if ($entityTransfer === null) {
+            return new PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer();
+        }
+
+        return $this->getFactory()
+            ->createCrefoPayPersistenceMapper()
+            ->mapEntityTransferToPaymentCrefoPayOrderItemToCrefoPayNotificationTransfer(
+                $entityTransfer,
+                new PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer()
+            );
+    }
+
+    /**
      * @return \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayQuery
      */
     protected function getPaymentCrefoPayQuery(): SpyPaymentCrefoPayQuery
