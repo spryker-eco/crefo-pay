@@ -10,8 +10,9 @@ namespace SprykerEco\Zed\CrefoPay\Communication;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CancelOmsCommand;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CaptureOmsCommand;
-use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandInterface;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandByOrderInterface;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\FinishOmsCommand;
+use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandByItemInterface;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Command\RefundOmsCommand;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\CrefoPayOmsConditionInterface;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\Condition\IsAuthorizedOmsCondition;
@@ -37,9 +38,9 @@ use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToSalesFacadeInterface;
 class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
 {
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandInterface
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandByOrderInterface
      */
-    public function createCancelOmsCommand(): CrefoPayOmsCommandInterface
+    public function createCancelOmsCommand(): CrefoPayOmsCommandByOrderInterface
     {
         return new CancelOmsCommand(
             $this->createCrefoPayOmsMapper(),
@@ -49,9 +50,9 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandInterface
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandByOrderInterface
      */
-    public function createCaptureOmsCommand(): CrefoPayOmsCommandInterface
+    public function createCaptureOmsCommand(): CrefoPayOmsCommandByOrderInterface
     {
         return new CaptureOmsCommand(
             $this->createCrefoPayOmsMapper(),
@@ -60,9 +61,9 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandInterface
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandByItemInterface
      */
-    public function createRefundOmsCommand(): CrefoPayOmsCommandInterface
+    public function createRefundOmsCommand(): CrefoPayOmsCommandByItemInterface
     {
         return new RefundOmsCommand(
             $this->createCrefoPayOmsMapper(),
@@ -71,9 +72,9 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandInterface
+     * @return \SprykerEco\Zed\CrefoPay\Communication\Oms\Command\CrefoPayOmsCommandByOrderInterface
      */
-    public function createFinishOmsCommand(): CrefoPayOmsCommandInterface
+    public function createFinishOmsCommand(): CrefoPayOmsCommandByOrderInterface
     {
         return new FinishOmsCommand(
             $this->createCrefoPayOmsMapper(),

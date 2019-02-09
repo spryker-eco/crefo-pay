@@ -97,14 +97,11 @@ interface CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function executeCancelCommand(
-        OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
-    ): void;
+    public function executeCancelCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void;
 
     /**
      * Specification:
@@ -114,14 +111,11 @@ interface CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function executeCaptureCommand(
-        OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
-    ): void;
+    public function executeCaptureCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void;
 
     /**
      * Specification:
@@ -130,15 +124,11 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
+     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
      *
      * @return void
      */
-    public function executeRefundCommand(
-        OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
-    ): void;
+    public function executeRefundCommand(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): void;
 
     /**
      * Specification:
@@ -148,14 +138,11 @@ interface CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function executeFinishCommand(
-        OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
-    ): void;
+    public function executeFinishCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void;
 
     /**
      * Specification:

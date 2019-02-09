@@ -10,7 +10,6 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder;
 use Generated\Shared\Transfer\CrefoPayApiFinishRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
@@ -30,15 +29,12 @@ class FinishOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
     }
 
     /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiRequestTransfer
      */
-    public function buildRequestTransfer(
-        OrderTransfer $orderTransfer,
-        CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
-    ): CrefoPayApiRequestTransfer {
+    public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiRequestTransfer
+    {
         return (new CrefoPayApiRequestTransfer())
             ->setFinishRequest(
                 $this->createFinishRequestTransfer($crefoPayOmsCommandTransfer->getPaymentCrefoPay())

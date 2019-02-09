@@ -113,17 +113,15 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function executeCancelCommand(
-        OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
-    ): void {
+    public function executeCancelCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void
+    {
         $this->getFactory()
             ->createCancelOmsCommand()
-            ->execute($orderTransfer, $crefoPayToSalesOrderItemsCollection);
+            ->execute($orderTransfer, $salesOrderItemIds);
     }
 
     /**
@@ -132,17 +130,15 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function executeCaptureCommand(
-        OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
-    ): void {
+    public function executeCaptureCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void
+    {
         $this->getFactory()
             ->createCaptureOmsCommand()
-            ->execute($orderTransfer, $crefoPayToSalesOrderItemsCollection);
+            ->execute($orderTransfer, $salesOrderItemIds);
     }
 
     /**
@@ -155,13 +151,9 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return void
      */
-    public function executeRefundCommand(
-        OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
-    ): void {
-        $this->getFactory()
-            ->createRefundOmsCommand()
-            ->execute($orderTransfer, $crefoPayToSalesOrderItemsCollection);
+    public function executeRefundCommand(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): void
+    {
+
     }
 
     /**
@@ -170,17 +162,15 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function executeFinishCommand(
-        OrderTransfer $orderTransfer,
-        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
-    ): void {
+    public function executeFinishCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void
+    {
         $this->getFactory()
             ->createFinishOmsCommand()
-            ->execute($orderTransfer, $crefoPayToSalesOrderItemsCollection);
+            ->execute($orderTransfer, $salesOrderItemIds);
     }
 
     /**

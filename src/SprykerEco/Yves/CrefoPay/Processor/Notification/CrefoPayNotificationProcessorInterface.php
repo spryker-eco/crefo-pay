@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerEco\Yves\CrefoPay\Processor;
+namespace SprykerEco\Yves\CrefoPay\Processor\Notification;
 
 use Symfony\Component\HttpFoundation\Request;
 

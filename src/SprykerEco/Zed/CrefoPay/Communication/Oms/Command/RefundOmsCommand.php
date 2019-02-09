@@ -7,13 +7,13 @@
 
 namespace SprykerEco\Zed\CrefoPay\Communication\Oms\Command;
 
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer;
-use Orm\Zed\Sales\Persistence\SpySalesOrder;
+use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
+use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 use SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface;
 
-class RefundOmsCommand implements CrefoPayOmsCommandInterface
+class RefundOmsCommand implements CrefoPayOmsCommandByItemInterface
 {
     /**
      * @var \SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface
@@ -38,25 +38,13 @@ class RefundOmsCommand implements CrefoPayOmsCommandInterface
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $orderItems
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItem
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
      * @return void
      */
-    public function execute(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): void
+    public function execute(SpySalesOrderItem $orderItem, ReadOnlyArrayObject $data): void
     {
-        $orderTransfer = $this->mapper->mapSpySalesOrderToOrderTransfer($orderEntity);
-        $crefoPayToSalesOrderItemsCollection = $this->mapper
-            ->mapSpySalesOrderItemsToCrefoPayToSalesOrderItemsCollection(
-                $orderItems,
-                new CrefoPayToSalesOrderItemsCollectionTransfer()
-            );
-
-        $this->facade
-            ->executeRefundCommand(
-                $orderTransfer,
-                $crefoPayToSalesOrderItemsCollection
-            );
+        $this->facade->executeRefundCommand($orderItem->getIdSalesOrderItem());
     }
 }

@@ -30,6 +30,13 @@ interface CrefoPayReaderInterface
     public function findPaymentCrefoPayByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayTransfer;
 
     /**
+     * @param int $idSalesOrderItem
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
+     */
+    public function findPaymentCrefoPayByIdSalesOrderItem(int $idSalesOrderItem): PaymentCrefoPayTransfer;
+
+    /**
      * @param string $crefoPayOrderId
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
@@ -44,6 +51,13 @@ interface CrefoPayReaderInterface
     public function findPaymentCrefoPayOrderItemsByCrefoPayToSalesOrderItemsCollection(
         CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
     ): PaymentCrefoPayOrderItemCollectionTransfer;
+
+    /**
+     * @param int[] $salesOrderItemIds
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
+     */
+    public function findPaymentCrefoPayOrderItemsBySalesOrderItemIds(array $salesOrderItemIds): PaymentCrefoPayOrderItemCollectionTransfer;
 
     /**
      * @param int $idSalesOrderItem

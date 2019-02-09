@@ -143,13 +143,13 @@ class FinishOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy()
         );
 
-        /** @var \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItem */
-        $crefoPayToSalesOrderItem = $crefoPayOmsCommandTransfer
-            ->getCrefoPayToSalesOrderItemsCollection()
-            ->getCrefoPayToSalesOrderItems()
+        /** @var \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer */
+        $paymentCrefoPayOrderItemTransfer = $crefoPayOmsCommandTransfer
+            ->getPaymentCrefoPayOrderItemCollection()
+            ->getCrefoPayOrderItems()
             ->offsetGet(0);
 
-        $key = array_search($crefoPayToSalesOrderItem->getIdSalesOrderItem(), $affectedSalesOrderItemIds);
+        $key = array_search($paymentCrefoPayOrderItemTransfer->getFkSalesOrderItem(), $affectedSalesOrderItemIds);
         if ($key !== false) {
             unset($affectedSalesOrderItemIds[$key]);
         }

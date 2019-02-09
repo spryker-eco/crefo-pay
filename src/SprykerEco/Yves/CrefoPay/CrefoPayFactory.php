@@ -24,10 +24,10 @@ use SprykerEco\Yves\CrefoPay\Form\PrepaidSubForm;
 use SprykerEco\Yves\CrefoPay\Form\SofortSubForm;
 use SprykerEco\Yves\CrefoPay\Payment\CrefoPayPaymentExpander;
 use SprykerEco\Yves\CrefoPay\Payment\CrefoPayPaymentExpanderInterface;
-use SprykerEco\Yves\CrefoPay\Processor\CrefoPayNotificationProcessor;
-use SprykerEco\Yves\CrefoPay\Processor\CrefoPayNotificationProcessorInterface;
-use SprykerEco\Yves\CrefoPay\Processor\Mapper\CrefoPayNotificationProcessorMapper;
-use SprykerEco\Yves\CrefoPay\Processor\Mapper\CrefoPayNotificationProcessorMapperInterface;
+use SprykerEco\Yves\CrefoPay\Processor\Notification\CrefoPayNotificationProcessor;
+use SprykerEco\Yves\CrefoPay\Processor\Notification\CrefoPayNotificationProcessorInterface;
+use SprykerEco\Yves\CrefoPay\Processor\Notification\Mapper\CrefoPayNotificationProcessorMapper;
+use SprykerEco\Yves\CrefoPay\Processor\Notification\Mapper\CrefoPayNotificationProcessorMapperInterface;
 use SprykerEco\Yves\CrefoPay\Quote\CrefoPayQuoteExpander;
 use SprykerEco\Yves\CrefoPay\Quote\CrefoPayQuoteExpanderInterface;
 
@@ -54,7 +54,7 @@ class CrefoPayFactory extends AbstractFactory
     }
 
     /**
-     * @return \SprykerEco\Yves\CrefoPay\Processor\CrefoPayNotificationProcessorInterface
+     * @return \SprykerEco\Yves\CrefoPay\Processor\Notification\CrefoPayNotificationProcessorInterface
      */
     public function createCrefoPayNotificationProcessor(): CrefoPayNotificationProcessorInterface
     {
@@ -65,7 +65,7 @@ class CrefoPayFactory extends AbstractFactory
     }
 
     /**
-     * @return \SprykerEco\Yves\CrefoPay\Processor\Mapper\CrefoPayNotificationProcessorMapperInterface
+     * @return \SprykerEco\Yves\CrefoPay\Processor\Notification\Mapper\CrefoPayNotificationProcessorMapperInterface
      */
     public function createCrefoPayNotificationProcessorMapper(): CrefoPayNotificationProcessorMapperInterface
     {

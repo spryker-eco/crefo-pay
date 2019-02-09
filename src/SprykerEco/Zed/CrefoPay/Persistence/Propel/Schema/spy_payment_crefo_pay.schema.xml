@@ -31,6 +31,11 @@
         <column name="fk_payment_crefo_pay" type="INTEGER" required="true"/>
         <column name="fk_sales_order_item" type="INTEGER" required="true"/>
 
+        <column name="amount" required="false" type="INTEGER" />
+        <column name="vat_amount" required="false" type="INTEGER" />
+        <column name="vat_rate" required="false" type="FLOAT" />
+        <column name="refundable_amount" required="false" type="INTEGER" />
+        <column name="quantity" required="false" type="INTEGER" />
         <column name="status" required="true" type="VARCHAR"/>
         <column name="capture_id" required="false" type="VARCHAR"/>
 

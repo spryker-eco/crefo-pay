@@ -89,6 +89,11 @@
         <property name="idPaymentCrefoPayOrderItem" type="int" />
         <property name="fkPaymentCrefoPay" type="int" />
         <property name="fkSalesOrderItem" type="int" />
+        <property name="amount" type="int" />
+        <property name="vatAmount" type="int" />
+        <property name="vatRate" type="float" />
+        <property name="refundableAmount" type="int" />
+        <property name="quantity" type="int" />
         <property name="status" type="string" />
         <property name="captureId" type="string" />
     </transfer>
@@ -127,8 +132,9 @@
     <transfer name="CrefoPayOmsCommand">
         <property name="request" type="CrefoPayApiRequest" />
         <property name="response" type="CrefoPayApiResponse" />
+        <property name="order" type="Order" />
         <property name="paymentCrefoPay" type="PaymentCrefoPay" />
-        <property name="crefoPayToSalesOrderItemsCollection" type="CrefoPayToSalesOrderItemsCollection" />
+        <property name="paymentCrefoPayOrderItemCollection" type="PaymentCrefoPayOrderItemCollection" />
     </transfer>
 
 </transfers>

@@ -10,7 +10,7 @@ namespace SprykerEco\Zed\CrefoPay\Communication\Oms\Command;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 
-interface CrefoPayOmsCommandInterface
+interface CrefoPayOmsCommandByOrderInterface
 {
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $orderItems

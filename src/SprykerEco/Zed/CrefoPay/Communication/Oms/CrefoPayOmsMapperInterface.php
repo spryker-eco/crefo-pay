@@ -7,7 +7,6 @@
 
 namespace SprykerEco\Zed\CrefoPay\Communication\Oms;
 
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer;
 use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
@@ -32,15 +31,4 @@ interface CrefoPayOmsMapperInterface
         SpySalesOrderItem $orderItemEntity,
         CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
     ): CrefoPayToSalesOrderItemTransfer;
-
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $orderItemEntities
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
-     *
-     * @return \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer
-     */
-    public function mapSpySalesOrderItemsToCrefoPayToSalesOrderItemsCollection(
-        array $orderItemEntities,
-        CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
-    ): CrefoPayToSalesOrderItemsCollectionTransfer;
 }

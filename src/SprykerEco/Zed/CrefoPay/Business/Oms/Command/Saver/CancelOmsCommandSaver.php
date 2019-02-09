@@ -121,9 +121,9 @@ class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
      */
     protected function isSingleOrderItemCommandExecution(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): bool
     {
-        $crefoPayToSalesOrderItemsCollection = $crefoPayOmsCommandTransfer->getCrefoPayToSalesOrderItemsCollection();
+        $paymentCrefoPayOrderItemCollection = $crefoPayOmsCommandTransfer->getPaymentCrefoPayOrderItemCollection();
 
-        return $crefoPayToSalesOrderItemsCollection->getCrefoPayToSalesOrderItems()->count() === 1;
+        return $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->count() === 1;
     }
 
     /**
@@ -143,13 +143,13 @@ class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy()
         );
 
-        /** @var \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItem */
-        $crefoPayToSalesOrderItem = $crefoPayOmsCommandTransfer
-            ->getCrefoPayToSalesOrderItemsCollection()
-            ->getCrefoPayToSalesOrderItems()
+        /** @var \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer */
+        $paymentCrefoPayOrderItemTransfer = $crefoPayOmsCommandTransfer
+            ->getPaymentCrefoPayOrderItemCollection()
+            ->getCrefoPayOrderItems()
             ->offsetGet(0);
 
-        $key = array_search($crefoPayToSalesOrderItem->getIdSalesOrderItem(), $affectedSalesOrderItemIds);
+        $key = array_search($paymentCrefoPayOrderItemTransfer->getFkSalesOrderItem(), $affectedSalesOrderItemIds);
         if ($key !== false) {
             unset($affectedSalesOrderItemIds[$key]);
         }

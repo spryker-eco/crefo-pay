@@ -7,14 +7,14 @@
 
 namespace SprykerEco\Zed\CrefoPay\Communication\Oms\Command;
 
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
+use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 use SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
-class CancelOmsCommand implements CrefoPayOmsCommandInterface
+class CancelOmsCommand implements CrefoPayOmsCommandByOrderInterface
 {
     /**
      * @var \SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface
@@ -60,16 +60,14 @@ class CancelOmsCommand implements CrefoPayOmsCommandInterface
         }
 
         $orderTransfer = $this->mapper->mapSpySalesOrderToOrderTransfer($orderEntity);
-        $crefoPayToSalesOrderItemsCollection = $this->mapper
-            ->mapSpySalesOrderItemsToCrefoPayToSalesOrderItemsCollection(
-                $orderItems,
-                new CrefoPayToSalesOrderItemsCollectionTransfer()
-            );
 
-        $this->facade
-            ->executeCancelCommand(
-                $orderTransfer,
-                $crefoPayToSalesOrderItemsCollection
-            );
+        $salesOrderItemIds = array_map(
+            function (SpySalesOrderItem $orderItem) {
+                return $orderItem->getIdSalesOrderItem();
+            },
+            $orderItems
+        );
+
+        $this->facade->executeCancelCommand($orderTransfer, $salesOrderItemIds);
     }
 }
