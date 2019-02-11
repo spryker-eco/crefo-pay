@@ -121,9 +121,9 @@ class FinishOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
      */
     protected function isSingleOrderItemCommandExecution(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): bool
     {
-        $crefoPayToSalesOrderItemsCollection = $crefoPayOmsCommandTransfer->getCrefoPayToSalesOrderItemsCollection();
+        $paymentCrefoPayOrderItemCollection = $crefoPayOmsCommandTransfer->getPaymentCrefoPayOrderItemCollection();
 
-        return $crefoPayToSalesOrderItemsCollection->getCrefoPayToSalesOrderItems()->count() === 1;
+        return $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->count() === 1;
     }
 
     /**
