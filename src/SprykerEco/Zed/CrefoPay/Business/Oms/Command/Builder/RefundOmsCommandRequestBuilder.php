@@ -8,17 +8,11 @@
 namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder;
 
 use Generated\Shared\Transfer\CrefoPayApiAmountTransfer;
-use Generated\Shared\Transfer\CrefoPayApiCaptureRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRefundRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer;
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
-use Generated\Shared\Transfer\ExpenseTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
-use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
-use SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface;
 
 class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilderInterface
 {
@@ -36,77 +30,48 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
     }
 
     /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiRequestTransfer
      */
-    public function buildRequestTransfer(
-        OrderTransfer $orderTransfer,
-        CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
-    ): CrefoPayApiRequestTransfer {
-        $refundRequestTransfer = $this->createRefundRequestTransfer(
-            $crefoPayOmsCommandTransfer->getPaymentCrefoPay()
-        );
-        $refundRequestTransfer->setAmount(
-            $this->createAmountTransfer(
-                $orderTransfer,
-                $crefoPayOmsCommandTransfer
-            )
-        );
+    public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiRequestTransfer
+    {
+        $refundRequestTransfer = $this->createRefundRequestTransfer($crefoPayOmsCommandTransfer);
 
         return (new CrefoPayApiRequestTransfer())
             ->setRefundRequest($refundRequestTransfer);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer $paymentCrefoPayTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
-     * @return \Generated\Shared\Transfer\CrefoPayApiCaptureRequestTransfer
+     * @return \Generated\Shared\Transfer\CrefoPayApiRefundRequestTransfer
      */
-    protected function createRefundRequestTransfer(PaymentCrefoPayTransfer $paymentCrefoPayTransfer): CrefoPayApiRefundRequestTransfer
+    protected function createRefundRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiRefundRequestTransfer
     {
+        /** @var \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer */
+        $paymentCrefoPayOrderItemTransfer = $crefoPayOmsCommandTransfer
+            ->getPaymentCrefoPayOrderItemCollection()
+            ->getCrefoPayOrderItems()
+            ->offsetGet(0);
+
         return (new CrefoPayApiRefundRequestTransfer())
             ->setMerchantID($this->config->getMerchantId())
             ->setStoreID($this->config->getStoreId())
-            ->setOrderID($paymentCrefoPayTransfer->getCrefoPayOrderId())
-            ->setCaptureID('14acf3b5833637911638bab0cb2917')
+            ->setOrderID($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId())
+            ->setCaptureID($paymentCrefoPayOrderItemTransfer->getCaptureId())
+            ->setAmount($this->createAmountTransfer($paymentCrefoPayOrderItemTransfer))
             ->setRefundDescription('RefundDescription');
     }
 
     /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiAmountTransfer
      */
-    protected function createAmountTransfer(
-        OrderTransfer $orderTransfer,
-        CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
-    ): CrefoPayApiAmountTransfer {
-        $amountTransfer = new CrefoPayApiAmountTransfer();
-        $crefoPayToSalesOrderItemsCollection = $crefoPayOmsCommandTransfer->getCrefoPayToSalesOrderItemsCollection();
-
-        $captureAmount = $this->calculateOrderItemsAmount($crefoPayToSalesOrderItemsCollection);
-
-        return $amountTransfer
-            ->setAmount(23026);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
-     *
-     * @return int
-     */
-    protected function calculateOrderItemsAmount(CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection): int
+    protected function createAmountTransfer(PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer): CrefoPayApiAmountTransfer
     {
-        return array_sum(
-            array_map(
-                function (CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItem) {
-                    return $crefoPayToSalesOrderItem->getRefundableAmount();
-                },
-                $crefoPayToSalesOrderItemsCollection->getCrefoPayToSalesOrderItems()->getArrayCopy()
-            )
-        );
+        return (new CrefoPayApiAmountTransfer())
+            ->setAmount($paymentCrefoPayOrderItemTransfer->getRefundableAmount());
     }
 }
