@@ -7,7 +7,6 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Oms\Condition;
 
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 
 class IsReservedOmsCondition implements CrefoPayOmsConditionInterface
@@ -28,15 +27,15 @@ class IsReservedOmsCondition implements CrefoPayOmsConditionInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function check(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool
+    public function check(int $idSalesOrderItem): bool
     {
         $relationTransfer = $this->reader
             ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestType(
-                $crefoPayToSalesOrderItemTransfer->getIdSalesOrderItem(),
+                $idSalesOrderItem,
                 static::REQUEST_TYPE
             );
 

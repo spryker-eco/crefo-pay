@@ -29,8 +29,7 @@ class IsCapturedPlugin extends AbstractPlugin implements ConditionInterface
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        return $this->getFactory()
-            ->createIsCapturedOmsCondition()
-            ->check($orderItem);
+        return $this->getFacade()
+            ->checkIsCapturedCondition($orderItem->getIdSalesOrderItem());
     }
 }

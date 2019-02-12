@@ -29,8 +29,7 @@ class IsExpiredPlugin extends AbstractPlugin implements ConditionInterface
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        return $this->getFactory()
-            ->createIsExpiredOmsCondition()
-            ->check($orderItem);
+        return $this->getFacade()
+            ->checkIsExpiredCondition($orderItem->getIdSalesOrderItem());
     }
 }

@@ -29,8 +29,7 @@ class IsCancellationPendingPlugin extends AbstractPlugin implements ConditionInt
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        return $this->getFactory()
-            ->createIsCancellationPendingOmsCondition()
-            ->check($orderItem);
+        return $this->getFacade()
+            ->checkIsCancellationPendingCondition($orderItem->getIdSalesOrderItem());
     }
 }

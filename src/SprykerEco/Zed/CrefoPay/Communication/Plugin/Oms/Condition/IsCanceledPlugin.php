@@ -29,8 +29,7 @@ class IsCanceledPlugin extends AbstractPlugin implements ConditionInterface
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        return $this->getFactory()
-            ->createIsCanceledOmsCondition()
-            ->check($orderItem);
+        return $this->getFacade()
+            ->checkIsCanceledCondition($orderItem->getIdSalesOrderItem());
     }
 }

@@ -7,10 +7,8 @@
 
 namespace SprykerEco\Zed\CrefoPay\Communication\Oms;
 
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
-use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCalculationFacadeInterface;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToSalesFacadeInterface;
 
@@ -50,26 +48,5 @@ class CrefoPayOmsMapper implements CrefoPayOmsMapperInterface
 
         return $this->calculationFacade
             ->recalculateOrder($orderTransfer);
-    }
-
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItemEntity
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
-     *
-     * @return \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer
-     */
-    public function mapSpySalesOrderItemToCrefoPayToSalesOrderItemTransfer(
-        SpySalesOrderItem $orderItemEntity,
-        CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
-    ): CrefoPayToSalesOrderItemTransfer {
-        $crefoPayToSalesOrderItemTransfer
-            ->setIdSalesOrderItem($orderItemEntity->getIdSalesOrderItem())
-            ->setAmount($orderItemEntity->getPriceToPayAggregation())
-            ->setVatAmount($orderItemEntity->getTaxAmountFullAggregation())
-            ->setVatRate($orderItemEntity->getTaxRate())
-            ->setRefundableAmount($orderItemEntity->getRefundableAmount())
-            ->setQuantity($orderItemEntity->getQuantity());
-
-        return $crefoPayToSalesOrderItemTransfer;
     }
 }

@@ -29,8 +29,7 @@ class IsDonePlugin extends AbstractPlugin implements ConditionInterface
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        return $this->getFactory()
-            ->createIsDoneOmsCondition()
-            ->check($orderItem);
+        return $this->getFacade()
+            ->checkIsDoneCondition($orderItem->getIdSalesOrderItem());
     }
 }

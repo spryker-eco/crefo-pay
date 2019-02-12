@@ -29,8 +29,7 @@ class IsReservedPlugin extends AbstractPlugin implements ConditionInterface
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        return $this->getFactory()
-            ->createIsReservedOmsCondition()
-            ->check($orderItem);
+        return $this->getFacade()
+            ->checkIsReservedCondition($orderItem->getIdSalesOrderItem());
     }
 }

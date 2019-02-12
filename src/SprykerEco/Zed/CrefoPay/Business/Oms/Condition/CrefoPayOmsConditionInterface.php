@@ -7,14 +7,12 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Oms\Condition;
 
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
-
 interface CrefoPayOmsConditionInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function check(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+    public function check(int $idSalesOrderItem): bool;
 }

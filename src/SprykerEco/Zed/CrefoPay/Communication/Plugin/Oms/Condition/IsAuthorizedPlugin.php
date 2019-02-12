@@ -29,8 +29,7 @@ class IsAuthorizedPlugin extends AbstractPlugin implements ConditionInterface
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        return $this->getFactory()
-            ->createIsAuthorizedOmsCondition()
-            ->check($orderItem);
+        return $this->getFacade()
+            ->checkIsAuthorizedCondition($orderItem->getIdSalesOrderItem());
     }
 }

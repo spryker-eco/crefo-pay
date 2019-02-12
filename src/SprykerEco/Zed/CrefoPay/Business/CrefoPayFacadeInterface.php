@@ -150,11 +150,11 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function checkIsReservedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+    public function checkIsReservedCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -162,11 +162,11 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function checkIsAuthorizedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+    public function checkIsAuthorizedCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -174,11 +174,11 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function checkIsWaitingForCaptureCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+    public function checkIsWaitingForCaptureCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -186,11 +186,11 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function checkIsCancellationPendingCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+    public function checkIsCancellationPendingCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -198,11 +198,11 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function checkIsCanceledCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+    public function checkIsCanceledCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -210,11 +210,11 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function checkIsExpiredCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+    public function checkIsExpiredCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -222,11 +222,11 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function checkIsCapturePendingCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+    public function checkIsCapturePendingCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -234,11 +234,11 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function checkIsCapturedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+    public function checkIsCapturedCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -246,11 +246,11 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function checkIsFinishedCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+    public function checkIsFinishedCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -258,9 +258,9 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return bool
      */
-    public function checkIsDoneCondition(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): bool;
+    public function checkIsDoneCondition(int $idSalesOrderItem): bool;
 }

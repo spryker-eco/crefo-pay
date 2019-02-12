@@ -29,8 +29,7 @@ class IsWaitingForCapturePlugin extends AbstractPlugin implements ConditionInter
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        return $this->getFactory()
-            ->createIsWaitingForCaptureOmsCondition()
-            ->check($orderItem);
+        return $this->getFacade()
+            ->checkIsWaitingForCaptureCondition($orderItem->getIdSalesOrderItem());
     }
 }

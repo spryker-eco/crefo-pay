@@ -11,6 +11,9 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 use SprykerEco\Shared\CrefoPay\CrefoPayConfig as SharedCrefoPayConfig;
 use SprykerEco\Shared\CrefoPay\CrefoPayConstants;
 
+/**
+ * @method \SprykerEco\Shared\CrefoPay\CrefoPayConfig getSharedConfig()
+ */
 class CrefoPayConfig extends AbstractBundleConfig
 {
     protected const NOTIFICATION_TRANSACTION_STATUS_ACKNOWLEDGE_PENDING = 'ACKNOWLEDGEPENDING';

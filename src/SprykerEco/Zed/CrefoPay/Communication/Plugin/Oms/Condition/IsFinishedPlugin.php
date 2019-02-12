@@ -29,8 +29,7 @@ class IsFinishedPlugin extends AbstractPlugin implements ConditionInterface
      */
     public function check(SpySalesOrderItem $orderItem): bool
     {
-        return $this->getFactory()
-            ->createIsFinishedOmsCondition()
-            ->check($orderItem);
+        return $this->getFacade()
+            ->checkIsFinishedCondition($orderItem->getIdSalesOrderItem());
     }
 }
