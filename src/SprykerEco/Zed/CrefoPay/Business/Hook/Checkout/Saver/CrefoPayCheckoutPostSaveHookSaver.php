@@ -106,7 +106,7 @@ class CrefoPayCheckoutPostSaveHookSaver implements CrefoPayCheckoutHookSaverInte
     protected function getPaymentCrefoPayOrderItemCollectionTransfer(CrefoPayApiRequestTransfer $requestTransfer): PaymentCrefoPayOrderItemCollectionTransfer
     {
         $paymentCrefoPayOrderItemCollection = $this->reader
-            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderId(
+            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(
                 $requestTransfer->getReserveRequest()->getOrderID()
             );
 

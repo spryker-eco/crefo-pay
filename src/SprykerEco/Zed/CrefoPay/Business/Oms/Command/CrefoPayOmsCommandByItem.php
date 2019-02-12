@@ -7,10 +7,6 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command;
 
-use ArrayObject;
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer;
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface;
@@ -58,13 +54,13 @@ class CrefoPayOmsCommandByItem implements CrefoPayOmsCommandByItemInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return void
      */
-    public function execute(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): void
+    public function execute(int $idSalesOrderItem): void
     {
-        $crefoPayOmsCommandTransfer = $this->createCrefoPayOmsCommandTransfer($crefoPayToSalesOrderItemTransfer);
+        $crefoPayOmsCommandTransfer = $this->createCrefoPayOmsCommandTransfer($idSalesOrderItem);
 
         $requestTransfer = $this->requestBuilder
             ->buildRequestTransfer($crefoPayOmsCommandTransfer);
@@ -78,21 +74,20 @@ class CrefoPayOmsCommandByItem implements CrefoPayOmsCommandByItemInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
      */
-    protected function createCrefoPayOmsCommandTransfer(
-        CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
-    ): CrefoPayOmsCommandTransfer {
+    protected function createCrefoPayOmsCommandTransfer(int $idSalesOrderItem): CrefoPayOmsCommandTransfer
+    {
         $paymentCrefoPayTransfer = $this->reader
-            ->findPaymentCrefoPayByIdSalesOrderItem($crefoPayToSalesOrderItemTransfer->getIdSalesOrderItem());
+            ->findPaymentCrefoPayByIdSalesOrderItem($idSalesOrderItem);
 
-        $crefoPayToSalesOrderItemsCollection = (new CrefoPayToSalesOrderItemsCollectionTransfer())
-            ->setCrefoPayToSalesOrderItems(new ArrayObject([$crefoPayToSalesOrderItemTransfer]));
+        $paymentCrefoPayOrderItemCollection = $this->reader
+            ->findPaymentCrefoPayOrderItemsBySalesOrderItemIds([$idSalesOrderItem]);
 
         return (new CrefoPayOmsCommandTransfer)
             ->setPaymentCrefoPay($paymentCrefoPayTransfer)
-            ->setCrefoPayToSalesOrderItemsCollection($crefoPayToSalesOrderItemsCollection);
+            ->setPaymentCrefoPayOrderItemCollection($paymentCrefoPayOrderItemCollection);
     }
 }

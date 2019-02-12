@@ -25,6 +25,8 @@ use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CaptureOmsCommandClient;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\FinishOmsCommandClient;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\RefundOmsCommandClient;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandByItem;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandByItemInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandByOrder;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandByOrderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CancelOmsCommandSaver;
@@ -190,11 +192,11 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandByOrderInterface
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandByItemInterface
      */
-    public function createRefundOmsCommand(): CrefoPayOmsCommandByOrderInterface
+    public function createRefundOmsCommand(): CrefoPayOmsCommandByItemInterface
     {
-        return new CrefoPayOmsCommandByOrder(
+        return new CrefoPayOmsCommandByItem(
             $this->createRefundOmsCommandRequestBuilder(),
             $this->createReader(),
             $this->createRefundOmsCommandClient(),

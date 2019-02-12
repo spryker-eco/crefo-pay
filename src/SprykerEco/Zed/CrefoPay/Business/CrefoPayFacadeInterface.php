@@ -124,11 +124,11 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return void
      */
-    public function executeRefundCommand(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): void;
+    public function executeRefundCommand(int $idSalesOrderItem): void;
 
     /**
      * Specification:

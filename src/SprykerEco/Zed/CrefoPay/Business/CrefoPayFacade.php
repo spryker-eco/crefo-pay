@@ -146,14 +146,15 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
+     * @param int $idSalesOrderItem
      *
      * @return void
      */
-    public function executeRefundCommand(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): void
+    public function executeRefundCommand(int $idSalesOrderItem): void
     {
-
+        $this->getFactory()
+            ->createRefundOmsCommand()
+            ->execute($idSalesOrderItem);
     }
 
     /**

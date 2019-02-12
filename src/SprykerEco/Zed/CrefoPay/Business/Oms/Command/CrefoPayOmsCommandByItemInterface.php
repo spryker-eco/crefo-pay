@@ -7,14 +7,12 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command;
 
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
-
 interface CrefoPayOmsCommandByItemInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer
+     * @param int $idSalesOrderItem
      *
      * @return void
      */
-    public function execute(CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer): void;
+    public function execute(int $idSalesOrderItem): void;
 }

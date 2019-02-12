@@ -81,7 +81,7 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
 
         $this->writer->updatePaymentEntities(
             $this->getPaymentCrefoPayOrderItemsToCapture($crefoPayOmsCommandTransfer),
-            $this->getPaymentCrefoPay($crefoPayOmsCommandTransfer),
+            $this->getPaymentCrefoPayTransfer($crefoPayOmsCommandTransfer),
             $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId()
         );
 
@@ -130,14 +130,14 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    protected function getPaymentCrefoPay(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): PaymentCrefoPayTransfer
+    protected function getPaymentCrefoPayTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): PaymentCrefoPayTransfer
     {
         $paymentCrefoPayTransfer = $crefoPayOmsCommandTransfer->getPaymentCrefoPay();
         $capturedAmount = $paymentCrefoPayTransfer->getCapturedAmount();
-        $requestedAmount = $crefoPayOmsCommandTransfer->getRequest()->getCaptureRequest()->getAmount()->getAmount();
+        $requestedToCaptureAmount = $crefoPayOmsCommandTransfer->getRequest()->getCaptureRequest()->getAmount()->getAmount();
 
         return $paymentCrefoPayTransfer
-            ->setCapturedAmount($capturedAmount + $requestedAmount);
+            ->setCapturedAmount($capturedAmount + $requestedToCaptureAmount);
     }
 
     /**
@@ -170,7 +170,7 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     protected function getAffectedSalesOrderItemIds(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): array
     {
         $paymentCrefoPayOrderItemCollection = $this->reader
-            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderId(
+            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(
                 $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId()
             );
 

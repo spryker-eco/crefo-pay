@@ -38,10 +38,14 @@ interface CrefoPayReaderInterface
 
     /**
      * @param string $crefoPayOrderId
+     * @param string|null $captureId
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer;
+    public function findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(
+        string $crefoPayOrderId,
+        ?string $captureId = null
+    ): PaymentCrefoPayOrderItemCollectionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection

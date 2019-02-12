@@ -78,6 +78,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getRefundDescription(): string
+    {
+        return $this->get(CrefoPayConstants::REFUND_DESCRIPTION);
+    }
+
+    /**
+     * @return string
+     */
     public function getIntegrationType(): string
     {
         return SharedCrefoPayConfig::INTEGRATION_TYPE;

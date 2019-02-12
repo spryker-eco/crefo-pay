@@ -11,6 +11,7 @@ use ArrayObject;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
@@ -69,8 +70,8 @@ class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
         }
 
         $this->writer->updatePaymentEntities(
-            $this->getPaymentCrefoPayOrderItemCollection($crefoPayOmsCommandTransfer),
-            $this->getPaymentCrefoPay($crefoPayOmsCommandTransfer),
+            $crefoPayOmsCommandTransfer->getPaymentCrefoPayOrderItemCollection(),
+            $this->getPaymentCrefoPayTransfer($crefoPayOmsCommandTransfer),
             $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId()
         );
     }
@@ -83,21 +84,14 @@ class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     protected function getPaymentCrefoPayOrderItemCollection(
         CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
     ): PaymentCrefoPayOrderItemCollectionTransfer {
-
-        $status = $this->statusMapper
-            ->mapNotificationOrderStatusToOmsStatus(
-                $crefoPayOmsCommandTransfer->getResponse()->getCaptureResponse()->getStatus()
-            );
-        $captureId = $crefoPayOmsCommandTransfer->getRequest()->getCaptureRequest()->getCaptureID();
+        $status = $this->config->getOmsStatusCancellationPending();
         $paymentCrefoPayOrderItemCollection = $this->reader
-            ->findPaymentCrefoPayOrderItemsByCrefoPayToSalesOrderItemsCollection(
-                $crefoPayOmsCommandTransfer->getCrefoPayToSalesOrderItemsCollection()
+            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(
+                $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId()
             );
         $paymentCrefoPayOrderItems = array_map(
-            function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status, $captureId) {
-                return $paymentCrefoPayOrderItemTransfer
-                    ->setStatus($status)
-                    ->setCaptureId($captureId);
+            function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status) {
+                return $paymentCrefoPayOrderItemTransfer->setStatus($status);
             },
             $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy()
         );
@@ -111,13 +105,13 @@ class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    protected function getPaymentCrefoPay(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): PaymentCrefoPayTransfer
+    protected function getPaymentCrefoPayTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): PaymentCrefoPayTransfer
     {
         $paymentCrefoPayTransfer = $crefoPayOmsCommandTransfer->getPaymentCrefoPay();
-        $capturedAmount = $paymentCrefoPayTransfer->getCapturedAmount();
-        $requestedAmount = $crefoPayOmsCommandTransfer->getRequest()->getCaptureRequest()->getAmount()->getAmount();
+        $refundedAmount = $paymentCrefoPayTransfer->getRefundedAmount();
+        $requestedToRefundAmount = $crefoPayOmsCommandTransfer->getRequest()->getRefundRequest()->getAmount()->getAmount();
 
         return $paymentCrefoPayTransfer
-            ->setCapturedAmount($capturedAmount + $requestedAmount);
+            ->setCapturedAmount($refundedAmount + $requestedToRefundAmount);
     }
 }

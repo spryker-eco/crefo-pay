@@ -61,7 +61,7 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
             ->setOrderID($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId())
             ->setCaptureID($paymentCrefoPayOrderItemTransfer->getCaptureId())
             ->setAmount($this->createAmountTransfer($paymentCrefoPayOrderItemTransfer))
-            ->setRefundDescription('RefundDescription');
+            ->setRefundDescription($this->config->getRefundDescription());
     }
 
     /**
