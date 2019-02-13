@@ -7,7 +7,6 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder;
 
-use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
 
 interface CrefoPayOmsCommandRequestBuilderInterface
@@ -15,7 +14,7 @@ interface CrefoPayOmsCommandRequestBuilderInterface
     /**
      * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
-     * @return \Generated\Shared\Transfer\CrefoPayApiRequestTransfer
+     * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
      */
-    public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiRequestTransfer;
+    public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer;
 }

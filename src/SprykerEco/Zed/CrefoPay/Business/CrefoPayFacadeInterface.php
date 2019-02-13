@@ -111,11 +111,11 @@ interface CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int[] $salesOrderItemIds
+     * @param int $idSalesOrderItem
      *
      * @return void
      */
-    public function executeCaptureCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void;
+    public function executeCaptureCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void;
 
     /**
      * Specification:
@@ -124,11 +124,12 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      * @param int $idSalesOrderItem
      *
      * @return void
      */
-    public function executeRefundCommand(int $idSalesOrderItem): void;
+    public function executeRefundCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void;
 
     /**
      * Specification:

@@ -135,6 +135,8 @@
         <property name="order" type="Order" />
         <property name="paymentCrefoPay" type="PaymentCrefoPay" />
         <property name="paymentCrefoPayOrderItemCollection" type="PaymentCrefoPayOrderItemCollection" />
+        <property name="expensesRequest" type="CrefoPayApiRequest" />
+        <property name="expensesResponse" type="CrefoPayApiResponse" />
     </transfer>
 
 </transfers>

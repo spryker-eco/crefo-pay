@@ -31,26 +31,27 @@ class FinishOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
     /**
      * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
-     * @return \Generated\Shared\Transfer\CrefoPayApiRequestTransfer
+     * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
      */
-    public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiRequestTransfer
+    public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer
     {
-        return (new CrefoPayApiRequestTransfer())
-            ->setFinishRequest(
-                $this->createFinishRequestTransfer($crefoPayOmsCommandTransfer->getPaymentCrefoPay())
-            );
+        $requestTransfer = (new CrefoPayApiRequestTransfer())
+            ->setFinishRequest($this->createFinishRequestTransfer($crefoPayOmsCommandTransfer));
+
+        return $crefoPayOmsCommandTransfer
+            ->setRequest($requestTransfer);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer $paymentCrefoPayTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiFinishRequestTransfer
      */
-    protected function createFinishRequestTransfer(PaymentCrefoPayTransfer $paymentCrefoPayTransfer): CrefoPayApiFinishRequestTransfer
+    protected function createFinishRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiFinishRequestTransfer
     {
         return (new CrefoPayApiFinishRequestTransfer())
             ->setMerchantID($this->config->getMerchantId())
             ->setStoreID($this->config->getStoreId())
-            ->setOrderID($paymentCrefoPayTransfer->getCrefoPayOrderId());
+            ->setOrderID($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId());
     }
 }

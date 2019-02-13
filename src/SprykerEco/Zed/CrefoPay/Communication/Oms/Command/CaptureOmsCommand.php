@@ -13,7 +13,7 @@ use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 use SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface;
 
-class CaptureOmsCommand implements CrefoPayOmsCommandByOrderInterface
+class CaptureOmsCommand implements CrefoPayOmsCommandByItemInterface
 {
     /**
      * @var \SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface
@@ -38,23 +38,17 @@ class CaptureOmsCommand implements CrefoPayOmsCommandByOrderInterface
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $orderItems
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItems
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
      * @return void
      */
-    public function execute(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): void
+    public function execute(SpySalesOrderItem $salesOrderItems, ReadOnlyArrayObject $data): void
     {
-        $orderTransfer = $this->mapper->mapSpySalesOrderToOrderTransfer($orderEntity);
+        $orderTransfer = $this->mapper
+            ->mapSpySalesOrderToOrderTransfer($salesOrderItems->getOrder());
 
-        $salesOrderItemIds = array_map(
-            function (SpySalesOrderItem $orderItem) {
-                return $orderItem->getIdSalesOrderItem();
-            },
-            $orderItems
-        );
-
-        $this->facade->executeCaptureCommand($orderTransfer, $salesOrderItemIds);
+        $this->facade
+            ->executeCaptureCommand($orderTransfer, $salesOrderItems->getIdSalesOrderItem());
     }
 }

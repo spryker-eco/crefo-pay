@@ -13,6 +13,8 @@ use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 use Spryker\Zed\Oms\Dependency\Plugin\Command\CommandByItemInterface;
 
 /**
+ * @method \SprykerEco\Zed\CrefoPay\CrefoPayConfig getConfig()
+ * @method \SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface getFacade()
  * @method \SprykerEco\Zed\CrefoPay\Communication\CrefoPayCommunicationFactory getFactory()
  */
 class RefundPlugin extends AbstractPlugin implements CommandByItemInterface

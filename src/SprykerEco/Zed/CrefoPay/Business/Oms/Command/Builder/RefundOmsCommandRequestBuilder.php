@@ -32,14 +32,15 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
     /**
      * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
-     * @return \Generated\Shared\Transfer\CrefoPayApiRequestTransfer
+     * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
      */
-    public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiRequestTransfer
+    public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer
     {
-        $refundRequestTransfer = $this->createRefundRequestTransfer($crefoPayOmsCommandTransfer);
+        $requestTransfer = (new CrefoPayApiRequestTransfer())
+            ->setRefundRequest($this->createRefundRequestTransfer($crefoPayOmsCommandTransfer));
 
-        return (new CrefoPayApiRequestTransfer())
-            ->setRefundRequest($refundRequestTransfer);
+        return $crefoPayOmsCommandTransfer
+            ->setRequest($requestTransfer);
     }
 
     /**

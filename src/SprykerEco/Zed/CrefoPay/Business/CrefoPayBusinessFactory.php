@@ -166,11 +166,11 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandByOrderInterface
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CrefoPayOmsCommandByItemInterface
      */
-    public function createCaptureOmsCommand(): CrefoPayOmsCommandByOrderInterface
+    public function createCaptureOmsCommand(): CrefoPayOmsCommandByItemInterface
     {
-        return new CrefoPayOmsCommandByOrder(
+        return new CrefoPayOmsCommandByItem(
             $this->createCaptureOmsCommandRequestBuilder(),
             $this->createReader(),
             $this->createCaptureOmsCommandClient(),

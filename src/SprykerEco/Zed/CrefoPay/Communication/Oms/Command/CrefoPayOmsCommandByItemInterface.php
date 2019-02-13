@@ -13,10 +13,10 @@ use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 interface CrefoPayOmsCommandByItemInterface
 {
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItem
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItem
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
      * @return void
      */
-    public function execute(SpySalesOrderItem $orderItem, ReadOnlyArrayObject $data): void;
+    public function execute(SpySalesOrderItem $salesOrderItem, ReadOnlyArrayObject $data): void;
 }

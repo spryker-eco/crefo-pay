@@ -67,13 +67,12 @@ class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandByOrderInterface
             $salesOrderItemIds
         );
 
-        $requestTransfer = $this->requestBuilder
+        $crefoPayOmsCommandTransfer = $this->requestBuilder
             ->buildRequestTransfer($crefoPayOmsCommandTransfer);
-        $responseTransfer = $this->omsCommandClient->performApiCall($requestTransfer);
+        $responseTransfer = $this->omsCommandClient
+            ->performApiCall($crefoPayOmsCommandTransfer->getRequest());
 
-        $crefoPayOmsCommandTransfer
-            ->setRequest($requestTransfer)
-            ->setResponse($responseTransfer);
+        $crefoPayOmsCommandTransfer->setResponse($responseTransfer);
 
         $this->saver->savePaymentEntities($crefoPayOmsCommandTransfer);
     }

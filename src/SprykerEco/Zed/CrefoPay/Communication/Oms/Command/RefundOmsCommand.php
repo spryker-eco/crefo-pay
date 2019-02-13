@@ -7,7 +7,7 @@
 
 namespace SprykerEco\Zed\CrefoPay\Communication\Oms\Command;
 
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
+use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 use SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface;
@@ -38,13 +38,17 @@ class RefundOmsCommand implements CrefoPayOmsCommandByItemInterface
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItem
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItems
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
      * @return void
      */
-    public function execute(SpySalesOrderItem $orderItem, ReadOnlyArrayObject $data): void
+    public function execute(SpySalesOrderItem $salesOrderItems, ReadOnlyArrayObject $data): void
     {
-        $this->facade->executeRefundCommand($orderItem->getIdSalesOrderItem());
+        $orderTransfer = $this->mapper
+            ->mapSpySalesOrderToOrderTransfer($salesOrderItems->getOrder());
+
+        $this->facade
+            ->executeRefundCommand($orderTransfer, $salesOrderItems->getIdSalesOrderItem());
     }
 }

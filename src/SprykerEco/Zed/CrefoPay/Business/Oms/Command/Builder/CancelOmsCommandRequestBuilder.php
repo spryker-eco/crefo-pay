@@ -31,26 +31,27 @@ class CancelOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
     /**
      * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
-     * @return \Generated\Shared\Transfer\CrefoPayApiRequestTransfer
+     * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
      */
-    public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiRequestTransfer
+    public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer
     {
-        return (new CrefoPayApiRequestTransfer())
-            ->setCancelRequest(
-                $this->createCancelRequestTransfer($crefoPayOmsCommandTransfer->getPaymentCrefoPay())
-            );
+        $requestTransfer = (new CrefoPayApiRequestTransfer())
+            ->setCancelRequest($this->createCancelRequestTransfer($crefoPayOmsCommandTransfer));
+
+        return $crefoPayOmsCommandTransfer
+            ->setRequest($requestTransfer);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer $paymentCrefoPayTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiCancelRequestTransfer
      */
-    protected function createCancelRequestTransfer(PaymentCrefoPayTransfer $paymentCrefoPayTransfer): CrefoPayApiCancelRequestTransfer
+    protected function createCancelRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiCancelRequestTransfer
     {
         return (new CrefoPayApiCancelRequestTransfer())
             ->setMerchantID($this->config->getMerchantId())
             ->setStoreID($this->config->getStoreId())
-            ->setOrderID($paymentCrefoPayTransfer->getCrefoPayOrderId());
+            ->setOrderID($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId());
     }
 }
