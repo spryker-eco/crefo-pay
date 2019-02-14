@@ -43,8 +43,9 @@ class CrefoPayConfig extends AbstractBundleConfig
     protected const OMS_STATUS_CANCELLATION_PENDING = 'cancellation pending';
     protected const OMS_STATUS_CANCELED = 'canceled';
     protected const OMS_STATUS_REFUNDED = 'refunded';
-    protected const OMS_STATUS_FINISHED = 'finished';
+    protected const OMS_STATUS_MONEY_REDUCED = 'money reduced';
     protected const OMS_STATUS_EXPIRED = 'expired';
+    protected const OMS_STATUS_DONE = 'done';
 
     protected const OMS_EVENT_CANCEL = 'cancel';
     protected const OMS_EVENT_NO_CANCELLATION = 'no cancellation';
@@ -192,6 +193,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getNotificationOrderStatusChargeBack(): string
+    {
+        return static::NOTIFICATION_ORDER_STATUS_CHARGE_BACK;
+    }
+
+    /**
+     * @return string
+     */
     public function getOmsStatusNew(): string
     {
         return static::OMS_STATUS_NEW;
@@ -264,9 +273,9 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getOmsStatusFinished(): string
+    public function getOmsStatusMoneyReduced(): string
     {
-        return static::OMS_STATUS_FINISHED;
+        return static::OMS_STATUS_MONEY_REDUCED;
     }
 
     /**
@@ -275,6 +284,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getOmsStatusExpired(): string
     {
         return static::OMS_STATUS_EXPIRED;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOmsStatusDone(): string
+    {
+        return static::OMS_STATUS_DONE;
     }
 
     /**

@@ -98,7 +98,7 @@ class FinishOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     protected function getPaymentCrefoPayOrderItemCollection(
         CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
     ): PaymentCrefoPayOrderItemCollectionTransfer {
-        $status = $this->config->getOmsStatusCancellationPending();
+        $status = $this->config->getOmsStatusMoneyReduced();
         $paymentCrefoPayOrderItemCollection = $this->reader
             ->findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(
                 $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId()

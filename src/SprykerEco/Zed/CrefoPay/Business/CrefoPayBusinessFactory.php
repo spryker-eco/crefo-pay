@@ -43,6 +43,9 @@ use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCapturePendingOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsDoneOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsExpiredOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsFinishedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsMoneyReducedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsRefundedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsRefundPendingOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsReservedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsWaitingForCaptureOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
@@ -422,6 +425,36 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createIsFinishedOmsCondition(): CrefoPayOmsConditionInterface
     {
         return new IsFinishedOmsCondition($this->createReader());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsRefundPendingOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsRefundPendingOmsCondition($this->createReader());
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsRefundedOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsRefundedOmsCondition(
+            $this->createReader(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsMoneyReducedOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsMoneyReducedOmsCondition(
+            $this->createReader(),
+            $this->getConfig()
+        );
     }
 
     /**

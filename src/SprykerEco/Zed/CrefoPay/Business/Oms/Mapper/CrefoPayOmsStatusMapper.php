@@ -66,6 +66,7 @@ class CrefoPayOmsStatusMapper implements CrefoPayOmsStatusMapperInterface
             $this->config->getNotificationTransactionStatusMerchantPending() => $this->config->getOmsStatusWaitingForCapture(),
             $this->config->getNotificationTransactionStatusCancelled() => $this->config->getOmsStatusCanceled(),
             $this->config->getNotificationTransactionStatusExpired() => $this->config->getOmsStatusExpired(),
+            $this->config->getNotificationTransactionStatusDone() => $this->config->getOmsStatusDone(),
         ];
     }
 
@@ -77,6 +78,7 @@ class CrefoPayOmsStatusMapper implements CrefoPayOmsStatusMapperInterface
         return [
             $this->config->getNotificationOrderStatusPayPending() => $this->config->getOmsStatusCapturePending(),
             $this->config->getNotificationOrderStatusPaid() => $this->config->getOmsStatusCaptured(),
+            $this->config->getNotificationOrderStatusChargeBack() => $this->config->getOmsStatusRefunded(),
         ];
     }
 }

@@ -255,6 +255,42 @@ interface CrefoPayFacadeInterface
 
     /**
      * Specification:
+     * - Checks if refund API call was successfully performed for given order item.
+     *
+     * @api
+     *
+     * @param int $idSalesOrderItem
+     *
+     * @return bool
+     */
+    public function checkIsRefundPendingCondition(int $idSalesOrderItem): bool;
+
+    /**
+     * Specification:
+     * - Checks if CHARGEBACK notification was received for given order item.
+     *
+     * @api
+     *
+     * @param int $idSalesOrderItem
+     *
+     * @return bool
+     */
+    public function checkIsRefundedCondition(int $idSalesOrderItem): bool;
+
+    /**
+     * Specification:
+     * - Checks if PAID notification was received for given order item during Refund or Finish process.
+     *
+     * @api
+     *
+     * @param int $idSalesOrderItem
+     *
+     * @return bool
+     */
+    public function checkIsMoneyReducedCondition(int $idSalesOrderItem): bool;
+
+    /**
+     * Specification:
      * - Checks if DONE notification was received for given order item.
      *
      * @api

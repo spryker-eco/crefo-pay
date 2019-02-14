@@ -328,6 +328,54 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
+    public function checkIsRefundPendingCondition(int $idSalesOrderItem): bool
+    {
+        return $this->getFactory()
+            ->createIsRefundPendingOmsCondition()
+            ->check($idSalesOrderItem);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param int $idSalesOrderItem
+     *
+     * @return bool
+     */
+    public function checkIsRefundedCondition(int $idSalesOrderItem): bool
+    {
+        return $this->getFactory()
+            ->createIsRefundedOmsCondition()
+            ->check($idSalesOrderItem);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param int $idSalesOrderItem
+     *
+     * @return bool
+     */
+    public function checkIsMoneyReducedCondition(int $idSalesOrderItem): bool
+    {
+        return $this->getFactory()
+            ->createIsMoneyReducedOmsCondition()
+            ->check($idSalesOrderItem);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param int $idSalesOrderItem
+     *
+     * @return bool
+     */
     public function checkIsDoneCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
