@@ -8,30 +8,22 @@
 namespace SprykerEco\Zed\CrefoPay\Business\Oms\Condition;
 
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
-use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
-class IsCanceledOmsCondition implements CrefoPayOmsConditionInterface
+class IsReserveCallSuccessfulOmsCondition implements CrefoPayOmsConditionInterface
 {
+    protected const REQUEST_TYPE = 'reserve';
+
     /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface
      */
     protected $reader;
 
     /**
-     * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
-     */
-    protected $config;
-
-    /**
      * @param \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface $reader
-     * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
      */
-    public function __construct(
-        CrefoPayReaderInterface $reader,
-        CrefoPayConfig $config
-    ) {
+    public function __construct(CrefoPayReaderInterface $reader)
+    {
         $this->reader = $reader;
-        $this->config = $config;
     }
 
     /**
@@ -42,11 +34,11 @@ class IsCanceledOmsCondition implements CrefoPayOmsConditionInterface
     public function check(int $idSalesOrderItem): bool
     {
         $relationTransfer = $this->reader
-            ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
+            ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
                 $idSalesOrderItem,
-                $this->config->getNotificationTransactionStatusCancelled()
+                static::REQUEST_TYPE
             );
 
-        return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;
+        return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayApiLog() !== null;
     }
 }

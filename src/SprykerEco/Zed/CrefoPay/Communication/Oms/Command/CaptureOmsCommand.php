@@ -49,6 +49,6 @@ class CaptureOmsCommand implements CrefoPayOmsCommandByItemInterface
             ->mapSpySalesOrderToOrderTransfer($salesOrderItems->getOrder());
 
         $this->facade
-            ->executeCaptureCommand($orderTransfer, $salesOrderItems->getIdSalesOrderItem());
+            ->executeCaptureOmsCommand($orderTransfer, $salesOrderItems->getIdSalesOrderItem());
     }
 }

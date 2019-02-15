@@ -16,7 +16,7 @@ use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface;
  * @method \SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface getFacade()
  * @method \SprykerEco\Zed\CrefoPay\Communication\CrefoPayCommunicationFactory getFactory()
  */
-class IsRefundPendingPlugin extends AbstractPlugin implements ConditionInterface
+class IsRefundCallSuccessfulPlugin extends AbstractPlugin implements ConditionInterface
 {
     /**
      * {@inheritdoc}
@@ -30,6 +30,6 @@ class IsRefundPendingPlugin extends AbstractPlugin implements ConditionInterface
     public function check(SpySalesOrderItem $orderItem): bool
     {
         return $this->getFacade()
-            ->checkIsRefundPendingCondition($orderItem->getIdSalesOrderItem());
+            ->checkIsRefundCallSuccessfulOmsCondition($orderItem->getIdSalesOrderItem());
     }
 }

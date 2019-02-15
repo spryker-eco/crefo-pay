@@ -68,6 +68,6 @@ class FinishOmsCommand implements CrefoPayOmsCommandByOrderInterface
             $orderItems
         );
 
-        $this->facade->executeFinishCommand($orderTransfer, $salesOrderItemIds);
+        $this->facade->executeFinishOmsCommand($orderTransfer, $salesOrderItemIds);
     }
 }

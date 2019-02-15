@@ -69,7 +69,7 @@ interface CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer
      */
-    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestType(
+    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
         int $idSalesOrderItem,
         string $apiLogRequestType
     ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer;

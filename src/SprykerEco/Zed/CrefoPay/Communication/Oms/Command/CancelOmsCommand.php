@@ -68,6 +68,6 @@ class CancelOmsCommand implements CrefoPayOmsCommandByOrderInterface
             $orderItems
         );
 
-        $this->facade->executeCancelCommand($orderTransfer, $salesOrderItemIds);
+        $this->facade->executeCancelOmsCommand($orderTransfer, $salesOrderItemIds);
     }
 }

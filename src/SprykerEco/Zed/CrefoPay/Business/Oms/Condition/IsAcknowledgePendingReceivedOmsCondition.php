@@ -10,7 +10,7 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Condition;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
-class IsWaitingForCaptureOmsCondition implements CrefoPayOmsConditionInterface
+class IsAcknowledgePendingReceivedOmsCondition implements CrefoPayOmsConditionInterface
 {
     /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface
@@ -44,7 +44,7 @@ class IsWaitingForCaptureOmsCondition implements CrefoPayOmsConditionInterface
         $relationTransfer = $this->reader
             ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $idSalesOrderItem,
-                $this->config->getNotificationTransactionStatusMerchantPending()
+                $this->config->getNotificationTransactionStatusAcknowledgePending()
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;

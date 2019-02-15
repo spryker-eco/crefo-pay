@@ -159,7 +159,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer
      */
-    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestType(
+    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
         int $idSalesOrderItem,
         string $apiLogRequestType
     ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer {
@@ -169,7 +169,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
             ->endUse()
             ->useSpyPaymentCrefoPayApiLogQuery()
                 ->filterByRequestType($apiLogRequestType)
-                ->filterByResultCode(0)
+                ->filterByResultCode_In([0, 1])
             ->endUse()
             ->findOne();
 

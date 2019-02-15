@@ -16,7 +16,7 @@ use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface;
  * @method \SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface getFacade()
  * @method \SprykerEco\Zed\CrefoPay\Communication\CrefoPayCommunicationFactory getFactory()
  */
-class IsCapturePendingPlugin extends AbstractPlugin implements ConditionInterface
+class IsReserveCallSuccessfulPlugin extends AbstractPlugin implements ConditionInterface
 {
     /**
      * {@inheritdoc}
@@ -30,6 +30,6 @@ class IsCapturePendingPlugin extends AbstractPlugin implements ConditionInterfac
     public function check(SpySalesOrderItem $orderItem): bool
     {
         return $this->getFacade()
-            ->checkIsCapturePendingCondition($orderItem->getIdSalesOrderItem());
+            ->checkIsReserveCallSuccessfulOmsCondition($orderItem->getIdSalesOrderItem());
     }
 }

@@ -9,9 +9,9 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Condition;
 
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 
-class IsReservedOmsCondition implements CrefoPayOmsConditionInterface
+class IsCancelCallSuccessfulOmsCondition implements CrefoPayOmsConditionInterface
 {
-    protected const REQUEST_TYPE = 'reserve';
+    protected const REQUEST_TYPE = 'cancel';
 
     /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface
@@ -34,7 +34,7 @@ class IsReservedOmsCondition implements CrefoPayOmsConditionInterface
     public function check(int $idSalesOrderItem): bool
     {
         $relationTransfer = $this->reader
-            ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestType(
+            ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
                 $idSalesOrderItem,
                 static::REQUEST_TYPE
             );

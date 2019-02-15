@@ -10,7 +10,7 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Condition;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
-class IsMoneyReducedOmsCondition implements CrefoPayOmsConditionInterface
+class IsCanceledReceivedOmsCondition implements CrefoPayOmsConditionInterface
 {
     /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface
@@ -42,9 +42,9 @@ class IsMoneyReducedOmsCondition implements CrefoPayOmsConditionInterface
     public function check(int $idSalesOrderItem): bool
     {
         $relationTransfer = $this->reader
-            ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
+            ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $idSalesOrderItem,
-                $this->config->getNotificationOrderStatusPaid()
+                $this->config->getNotificationTransactionStatusCancelled()
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;

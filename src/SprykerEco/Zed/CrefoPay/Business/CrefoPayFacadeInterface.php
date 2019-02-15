@@ -101,7 +101,7 @@ interface CrefoPayFacadeInterface
      *
      * @return void
      */
-    public function executeCancelCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void;
+    public function executeCancelOmsCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void;
 
     /**
      * Specification:
@@ -115,7 +115,7 @@ interface CrefoPayFacadeInterface
      *
      * @return void
      */
-    public function executeCaptureCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void;
+    public function executeCaptureOmsCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void;
 
     /**
      * Specification:
@@ -129,7 +129,7 @@ interface CrefoPayFacadeInterface
      *
      * @return void
      */
-    public function executeRefundCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void;
+    public function executeRefundOmsCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void;
 
     /**
      * Specification:
@@ -143,7 +143,7 @@ interface CrefoPayFacadeInterface
      *
      * @return void
      */
-    public function executeFinishCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void;
+    public function executeFinishOmsCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void;
 
     /**
      * Specification:
@@ -155,7 +155,7 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsReservedCondition(int $idSalesOrderItem): bool;
+    public function checkIsReserveCallSuccessfulOmsCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -167,7 +167,7 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsAuthorizedCondition(int $idSalesOrderItem): bool;
+    public function checkIsAcknowledgePendingReceivedOmsCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -179,7 +179,7 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsWaitingForCaptureCondition(int $idSalesOrderItem): bool;
+    public function checkIsMerchantPendingReceivedOmsCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -191,7 +191,7 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsCancellationPendingCondition(int $idSalesOrderItem): bool;
+    public function checkIsCancelCallSuccessfulOmsCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -203,7 +203,7 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsCanceledCondition(int $idSalesOrderItem): bool;
+    public function checkIsCanceledReceivedOmsCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -215,7 +215,7 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsExpiredCondition(int $idSalesOrderItem): bool;
+    public function checkIsExpiredReceivedOmsCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -227,7 +227,7 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsCapturePendingCondition(int $idSalesOrderItem): bool;
+    public function checkIsCaptureCallSuccessfulOmsCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -239,7 +239,7 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsCapturedCondition(int $idSalesOrderItem): bool;
+    public function checkIsPaidReceivedOmsCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -251,7 +251,7 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsFinishedCondition(int $idSalesOrderItem): bool;
+    public function checkIsFinishCallSuccessfulOmsCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -263,7 +263,7 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsRefundPendingCondition(int $idSalesOrderItem): bool;
+    public function checkIsRefundCallSuccessfulOmsCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -275,19 +275,7 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsRefundedCondition(int $idSalesOrderItem): bool;
-
-    /**
-     * Specification:
-     * - Checks if PAID notification was received for given order item during Refund or Finish process.
-     *
-     * @api
-     *
-     * @param int $idSalesOrderItem
-     *
-     * @return bool
-     */
-    public function checkIsMoneyReducedCondition(int $idSalesOrderItem): bool;
+    public function checkIsChargeBackReceivedOmsCondition(int $idSalesOrderItem): bool;
 
     /**
      * Specification:
@@ -299,5 +287,5 @@ interface CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsDoneCondition(int $idSalesOrderItem): bool;
+    public function checkIsDoneReceivedOmsCondition(int $idSalesOrderItem): bool;
 }

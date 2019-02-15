@@ -107,12 +107,12 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer
      */
-    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestType(
+    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
         int $idSalesOrderItem,
         string $apiLogRequestType
     ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer {
         return $this->repository
-            ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestType(
+            ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
                 $idSalesOrderItem,
                 $apiLogRequestType
             );

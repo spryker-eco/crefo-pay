@@ -35,19 +35,18 @@ use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverIn
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\FinishOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\RefundOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsAuthorizedOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCanceledOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCancellationPendingOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCapturedOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCapturePendingOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsDoneOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsExpiredOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsFinishedOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsMoneyReducedOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsRefundedOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsRefundPendingOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsReservedOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsWaitingForCaptureOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsAcknowledgePendingReceivedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCanceledReceivedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCancelCallSuccessfulOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsPaidReceivedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCaptureCallSuccessfulOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsDoneReceivedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsExpiredReceivedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsFinishCallSuccessfulOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsChargeBackReceivedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsRefundCallSuccessfulOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsReserveCallSuccessfulOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsMerchantPendingReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilterInterface;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaver;
@@ -343,17 +342,17 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsReservedOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsReserveCallSuccessfulOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsReservedOmsCondition($this->createReader());
+        return new IsReserveCallSuccessfulOmsCondition($this->createReader());
     }
 
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsAuthorizedOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsAcknowledgePendingReceivedOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsAuthorizedOmsCondition(
+        return new IsAcknowledgePendingReceivedOmsCondition(
             $this->createReader(),
             $this->getConfig()
         );
@@ -362,9 +361,9 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsWaitingForCaptureOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsMerchantPendingReceivedOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsWaitingForCaptureOmsCondition(
+        return new IsMerchantPendingReceivedOmsCondition(
             $this->createReader(),
             $this->getConfig()
         );
@@ -373,17 +372,17 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsCancellationPendingOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsCancelCallSuccessfulOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsCancellationPendingOmsCondition($this->createReader());
+        return new IsCancelCallSuccessfulOmsCondition($this->createReader());
     }
 
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsCanceledOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsCanceledReceivedOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsCanceledOmsCondition(
+        return new IsCanceledReceivedOmsCondition(
             $this->createReader(),
             $this->getConfig()
         );
@@ -392,9 +391,9 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsExpiredOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsExpiredReceivedOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsExpiredOmsCondition(
+        return new IsExpiredReceivedOmsCondition(
             $this->createReader(),
             $this->getConfig()
         );
@@ -403,17 +402,17 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsCapturePendingOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsCaptureCallSuccessfulOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsCapturePendingOmsCondition($this->createReader());
+        return new IsCaptureCallSuccessfulOmsCondition($this->createReader());
     }
 
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsCapturedOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsPaidReceivedOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsCapturedOmsCondition(
+        return new IsPaidReceivedOmsCondition(
             $this->createReader(),
             $this->getConfig()
         );
@@ -422,25 +421,25 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsFinishedOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsFinishCallSuccessfulOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsFinishedOmsCondition($this->createReader());
+        return new IsFinishCallSuccessfulOmsCondition($this->createReader());
     }
 
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsRefundPendingOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsRefundCallSuccessfulOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsRefundPendingOmsCondition($this->createReader());
+        return new IsRefundCallSuccessfulOmsCondition($this->createReader());
     }
 
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsRefundedOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsChargeBackReceivedOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsRefundedOmsCondition(
+        return new IsChargeBackReceivedOmsCondition(
             $this->createReader(),
             $this->getConfig()
         );
@@ -449,20 +448,9 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
      */
-    public function createIsMoneyReducedOmsCondition(): CrefoPayOmsConditionInterface
+    public function createIsDoneReceivedOmsCondition(): CrefoPayOmsConditionInterface
     {
-        return new IsMoneyReducedOmsCondition(
-            $this->createReader(),
-            $this->getConfig()
-        );
-    }
-
-    /**
-     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
-     */
-    public function createIsDoneOmsCondition(): CrefoPayOmsConditionInterface
-    {
-        return new IsDoneOmsCondition(
+        return new IsDoneReceivedOmsCondition(
             $this->createReader(),
             $this->getConfig()
         );

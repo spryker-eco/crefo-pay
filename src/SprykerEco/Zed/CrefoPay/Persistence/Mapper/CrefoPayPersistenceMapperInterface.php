@@ -43,7 +43,7 @@ interface CrefoPayPersistenceMapperInterface
     ): PaymentCrefoPayOrderItemTransfer;
 
     /**
-     * @param \Orm\Zed\CrefoPay\Persistence\Base\SpyPaymentCrefoPayNotification $paymentCrefoPayNotificationEntity
+     * @param \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayNotification $paymentCrefoPayNotificationEntity
      * @param \Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer $paymentCrefoPayNotificationTransfer
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer

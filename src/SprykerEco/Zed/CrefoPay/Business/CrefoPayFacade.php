@@ -117,7 +117,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return void
      */
-    public function executeCancelCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void
+    public function executeCancelOmsCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void
     {
         $this->getFactory()
             ->createCancelOmsCommand()
@@ -134,7 +134,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return void
      */
-    public function executeCaptureCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void
+    public function executeCaptureOmsCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void
     {
         $this->getFactory()
             ->createCaptureOmsCommand()
@@ -151,7 +151,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return void
      */
-    public function executeRefundCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void
+    public function executeRefundOmsCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void
     {
         $this->getFactory()
             ->createRefundOmsCommand()
@@ -168,7 +168,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return void
      */
-    public function executeFinishCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void
+    public function executeFinishOmsCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void
     {
         $this->getFactory()
             ->createFinishOmsCommand()
@@ -184,10 +184,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsReservedCondition(int $idSalesOrderItem): bool
+    public function checkIsReserveCallSuccessfulOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsReservedOmsCondition()
+            ->createIsReserveCallSuccessfulOmsCondition()
             ->check($idSalesOrderItem);
     }
 
@@ -200,10 +200,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsAuthorizedCondition(int $idSalesOrderItem): bool
+    public function checkIsAcknowledgePendingReceivedOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsAuthorizedOmsCondition()
+            ->createIsAcknowledgePendingReceivedOmsCondition()
             ->check($idSalesOrderItem);
     }
 
@@ -216,10 +216,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsWaitingForCaptureCondition(int $idSalesOrderItem): bool
+    public function checkIsMerchantPendingReceivedOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsWaitingForCaptureOmsCondition()
+            ->createIsMerchantPendingReceivedOmsCondition()
             ->check($idSalesOrderItem);
     }
 
@@ -232,10 +232,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsCancellationPendingCondition(int $idSalesOrderItem): bool
+    public function checkIsCancelCallSuccessfulOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsCancellationPendingOmsCondition()
+            ->createIsCancelCallSuccessfulOmsCondition()
             ->check($idSalesOrderItem);
     }
 
@@ -248,10 +248,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsCanceledCondition(int $idSalesOrderItem): bool
+    public function checkIsCanceledReceivedOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsCanceledOmsCondition()
+            ->createIsCanceledReceivedOmsCondition()
             ->check($idSalesOrderItem);
     }
 
@@ -264,10 +264,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsExpiredCondition(int $idSalesOrderItem): bool
+    public function checkIsExpiredReceivedOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsExpiredOmsCondition()
+            ->createIsExpiredReceivedOmsCondition()
             ->check($idSalesOrderItem);
     }
 
@@ -280,10 +280,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsCapturePendingCondition(int $idSalesOrderItem): bool
+    public function checkIsCaptureCallSuccessfulOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsCapturePendingOmsCondition()
+            ->createIsCaptureCallSuccessfulOmsCondition()
             ->check($idSalesOrderItem);
     }
 
@@ -296,10 +296,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsCapturedCondition(int $idSalesOrderItem): bool
+    public function checkIsPaidReceivedOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsCapturedOmsCondition()
+            ->createIsPaidReceivedOmsCondition()
             ->check($idSalesOrderItem);
     }
 
@@ -312,10 +312,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsFinishedCondition(int $idSalesOrderItem): bool
+    public function checkIsFinishCallSuccessfulOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsFinishedOmsCondition()
+            ->createIsFinishCallSuccessfulOmsCondition()
             ->check($idSalesOrderItem);
     }
 
@@ -328,10 +328,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsRefundPendingCondition(int $idSalesOrderItem): bool
+    public function checkIsRefundCallSuccessfulOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsRefundPendingOmsCondition()
+            ->createIsRefundCallSuccessfulOmsCondition()
             ->check($idSalesOrderItem);
     }
 
@@ -344,10 +344,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsRefundedCondition(int $idSalesOrderItem): bool
+    public function checkIsChargeBackReceivedOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsRefundedOmsCondition()
+            ->createIsChargeBackReceivedOmsCondition()
             ->check($idSalesOrderItem);
     }
 
@@ -360,26 +360,10 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
-    public function checkIsMoneyReducedCondition(int $idSalesOrderItem): bool
+    public function checkIsDoneReceivedOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()
-            ->createIsMoneyReducedOmsCondition()
-            ->check($idSalesOrderItem);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @api
-     *
-     * @param int $idSalesOrderItem
-     *
-     * @return bool
-     */
-    public function checkIsDoneCondition(int $idSalesOrderItem): bool
-    {
-        return $this->getFactory()
-            ->createIsDoneOmsCondition()
+            ->createIsDoneReceivedOmsCondition()
             ->check($idSalesOrderItem);
     }
 }
