@@ -18,7 +18,6 @@
             <state name="captured" reserved="true" />
             <state name="shipped" reserved="true" />
             <state name="refunded" reserved="false" />
-            <state name="finished" reserved="false" />
             <state name="done" reserved="false" />
             <state name="closed" reserved="false" />
         </states>
@@ -35,22 +34,32 @@
 
         <transitions>
 
-            <transition condition="CrefoPay/IsReserved" happy="true">
+            <transition condition="CrefoPay/IsReserveCallSuccessful" happy="true">
                 <source>new</source>
                 <target>reserved</target>
             </transition>
 
-            <transition condition="CrefoPay/IsAuthorized" happy="true">
+            <transition condition="CrefoPay/IsAcknowledgePendingReceived" happy="true">
                 <source>reserved</source>
                 <target>authorized</target>
             </transition>
 
-            <transition condition="CrefoPay/IsWaitingForCapture" happy="true">
+            <transition condition="CrefoPay/IsExpiredReceived">
+                <source>reserved</source>
+                <target>expired</target>
+            </transition>
+
+            <transition condition="CrefoPay/IsMerchantPendingReceived" happy="true">
                 <source>authorized</source>
                 <target>waiting for capture</target>
             </transition>
 
-            <transition condition="CrefoPay/IsExpired">
+            <transition condition="CrefoPay/IsExpiredReceived">
+                <source>authorized</source>
+                <target>expired</target>
+            </transition>
+
+            <transition condition="CrefoPay/IsExpiredReceived">
                 <source>waiting for capture</source>
                 <target>expired</target>
             </transition>
@@ -61,18 +70,18 @@
                 <event>close</event>
             </transition>
 
-            <transition condition="CrefoPay/IsCancellationPending">
+            <transition condition="CrefoPay/IsCancelCallSuccessful">
                 <source>waiting for capture</source>
                 <target>cancellation pending</target>
                 <event>cancel</event>
             </transition>
 
-            <transition condition="CrefoPay/IsCanceled">
+            <transition condition="CrefoPay/IsCanceledReceived">
                 <source>cancellation pending</source>
                 <target>canceled</target>
             </transition>
 
-            <transition condition="CrefoPay/IsCapturePending" happy="true">
+            <transition condition="CrefoPay/IsCaptureCallSuccessful" happy="true">
                 <source>waiting for capture</source>
                 <target>capture pending</target>
                 <event>capture</event>
@@ -84,27 +93,27 @@
                 <event>no cancellation</event>
             </transition>
 
-            <transition condition="CrefoPay/IsCapturePending" happy="true">
+            <transition condition="CrefoPay/IsCaptureCallSuccessful" happy="true">
                 <source>waiting for capture no cancellation</source>
                 <target>capture pending</target>
                 <event>capture</event>
             </transition>
 
-            <transition condition="CrefoPay/IsCaptured" happy="true">
+            <transition condition="CrefoPay/IsPaidReceived" happy="true">
                 <source>capture pending</source>
                 <target>captured</target>
             </transition>
 
-            <transition condition="CrefoPay/IsRefunded">
-                <source>capture pending</source>
+            <transition condition="CrefoPay/IsRefundCallSuccessful">
+                <source>captured</source>
                 <target>refunded</target>
                 <event>refund</event>
             </transition>
 
-            <transition condition="CrefoPay/IsRefunded">
-                <source>captured</source>
+            <transition condition="CrefoPay/IsFinishCallSuccessful">
+                <source>waiting for capture no cancellation</source>
                 <target>refunded</target>
-                <event>refund</event>
+                <event>finish</event>
             </transition>
 
             <transition happy="true">
@@ -113,22 +122,9 @@
                 <event>ship</event>
             </transition>
 
-            <transition condition="CrefoPay/IsFinished">
-                <source>waiting for capture no cancellation</source>
-                <target>finished</target>
-                <event>finish</event>
-            </transition>
-
-            <transition condition="CrefoPay/IsFinished">
-                <source>capture pending</source>
-                <target>finished</target>
-                <event>finish</event>
-            </transition>
-
-            <transition condition="CrefoPay/IsFinished" happy="true">
+            <transition condition="CrefoPay/IsDoneReceived" happy="true">
                 <source>shipped</source>
-                <target>finished</target>
-                <event>finish</event>
+                <target>done</target>
             </transition>
 
             <transition>
@@ -137,14 +133,8 @@
                 <event>close</event>
             </transition>
 
-            <transition condition="CrefoPay/IsFinished">
+            <transition condition="CrefoPay/IsDoneReceived">
                 <source>refunded</source>
-                <target>finished</target>
-                <event>finish</event>
-            </transition>
-
-            <transition condition="CrefoPay/IsDone" happy="true">
-                <source>finished</source>
                 <target>done</target>
             </transition>
 

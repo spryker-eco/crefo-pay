@@ -232,6 +232,22 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @return bool
      */
+    public function checkIsCiaPendingReceivedOmsCondition(int $idSalesOrderItem): bool
+    {
+        return $this->getFactory()
+            ->createIsCiaPendingReceivedOmsCondition()
+            ->check($idSalesOrderItem);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param int $idSalesOrderItem
+     *
+     * @return bool
+     */
     public function checkIsCancelCallSuccessfulOmsCondition(int $idSalesOrderItem): bool
     {
         return $this->getFactory()

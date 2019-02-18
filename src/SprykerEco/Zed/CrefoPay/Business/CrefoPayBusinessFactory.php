@@ -38,6 +38,7 @@ use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsAcknowledgePendingReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCanceledReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCancelCallSuccessfulOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCiaPendingReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsPaidReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCaptureCallSuccessfulOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsDoneReceivedOmsCondition;
@@ -364,6 +365,17 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     public function createIsMerchantPendingReceivedOmsCondition(): CrefoPayOmsConditionInterface
     {
         return new IsMerchantPendingReceivedOmsCondition(
+            $this->createReader(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface
+     */
+    public function createIsCiaPendingReceivedOmsCondition(): CrefoPayOmsConditionInterface
+    {
+        return new IsCiaPendingReceivedOmsCondition(
             $this->createReader(),
             $this->getConfig()
         );

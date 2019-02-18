@@ -38,6 +38,7 @@ class CrefoPayConfig extends AbstractBundleConfig
     protected const OMS_STATUS_RESERVED = 'reserved';
     protected const OMS_STATUS_AUTHORIZED = 'authorized';
     protected const OMS_STATUS_WAITING_FOR_CAPTURE = 'waiting for capture';
+    protected const OMS_STATUS_WAITING_FOR_CASH = 'waiting for cash';
     protected const OMS_STATUS_CAPTURE_PENDING = 'capture pending';
     protected const OMS_STATUS_CAPTURED = 'captured';
     protected const OMS_STATUS_CANCELLATION_PENDING = 'cancellation pending';
@@ -153,6 +154,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getNotificationTransactionStatusCiaPending(): string
+    {
+        return static::NOTIFICATION_TRANSACTION_STATUS_CIA_PENDING;
+    }
+
+    /**
+     * @return string
+     */
     public function getNotificationTransactionStatusCancelled(): string
     {
         return static::NOTIFICATION_TRANSACTION_STATUS_CANCELLED;
@@ -228,6 +237,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getOmsStatusWaitingForCapture(): string
     {
         return static::OMS_STATUS_WAITING_FOR_CAPTURE;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOmsStatusWaitingForCash(): string
+    {
+        return static::OMS_STATUS_WAITING_FOR_CASH;
     }
 
     /**

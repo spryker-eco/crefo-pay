@@ -183,6 +183,18 @@ interface CrefoPayFacadeInterface
 
     /**
      * Specification:
+     * - Checks if CIAPENDING notification was received for given order item.
+     *
+     * @api
+     *
+     * @param int $idSalesOrderItem
+     *
+     * @return bool
+     */
+    public function checkIsCiaPendingReceivedOmsCondition(int $idSalesOrderItem): bool;
+
+    /**
+     * Specification:
      * - Checks if cancel api call was successfully performed for given order item.
      *
      * @api
