@@ -10,6 +10,7 @@ namespace SprykerEco\Yves\CrefoPay;
 use Spryker\Yves\Kernel\AbstractFactory;
 use Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
+use SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToCrefoPayApiServiceInterface;
 use SprykerEco\Yves\CrefoPay\Form\BillSubForm;
 use SprykerEco\Yves\CrefoPay\Form\CashOnDeliverySubForm;
 use SprykerEco\Yves\CrefoPay\Form\DataProvider\BillFormDataProvider;
@@ -60,7 +61,9 @@ class CrefoPayFactory extends AbstractFactory
     {
         return new CrefoPayNotificationProcessor(
             $this->createCrefoPayNotificationProcessorMapper(),
-            $this->getClient()
+            $this->getClient(),
+            $this->getCrefoPayApiService(),
+            $this->getConfig()
         );
     }
 
@@ -166,5 +169,13 @@ class CrefoPayFactory extends AbstractFactory
     public function createSofortFormDataProvider(): StepEngineFormDataProviderInterface
     {
         return new SofortFormDataProvider();
+    }
+
+    /**
+     * @return \SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToCrefoPayApiServiceInterface
+     */
+    public function getCrefoPayApiService(): CrefoPayToCrefoPayApiServiceInterface
+    {
+        return $this->getProvidedDependency(CrefoPayDependencyProvider::SERVICE_CREFO_PAY_API);
     }
 }
