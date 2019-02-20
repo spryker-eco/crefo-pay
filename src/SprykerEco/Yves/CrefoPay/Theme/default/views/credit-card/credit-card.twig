@@ -5,7 +5,11 @@
 } %}
 
 {% block body %}
-    <script src="https://libs.crefopay.de/3.0/secure-fields.js"></script>
+    {% include molecule('script-loader') with {
+        attributes: {
+            src: "https://libs.crefopay.de/3.0/secure-fields.js"
+        }
+    } only %}
     <script>
         var secureFieldsClientInstance =
             new SecureFieldsClient(
