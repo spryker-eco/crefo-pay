@@ -5,5 +5,24 @@
 } %}
 
 {% block body %}
-    {{ form_widget(data.form.crefoPayDirectDebit) }}
+    {% embed molecule('crefopay-form-loader', 'CrefoPay') with {
+        data: {
+            shopPublicKey: '',
+            orderId: ''
+        },
+        embed: {
+            form: data.form
+        }
+    } only %}
+    {% block requestForm %}
+        <div>
+            {{ form_widget(embed.form.crefoPayDirectDebit) }}
+            <label><input type="radio" data-crefopay="paymentMethod" value="DD">Direct debit</label><br>
+            <label>Account holder: <input type="text" data-crefopay="paymentInstrument.bankAccountHolder" placeholder="John Doe"></label><br>
+            <label>IBAN: <input type="text" data-crefopay="paymentInstrument.iban" placeholder="DE12 3456 7890 1112 1314"></label><br>
+            <label>BIC: <input type="text" data-crefopay="paymentInstrument.bic" placeholder="SFRTDE20000"></label><br>
+            <label><input type="radio" data-crefopay="paymentInstrument.id" value="Aqc9O5SSJuQTDHC9KXFE0Q">Registered bank account (IBAN: DE12 3456 7890 1112 1314)</label>
+        </div>
+    {% endblock %}
+{% endembed %}
 {% endblock %}

@@ -1,0 +1,26 @@
+{% extends model('component') %}
+
+{% define config = {
+    name: 'crefopay-form-loader',
+    tag: 'crefopay-form-loader'
+} %}
+
+{% define data = {
+    shopPublicKey: '',
+    orderId: ''
+} %}
+
+{% define attributes = {
+    'shop-public-key': data.shopPublicKey,
+    'order-id': data.orderId
+} %}
+
+{% block body %}
+    {% include molecule('script-loader') with {
+        class: config.jsName ~ '__script-loader',
+        attributes: {
+            src: "https://libs.crefopay.de/3.0/secure-fields.js"
+        }
+    } only %}
+    {% block requestForm %}{% endblock %}
+{% endblock %}
