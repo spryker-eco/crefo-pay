@@ -13,6 +13,7 @@ use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
+use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface;
 
 class CrefoPayReader implements CrefoPayReaderInterface
@@ -23,11 +24,21 @@ class CrefoPayReader implements CrefoPayReaderInterface
     protected $repository;
 
     /**
-     * @param \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface $repository
+     * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
      */
-    public function __construct(CrefoPayRepositoryInterface $repository)
-    {
+    protected $config;
+
+    /**
+     * @param \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface $repository
+     * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
+     */
+    public function __construct(
+        CrefoPayRepositoryInterface $repository,
+        CrefoPayConfig $config
+
+    ) {
         $this->repository = $repository;
+        $this->config = $config;
     }
 
     /**
@@ -112,9 +123,10 @@ class CrefoPayReader implements CrefoPayReaderInterface
         string $apiLogRequestType
     ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer {
         return $this->repository
-            ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
+            ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndResultCodes(
                 $idSalesOrderItem,
-                $apiLogRequestType
+                $apiLogRequestType,
+                $this->config->getSuccessResultCodes()
             );
     }
 

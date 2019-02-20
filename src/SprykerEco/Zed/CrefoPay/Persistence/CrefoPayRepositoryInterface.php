@@ -56,12 +56,14 @@ interface CrefoPayRepositoryInterface
     /**
      * @param int $idSalesOrderItem
      * @param string $apiLogRequestType
+     * @param int[] $resultCodes
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer
      */
-    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
+    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndResultCodes(
         int $idSalesOrderItem,
-        string $apiLogRequestType
+        string $apiLogRequestType,
+        array $resultCodes
     ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer;
 
     /**
