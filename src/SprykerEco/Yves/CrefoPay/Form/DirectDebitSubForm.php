@@ -31,7 +31,7 @@ class DirectDebitSubForm extends AbstractSubFormType implements SubFormInterface
      */
     public function getName(): string
     {
-        return CrefoPayConfig::CREFO_PAY_DIRECT_DEBIT;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_DIRECT_DEBIT;
     }
 
     /**
@@ -39,7 +39,7 @@ class DirectDebitSubForm extends AbstractSubFormType implements SubFormInterface
      */
     public function getPropertyPath(): string
     {
-        return CrefoPayConfig::CREFO_PAY_DIRECT_DEBIT;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_DIRECT_DEBIT;
     }
 
     /**

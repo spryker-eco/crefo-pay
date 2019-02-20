@@ -15,21 +15,30 @@ use Generated\Shared\Transfer\CrefoPayApiReserveRequestTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
-use SprykerEco\Shared\CrefoPay\CrefoPayConfig as SharedCrefoPayConfig;
+use SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperInterface
 {
+    /**
+     * @var \SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface
+     */
+    protected $paymentMethodMapper;
+
     /**
      * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
      */
     protected $config;
 
     /**
+     * @param \SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface $paymentMethodMapper
      * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
      */
-    public function __construct(CrefoPayConfig $config)
-    {
+    public function __construct(
+        CrefoPayPaymentMethodMapperInterface $paymentMethodMapper,
+        CrefoPayConfig $config
+    ) {
+        $this->paymentMethodMapper = $paymentMethodMapper;
         $this->config = $config;
     }
 
@@ -73,9 +82,8 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
      */
     protected function getPaymentMethod(QuoteTransfer $quoteTransfer): ?string
     {
-        return array_search(
-            $quoteTransfer->getPayment()->getPaymentSelection(),
-            $this->config->getAvailablePaymentMethodsMapping()
+        return $this->paymentMethodMapper->mapInternalToExternalPaymentMethodName(
+            $quoteTransfer->getPayment()->getPaymentSelection()
         );
     }
 
@@ -107,8 +115,8 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
                     ->setVatAmount($itemTransfer->getSumTaxAmountFullAggregation());
 
                 return (new CrefoPayApiBasketItemTransfer())
-                    ->setBasketItemType(SharedCrefoPayConfig::PRODUCT_TYPE_DEFAULT)
-                    ->setBasketItemRiskClass(SharedCrefoPayConfig::PRODUCT_RISK_CLASS)
+                    ->setBasketItemType($this->config->getProductTypeDefault())
+                    ->setBasketItemRiskClass($this->config->getProductRiskClass())
                     ->setBasketItemText($itemTransfer->getName())
                     ->setBasketItemID($itemTransfer->getSku())
                     ->setBasketItemCount($itemTransfer->getQuantity())

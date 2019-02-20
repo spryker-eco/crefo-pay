@@ -31,7 +31,7 @@ class PayPalSubForm extends AbstractSubFormType implements SubFormInterface, Sub
      */
     public function getName(): string
     {
-        return CrefoPayConfig::CREFO_PAY_PAY_PAL;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_PAY_PAL;
     }
 
     /**
@@ -39,7 +39,7 @@ class PayPalSubForm extends AbstractSubFormType implements SubFormInterface, Sub
      */
     public function getPropertyPath(): string
     {
-        return CrefoPayConfig::CREFO_PAY_PAY_PAL;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_PAY_PAL;
     }
 
     /**

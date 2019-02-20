@@ -8,7 +8,6 @@
 namespace SprykerEco\Zed\CrefoPay;
 
 use Spryker\Zed\Kernel\AbstractBundleConfig;
-use SprykerEco\Shared\CrefoPay\CrefoPayConfig as SharedCrefoPayConfig;
 use SprykerEco\Shared\CrefoPay\CrefoPayConstants;
 
 /**
@@ -91,9 +90,17 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getProviderName(): string
+    {
+        return $this->getSharedConfig()->getProviderName();
+    }
+
+    /**
+     * @return string
+     */
     public function getIntegrationType(): string
     {
-        return SharedCrefoPayConfig::INTEGRATION_TYPE;
+        return $this->getSharedConfig()->getIntegrationType();
     }
 
     /**
@@ -101,7 +108,7 @@ class CrefoPayConfig extends AbstractBundleConfig
      */
     public function getContext(): string
     {
-        return SharedCrefoPayConfig::CONTEXT;
+        return $this->getSharedConfig()->getContext();
     }
 
     /**
@@ -109,7 +116,7 @@ class CrefoPayConfig extends AbstractBundleConfig
      */
     public function getUserType(): string
     {
-        return SharedCrefoPayConfig::USER_TYPE;
+        return $this->getSharedConfig()->getUserType();
     }
 
     /**
@@ -117,23 +124,39 @@ class CrefoPayConfig extends AbstractBundleConfig
      */
     public function getUserRiskClass(): int
     {
-        return SharedCrefoPayConfig::USER_RISK_CLASS;
+        return $this->getSharedConfig()->getUserRiskClass();
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductTypeDefault(): string
+    {
+        return $this->getSharedConfig()->getProductTypeDefault();
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductRiskClass(): string
+    {
+        return $this->getSharedConfig()->getProductRiskClass();
     }
 
     /**
      * @return string[]
      */
-    public function getAvailablePaymentMethodsMapping(): array
+    public function getInternalToExternalPaymentMethodNamesMapping(): array
     {
         return [
-            SharedCrefoPayConfig::PAYMENT_METHOD_BILL => SharedCrefoPayConfig::CREFO_PAY_BILL,
-            SharedCrefoPayConfig::PAYMENT_METHOD_CASH_ON_DELIVERY => SharedCrefoPayConfig::CREFO_PAY_CASH_ON_DELIVERY,
-            SharedCrefoPayConfig::PAYMENT_METHOD_DIRECT_DEBIT => SharedCrefoPayConfig::CREFO_PAY_DIRECT_DEBIT,
-            SharedCrefoPayConfig::PAYMENT_METHOD_PAYPAL => SharedCrefoPayConfig::CREFO_PAY_PAY_PAL,
-            SharedCrefoPayConfig::PAYMENT_METHOD_PREPAID => SharedCrefoPayConfig::CREFO_PAY_PREPAID,
-            SharedCrefoPayConfig::PAYMENT_METHOD_SOFORT => SharedCrefoPayConfig::CREFO_PAY_SOFORT,
-            SharedCrefoPayConfig::PAYMENT_METHOD_CREDIT_CARD => SharedCrefoPayConfig::CREFO_PAY_CREDIT_CARD,
-            SharedCrefoPayConfig::PAYMENT_METHOD_CREDIT_CARD_3D => SharedCrefoPayConfig::CREFO_PAY_CREDIT_CARD_3D,
+            $this->getSharedConfig()->getCrefoPayPaymentMethodBill() => $this->getSharedConfig()->getExternalPaymentMethodBill(),
+            $this->getSharedConfig()->getCrefoPayPaymentMethodCashOnDelivery() => $this->getSharedConfig()->getExternalPaymentMethodCashOnDelivery(),
+            $this->getSharedConfig()->getCrefoPayPaymentMethodDirectDebit() => $this->getSharedConfig()->getExternalPaymentMethodDirectDebit(),
+            $this->getSharedConfig()->getCrefoPayPaymentMethodPayPal() => $this->getSharedConfig()->getExternalPaymentMethodPayPal(),
+            $this->getSharedConfig()->getCrefoPayPaymentMethodPrepaid() => $this->getSharedConfig()->getExternalPaymentMethodPrepaid(),
+            $this->getSharedConfig()->getCrefoPayPaymentMethodSofort() => $this->getSharedConfig()->getExternalPaymentMethodSofort(),
+            $this->getSharedConfig()->getCrefoPayPaymentMethodCreditCard() => $this->getSharedConfig()->getExternalPaymentMethodCreditCard(),
+            $this->getSharedConfig()->getCrefoPayPaymentMethodCreditCard3D() => $this->getSharedConfig()->getExternalPaymentMethodCreditCard3D(),
         ];
     }
 
@@ -335,6 +358,33 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getOmsEventFinish(): string
     {
         return static::OMS_EVENT_FINISH;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getNotificationTransactionToOmsStatusMapping(): array
+    {
+        return [
+            $this->getNotificationTransactionStatusAcknowledgePending() => $this->getOmsStatusAuthorized(),
+            $this->getNotificationTransactionStatusMerchantPending() => $this->getOmsStatusWaitingForCapture(),
+            $this->getNotificationTransactionStatusCiaPending() => $this->getOmsStatusWaitingForCash(),
+            $this->getNotificationTransactionStatusCancelled() => $this->getOmsStatusCanceled(),
+            $this->getNotificationTransactionStatusExpired() => $this->getOmsStatusExpired(),
+            $this->getNotificationTransactionStatusDone() => $this->getOmsStatusDone(),
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getNotificationOrderToOmsStatusMapping(): array
+    {
+        return [
+            $this->getNotificationOrderStatusPayPending() => $this->getOmsStatusCapturePending(),
+            $this->getNotificationOrderStatusPaid() => $this->getOmsStatusCaptured(),
+            $this->getNotificationOrderStatusChargeBack() => $this->getOmsStatusRefunded(),
+        ];
     }
 
     /**

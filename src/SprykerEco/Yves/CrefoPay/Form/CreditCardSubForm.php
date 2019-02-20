@@ -36,7 +36,7 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
      */
     public function getName(): string
     {
-        return CrefoPayConfig::CREFO_PAY_CREDIT_CARD;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD;
     }
 
     /**
@@ -44,7 +44,7 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
      */
     public function getPropertyPath(): string
     {
-        return CrefoPayConfig::CREFO_PAY_CREDIT_CARD;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD;
     }
 
     /**

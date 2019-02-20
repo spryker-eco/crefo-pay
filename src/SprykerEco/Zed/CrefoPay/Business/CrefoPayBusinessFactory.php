@@ -15,6 +15,8 @@ use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutHookMa
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutPostSaveHookMapper;
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutHookSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutPostSaveHookSaver;
+use SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapper;
+use SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CancelOmsCommandRequestBuilder;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CaptureOmsCommandRequestBuilder;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface;
@@ -54,8 +56,8 @@ use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaver;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Processor\CrefoPayNotificationProcessor;
 use SprykerEco\Zed\CrefoPay\Business\Processor\CrefoPayNotificationProcessorInterface;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapper;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface;
+use SprykerEco\Zed\CrefoPay\Business\Mapper\OmsStatus\CrefoPayOmsStatusMapper;
+use SprykerEco\Zed\CrefoPay\Business\Mapper\OmsStatus\CrefoPayOmsStatusMapperInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpander;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpanderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpanderMapper;
@@ -105,7 +107,10 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
      */
     public function createPaymentMethodFilter(): CrefoPayPaymentMethodFilterInterface
     {
-        return new CrefoPayPaymentMethodFilter($this->getConfig());
+        return new CrefoPayPaymentMethodFilter(
+            $this->createCrefoPayPaymentMethodMapper(),
+            $this->getConfig()
+        );
     }
 
     /**
@@ -121,7 +126,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface
+     * @return \SprykerEco\Zed\CrefoPay\Business\Mapper\OmsStatus\CrefoPayOmsStatusMapperInterface
      */
     public function createCrefoPayOmsStatusMapper(): CrefoPayOmsStatusMapperInterface
     {
@@ -153,7 +158,10 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
      */
     public function createCheckoutPostSaveHookMapper(): CrefoPayCheckoutHookMapperInterface
     {
-        return new CrefoPayCheckoutPostSaveHookMapper($this->getConfig());
+        return new CrefoPayCheckoutPostSaveHookMapper(
+            $this->createCrefoPayPaymentMethodMapper(),
+            $this->getConfig()
+        );
     }
 
     /**
@@ -166,6 +174,11 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
             $this->createWriter(),
             $this->getConfig()
         );
+    }
+
+    public function createCrefoPayPaymentMethodMapper(): CrefoPayPaymentMethodMapperInterface
+    {
+        return new CrefoPayPaymentMethodMapper($this->getConfig());
     }
 
     /**

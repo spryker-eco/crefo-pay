@@ -36,7 +36,7 @@ class CreditCard3DSubForm extends AbstractSubFormType implements SubFormInterfac
      */
     public function getName(): string
     {
-        return CrefoPayConfig::CREFO_PAY_CREDIT_CARD_3D;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD_3D;
     }
 
     /**
@@ -44,7 +44,7 @@ class CreditCard3DSubForm extends AbstractSubFormType implements SubFormInterfac
      */
     public function getPropertyPath(): string
     {
-        return CrefoPayConfig::CREFO_PAY_CREDIT_CARD_3D;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD_3D;
     }
 
     /**

@@ -12,7 +12,7 @@ use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface;
+use SprykerEco\Zed\CrefoPay\Business\Mapper\OmsStatus\CrefoPayOmsStatusMapperInterface;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
@@ -41,7 +41,7 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     protected $omsFacade;
 
     /**
-     * @var \SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface
+     * @var \SprykerEco\Zed\CrefoPay\Business\Mapper\OmsStatus\CrefoPayOmsStatusMapperInterface
      */
     protected $statusMapper;
 
@@ -50,7 +50,7 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
      * @param \SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface $writer
      * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
      * @param \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToOmsFacadeInterface $omsFacade
-     * @param \SprykerEco\Zed\CrefoPay\Business\Oms\Mapper\CrefoPayOmsStatusMapperInterface $statusMapper
+     * @param \SprykerEco\Zed\CrefoPay\Business\Mapper\OmsStatus\CrefoPayOmsStatusMapperInterface $statusMapper
      */
     public function __construct(
         CrefoPayReaderInterface $reader,

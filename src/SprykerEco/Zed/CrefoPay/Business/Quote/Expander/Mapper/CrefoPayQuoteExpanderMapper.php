@@ -19,7 +19,6 @@ use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
 use SprykerEco\Service\CrefoPay\CrefoPayServiceInterface;
-use SprykerEco\Shared\CrefoPay\CrefoPayConfig as SharedCrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface;
 
@@ -205,8 +204,8 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
                     ->setVatAmount($itemTransfer->getSumTaxAmountFullAggregation());
 
                 return (new CrefoPayApiBasketItemTransfer())
-                    ->setBasketItemType(SharedCrefoPayConfig::PRODUCT_TYPE_DEFAULT)
-                    ->setBasketItemRiskClass(SharedCrefoPayConfig::PRODUCT_RISK_CLASS)
+                    ->setBasketItemType($this->config->getProductTypeDefault())
+                    ->setBasketItemRiskClass($this->config->getProductRiskClass())
                     ->setBasketItemText($itemTransfer->getName())
                     ->setBasketItemID($itemTransfer->getSku())
                     ->setBasketItemCount($itemTransfer->getQuantity())

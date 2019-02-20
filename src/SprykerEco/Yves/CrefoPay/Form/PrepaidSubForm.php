@@ -31,7 +31,7 @@ class PrepaidSubForm extends AbstractSubFormType implements SubFormInterface, Su
      */
     public function getName(): string
     {
-        return CrefoPayConfig::CREFO_PAY_PREPAID;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_PREPAID;
     }
 
     /**
@@ -39,7 +39,7 @@ class PrepaidSubForm extends AbstractSubFormType implements SubFormInterface, Su
      */
     public function getPropertyPath(): string
     {
-        return CrefoPayConfig::CREFO_PAY_PREPAID;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_PREPAID;
     }
 
     /**

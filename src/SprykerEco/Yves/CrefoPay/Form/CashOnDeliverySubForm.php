@@ -31,7 +31,7 @@ class CashOnDeliverySubForm extends AbstractSubFormType implements SubFormInterf
      */
     public function getName(): string
     {
-        return CrefoPayConfig::CREFO_PAY_CASH_ON_DELIVERY;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_CASH_ON_DELIVERY;
     }
 
     /**
@@ -39,7 +39,7 @@ class CashOnDeliverySubForm extends AbstractSubFormType implements SubFormInterf
      */
     public function getPropertyPath(): string
     {
-        return CrefoPayConfig::CREFO_PAY_CASH_ON_DELIVERY;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_CASH_ON_DELIVERY;
     }
 
     /**

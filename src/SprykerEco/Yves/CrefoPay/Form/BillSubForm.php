@@ -31,7 +31,7 @@ class BillSubForm extends AbstractSubFormType implements SubFormInterface, SubFo
      */
     public function getName(): string
     {
-        return CrefoPayConfig::CREFO_PAY_BILL;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_BILL;
     }
 
     /**
@@ -39,7 +39,7 @@ class BillSubForm extends AbstractSubFormType implements SubFormInterface, SubFo
      */
     public function getPropertyPath(): string
     {
-        return CrefoPayConfig::CREFO_PAY_BILL;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_BILL;
     }
 
     /**

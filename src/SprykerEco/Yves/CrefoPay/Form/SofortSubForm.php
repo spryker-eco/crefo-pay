@@ -31,7 +31,7 @@ class SofortSubForm extends AbstractSubFormType implements SubFormInterface, Sub
      */
     public function getName(): string
     {
-        return CrefoPayConfig::CREFO_PAY_SOFORT;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_SOFORT;
     }
 
     /**
@@ -39,7 +39,7 @@ class SofortSubForm extends AbstractSubFormType implements SubFormInterface, Sub
      */
     public function getPropertyPath(): string
     {
-        return CrefoPayConfig::CREFO_PAY_SOFORT;
+        return CrefoPayConfig::CREFO_PAY_PAYMENT_METHOD_SOFORT;
     }
 
     /**

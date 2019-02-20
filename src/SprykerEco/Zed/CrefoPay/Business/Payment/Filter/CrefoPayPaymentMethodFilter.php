@@ -11,11 +11,16 @@ use ArrayObject;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\PaymentMethodTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use SprykerEco\Shared\CrefoPay\CrefoPayConfig as SharedCrefoPayConfig;
+use SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class CrefoPayPaymentMethodFilter implements CrefoPayPaymentMethodFilterInterface
 {
+    /**
+     * @var \SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface
+     */
+    protected $paymentMethodMapper;
+
     /**
      * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
      */
@@ -27,11 +32,15 @@ class CrefoPayPaymentMethodFilter implements CrefoPayPaymentMethodFilterInterfac
     protected $availableMethods = [];
 
     /**
+     * @param \SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface $paymentMethodMapper
      * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
      */
-    public function __construct(CrefoPayConfig $config)
-    {
+    public function __construct(
+        CrefoPayPaymentMethodMapperInterface $paymentMethodMapper,
+        CrefoPayConfig $config
+    ) {
         $this->config = $config;
+        $this->paymentMethodMapper = $paymentMethodMapper;
     }
 
     /**
@@ -44,12 +53,10 @@ class CrefoPayPaymentMethodFilter implements CrefoPayPaymentMethodFilterInterfac
         PaymentMethodsTransfer $paymentMethodsTransfer,
         QuoteTransfer $quoteTransfer
     ): PaymentMethodsTransfer {
-        $this->availableMethods = $this->getAvailablePaymentMethods($quoteTransfer);
-
         $result = new ArrayObject();
 
         foreach ($paymentMethodsTransfer->getMethods() as $paymentMethod) {
-            if ($this->isPaymentProviderCrefoPay($paymentMethod) && !$this->isAvailable($paymentMethod)) {
+            if ($this->isPaymentProviderCrefoPay($paymentMethod) && !$this->isAvailable($paymentMethod, $quoteTransfer)) {
                 continue;
             }
 
@@ -62,31 +69,20 @@ class CrefoPayPaymentMethodFilter implements CrefoPayPaymentMethodFilterInterfac
     }
 
     /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return string[]
-     */
-    protected function getAvailablePaymentMethods(QuoteTransfer $quoteTransfer)
-    {
-        $allowedPaymentMethods = $quoteTransfer->getCrefoPayTransaction()->getAllowedPaymentMethods();
-
-        return array_filter(
-            $this->config->getAvailablePaymentMethodsMapping(),
-            function ($key) use ($allowedPaymentMethods) {
-                return in_array($key, $allowedPaymentMethods);
-            },
-            ARRAY_FILTER_USE_KEY
-        );
-    }
-
-    /**
      * @param \Generated\Shared\Transfer\PaymentMethodTransfer $paymentMethodTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return bool
      */
-    protected function isAvailable(PaymentMethodTransfer $paymentMethodTransfer): bool
+    protected function isAvailable(PaymentMethodTransfer $paymentMethodTransfer, QuoteTransfer $quoteTransfer): bool
     {
-        return in_array($paymentMethodTransfer->getMethodName(), $this->availableMethods);
+        $allowedPaymentMethods = $quoteTransfer->getCrefoPayTransaction()->getAllowedPaymentMethods();
+        $externalPaymentMethodName = $this->paymentMethodMapper
+            ->mapInternalToExternalPaymentMethodName(
+                $paymentMethodTransfer->getMethodName()
+            );
+
+        return in_array($externalPaymentMethodName, $allowedPaymentMethods);
     }
 
     /**
@@ -96,6 +92,6 @@ class CrefoPayPaymentMethodFilter implements CrefoPayPaymentMethodFilterInterfac
      */
     protected function isPaymentProviderCrefoPay(PaymentMethodTransfer $paymentMethodTransfer): bool
     {
-        return strpos($paymentMethodTransfer->getMethodName(), SharedCrefoPayConfig::PROVIDER_NAME) !== false;
+        return strpos($paymentMethodTransfer->getMethodName(), $this->config->getProviderName()) !== false;
     }
 }
