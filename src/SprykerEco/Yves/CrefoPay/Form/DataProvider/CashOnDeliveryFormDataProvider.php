@@ -8,10 +8,12 @@
 namespace SprykerEco\Yves\CrefoPay\Form\DataProvider;
 
 use Generated\Shared\Transfer\CrefoPayPaymentTransfer;
+use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
+use Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface;
 
-class CashOnDeliveryFormDataProvider extends AbstractFormDataProvider
+class CashOnDeliveryFormDataProvider implements StepEngineFormDataProviderInterface
 {
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
@@ -20,7 +22,10 @@ class CashOnDeliveryFormDataProvider extends AbstractFormDataProvider
      */
     public function getData(AbstractTransfer $quoteTransfer): QuoteTransfer
     {
-        $quoteTransfer = parent::getData($quoteTransfer);
+        if ($quoteTransfer->getPayment() === null) {
+            $quoteTransfer->setPayment(new PaymentTransfer());
+        }
+
         if ($quoteTransfer->getPayment()->getCrefoPayCashOnDelivery() !== null) {
             return $quoteTransfer;
         }
@@ -28,5 +33,15 @@ class CashOnDeliveryFormDataProvider extends AbstractFormDataProvider
         $quoteTransfer->getPayment()->setCrefoPayCashOnDelivery(new CrefoPayPaymentTransfer());
 
         return $quoteTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return array
+     */
+    public function getOptions(AbstractTransfer $quoteTransfer): array
+    {
+        return [];
     }
 }

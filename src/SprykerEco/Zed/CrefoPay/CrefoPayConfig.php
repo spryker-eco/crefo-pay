@@ -132,6 +132,8 @@ class CrefoPayConfig extends AbstractBundleConfig
             SharedCrefoPayConfig::PAYMENT_METHOD_PAYPAL => SharedCrefoPayConfig::CREFO_PAY_PAY_PAL,
             SharedCrefoPayConfig::PAYMENT_METHOD_PREPAID => SharedCrefoPayConfig::CREFO_PAY_PREPAID,
             SharedCrefoPayConfig::PAYMENT_METHOD_SOFORT => SharedCrefoPayConfig::CREFO_PAY_SOFORT,
+            SharedCrefoPayConfig::PAYMENT_METHOD_CREDIT_CARD => SharedCrefoPayConfig::CREFO_PAY_CREDIT_CARD,
+            SharedCrefoPayConfig::PAYMENT_METHOD_CREDIT_CARD_3D => SharedCrefoPayConfig::CREFO_PAY_CREDIT_CARD_3D,
         ];
     }
 

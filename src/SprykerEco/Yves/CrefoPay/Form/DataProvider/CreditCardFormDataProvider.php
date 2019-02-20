@@ -12,9 +12,24 @@ use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface;
+use SprykerEco\Yves\CrefoPay\CrefoPayConfig;
+use SprykerEco\Yves\CrefoPay\Form\CreditCardSubForm;
 
-class BillFormDataProvider implements StepEngineFormDataProviderInterface
+class CreditCardFormDataProvider implements StepEngineFormDataProviderInterface
 {
+    /**
+     * @var \SprykerEco\Yves\CrefoPay\CrefoPayConfig
+     */
+    protected $config;
+
+    /**
+     * @param \SprykerEco\Yves\CrefoPay\CrefoPayConfig $config
+     */
+    public function __construct(CrefoPayConfig $config)
+    {
+        $this->config = $config;
+    }
+
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
@@ -26,11 +41,11 @@ class BillFormDataProvider implements StepEngineFormDataProviderInterface
             $quoteTransfer->setPayment(new PaymentTransfer());
         }
 
-        if ($quoteTransfer->getPayment()->getCrefoPayBill() !== null) {
+        if ($quoteTransfer->getPayment()->getCrefoPayCreditCard() !== null) {
             return $quoteTransfer;
         }
 
-        $quoteTransfer->getPayment()->setCrefoPayBill(new CrefoPayPaymentTransfer());
+        $quoteTransfer->getPayment()->setCrefoPayCreditCard(new CrefoPayPaymentTransfer());
 
         return $quoteTransfer;
     }
@@ -42,6 +57,9 @@ class BillFormDataProvider implements StepEngineFormDataProviderInterface
      */
     public function getOptions(AbstractTransfer $quoteTransfer): array
     {
-        return [];
+        return [
+            CreditCardSubForm::CREFO_PAY_SHOP_PUBLIC_KEY => $this->config->getPublicKey(),
+            CreditCardSubForm::CREFO_PAY_ORDER_ID => $quoteTransfer->getCrefoPayTransaction()->getCrefoPayOrderId(),
+        ];
     }
 }

@@ -28,6 +28,7 @@ class CrefoPayConfig extends AbstractBundleConfig
     public const PAYMENT_METHOD_PREPAID = 'PREPAID';
     public const PAYMENT_METHOD_SOFORT = 'SU';
     public const PAYMENT_METHOD_CREDIT_CARD = 'CC';
+    public const PAYMENT_METHOD_CREDIT_CARD_3D = 'CC3D';
 
     public const CREFO_PAY_BILL = 'crefoPayBill';
     public const CREFO_PAY_CASH_ON_DELIVERY = 'crefoPayCashOnDelivery';
@@ -35,4 +36,6 @@ class CrefoPayConfig extends AbstractBundleConfig
     public const CREFO_PAY_PAY_PAL = 'crefoPayPayPal';
     public const CREFO_PAY_PREPAID = 'crefoPayPrepaid';
     public const CREFO_PAY_SOFORT = 'crefoPaySofort';
+    public const CREFO_PAY_CREDIT_CARD = 'crefoPayCreditCard';
+    public const CREFO_PAY_CREDIT_CARD_3D = 'crefoPayCreditCard3D';
 }

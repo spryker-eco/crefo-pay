@@ -8,10 +8,12 @@
 namespace SprykerEco\Yves\CrefoPay\Form\DataProvider;
 
 use Generated\Shared\Transfer\CrefoPayPaymentTransfer;
+use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
+use Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface;
 
-class PayPalFormDataProvider extends AbstractFormDataProvider
+class PayPalFormDataProvider implements StepEngineFormDataProviderInterface
 {
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
@@ -20,7 +22,10 @@ class PayPalFormDataProvider extends AbstractFormDataProvider
      */
     public function getData(AbstractTransfer $quoteTransfer): QuoteTransfer
     {
-        $quoteTransfer = parent::getData($quoteTransfer);
+        if ($quoteTransfer->getPayment() === null) {
+            $quoteTransfer->setPayment(new PaymentTransfer());
+        }
+
         if ($quoteTransfer->getPayment()->getCrefoPayPayPal() !== null) {
             return $quoteTransfer;
         }
@@ -28,5 +33,15 @@ class PayPalFormDataProvider extends AbstractFormDataProvider
         $quoteTransfer->getPayment()->setCrefoPayPayPal(new CrefoPayPaymentTransfer());
 
         return $quoteTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return array
+     */
+    public function getOptions(AbstractTransfer $quoteTransfer): array
+    {
+        return [];
     }
 }

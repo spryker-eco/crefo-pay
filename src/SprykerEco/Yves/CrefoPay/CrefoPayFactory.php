@@ -13,8 +13,12 @@ use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToCrefoPayApiServiceInterface;
 use SprykerEco\Yves\CrefoPay\Form\BillSubForm;
 use SprykerEco\Yves\CrefoPay\Form\CashOnDeliverySubForm;
+use SprykerEco\Yves\CrefoPay\Form\CreditCard3DSubForm;
+use SprykerEco\Yves\CrefoPay\Form\CreditCardSubForm;
 use SprykerEco\Yves\CrefoPay\Form\DataProvider\BillFormDataProvider;
 use SprykerEco\Yves\CrefoPay\Form\DataProvider\CashOnDeliveryFormDataProvider;
+use SprykerEco\Yves\CrefoPay\Form\DataProvider\CreditCard3DFormDataProvider;
+use SprykerEco\Yves\CrefoPay\Form\DataProvider\CreditCardFormDataProvider;
 use SprykerEco\Yves\CrefoPay\Form\DataProvider\DirectDebitFormDataProvider;
 use SprykerEco\Yves\CrefoPay\Form\DataProvider\PayPalFormDataProvider;
 use SprykerEco\Yves\CrefoPay\Form\DataProvider\PrepaidFormDataProvider;
@@ -124,6 +128,22 @@ class CrefoPayFactory extends AbstractFactory
     }
 
     /**
+     * @return \Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface
+     */
+    public function createCreditCardForm(): SubFormInterface
+    {
+        return new CreditCardSubForm();
+    }
+
+    /**
+     * @return \Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface
+     */
+    public function createCreditCard3DForm(): SubFormInterface
+    {
+        return new CreditCard3DSubForm();
+    }
+
+    /**
      * @return \Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface
      */
     public function createBillFormDataProvider(): StepEngineFormDataProviderInterface
@@ -169,6 +189,22 @@ class CrefoPayFactory extends AbstractFactory
     public function createSofortFormDataProvider(): StepEngineFormDataProviderInterface
     {
         return new SofortFormDataProvider();
+    }
+
+    /**
+     * @return \Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface
+     */
+    public function createCreditCardFormDataProvider(): StepEngineFormDataProviderInterface
+    {
+        return new CreditCardFormDataProvider($this->getConfig());
+    }
+
+    /**
+     * @return \Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface
+     */
+    public function createCreditCard3DFormDataProvider(): StepEngineFormDataProviderInterface
+    {
+        return new CreditCard3DFormDataProvider($this->getConfig());
     }
 
     /**

@@ -9,6 +9,7 @@ namespace SprykerEco\Yves\CrefoPay;
 
 use Spryker\Yves\Kernel\AbstractBundleConfig;
 use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConfig;
+use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConstants;
 
 class CrefoPayConfig extends AbstractBundleConfig
 {
@@ -18,5 +19,13 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getApiFieldMac(): string
     {
         return CrefoPayApiConfig::API_FIELD_MAC;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublicKey(): string
+    {
+        return $this->get(CrefoPayApiConstants::PUBLIC_KEY);
     }
 }
