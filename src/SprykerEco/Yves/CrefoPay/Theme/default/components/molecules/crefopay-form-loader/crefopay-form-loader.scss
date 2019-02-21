@@ -1,0 +1,9 @@
+@mixin crefopay-form-loader($name: '.crefopay-form-loader'){
+    #{$name}{
+        &__input-container {
+            height: 31px;
+            width: 100%;
+        }
+    }
+}
+@include crefopay-form-loader();

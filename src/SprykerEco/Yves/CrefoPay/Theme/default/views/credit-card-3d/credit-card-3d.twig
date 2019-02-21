@@ -15,18 +15,27 @@
         }
     } only %}
         {% block requestForm %}
-            <div>
-                {{ form_widget(embed.form.crefoPayCreditCard3D) }}
-                <label><input type="radio" data-crefopay="paymentMethod" value="CC">Creditcard</label><br>
-                <span>Accountholder: </span>
-                <div data-crefopay-placeholder="paymentInstrument.accountHolder"></div>
-                <span>Number: </span>
-                <div data-crefopay-placeholder="paymentInstrument.number"></div>
-                <span>Validity: </span>
-                <div data-crefopay-placeholder="paymentInstrument.validity"></div>
-                <span>CVV: </span>
-                <div data-crefopay-placeholder="paymentInstrument.cvv"></div>
-                <label><input type="radio" data-crefopay="paymentInstrument.id" value="Aqc9O5SSJuQTDHC9KXFE0Q">Registered creditcard (Number: 12***********3456)</label>
+            <div class="spacing-left spacing-left--big">
+                {{ form_widget(embed.form.crefoPayCreditCard) }}
+                <div class="grid grid--middle spacing spacing--big">
+                    <span class="spacing-right">Accountholder: </span>
+                    <div data-crefopay-placeholder="paymentInstrument.accountHolder" style="height: 21px"></div>
+                </div>
+                <div class="grid grid--middle spacing spacing--big">
+                    <span class="spacing-right">Number: </span>
+                    <div data-crefopay-placeholder="paymentInstrument.number" style="height: 21px"></div>
+                </div>
+                <div class="grid grid--middle spacing spacing--big">
+                    <span class="spacing-right">Validity: </span>
+                    <div data-crefopay-placeholder="paymentInstrument.validity" style="height: 21px"></div>
+                </div>
+                <div class="grid grid--middle spacing spacing--big">
+                    <span class="spacing-right">CVV: </span>
+                    <div data-crefopay-placeholder="paymentInstrument.cvv" style="height: 21px"></div>
+                </div>
+                <div class="spacing spacing--big">
+                    <label><input type="radio" data-crefopay="paymentInstrument.id" value="Aqc9O5SSJuQTDHC9KXFE0Q" class="spacing-right">Registered creditcard (Number: 12***********3456)</label>
+                </div>
             </div>
         {% endblock %}
     {% endembed %}

@@ -3,7 +3,7 @@ declare var SecureFieldsClient: any;
 import Component from 'ShopUi/models/component';
 import ScriptLoader from 'ShopUi/components/molecules/script-loader/script-loader';
 
-const CREFOPAY_CONFIG = {
+const CREFO_PAY_CONFIG = {
     url: "https://sandbox.crefopay.de/secureFields/",
     placeholders: {
         accountHolder: "Your Name",
@@ -14,7 +14,7 @@ const CREFOPAY_CONFIG = {
 
 export default class CrefopayFormLoader extends Component {
     protected crefoPayScriptLoader: ScriptLoader;
-    protected secureFieldsClientInstance: any;
+    public secureFieldsClient: any;
     protected configuration: object;
 
     protected readyCallback(): void {
@@ -27,14 +27,13 @@ export default class CrefopayFormLoader extends Component {
     }
 
     protected onScriptLoad(): void {
-        this.secureFieldsClientInstance =
+        this.secureFieldsClient =
             new SecureFieldsClient(
                 this.crefopayShopPublicKey,
                 this.crefopayOrderId,
                 this.paymentRegisteredCallback,
                 this.initializationCompleteCallback,
-                CREFOPAY_CONFIG);
-        this.secureFieldsClientInstance.registerPayment();
+                CREFO_PAY_CONFIG);
     }
 
     protected paymentRegisteredCallback(response) {
