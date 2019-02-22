@@ -6,10 +6,10 @@
 
 {% block body %}
     {% set crefopayFields = [
-        {name: 'Accountholder', attribute: "paymentInstrument.accountHolder"},
-        {name: 'Number', attribute: "paymentInstrument.number"},
-        {name: 'Validity', attribute: "paymentInstrument.validity"},
-        {name: 'CVV', attribute: "paymentInstrument.cvv"}
+        {name: 'crefopay.accountholder', attribute: "paymentInstrument.accountHolder"},
+        {name: 'crefopay.number', attribute: "paymentInstrument.number"},
+        {name: 'crefopay.validity', attribute: "paymentInstrument.validity"},
+        {name: 'crefopay.cvv', attribute: "paymentInstrument.cvv"}
     ] %}
 
     {% include molecule('crefopay-form-loader', 'CrefoPay') with {
