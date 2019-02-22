@@ -5,14 +5,6 @@
 } %}
 
 {% block body %}
-
-    {% macro crefopayField(name, attribute, blockName) %}
-        <div class="spacing">
-            <label class="label label--required">{{ name }}</label>
-            <div class="{{ blockName }}__input-container" data-crefopay-placeholder="{{ attribute }}"></div>
-        </div>
-    {% endmacro %}
-
     {% set crefopayFields = [
         {name: 'Accountholder', attribute: "paymentInstrument.accountHolder"},
         {name: 'Number', attribute: "paymentInstrument.number"},
@@ -20,27 +12,12 @@
         {name: 'CVV', attribute: "paymentInstrument.cvv"}
     ] %}
 
-    {% embed molecule('crefopay-form-loader', 'CrefoPay') with {
+    {% include molecule('crefopay-form-loader', 'CrefoPay') with {
         data: {
-            shopPublicKey: data.form.crefoPayCreditCard.vars.shopPublicKey,
-            orderId: data.form.crefoPayCreditCard.vars.orderID
-        },
-        embed: {
             form: data.form,
-            fields: crefopayFields,
-            context: _self
+            shopPublicKey: data.form.crefoPayCreditCard.vars.shopPublicKey,
+            orderId: data.form.crefoPayCreditCard.vars.orderID,
+            fields: crefopayFields
         }
     } only %}
-        {% block requestForm %}
-            {{ form_widget(embed.form.crefoPayCreditCard) }}
-
-            {% for field in embed.fields %}
-                {{ embed.context.crefopayField(field.name, field.attribute, config.name) }}
-            {% endfor %}
-
-            <div class="spacing">
-                <label><input type="radio" data-crefopay="paymentInstrument.id" value="Aqc9O5SSJuQTDHC9KXFE0Q" class="spacing-right">Registered creditcard (Number: 12***********3456)</label>
-            </div>
-        {% endblock %}
-    {% endembed %}
 {% endblock %}

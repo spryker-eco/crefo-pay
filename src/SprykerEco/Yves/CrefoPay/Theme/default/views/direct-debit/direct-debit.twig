@@ -5,30 +5,38 @@
 } %}
 
 {% block body %}
+    {% macro crefopayField(name, attribute, placeholder) %}
+        <div class="spacing-y">
+            <label class="label label--required">{{ name }}</label>
+            <input class="input input--expand" type="text" data-crefopay="{{ attribute }}" placeholder="{{ placeholder }}">
+        </div>
+    {% endmacro %}
+
+    {% set crefopayFields = [
+        {name: 'Accountholder', attribute: "paymentInstrument.bankAccountHolder", placeholder: "John Doe"},
+        {name: 'IBAN', attribute: "paymentInstrument.iban", placeholder: "DE12 3456 7890 1112 1314"},
+        {name: 'BIC', attribute: "paymentInstrument.bic", placeholder: "SFRTDE20000"}
+    ] %}
+
     {% embed molecule('crefopay-form-loader', 'CrefoPay') with {
         data: {
+            form: data.form,
             shopPublicKey: '',
             orderId: ''
         },
         embed: {
-            form: data.form
+            form: data.form,
+            fields: crefopayFields,
+            context: _self
         }
     } only %}
         {% block requestForm %}
-            <div class="spacing-left spacing-left--big">
             {{ form_widget(embed.form.crefoPayDirectDebit) }}
-                <div class="spacing spacing--big">
-                    <label>Account holder: <input type="text" data-crefopay="paymentInstrument.bankAccountHolder" placeholder="John Doe"></label>
-                </div>
-                <div class="spacing spacing--big">
-                    <label>IBAN: <input type="text" data-crefopay="paymentInstrument.iban" placeholder="DE12 3456 7890 1112 1314"></label>
-                </div>
-                <div class="spacing spacing--big">
-                    <label>BIC: <input type="text" data-crefopay="paymentInstrument.bic" placeholder="SFRTDE20000"></label>
-                </div>
-                <div class="spacing spacing--big">
-                    <label><input type="radio" data-crefopay="paymentInstrument.id" value="Aqc9O5SSJuQTDHC9KXFE0Q" class="spacing-right">Registered bank account (IBAN: DE12 3456 7890 1112 1314)</label>
-                </div>
+            {% for field in embed.fields %}
+                {{ embed.context.crefopayField(field.name, field.attribute, field.placeholder) }}
+            {% endfor %}
+            <div class="spacing-y">
+                <label><input type="radio" data-crefopay="paymentInstrument.id" value="Aqc9O5SSJuQTDHC9KXFE0Q" class="spacing-right">Registered bank account (IBAN: DE12 3456 7890 1112 1314)</label>
             </div>
         {% endblock %}
     {% endembed %}
