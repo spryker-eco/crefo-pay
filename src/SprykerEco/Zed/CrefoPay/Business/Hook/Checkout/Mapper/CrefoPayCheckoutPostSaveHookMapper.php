@@ -20,6 +20,8 @@ use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperInterface
 {
+    protected const GET_PAYMENT_METHOD_PATTERN = 'get%s';
+
     /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface
      */
@@ -71,6 +73,7 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
             ->setStoreID($this->config->getStoreId())
             ->setOrderID($quoteTransfer->getCrefoPayTransaction()->getCrefoPayOrderId())
             ->setPaymentMethod($this->getPaymentMethod($quoteTransfer))
+            ->setPaymentInstrumentID($this->getPaymentInstrumentId($quoteTransfer))
             ->setAmount($this->createCrefoPayApiAmountTransfer($quoteTransfer->getTotals()))
             ->setBasketItems($this->createBasket($quoteTransfer));
     }
@@ -85,6 +88,25 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
         return $this->paymentMethodMapper->mapInternalToExternalPaymentMethodName(
             $quoteTransfer->getPayment()->getPaymentSelection()
         );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return string|null
+     */
+    protected function getPaymentInstrumentId(QuoteTransfer $quoteTransfer): ?string
+    {
+        $method = sprintf(
+            static::GET_PAYMENT_METHOD_PATTERN,
+            ucfirst($quoteTransfer->getPayment()->getPaymentSelection())
+        );
+
+        if (!method_exists($quoteTransfer->getPayment(), $method)) {
+            return null;
+        }
+
+        return $quoteTransfer->getPayment()->$method->getPaymentInstrumentId();
     }
 
     /**

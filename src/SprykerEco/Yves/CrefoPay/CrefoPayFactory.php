@@ -164,7 +164,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createDirectDebitFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new DirectDebitFormDataProvider();
+        return new DirectDebitFormDataProvider($this->getConfig());
     }
 
     /**
