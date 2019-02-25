@@ -12,6 +12,8 @@ use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
 use SprykerEco\Shared\CrefoPay\CrefoPayConfig;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,6 +24,7 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
     public const CREFO_PAY_ORDER_ID = 'orderID';
 
     protected const PAYMENT_METHOD = 'credit-card';
+    protected const FORM_FIELD_PAYMENT_INSTRUMENT_ID = 'paymentInstrumentId';
 
     /**
      * @return string
@@ -80,5 +83,32 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
         $selectedOptions = $options[static::OPTIONS_FIELD_NAME];
         $view->vars[static::CREFO_PAY_SHOP_PUBLIC_KEY] = $selectedOptions[static::CREFO_PAY_SHOP_PUBLIC_KEY];
         $view->vars[static::CREFO_PAY_ORDER_ID] = $selectedOptions[static::CREFO_PAY_ORDER_ID];
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param array $options
+     *
+     * @return void
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $this->addInstrumentId($builder);
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     *
+     * @return $this
+     */
+    protected function addInstrumentId(FormBuilderInterface $builder)
+    {
+        $builder->add(
+            static::FORM_FIELD_PAYMENT_INSTRUMENT_ID,
+            HiddenType::class,
+            ['label' => false]
+        );
+
+        return $this;
     }
 }
