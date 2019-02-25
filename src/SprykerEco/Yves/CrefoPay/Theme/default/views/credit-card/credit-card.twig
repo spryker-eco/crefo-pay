@@ -5,55 +5,19 @@
 } %}
 
 {% block body %}
-    <script src="https://libs.crefopay.de/3.0/secure-fields.js"></script>
-    <script>
-        var secureFieldsClientInstance =
-            new SecureFieldsClient(
-                data.form.crefoPayCreditCard.vars.shopPublicKey,
-                data.form.crefoPayCreditCard.vars.orderID,
-                paymentRegisteredCallback,
-                initializationCompleteCallback,
-                configuration);
-    </script>
-    <div>
-        {{ form_widget(data.form.crefoPayCreditCard) }}
-        <label><input type="radio" data-crefopay="paymentMethod" value="CC">Creditcard</label><br>
-        <span>Accountholder: </span>
-        <div data-crefopay-placeholder="paymentInstrument.accountHolder"></div>
-        <span>Number: </span>
-        <div data-crefopay-placeholder="paymentInstrument.number"></div>
-        <span>Validity: </span>
-        <div data-crefopay-placeholder="paymentInstrument.validity"></div>
-        <span>CVV: </span>
-        <div data-crefopay-placeholder="paymentInstrument.cvv"></div>
-        <label><input type="radio" data-crefopay="paymentInstrument.id" value="Aqc9O5SSJuQTDHC9KXFE0Q">Registered creditcard (Number: 12***********3456)</label>
-    </div>
-    <script>
-        secureFieldsClientInstance.registerPayment();
+    {% set crefopayFields = [
+        {name: 'crefopay.accountholder', attribute: "paymentInstrument.accountHolder"},
+        {name: 'crefopay.number', attribute: "paymentInstrument.number"},
+        {name: 'crefopay.validity', attribute: "paymentInstrument.validity"},
+        {name: 'crefopay.cvv', attribute: "paymentInstrument.cvv"}
+    ] %}
 
-        function paymentRegisteredCallback(response) {
-            if (response.resultCode === 0) {
-                // Successful registration, continue to next page using JavaScript
-            } else {
-                // Error during registration, check the response for more details and dynamically show a message for the customer
-            }
+    {% include molecule('crefopay-form-loader', 'CrefoPay') with {
+        data: {
+            form: data.form,
+            shopPublicKey: data.form.crefoPayCreditCard.vars.shopPublicKey,
+            orderId: data.form.crefoPayCreditCard.vars.orderID,
+            fields: crefopayFields
         }
-
-        function initializationCompleteCallback(response) {
-            if (response.resultCode === 0) {
-                // Successful registration, continue to next page using JavaScript
-            } else {
-                // Error during registration, check the response for more details and dynamically show a message for the customer
-            }
-        }
-
-        var configuration = {
-            url: "https://sandbox.crefopay.de/secureFields/",
-            placeholders: {
-                accountHolder: "Your Name",
-                number: "0123456789101112",
-                cvv: "000"
-            }
-        }
-    </script>
+    } only %}
 {% endblock %}

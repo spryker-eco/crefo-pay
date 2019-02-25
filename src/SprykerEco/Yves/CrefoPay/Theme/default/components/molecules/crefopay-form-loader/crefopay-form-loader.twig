@@ -1,0 +1,43 @@
+{% extends model('component') %}
+
+{% define config = {
+    name: 'crefopay-form-loader',
+    tag: 'crefopay-form-loader'
+} %}
+
+{% define data = {
+    form: required,
+    shopPublicKey: required,
+    orderId: required,
+    fields: []
+} %}
+
+{% define attributes = {
+    'shop-public-key': data.shopPublicKey,
+    'order-id': data.orderId
+} %}
+
+{% block body %}
+    {% macro crefopayField(name, attribute, blockName) %}
+        <div class="spacing-y">
+            <label class="label label--required">{{ name }}</label>
+            <div class="{{ blockName }}__input-container" data-crefopay-placeholder="{{ attribute }}"></div>
+        </div>
+    {% endmacro %}
+
+    {% include molecule('script-loader') with {
+        class: config.jsName ~ '__script-loader',
+        attributes: {
+            src: "https://libs.crefopay.de/3.0/secure-fields.js"
+        }
+    } only %}
+    {% block requestForm %}
+        {{ form_widget(data.form.crefoPayCreditCard) }}
+        {% for field in data.fields %}
+            {{ _self.crefopayField(field.name, field.attribute, config.name) }}
+        {% endfor %}
+        <div class="spacing">
+            <label><input type="radio" data-crefopay="paymentInstrument.id" value="Aqc9O5SSJuQTDHC9KXFE0Q" class="spacing-right">Registered creditcard (Number: 12***********3456)</label>
+        </div>
+    {% endblock %}
+{% endblock %}
