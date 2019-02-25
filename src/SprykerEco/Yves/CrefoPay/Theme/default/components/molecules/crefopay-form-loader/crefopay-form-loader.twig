@@ -14,7 +14,10 @@
 
 {% define attributes = {
     'shop-public-key': data.shopPublicKey,
-    'order-id': data.orderId
+    'order-id': data.orderId,
+    'payment-form-selector': '#payment-form',
+    'payment-instrument-id-selector': '[name="' ~ data.form.crefoPayCreditCard.children['paymentInstrumentId'].vars.full_name ~ '"]',
+    'class-to-toggle': 'is-hidden'
 } %}
 
 {% block body %}
@@ -33,11 +36,13 @@
     } only %}
     {% block requestForm %}
         {{ form_widget(data.form.crefoPayCreditCard) }}
+
         {% for field in data.fields %}
             {{ _self.crefopayField(field.name, field.attribute, config.name) }}
         {% endfor %}
-        <div class="spacing">
-            <label><input type="radio" data-crefopay="paymentInstrument.id" value="Aqc9O5SSJuQTDHC9KXFE0Q" class="spacing-right">Registered creditcard (Number: 12***********3456)</label>
+
+        <div class="{{ config.name }}__error {{ config.jsName }}__error spacing-y is-hidden">
+            {{ 'All fields are required.' | trans }}
         </div>
     {% endblock %}
 {% endblock %}
