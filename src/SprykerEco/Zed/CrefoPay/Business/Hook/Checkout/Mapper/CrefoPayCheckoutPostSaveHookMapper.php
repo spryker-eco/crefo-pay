@@ -106,7 +106,7 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
             return null;
         }
 
-        return $quoteTransfer->getPayment()->$method->getPaymentInstrumentId();
+        return $quoteTransfer->getPayment()->$method()->getPaymentInstrumentId();
     }
 
     /**
