@@ -17,28 +17,32 @@ export default class CrefopayFormLoader extends Component {
     public secureFieldsClient: any;
     protected configuration: object;
     protected paymentForm: HTMLFormElement;
-    protected paymentFormSubmitButton: HTMLButtonElement;
     protected paymentInstrumentId: HTMLInputElement;
     protected errorBlock: HTMLElement;
+    protected paymentContainer: HTMLElement;
+    protected paymentToggler: HTMLElement;
 
     protected readyCallback(): void {
         this.paymentForm = <HTMLFormElement>document.querySelector(this.paymentFormSelector);
-        this.paymentFormSubmitButton = <HTMLButtonElement>this.paymentForm.querySelector('button[type="submit"]');
         this.crefoPayScriptLoader = <ScriptLoader>this.querySelector(`.${this.jsName}__script-loader`);
         this.paymentInstrumentId = <HTMLInputElement>this.querySelector(this.paymentInstrumentIdSelector);
         this.errorBlock = <HTMLElement>this.querySelector(`.${this.jsName}__error`);
+        this.paymentContainer = <HTMLElement>this.closest(this.paymentContainerSelector);
+        this.paymentToggler = <HTMLElement>this.paymentContainer.querySelector(this.paymentTogglerSelector);
 
         this.mapEvents();
     }
 
     protected mapEvents(): void {
         this.crefoPayScriptLoader.addEventListener('scriptload', () => this.onScriptLoad());
-        this.paymentFormSubmitButton.addEventListener('click', (event: Event) => this.onSubmitButtonClick(event));
+        this.paymentForm.addEventListener('onsubmit', (event: Event) => this.onSubmit(event));
     }
 
-    protected onSubmitButtonClick(event: Event): void {
+    protected onSubmit(event: Event): void {
         event.preventDefault();
-        this.secureFieldsClient.registerPayment();
+        if(!this.paymentToggler.classList.contains(this.classToCheck)) {
+            this.secureFieldsClient.registerPayment();
+        }
     }
 
     protected onScriptLoad(): void {
@@ -62,9 +66,10 @@ export default class CrefopayFormLoader extends Component {
 
     protected initializationCompleteCallback(response): void {
         if (response.resultCode === 0) {
-            // Successful registration, continue to next page using JavaScript
+
         } else {
             // Error during registration, check the response for more details and dynamically show a message for the customer
+            console.log(response);
         }
     }
 
@@ -86,5 +91,17 @@ export default class CrefopayFormLoader extends Component {
 
     get classToToggle() {
         return this.getAttribute('class-to-toggle');
+    }
+
+    get paymentContainerSelector() {
+        return this.getAttribute('payment-container-selector');
+    }
+
+    get paymentTogglerSelector() {
+        return this.getAttribute('payment-toggler-selector');
+    }
+
+    get classToCheck() {
+        return this.getAttribute('class-to-check');
     }
 }
