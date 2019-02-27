@@ -9,7 +9,6 @@ namespace SprykerEco\Zed\CrefoPay;
 
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 use SprykerEco\Shared\CrefoPay\CrefoPayConstants;
-use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConfig;
 
 /**
  * @method \SprykerEco\Shared\CrefoPay\CrefoPayConfig getSharedConfig()
@@ -402,16 +401,5 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getCrefoPayAutomaticOmsTrigger(): string
     {
         return static::CREFO_PAY_AUTOMATIC_OMS_TRIGGER;
-    }
-
-    /**
-     * @return int[]
-     */
-    public function getSuccessResultCodes(): array
-    {
-        return [
-            CrefoPayApiConfig::RESULT_CODE_OK,
-            CrefoPayApiConfig::RESULT_CODE_REDIRECT,
-        ];
     }
 }
