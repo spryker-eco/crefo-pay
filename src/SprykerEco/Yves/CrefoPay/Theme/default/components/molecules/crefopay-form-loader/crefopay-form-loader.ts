@@ -3,42 +3,36 @@ declare var SecureFieldsClient: any;
 import Component from 'ShopUi/models/component';
 import ScriptLoader from 'ShopUi/components/molecules/script-loader/script-loader';
 
-const CREFO_PAY_CONFIG = {
-    url: "https://sandbox.crefopay.de/secureFields/",
-    placeholders: {
-        accountHolder: "Your Name",
-        number: "0123456789101112",
-        cvv: "000"
-    }
-};
-
 export default class CrefopayFormLoader extends Component {
     protected crefoPayScriptLoader: ScriptLoader;
     public secureFieldsClient: any;
-    protected configuration: object;
     protected paymentForm: HTMLFormElement;
-    protected paymentFormSubmitButton: HTMLButtonElement;
     protected paymentInstrumentId: HTMLInputElement;
     protected errorBlock: HTMLElement;
+    protected paymentContainer: HTMLElement;
+    protected paymentToggler: HTMLElement;
 
     protected readyCallback(): void {
         this.paymentForm = <HTMLFormElement>document.querySelector(this.paymentFormSelector);
-        this.paymentFormSubmitButton = <HTMLButtonElement>this.paymentForm.querySelector('button[type="submit"]');
         this.crefoPayScriptLoader = <ScriptLoader>this.querySelector(`.${this.jsName}__script-loader`);
         this.paymentInstrumentId = <HTMLInputElement>this.querySelector(this.paymentInstrumentIdSelector);
         this.errorBlock = <HTMLElement>this.querySelector(`.${this.jsName}__error`);
+        this.paymentContainer = <HTMLElement>this.closest(this.paymentContainerSelector);
+        this.paymentToggler = <HTMLElement>this.paymentContainer.querySelector(this.paymentTogglerSelector);
 
         this.mapEvents();
     }
 
     protected mapEvents(): void {
         this.crefoPayScriptLoader.addEventListener('scriptload', () => this.onScriptLoad());
-        this.paymentFormSubmitButton.addEventListener('click', (event: Event) => this.onSubmitButtonClick(event));
+        this.paymentForm.addEventListener('onsubmit', (event: Event) => this.onSubmit(event));
     }
 
-    protected onSubmitButtonClick(event: Event): void {
+    protected onSubmit(event: Event): void {
         event.preventDefault();
-        this.secureFieldsClient.registerPayment();
+        if(!this.paymentToggler.classList.contains(this.classToCheck)) {
+            this.secureFieldsClient.registerPayment();
+        }
     }
 
     protected onScriptLoad(): void {
@@ -48,7 +42,7 @@ export default class CrefopayFormLoader extends Component {
                 this.crefopayOrderId,
                 this.paymentRegisteredCallback.bind(this),
                 this.initializationCompleteCallback,
-                CREFO_PAY_CONFIG);
+                this.crefoPayConfig);
     }
 
     protected paymentRegisteredCallback(response): void {
@@ -62,9 +56,9 @@ export default class CrefopayFormLoader extends Component {
 
     protected initializationCompleteCallback(response): void {
         if (response.resultCode === 0) {
-            // Successful registration, continue to next page using JavaScript
+            console.log('registration success');
         } else {
-            // Error during registration, check the response for more details and dynamically show a message for the customer
+            console.log('registration failed');
         }
     }
 
@@ -74,6 +68,10 @@ export default class CrefopayFormLoader extends Component {
 
     get crefopayOrderId() {
         return this.getAttribute('order-id');
+    }
+
+    get crefoPayConfig() {
+        return this.getAttribute('secure-fields-library-url');
     }
 
     get paymentFormSelector() {
@@ -86,5 +84,17 @@ export default class CrefopayFormLoader extends Component {
 
     get classToToggle() {
         return this.getAttribute('class-to-toggle');
+    }
+
+    get paymentContainerSelector() {
+        return this.getAttribute('payment-container-selector');
+    }
+
+    get paymentTogglerSelector() {
+        return this.getAttribute('payment-toggler-selector');
+    }
+
+    get classToCheck() {
+        return JSON.parse(this.getAttribute('toggle-class-to-check')) ;
     }
 }
