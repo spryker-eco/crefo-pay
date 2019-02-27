@@ -8,6 +8,7 @@
 namespace SprykerEco\Yves\CrefoPay;
 
 use Spryker\Yves\Kernel\AbstractBundleConfig;
+use SprykerEco\Shared\CrefoPay\CrefoPayConstants;
 use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConfig;
 use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConstants;
 
@@ -27,5 +28,29 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getPublicKey(): string
     {
         return $this->get(CrefoPayApiConstants::PUBLIC_KEY);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRegisterPaymentActionUrl(): string
+    {
+        return $this->get(CrefoPayConstants::REGISTER_PAYMENT_ACTION_URL);
+    }
+
+    /**
+     * @return string
+     */
+    public function getSecureFieldsLibraryUrl(): string
+    {
+        return $this->get(CrefoPayConstants::SECURE_FIELDS_LIBRARY_URL);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSecureFieldsPlaceholders(): array
+    {
+        return $this->get(CrefoPayConstants::SECURE_FIELDS_PLACEHOLDERS);
     }
 }
