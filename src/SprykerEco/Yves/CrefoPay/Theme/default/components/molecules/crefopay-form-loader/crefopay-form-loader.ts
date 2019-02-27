@@ -3,19 +3,9 @@ declare var SecureFieldsClient: any;
 import Component from 'ShopUi/models/component';
 import ScriptLoader from 'ShopUi/components/molecules/script-loader/script-loader';
 
-const CREFO_PAY_CONFIG = {
-    url: "https://sandbox.crefopay.de/secureFields/",
-    placeholders: {
-        accountHolder: "Your Name",
-        number: "0123456789101112",
-        cvv: "000"
-    }
-};
-
 export default class CrefopayFormLoader extends Component {
     protected crefoPayScriptLoader: ScriptLoader;
     public secureFieldsClient: any;
-    protected configuration: object;
     protected paymentForm: HTMLFormElement;
     protected paymentInstrumentId: HTMLInputElement;
     protected errorBlock: HTMLElement;
@@ -52,7 +42,7 @@ export default class CrefopayFormLoader extends Component {
                 this.crefopayOrderId,
                 this.paymentRegisteredCallback.bind(this),
                 this.initializationCompleteCallback,
-                CREFO_PAY_CONFIG);
+                this.crefoPayConfig);
     }
 
     protected paymentRegisteredCallback(response): void {
@@ -66,10 +56,9 @@ export default class CrefopayFormLoader extends Component {
 
     protected initializationCompleteCallback(response): void {
         if (response.resultCode === 0) {
-
+            console.log('registration success');
         } else {
-            // Error during registration, check the response for more details and dynamically show a message for the customer
-            console.log(response);
+            console.log('registration failed');
         }
     }
 
@@ -79,6 +68,10 @@ export default class CrefopayFormLoader extends Component {
 
     get crefopayOrderId() {
         return this.getAttribute('order-id');
+    }
+
+    get crefoPayConfig() {
+        return this.getAttribute('secure-fields-library-url');
     }
 
     get paymentFormSelector() {
@@ -102,6 +95,6 @@ export default class CrefopayFormLoader extends Component {
     }
 
     get classToCheck() {
-        return this.getAttribute('class-to-check');
+        return JSON.parse(this.getAttribute('toggle-class-to-check')) ;
     }
 }

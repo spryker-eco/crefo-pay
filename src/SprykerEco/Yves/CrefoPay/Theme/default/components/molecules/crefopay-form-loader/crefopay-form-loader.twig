@@ -9,18 +9,33 @@
     form: required,
     shopPublicKey: required,
     orderId: required,
+    registerPaymentActionUrl: required,
+    secureFieldsLibraryUrl: required,
+    secureFieldsPlaceholders: {},
     fields: []
 } %}
+
+{% if data.secureFieldsPlaceholders is not empty %}
+    {% set crefoPayConfig = {
+        url: data.registerPaymentActionUrl,
+        placeholders: {
+            accountHolder: data.secureFieldsPlaceholders.accountHolder,
+            number: data.secureFieldsPlaceholders.number,
+            cvv: data.secureFieldsPlaceholders.cvv
+        }
+    } %}
+{% endif %}
 
 {% define attributes = {
     'shop-public-key': data.shopPublicKey,
     'order-id': data.orderId,
+    'crefo-pay-config': data.secureFieldsPlaceholders ? crefoPayConfig | json_encode() : '',
     'payment-form-selector': '#payment-form',
     'payment-instrument-id-selector': '[name="' ~ data.form.crefoPayCreditCard.children['paymentInstrumentId'].vars.full_name ~ '"]',
     'class-to-toggle': 'is-hidden',
     'payment-container-selector': '.form',
     'payment-toggler-selector': '[class*="js-payment-method"]',
-    'class-to-check': 'is-hidden'
+    'toggle-class-to-check': 'is-hidden'
 } %}
 
 {% block body %}
@@ -34,7 +49,7 @@
     {% include molecule('script-loader') with {
         class: config.jsName ~ '__script-loader',
         attributes: {
-            src: "https://libs.crefopay.de/3.0/secure-fields.js"
+            src: data.secureFieldsLibraryUrl
         }
     } only %}
     {% block requestForm %}
