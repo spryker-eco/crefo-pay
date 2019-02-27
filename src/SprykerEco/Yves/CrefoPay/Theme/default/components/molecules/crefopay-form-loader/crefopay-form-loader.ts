@@ -25,11 +25,10 @@ export default class CrefopayFormLoader extends Component {
 
     protected mapEvents(): void {
         this.crefoPayScriptLoader.addEventListener('scriptload', () => this.onScriptLoad());
-        this.paymentForm.addEventListener('onsubmit', (event: Event) => this.onSubmit(event));
+        this.paymentForm.addEventListener('submit', () => this.onSubmit());
     }
 
-    protected onSubmit(event: Event): void {
-        event.preventDefault();
+    protected onSubmit(): void {
         if(!this.paymentToggler.classList.contains(this.classToCheck)) {
             this.secureFieldsClient.registerPayment();
         }
@@ -71,7 +70,7 @@ export default class CrefopayFormLoader extends Component {
     }
 
     get crefoPayConfig() {
-        return this.getAttribute('secure-fields-library-url');
+        return JSON.parse(this.getAttribute('crefo-pay-config'));
     }
 
     get paymentFormSelector() {
@@ -95,6 +94,6 @@ export default class CrefopayFormLoader extends Component {
     }
 
     get classToCheck() {
-        return JSON.parse(this.getAttribute('toggle-class-to-check')) ;
+        return this.getAttribute('toggle-class-to-check');
     }
 }
