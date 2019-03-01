@@ -25,11 +25,12 @@ export default class CrefopayFormLoader extends Component {
 
     protected mapEvents(): void {
         this.crefoPayScriptLoader.addEventListener('scriptload', () => this.onScriptLoad());
-        this.paymentForm.addEventListener('submit', () => this.onSubmit());
+        this.paymentForm.addEventListener('submit', (event: Event) => this.onSubmit(event));
     }
 
-    protected onSubmit(): void {
+    protected onSubmit(event: Event): void {
         if(!this.paymentToggler.classList.contains(this.classToCheck)) {
+            event.preventDefault();
             this.secureFieldsClient.registerPayment();
         }
     }
@@ -55,9 +56,9 @@ export default class CrefopayFormLoader extends Component {
 
     protected initializationCompleteCallback(response): void {
         if (response.resultCode === 0) {
-            console.log('registration success');
+            console.log('initialization success');
         } else {
-            console.log('registration failed');
+            console.log('initialization failed');
         }
     }
 
