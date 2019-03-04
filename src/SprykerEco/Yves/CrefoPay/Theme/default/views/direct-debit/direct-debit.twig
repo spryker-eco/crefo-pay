@@ -8,7 +8,7 @@
     {% macro crefopayField(name, attribute, placeholder) %}
         <div class="spacing-y">
             <label class="label label--required">{{ name | trans }}</label>
-            <input class="input input--expand" type="text" data-crefopay="{{ attribute }}" placeholder="{{ placeholder }}">
+            <input class="input input--expand" type="text" data-crefopay="{{ attribute }}" placeholder="{{ placeholder | trans }}">
         </div>
     {% endmacro %}
 
@@ -18,14 +18,20 @@
         {name: "crefopay.bic", attribute: "paymentInstrument.bic", placeholder: "SFRTDE20000"}
     ] %}
 
-    {% embed molecule('crefopay-form-loader', 'CrefoPay') with {
+    {% embed molecule('crefopay-payment-form', 'CrefoPay') with {
         data: {
             form: data.form,
             shopPublicKey: '',
             orderId: '',
-            registerPaymentActionUrl: '',
             secureFieldsLibraryUrl: '',
-            secureFieldsPlaceholders: ''
+            crefoPayConfig: {
+                url: '',
+                placeholders: {
+                    accountHolder: '',
+                    number: '',
+                    cvv: ''
+                }
+            }
         },
         embed: {
             fields: crefopayFields,
