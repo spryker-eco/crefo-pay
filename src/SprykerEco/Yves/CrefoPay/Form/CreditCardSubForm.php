@@ -22,7 +22,7 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
 {
     public const CREFO_PAY_SHOP_PUBLIC_KEY = 'shopPublicKey';
     public const CREFO_PAY_ORDER_ID = 'orderID';
-    public const CREFO_PAY_REGISTER_PAYMENT_ACTION_URL = 'registerPaymentActionUrl';
+    public const CREFO_PAY_SECURE_FIELDS_API_ENDPOINT = 'secureFieldsApiEndpoint';
     public const CREFO_PAY_SECURE_FIELDS_LIBRARY_URL = 'secureFieldsLibraryUrl';
     public const CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS = 'secureFieldsPlaceholders';
 
@@ -86,7 +86,7 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
         $selectedOptions = $options[static::OPTIONS_FIELD_NAME];
         $view->vars[static::CREFO_PAY_SHOP_PUBLIC_KEY] = $selectedOptions[static::CREFO_PAY_SHOP_PUBLIC_KEY];
         $view->vars[static::CREFO_PAY_ORDER_ID] = $selectedOptions[static::CREFO_PAY_ORDER_ID];
-        $view->vars[static::CREFO_PAY_REGISTER_PAYMENT_ACTION_URL] = $selectedOptions[static::CREFO_PAY_REGISTER_PAYMENT_ACTION_URL];
+        $view->vars[static::CREFO_PAY_SECURE_FIELDS_API_ENDPOINT] = $selectedOptions[static::CREFO_PAY_SECURE_FIELDS_API_ENDPOINT];
         $view->vars[static::CREFO_PAY_SECURE_FIELDS_LIBRARY_URL] = $selectedOptions[static::CREFO_PAY_SECURE_FIELDS_LIBRARY_URL];
         $view->vars[static::CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS] = $selectedOptions[static::CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS];
     }
