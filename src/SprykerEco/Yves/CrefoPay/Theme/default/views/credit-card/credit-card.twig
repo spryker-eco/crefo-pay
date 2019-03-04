@@ -14,7 +14,7 @@
 
     {% include molecule('crefopay-payment-form', 'CrefoPay') with {
         data: {
-            form: data.form,
+            formType: data.form.crefoPayCreditCard,
             shopPublicKey: data.form.crefoPayCreditCard.vars.shopPublicKey,
             orderId: data.form.crefoPayCreditCard.vars.orderID,
             secureFieldsLibraryUrl: data.form.crefoPayCreditCard.vars.secureFieldsLibraryUrl,
