@@ -33,9 +33,9 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getRegisterPaymentActionUrl(): string
+    public function getSecureFieldsApiEndpoint(): string
     {
-        return $this->get(CrefoPayConstants::REGISTER_PAYMENT_ACTION_URL);
+        return $this->get(CrefoPayConstants::SECURE_FIELDS_API_ENDPOINT);
     }
 
     /**
