@@ -43,9 +43,6 @@
             {% for field in embed.fields %}
                 {{ embed.context.crefopayField(field.name, field.attribute, field.placeholder) }}
             {% endfor %}
-            <div class="spacing-y">
-                <label><input type="radio" data-crefopay="paymentInstrument.id" value="Aqc9O5SSJuQTDHC9KXFE0Q" class="spacing-right">Registered bank account (IBAN: DE12 3456 7890 1112 1314)</label>
-            </div>
         {% endblock %}
     {% endembed %}
 {% endblock %}
