@@ -15,9 +15,17 @@
     {% include molecule('crefopay-form-loader', 'CrefoPay') with {
         data: {
             form: data.form,
-            shopPublicKey: data.form.crefoPayCreditCard3D.vars.shopPublicKey,
-            orderId: data.form.crefoPayCreditCard3D.vars.orderID,
-            fields: crefopayFields
+            shopPublicKey: '',
+            orderId: '',
+            secureFieldsLibraryUrl: '',
+            crefoPayConfig: {
+                url: '',
+                placeholders: {
+                    accountHolder: '',
+                    number: '',
+                    cvv: ''
+                }
+            }
         }
     } only %}
 {% endblock %}

@@ -12,15 +12,21 @@
         {name: 'crefopay.cvv', attribute: "paymentInstrument.cvv"}
     ] %}
 
-    {% include molecule('crefopay-form-loader', 'CrefoPay') with {
+    {% include molecule('crefopay-payment-form', 'CrefoPay') with {
         data: {
             form: data.form,
             shopPublicKey: data.form.crefoPayCreditCard.vars.shopPublicKey,
             orderId: data.form.crefoPayCreditCard.vars.orderID,
-            registerPaymentActionUrl: data.form.crefoPayCreditCard.vars.registerPaymentActionUrl,
             secureFieldsLibraryUrl: data.form.crefoPayCreditCard.vars.secureFieldsLibraryUrl,
-            secureFieldsPlaceholders: data.form.crefoPayCreditCard.vars.secureFieldsPlaceholders,
-            fields: crefopayFields
+            fields: crefopayFields,
+            crefoPayConfig: {
+                url: data.form.crefoPayCreditCard.vars.registerPaymentActionUrl,
+                placeholders: {
+                    accountHolder: data.form.crefoPayCreditCard.vars.secureFieldsPlaceholders.accountHolder,
+                    number: data.form.crefoPayCreditCard.vars.secureFieldsPlaceholders.number,
+                    cvv: data.form.crefoPayCreditCard.vars.secureFieldsPlaceholders.cvv
+                }
+            }
         }
     } only %}
 {% endblock %}
