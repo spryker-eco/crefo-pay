@@ -18,6 +18,8 @@ use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface;
 
 class CrefoPayReader implements CrefoPayReaderInterface
 {
+    protected const SUCCESS_RESULT_CODES = [0, 1];
+
     /**
      * @var \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface
      */
@@ -126,7 +128,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
             ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndResultCodes(
                 $idSalesOrderItem,
                 $apiLogRequestType,
-                $this->config->getSuccessResultCodes()
+                static::SUCCESS_RESULT_CODES
             );
     }
 
