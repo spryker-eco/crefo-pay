@@ -20,7 +20,7 @@
 
     {% embed molecule('crefopay-payment-form', 'CrefoPay') with {
         data: {
-            formType: data.form.crefoPayCreditCard,
+            paymentMethodForm: data.form.crefoPayCreditCard,
             shopPublicKey: '',
             orderId: '',
             secureFieldsLibraryUrl: '',
@@ -39,7 +39,7 @@
         }
     } only %}
         {% block requestForm %}
-            {{ form_widget(data.formType) }}
+            {{ form_widget(data.paymentMethodForm) }}
             {% for field in embed.fields %}
                 {{ embed.context.crefopayField(field.name, field.attribute, field.placeholder) }}
             {% endfor %}
