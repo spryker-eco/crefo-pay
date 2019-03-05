@@ -5,6 +5,9 @@
 } %}
 
 {% block body %}
+    {% set paymentMethodSubForm = data.form.crefoPayCreditCard %}
+    {% set subFormVars = paymentMethodSubForm.vars %}
+    {% set subFormPlaceholders = subFormVars.secureFieldsPlaceholders %}
     {% set crefopayFields = [
         {name: 'crefopay.accountholder', attribute: "paymentInstrument.accountHolder"},
         {name: 'crefopay.number', attribute: "paymentInstrument.number"},
@@ -14,17 +17,16 @@
 
     {% include molecule('crefopay-payment-form', 'CrefoPay') with {
         data: {
-            formType: data.form.crefoPayCreditCard,
-            shopPublicKey: data.form.crefoPayCreditCard.vars.shopPublicKey,
-            orderId: data.form.crefoPayCreditCard.vars.orderID,
-            secureFieldsLibraryUrl: data.form.crefoPayCreditCard.vars.secureFieldsLibraryUrl,
+            paymentMethodSubForm: paymentMethodSubForm,
+            shopPublicKey: subFormVars.shopPublicKey,
+            orderId: subFormVars.orderID,
             fields: crefopayFields,
             crefoPayConfig: {
-                url: data.form.crefoPayCreditCard.vars.secureFieldsApiEndpoint,
+                url: subFormVars.secureFieldsApiEndpoint,
                 placeholders: {
-                    accountHolder: data.form.crefoPayCreditCard.vars.secureFieldsPlaceholders.accountHolder,
-                    number: data.form.crefoPayCreditCard.vars.secureFieldsPlaceholders.number,
-                    cvv: data.form.crefoPayCreditCard.vars.secureFieldsPlaceholders.cvv
+                    accountHolder: subFormPlaceholders.accountHolder,
+                    number: subFormPlaceholders.number,
+                    cvv: subFormPlaceholders.cvv
                 }
             }
         }

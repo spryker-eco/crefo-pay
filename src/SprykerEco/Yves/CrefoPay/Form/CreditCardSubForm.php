@@ -23,10 +23,13 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
     public const CREFO_PAY_SHOP_PUBLIC_KEY = 'shopPublicKey';
     public const CREFO_PAY_ORDER_ID = 'orderID';
     public const CREFO_PAY_SECURE_FIELDS_API_ENDPOINT = 'secureFieldsApiEndpoint';
-    public const CREFO_PAY_SECURE_FIELDS_LIBRARY_URL = 'secureFieldsLibraryUrl';
     public const CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS = 'secureFieldsPlaceholders';
 
     protected const PAYMENT_METHOD = 'credit-card';
+    protected const FORM_FIELD_PAYMENT_METHOD = 'paymentMethod';
+    protected const FORM_FIELD_PAYMENT_METHOD_DATA = 'CC';
+    protected const FORM_FIELD_ATTRIBUTE_DATA_CREFO_PAY_NAME = 'data-crefopay';
+    protected const FORM_FIELD_ATTRIBUTE_DATA_CREFO_PAY_VALUE = 'paymentMethod';
     protected const FORM_FIELD_PAYMENT_INSTRUMENT_ID = 'paymentInstrumentId';
 
     /**
@@ -87,7 +90,6 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
         $view->vars[static::CREFO_PAY_SHOP_PUBLIC_KEY] = $selectedOptions[static::CREFO_PAY_SHOP_PUBLIC_KEY];
         $view->vars[static::CREFO_PAY_ORDER_ID] = $selectedOptions[static::CREFO_PAY_ORDER_ID];
         $view->vars[static::CREFO_PAY_SECURE_FIELDS_API_ENDPOINT] = $selectedOptions[static::CREFO_PAY_SECURE_FIELDS_API_ENDPOINT];
-        $view->vars[static::CREFO_PAY_SECURE_FIELDS_LIBRARY_URL] = $selectedOptions[static::CREFO_PAY_SECURE_FIELDS_LIBRARY_URL];
         $view->vars[static::CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS] = $selectedOptions[static::CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS];
     }
 
@@ -97,9 +99,10 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
      *
      * @return void
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $this->addInstrumentId($builder);
+        $this->addPaymentMethod($builder)
+            ->addPaymentInstrumentId($builder);
     }
 
     /**
@@ -107,7 +110,29 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
      *
      * @return $this
      */
-    protected function addInstrumentId(FormBuilderInterface $builder)
+    protected function addPaymentMethod(FormBuilderInterface $builder)
+    {
+        $builder->add(
+            static::FORM_FIELD_PAYMENT_METHOD,
+            HiddenType::class,
+            [
+                'label' => false,
+                'data' => static::FORM_FIELD_PAYMENT_METHOD_DATA,
+                'attr' => [
+                    static::FORM_FIELD_ATTRIBUTE_DATA_CREFO_PAY_NAME => static::FORM_FIELD_ATTRIBUTE_DATA_CREFO_PAY_VALUE,
+                ],
+            ]
+        );
+
+        return $this;
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     *
+     * @return $this
+     */
+    protected function addPaymentInstrumentId(FormBuilderInterface $builder)
     {
         $builder->add(
             static::FORM_FIELD_PAYMENT_INSTRUMENT_ID,

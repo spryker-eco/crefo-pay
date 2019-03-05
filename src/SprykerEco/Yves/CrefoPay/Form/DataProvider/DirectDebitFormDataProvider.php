@@ -60,6 +60,8 @@ class DirectDebitFormDataProvider implements StepEngineFormDataProviderInterface
         return [
             DirectDebitSubForm::CREFO_PAY_SHOP_PUBLIC_KEY => $this->config->getPublicKey(),
             DirectDebitSubForm::CREFO_PAY_ORDER_ID => $quoteTransfer->getCrefoPayTransaction()->getCrefoPayOrderId(),
+            DirectDebitSubForm::CREFO_PAY_SECURE_FIELDS_API_ENDPOINT => $this->config->getSecureFieldsApiEndpoint(),
+            DirectDebitSubForm::CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS => $this->config->getSecureFieldsPlaceholders(),
         ];
     }
 }

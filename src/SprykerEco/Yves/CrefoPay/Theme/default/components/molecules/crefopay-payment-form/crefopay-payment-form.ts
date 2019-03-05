@@ -14,7 +14,7 @@ export default class CrefopayPaymentForm extends Component {
 
     protected readyCallback(): void {
         this.paymentForm = <HTMLFormElement>document.querySelector(this.paymentFormSelector);
-        this.crefoPayScriptLoader = <ScriptLoader>this.querySelector(`.${this.jsName}__script-loader`);
+        this.crefoPayScriptLoader = <ScriptLoader>document.querySelector(`.${this.jsName}__script-loader`);
         this.paymentInstrumentId = <HTMLInputElement>this.querySelector(this.paymentInstrumentIdSelector);
         this.errorBlock = <HTMLElement>this.querySelector(`.${this.jsName}__error`);
         this.paymentContainer = <HTMLElement>this.closest(this.paymentContainerSelector);

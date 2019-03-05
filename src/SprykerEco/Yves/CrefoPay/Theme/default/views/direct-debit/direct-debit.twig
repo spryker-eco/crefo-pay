@@ -12,25 +12,23 @@
         </div>
     {% endmacro %}
 
+    {% set paymentMethodSubForm = data.form.crefoPayDirectDebit %}
+    {% set subFormVars = paymentMethodSubForm.vars %}
+    {% set subFormPlaceholders = subFormVars.secureFieldsPlaceholders %}
     {% set crefopayFields = [
-        {name: "crefopay.accountholder", attribute: "paymentInstrument.bankAccountHolder", placeholder: "John Doe"},
-        {name: "crefopay.iban", attribute: "paymentInstrument.iban", placeholder: "DE12 3456 7890 1112 1314"},
-        {name: "crefopay.bic", attribute: "paymentInstrument.bic", placeholder: "SFRTDE20000"}
+        {name: "crefopay.accountholder", attribute: "paymentInstrument.bankAccountHolder", placeholder: subFormPlaceholders.accountHolder},
+        {name: "crefopay.iban", attribute: "paymentInstrument.iban", placeholder: subFormPlaceholders.iban},
+        {name: "crefopay.bic", attribute: "paymentInstrument.bic", placeholder: subFormPlaceholders.bic}
     ] %}
 
     {% embed molecule('crefopay-payment-form', 'CrefoPay') with {
         data: {
-            formType: data.form.crefoPayCreditCard,
-            shopPublicKey: '',
-            orderId: '',
-            secureFieldsLibraryUrl: '',
+            paymentMethodSubForm: paymentMethodSubForm,
+            shopPublicKey: subFormVars.shopPublicKey,
+            orderId: subFormVars.orderID,
+            fields: crefopayFields,
             crefoPayConfig: {
-                url: '',
-                placeholders: {
-                    accountHolder: '',
-                    number: '',
-                    cvv: ''
-                }
+                url: subFormVars.secureFieldsApiEndpoint
             }
         },
         embed: {
@@ -39,10 +37,15 @@
         }
     } only %}
         {% block requestForm %}
-            {{ form_widget(data.formType) }}
+            {{ form_widget(data.paymentMethodSubForm) }}
+
             {% for field in embed.fields %}
                 {{ embed.context.crefopayField(field.name, field.attribute, field.placeholder) }}
             {% endfor %}
+
+            <div class="{{ config.name }}__error {{ config.jsName }}__error spacing-y is-hidden">
+                {{ 'crefopay.required_notification' | trans }}
+            </div>
         {% endblock %}
     {% endembed %}
 {% endblock %}
