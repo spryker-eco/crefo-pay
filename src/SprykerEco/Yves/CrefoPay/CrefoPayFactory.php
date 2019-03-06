@@ -66,8 +66,7 @@ class CrefoPayFactory extends AbstractFactory
         return new CrefoPayNotificationProcessor(
             $this->createCrefoPayNotificationProcessorMapper(),
             $this->getClient(),
-            $this->getCrefoPayApiService(),
-            $this->getConfig()
+            $this->getCrefoPayApiService()
         );
     }
 
