@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInterface
 {
+    protected const API_FIELD_MAC = 'mac';
+
     /**
      * @var \SprykerEco\Yves\CrefoPay\Processor\Notification\Mapper\CrefoPayNotificationProcessorMapperInterface
      */
@@ -32,26 +34,18 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
     protected $crefoPayApiService;
 
     /**
-     * @var \SprykerEco\Yves\CrefoPay\CrefoPayConfig
-     */
-    protected $config;
-
-    /**
      * @param \SprykerEco\Yves\CrefoPay\Processor\Notification\Mapper\CrefoPayNotificationProcessorMapperInterface $mapper
      * @param \SprykerEco\Client\CrefoPay\CrefoPayClientInterface $crefoPayClient
      * @param \SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToCrefoPayApiServiceInterface $crefoPayApiService
-     * @param \SprykerEco\Yves\CrefoPay\CrefoPayConfig $config
      */
     public function __construct(
         CrefoPayNotificationProcessorMapperInterface $mapper,
         CrefoPayClientInterface $crefoPayClient,
-        CrefoPayToCrefoPayApiServiceInterface $crefoPayApiService,
-        CrefoPayConfig $config
+        CrefoPayToCrefoPayApiServiceInterface $crefoPayApiService
     ) {
         $this->mapper = $mapper;
         $this->crefoPayClient = $crefoPayClient;
         $this->crefoPayApiService = $crefoPayApiService;
-        $this->config = $config;
     }
 
     /**
@@ -82,8 +76,8 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
     protected function validateMac(Request $request): bool
     {
         $requestParams = $request->request->all();
-        $macString = $requestParams[$this->config->getApiFieldMac()];
-        unset($requestParams[$this->config->getApiFieldMac()]);
+        $macString = $requestParams[static::API_FIELD_MAC];
+        unset($requestParams[static::API_FIELD_MAC]);
 
         return $this->crefoPayApiService->validateMac($requestParams, $macString);
     }
