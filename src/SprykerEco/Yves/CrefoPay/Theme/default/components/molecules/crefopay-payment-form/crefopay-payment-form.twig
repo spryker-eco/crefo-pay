@@ -6,17 +6,16 @@
 } %}
 
 {% define data = {
-    paymentMethodForm: required,
+    paymentMethodSubForm: required,
     shopPublicKey: required,
     orderId: required,
-    secureFieldsLibraryUrl: required,
     fields: [],
     crefoPayConfig: {
         url: required,
         placeholders: {
-            accountHolder: required,
-            number: required,
-            cvv: required
+            accountHolder: '',
+            number: '',
+            cvv: ''
         }
     }
 } %}
@@ -26,7 +25,7 @@
     'order-id': data.orderId,
     'crefo-pay-config': data.crefoPayConfig | json_encode(),
     'payment-form-selector': '#payment-form',
-    'payment-instrument-id-selector': '[name="' ~ data.paymentMethodForm.children['paymentInstrumentId'].vars.full_name ~ '"]',
+    'payment-instrument-id-selector': '[name="' ~ data.paymentMethodSubForm.children['paymentInstrumentId'].vars.full_name ~ '"]',
     'class-to-toggle': 'is-hidden',
     'payment-container-selector': '.form',
     'payment-toggler-selector': '[class*="js-payment-method"]',
@@ -41,14 +40,8 @@
         </div>
     {% endmacro %}
 
-    {% include molecule('script-loader') with {
-        class: config.jsName ~ '__script-loader',
-        attributes: {
-            src: data.secureFieldsLibraryUrl
-        }
-    } only %}
     {% block requestForm %}
-        {{ form_widget(data.paymentMethodForm) }}
+        {{ form_widget(data.paymentMethodSubForm) }}
 
         {% for field in data.fields %}
             {{ _self.crefopayField(field.name, field.attribute, config.name) }}

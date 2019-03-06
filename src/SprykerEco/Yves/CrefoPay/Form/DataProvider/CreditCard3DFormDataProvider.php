@@ -60,6 +60,8 @@ class CreditCard3DFormDataProvider implements StepEngineFormDataProviderInterfac
         return [
             CreditCard3DSubForm::CREFO_PAY_SHOP_PUBLIC_KEY => $this->config->getPublicKey(),
             CreditCard3DSubForm::CREFO_PAY_ORDER_ID => $quoteTransfer->getCrefoPayTransaction()->getCrefoPayOrderId(),
+            CreditCard3DSubForm::CREFO_PAY_SECURE_FIELDS_API_ENDPOINT => $this->config->getSecureFieldsApiEndpoint(),
+            CreditCard3DSubForm::CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS => $this->config->getSecureFieldsPlaceholders(),
         ];
     }
 }
