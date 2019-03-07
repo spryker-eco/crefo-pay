@@ -1,0 +1,11 @@
+{% extends atom('radio') %}
+
+{% define config = {
+    name: 'crefopay-radio'
+} %}
+
+{% define attributes = {
+    type: 'radio',
+    'data-crefopay': 'paymentMethod',
+    'class': 'crefopay-payment-method is-hidden'
+} %}

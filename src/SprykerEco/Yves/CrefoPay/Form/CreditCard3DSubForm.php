@@ -13,6 +13,7 @@ use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
 use SprykerEco\Shared\CrefoPay\CrefoPayConfig;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -29,6 +30,7 @@ class CreditCard3DSubForm extends AbstractSubFormType implements SubFormInterfac
     protected const PAYMENT_METHOD = 'credit-card-3d';
     protected const FORM_FIELD_PAYMENT_METHOD = 'paymentMethod';
     protected const FORM_FIELD_PAYMENT_METHOD_DATA = 'CC3D';
+    protected const FORM_FIELD_PAYMENT_METHOD_CLASSES = 'crefopay-payment-method is_hidden';
     protected const FORM_FIELD_ATTRIBUTE_DATA_CREFO_PAY_NAME = 'data-crefopay';
     protected const FORM_FIELD_ATTRIBUTE_DATA_CREFO_PAY_VALUE = 'paymentMethod';
     protected const FORM_FIELD_PAYMENT_INSTRUMENT_ID = 'paymentInstrumentId';
@@ -115,11 +117,12 @@ class CreditCard3DSubForm extends AbstractSubFormType implements SubFormInterfac
     {
         $builder->add(
             static::FORM_FIELD_PAYMENT_METHOD,
-            HiddenType::class,
+            RadioType::class,
             [
                 'label' => false,
-                'data' => static::FORM_FIELD_PAYMENT_METHOD_DATA,
+                'value' => static::FORM_FIELD_PAYMENT_METHOD_DATA,
                 'attr' => [
+                    'class' => static::FORM_FIELD_PAYMENT_METHOD_CLASSES,
                     static::FORM_FIELD_ATTRIBUTE_DATA_CREFO_PAY_NAME => static::FORM_FIELD_ATTRIBUTE_DATA_CREFO_PAY_VALUE,
                 ],
             ]
