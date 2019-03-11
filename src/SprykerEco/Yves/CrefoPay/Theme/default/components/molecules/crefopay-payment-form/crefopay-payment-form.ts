@@ -31,12 +31,12 @@ export default class CrefopayPaymentForm extends Component {
     protected onSubmit(event: Event): void {
         if(!this.paymentToggler.classList.contains(this.classToCheck)) {
             event.preventDefault();
-            this.secureFields.registerPayment();
+            document['secureFieldsHelper'].registerPayment();
         }
     }
 
     protected onScriptLoad(): void {
-        this.secureFields =
+        document['secureFieldsHelper'] =
             new SecureFieldsClient(
                 this.crefopayShopPublicKey,
                 this.crefopayOrderId,
@@ -46,6 +46,8 @@ export default class CrefopayPaymentForm extends Component {
     }
 
     protected paymentRegisteredCallback(response): void {
+        if(this.paymentToggler.classList.contains(this.classToCheck)) return;
+
         if (response.resultCode === 0) {
             this.paymentInstrumentId.value = response.paymentInstrumentId;
             this.paymentForm.submit();
