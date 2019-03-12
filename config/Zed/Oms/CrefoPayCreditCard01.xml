@@ -45,7 +45,7 @@
             </transition>
 
             <transition condition="CrefoPay/IsExpiredReceived">
-                <source>reserved</source>
+                <source>new</source>
                 <target>expired</target>
             </transition>
 
@@ -56,11 +56,6 @@
 
             <transition condition="CrefoPay/IsExpiredReceived">
                 <source>authorized</source>
-                <target>expired</target>
-            </transition>
-
-            <transition condition="CrefoPay/IsExpiredReceived">
-                <source>waiting for capture</source>
                 <target>expired</target>
             </transition>
 

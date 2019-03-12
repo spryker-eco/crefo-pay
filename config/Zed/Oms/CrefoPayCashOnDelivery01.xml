@@ -11,7 +11,6 @@
             <state name="authorized" reserved="true" />
             <state name="waiting for capture" reserved="true" />
             <state name="expired" reserved="false" />
-            <state name="capture pending" reserved="true" />
             <state name="captured" reserved="true" />
             <state name="shipped" reserved="true" />
             <state name="done" reserved="false" />
@@ -21,6 +20,7 @@
         <events>
             <event name="capture" manual="true" command="CrefoPay/Capture" />
             <event name="ship" manual="true" />
+            <event name="finish" manual="true" command="CrefoPay/Finish" />
             <event name="close" manual="true" />
         </events>
 
@@ -37,7 +37,7 @@
             </transition>
 
             <transition condition="CrefoPay/IsExpiredReceived">
-                <source>reserved</source>
+                <source>new</source>
                 <target>expired</target>
             </transition>
 
@@ -51,11 +51,6 @@
                 <target>expired</target>
             </transition>
 
-            <transition condition="CrefoPay/IsExpiredReceived">
-                <source>waiting for capture</source>
-                <target>expired</target>
-            </transition>
-
             <transition>
                 <source>expired</source>
                 <target>closed</target>
@@ -64,13 +59,8 @@
 
             <transition condition="CrefoPay/IsCaptureCallSuccessful" happy="true">
                 <source>waiting for capture</source>
-                <target>capture pending</target>
-                <event>capture</event>
-            </transition>
-
-            <transition condition="CrefoPay/IsPaidReceived" happy="true">
-                <source>capture pending</source>
                 <target>captured</target>
+                <event>capture</event>
             </transition>
 
             <transition happy="true">
@@ -79,9 +69,10 @@
                 <event>ship</event>
             </transition>
 
-            <transition condition="CrefoPay/IsDoneReceived" happy="true">
+            <transition condition="CrefoPay/IsFinishCallSuccessful" happy="true">
                 <source>shipped</source>
                 <target>done</target>
+                <event>finish</event>
             </transition>
 
             <transition happy="true">
