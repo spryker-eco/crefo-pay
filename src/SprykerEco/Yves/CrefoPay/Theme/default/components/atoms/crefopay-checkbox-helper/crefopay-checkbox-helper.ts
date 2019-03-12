@@ -1,33 +1,44 @@
-
 import Component from 'ShopUi/models/component';
 
 export default class CrefopayCheckboxHelper extends Component {
 
-    protected checkboxContainer: HTMLElement;
-    protected trigger: any;
-    protected target: any;
+    protected paymentForm: HTMLElement;
+    protected triggers: HTMLElement[];
+    protected triggerInput: any;
+    protected targets: HTMLInputElement[];
 
     protected readyCallback(): void {
-        this.checkboxContainer = <HTMLElement>this.closest(this.containerSelector);
-        this.trigger = <HTMLElement>this.checkboxContainer.querySelector(this.triggerSelector);
-        this.target = this.checkboxContainer.querySelector(this.targetSelector);
+        this.paymentForm = <HTMLElement>document.querySelector(this.containerSelector);
+        this.triggers = <HTMLElement[]>Array.from(this.paymentForm.querySelectorAll(this.triggerSelector));
+        this.targets = <HTMLInputElement[]>Array.from(this.paymentForm.querySelectorAll(this.targetSelector));
 
         this.applyAttributes();
         this.mapEvents();
     }
 
     protected mapEvents(): void {
-        this.trigger.addEventListener('change', (event: Event) => this.onChange(event), true);
+        this.triggers.forEach((trigger: HTMLElement) => {
+            trigger.addEventListener('change', (event: Event) => this.onChange(event));
+        });
     }
 
     protected applyAttributes (): void {
-        console.log(this.target);
-        this.target.setAttribute('name', this.nameAttribute);
-        this.target.setAttribute(this.customAttrName, this.customAttrValue);
+        this.targets.forEach((target: HTMLInputElement)=>{
+            target.setAttribute(this.customAttrName, this.customAttrValue);
+        })
     }
 
     protected onChange(event: Event): void {
-        this.target.checked = this.trigger.checked;
+        this.targets.forEach((target: HTMLInputElement)=>{
+            target.checked = false;
+        });
+        this.syncCheckboxes(event.currentTarget);
+    }
+
+    protected syncCheckboxes(triggered: EventTarget): void {
+        let jointContainer = (<HTMLElement>triggered).closest(this.jointContainerSelector);
+        let triggeredTarget: HTMLInputElement = jointContainer.querySelector(this.targetSelector);
+        triggeredTarget.checked = true;
     }
 
     get triggerSelector() {
@@ -35,7 +46,7 @@ export default class CrefopayCheckboxHelper extends Component {
     }
 
     get containerSelector() {
-        return this.getAttribute('container-selector');
+        return this.getAttribute('payment-container-selector');
     }
 
     get targetSelector() {
@@ -50,7 +61,7 @@ export default class CrefopayCheckboxHelper extends Component {
         return this.getAttribute('custom-attr-value');
     }
 
-    get nameAttribute() {
-        return this.getAttribute('name');
+    get jointContainerSelector() {
+        return this.getAttribute('joint-container-selector');
     }
 }

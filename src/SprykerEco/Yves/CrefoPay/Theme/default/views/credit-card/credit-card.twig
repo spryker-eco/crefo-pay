@@ -8,23 +8,13 @@
     {% set paymentMethodSubForm = data.form.crefoPayCreditCard %}
     {% set subFormVars = paymentMethodSubForm.vars %}
     {% set subFormPlaceholders = subFormVars.secureFieldsPlaceholders %}
+
     {% set crefopayFields = [
         {name: 'crefopay.accountholder', attribute: "paymentInstrument.accountHolder"},
         {name: 'crefopay.number', attribute: "paymentInstrument.number"},
         {name: 'crefopay.validity', attribute: "paymentInstrument.validity"},
         {name: 'crefopay.cvv', attribute: "paymentInstrument.cvv"}
     ] %}
-
-    {% include atom('crefopay-checkbox-helper', 'Crefopay') with {
-        attributes: {
-            'trigger-selector': '.js-toggler-radio__trigger',
-            'container-selector': '.form',
-            'target-selector': '.radio__input',
-            'name': 'crefopay-radio',
-            'custom-attr-name': 'data-crefopay',
-            'custom-attr-value': 'paymentMethod'
-        }
-    } only %}
 
     {% include molecule('crefopay-payment-form', 'CrefoPay') with {
         data: {
