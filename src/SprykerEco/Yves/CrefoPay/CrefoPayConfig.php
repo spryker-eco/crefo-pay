@@ -30,14 +30,6 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
-     */
-    public function getSecureFieldsLibraryUrl(): string
-    {
-        return $this->get(CrefoPayConstants::SECURE_FIELDS_LIBRARY_URL);
-    }
-
-    /**
      * @return string[]
      */
     public function getSecureFieldsPlaceholders(): array

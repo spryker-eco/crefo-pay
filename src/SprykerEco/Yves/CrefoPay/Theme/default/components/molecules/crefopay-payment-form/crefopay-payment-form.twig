@@ -1,0 +1,59 @@
+{% extends model('component') %}
+
+{% define config = {
+    name: 'crefopay-payment-form',
+    tag: 'crefopay-payment-form'
+} %}
+
+{% define data = {
+    paymentMethodSubForm: required,
+    shopPublicKey: required,
+    orderId: required,
+    fields: [],
+    endpointUrl: required,
+    placeholders: required
+} %}
+
+{% set crefoPayConfig = {
+    url: data.endpointUrl,
+    placeholders: {
+        accountHolder: data.placeholders.accountHolder,
+        number: data.placeholders.number,
+        cvv: data.placeholders.cvv
+    }
+} %}
+
+{% define attributes = {
+    'shop-public-key': data.shopPublicKey,
+    'order-id': data.orderId,
+    'crefo-pay-config': crefoPayConfig | json_encode(),
+    'payment-form-selector': '#payment-form',
+    'payment-instrument-id-selector': '[name="' ~ data.paymentMethodSubForm.children['paymentInstrumentId'].vars.full_name ~ '"]',
+    'class-to-toggle': 'is-hidden',
+    'payment-container-selector': '.form',
+    'payment-toggler-selector': '[class*="js-payment-method"]',
+    'toggle-class-to-check': 'is-hidden'
+} %}
+
+{% block body %}
+    {% macro crefopayField(name, attribute, blockName) %}
+        <div class="spacing-y">
+            <label class="label label--required">{{ name }}</label>
+            <div class="{{ blockName }}__input-container" data-crefopay-placeholder="{{ attribute }}"></div>
+        </div>
+    {% endmacro %}
+
+    {% block requestForm %}
+        <div class="is-hidden">
+            {{ form_widget(data.paymentMethodSubForm) }}
+        </div>
+
+        {% for field in data.fields %}
+            {{ _self.crefopayField(field.name, field.attribute, config.name) }}
+        {% endfor %}
+
+        <div class="{{ config.name }}__error {{ config.jsName }}__error spacing-y is-hidden">
+            {{ 'crefopay.required_notification' | trans }}
+        </div>
+    {% endblock %}
+{% endblock %}
