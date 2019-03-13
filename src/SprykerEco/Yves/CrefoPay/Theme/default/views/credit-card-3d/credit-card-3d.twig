@@ -19,14 +19,8 @@
             orderId: data.form.crefoPayCreditCard3D.vars.orderID,
             secureFieldsLibraryUrl: data.form.crefoPayCreditCard3D.vars.secureFieldsLibraryUrl,
             fields: crefopayFields,
-            crefoPayConfig: {
-                url: data.form.crefoPayCreditCard3D.vars.secureFieldsApiEndpoint,
-                placeholders: {
-                    accountHolder: data.form.crefoPayCreditCard3D.vars.secureFieldsPlaceholders.accountHolder,
-                    number: data.form.crefoPayCreditCard3D.vars.secureFieldsPlaceholders.number,
-                    cvv: data.form.crefoPayCreditCard3D.vars.secureFieldsPlaceholders.cvv
-                }
-            }
+            endpointUrl: subFormVars.secureFieldsApiEndpoint,
+            placeholders: subFormPlaceholders
         }
     } only %}
 {% endblock %}

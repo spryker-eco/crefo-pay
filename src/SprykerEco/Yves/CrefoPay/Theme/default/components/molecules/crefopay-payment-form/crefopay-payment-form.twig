@@ -10,20 +10,23 @@
     shopPublicKey: required,
     orderId: required,
     fields: [],
-    crefoPayConfig: {
-        url: required,
-        placeholders: {
-            accountHolder: '',
-            number: '',
-            cvv: ''
-        }
+    endpointUrl: required,
+    placeholders: required
+} %}
+
+{% set crefoPayConfig = {
+    url: data.endpointUrl,
+    placeholders: {
+        accountHolder: data.placeholders.accountHolder,
+        number: data.placeholders.number,
+        cvv: data.placeholders.cvv
     }
 } %}
 
 {% define attributes = {
     'shop-public-key': data.shopPublicKey,
     'order-id': data.orderId,
-    'crefo-pay-config': data.crefoPayConfig | json_encode(),
+    'crefo-pay-config': crefoPayConfig | json_encode(),
     'payment-form-selector': '#payment-form',
     'payment-instrument-id-selector': '[name="' ~ data.paymentMethodSubForm.children['paymentInstrumentId'].vars.full_name ~ '"]',
     'class-to-toggle': 'is-hidden',

@@ -22,14 +22,8 @@
             shopPublicKey: subFormVars.shopPublicKey,
             orderId: subFormVars.orderID,
             fields: crefopayFields,
-            crefoPayConfig: {
-                url: subFormVars.secureFieldsApiEndpoint,
-                placeholders: {
-                    accountHolder: subFormPlaceholders.accountHolder,
-                    number: subFormPlaceholders.number,
-                    cvv: subFormPlaceholders.cvv
-                }
-            }
+            endpointUrl: subFormVars.secureFieldsApiEndpoint,
+            placeholders: subFormPlaceholders
         }
     } only %}
 {% endblock %}

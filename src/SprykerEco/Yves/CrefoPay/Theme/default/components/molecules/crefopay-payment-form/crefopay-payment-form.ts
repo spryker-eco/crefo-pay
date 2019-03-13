@@ -5,7 +5,6 @@ import ScriptLoader from 'ShopUi/components/molecules/script-loader/script-loade
 
 export default class CrefopayPaymentForm extends Component {
     protected crefoPayScriptLoader: ScriptLoader;
-    protected secureFields: any;
     protected paymentForm: HTMLFormElement;
     protected paymentInstrumentId: HTMLInputElement;
     protected errorBlock: HTMLElement;
@@ -31,18 +30,20 @@ export default class CrefopayPaymentForm extends Component {
     protected onSubmit(event: Event): void {
         if(!this.paymentToggler.classList.contains(this.classToCheck)) {
             event.preventDefault();
-            document['secureFieldsHelper'].registerPayment();
+            document['CrefoPaySecureFieldsClient'].registerPayment();
         }
     }
 
     protected onScriptLoad(): void {
-        document['secureFieldsHelper'] =
-            new SecureFieldsClient(
-                this.crefopayShopPublicKey,
-                this.crefopayOrderId,
-                this.paymentRegisteredCallback.bind(this),
-                this.initializationCompleteCallback,
-                this.crefoPayConfig);
+        if (!document['CrefoPaySecureFieldsClient']) {
+            document['CrefoPaySecureFieldsClient'] =
+                new SecureFieldsClient(
+                    this.crefopayShopPublicKey,
+                    this.crefopayOrderId,
+                    this.paymentRegisteredCallback.bind(this),
+                    this.initializationCompleteCallback,
+                    this.crefoPayConfig);
+        }
     }
 
     protected paymentRegisteredCallback(response): void {
