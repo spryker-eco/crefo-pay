@@ -138,6 +138,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @return string
      */
+    public function getProductTypeShippingCosts(): string
+    {
+        return $this->getSharedConfig()->getProductTypeShippingCosts();
+    }
+
+    /**
+     * @return string
+     */
     public function getProductRiskClass(): string
     {
         return $this->getSharedConfig()->getProductRiskClass();

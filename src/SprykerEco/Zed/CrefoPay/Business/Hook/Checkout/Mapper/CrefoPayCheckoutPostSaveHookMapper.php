@@ -15,17 +15,14 @@ use Generated\Shared\Transfer\CrefoPayApiReserveRequestTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
-use SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface;
+use Spryker\Shared\Shipment\ShipmentConstants;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperInterface
 {
     protected const GET_PAYMENT_METHOD_PATTERN = 'get%s';
-
-    /**
-     * @var \SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface
-     */
-    protected $paymentMethodMapper;
+    protected const SHIPPING_COSTS_DESCRIPTION = 'Shipping Costs';
+    protected const SHIPPING_COSTS_COUNT = 1;
 
     /**
      * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
@@ -33,14 +30,10 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
     protected $config;
 
     /**
-     * @param \SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface $paymentMethodMapper
      * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
      */
-    public function __construct(
-        CrefoPayPaymentMethodMapperInterface $paymentMethodMapper,
-        CrefoPayConfig $config
-    ) {
-        $this->paymentMethodMapper = $paymentMethodMapper;
+    public function __construct(CrefoPayConfig $config)
+    {
         $this->config = $config;
     }
 
@@ -83,18 +76,6 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
      *
      * @return string|null
      */
-    protected function getPaymentMethod(QuoteTransfer $quoteTransfer): ?string
-    {
-        return $this->paymentMethodMapper->mapInternalToExternalPaymentMethodName(
-            $quoteTransfer->getPayment()->getPaymentSelection()
-        );
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return string|null
-     */
     protected function getPaymentInstrumentId(QuoteTransfer $quoteTransfer): ?string
     {
         $method = sprintf(
@@ -107,6 +88,25 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
         }
 
         return $quoteTransfer->getPayment()->$method()->getPaymentInstrumentId();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return string|null
+     */
+    protected function getPaymentMethod(QuoteTransfer $quoteTransfer): ?string
+    {
+        $method = sprintf(
+            static::GET_PAYMENT_METHOD_PATTERN,
+            ucfirst($quoteTransfer->getPayment()->getPaymentSelection())
+        );
+
+        if (!method_exists($quoteTransfer->getPayment(), $method)) {
+            return null;
+        }
+
+        return $quoteTransfer->getPayment()->$method()->getPaymentMethod();
     }
 
     /**
@@ -166,6 +166,42 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
             $quoteTransfer->getItems()->getArrayCopy()
         );
 
-        return new ArrayObject($items);
+        $basket = new ArrayObject($items);
+        $basket->append($this->createShippingCostItem($quoteTransfer));
+
+        return $basket;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayApiBasketItemTransfer
+     */
+    protected function createShippingCostItem(QuoteTransfer $quoteTransfer): CrefoPayApiBasketItemTransfer
+    {
+        return (new CrefoPayApiBasketItemTransfer())
+            ->setBasketItemType($this->config->getProductTypeShippingCosts())
+            ->setBasketItemText(static::SHIPPING_COSTS_DESCRIPTION)
+            ->setBasketItemCount(static::SHIPPING_COSTS_COUNT)
+            ->setBasketItemAmount($this->getShippingAmount($quoteTransfer));
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayApiAmountTransfer|null
+     */
+    protected function getShippingAmount(QuoteTransfer $quoteTransfer): ?CrefoPayApiAmountTransfer
+    {
+        foreach ($quoteTransfer->getExpenses() as $expenseTransfer) {
+            if ($expenseTransfer->getType() !== ShipmentConstants::SHIPMENT_EXPENSE_TYPE) {
+                return (new CrefoPayApiAmountTransfer())
+                    ->setAmount($expenseTransfer->getSumPriceToPayAggregation())
+                    ->setVatRate($expenseTransfer->getTaxRate())
+                    ->setVatAmount($expenseTransfer->getSumTaxAmount());
+            }
+        }
+
+        return null;
     }
 }
