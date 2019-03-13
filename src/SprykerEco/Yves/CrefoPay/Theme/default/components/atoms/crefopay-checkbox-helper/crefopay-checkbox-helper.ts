@@ -22,23 +22,23 @@ export default class CrefopayCheckboxHelper extends Component {
         });
     }
 
-    protected applyAttributes (): void {
-        this.targets.forEach((target: HTMLInputElement)=>{
-            target.setAttribute(this.customAttrName, this.customAttrValue);
+    protected applyAttributes(): void {
+        this.targets.forEach((target: HTMLInputElement) => {
+            target.setAttribute(this.customAttributeName, this.customAttributeValue);
         })
     }
 
     protected onChange(event: Event): void {
-        this.targets.forEach((target: HTMLInputElement)=>{
+        this.targets.forEach((target: HTMLInputElement) => {
             target.checked = false;
         });
-        this.syncCheckboxes(event.currentTarget);
+        this.checkCheckbox(event.currentTarget);
     }
 
-    protected syncCheckboxes(triggered: EventTarget): void {
-        let jointContainer = (<HTMLElement>triggered).closest(this.jointContainerSelector);
-        let triggeredTarget: HTMLInputElement = jointContainer.querySelector(this.targetSelector);
-        triggeredTarget.checked = true;
+    protected checkCheckbox(checkboxTrigger: EventTarget): void {
+        const jointContainer = (<HTMLElement>checkboxTrigger).closest(this.jointContainerSelector);
+        const checkbox: HTMLInputElement = jointContainer.querySelector(this.targetSelector);
+        checkbox.checked = true;
     }
 
     get triggerSelector() {
@@ -53,12 +53,12 @@ export default class CrefopayCheckboxHelper extends Component {
         return this.getAttribute('target-selector');
     }
 
-    get customAttrName() {
-        return this.getAttribute('custom-attr-name');
+    get customAttributeName() {
+        return this.getAttribute('custom-attribute-name');
     }
 
-    get customAttrValue() {
-        return this.getAttribute('custom-attr-value');
+    get customAttributeValue() {
+        return this.getAttribute('custom-attribute-value');
     }
 
     get jointContainerSelector() {
