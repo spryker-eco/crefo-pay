@@ -158,10 +158,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
      */
     public function createCheckoutPostSaveHookMapper(): CrefoPayCheckoutHookMapperInterface
     {
-        return new CrefoPayCheckoutPostSaveHookMapper(
-            $this->createCrefoPayPaymentMethodMapper(),
-            $this->getConfig()
-        );
+        return new CrefoPayCheckoutPostSaveHookMapper($this->getConfig());
     }
 
     /**

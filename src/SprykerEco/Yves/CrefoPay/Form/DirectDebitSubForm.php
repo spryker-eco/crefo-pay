@@ -12,6 +12,9 @@ use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
 use SprykerEco\Shared\CrefoPay\CrefoPayConfig;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,8 +23,13 @@ class DirectDebitSubForm extends AbstractSubFormType implements SubFormInterface
 {
     public const CREFO_PAY_SHOP_PUBLIC_KEY = 'shopPublicKey';
     public const CREFO_PAY_ORDER_ID = 'orderID';
+    public const CREFO_PAY_SECURE_FIELDS_API_ENDPOINT = 'secureFieldsApiEndpoint';
+    public const CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS = 'secureFieldsPlaceholders';
 
     protected const PAYMENT_METHOD = 'direct-debit';
+    protected const FORM_FIELD_PAYMENT_METHOD = 'paymentMethod';
+    protected const FORM_FIELD_PAYMENT_METHOD_DATA = 'DD';
+    protected const FORM_FIELD_PAYMENT_INSTRUMENT_ID = 'paymentInstrumentId';
 
     /**
      * @return string
@@ -80,5 +88,55 @@ class DirectDebitSubForm extends AbstractSubFormType implements SubFormInterface
         $selectedOptions = $options[static::OPTIONS_FIELD_NAME];
         $view->vars[static::CREFO_PAY_SHOP_PUBLIC_KEY] = $selectedOptions[static::CREFO_PAY_SHOP_PUBLIC_KEY];
         $view->vars[static::CREFO_PAY_ORDER_ID] = $selectedOptions[static::CREFO_PAY_ORDER_ID];
+        $view->vars[static::CREFO_PAY_SECURE_FIELDS_API_ENDPOINT] = $selectedOptions[static::CREFO_PAY_SECURE_FIELDS_API_ENDPOINT];
+        $view->vars[static::CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS] = $selectedOptions[static::CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS];
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param array $options
+     *
+     * @return void
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $this->addPaymentMethod($builder)
+            ->addPaymentInstrumentId($builder);
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     *
+     * @return $this
+     */
+    protected function addPaymentMethod(FormBuilderInterface $builder)
+    {
+        $builder->add(
+            static::FORM_FIELD_PAYMENT_METHOD,
+            ChoiceType::class,
+            [
+                'choices' => [static::FORM_FIELD_PAYMENT_METHOD_DATA],
+                'choices_as_values' => true,
+                'expanded' => true,
+            ]
+        );
+
+        return $this;
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     *
+     * @return $this
+     */
+    protected function addPaymentInstrumentId(FormBuilderInterface $builder)
+    {
+        $builder->add(
+            static::FORM_FIELD_PAYMENT_INSTRUMENT_ID,
+            HiddenType::class,
+            ['label' => false]
+        );
+
+        return $this;
     }
 }

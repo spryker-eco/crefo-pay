@@ -12,11 +12,15 @@ use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
 use SprykerEco\Shared\CrefoPay\CrefoPayConfig;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PayPalSubForm extends AbstractSubFormType implements SubFormInterface, SubFormProviderNameInterface
 {
     protected const PAYMENT_METHOD = 'paypal';
+    protected const FORM_FIELD_PAYMENT_METHOD = 'paymentMethod';
+    protected const FORM_FIELD_PAYMENT_METHOD_DATA = 'PAYPAL';
 
     /**
      * @return string
@@ -60,5 +64,36 @@ class PayPalSubForm extends AbstractSubFormType implements SubFormInterface, Sub
         $resolver->setDefaults([
             'data_class' => CrefoPayPaymentTransfer::class,
         ])->setRequired(static::OPTIONS_FIELD_NAME);
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param array $options
+     *
+     * @return void
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $this->addPaymentMethod($builder);
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     *
+     * @return $this
+     */
+    protected function addPaymentMethod(FormBuilderInterface $builder)
+    {
+        $builder->add(
+            static::FORM_FIELD_PAYMENT_METHOD,
+            ChoiceType::class,
+            [
+                'choices' => [static::FORM_FIELD_PAYMENT_METHOD_DATA],
+                'choices_as_values' => true,
+                'expanded' => true,
+            ]
+        );
+
+        return $this;
     }
 }

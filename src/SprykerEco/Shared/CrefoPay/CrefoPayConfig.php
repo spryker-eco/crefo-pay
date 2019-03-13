@@ -16,9 +16,11 @@ class CrefoPayConfig extends AbstractBundleConfig
     public const INTEGRATION_TYPE = 'SecureFields'; //Possible values: API, SecureFields, HostedPageBefore, HostedPageAfter.
     public const CONTEXT = 'ONLINE'; //Possible values: ONLINE, OFFLINE.
     public const USER_TYPE = 'PRIVATE'; //Possible values: PRIVATE, BUSINESS.
-    public const USER_RISK_CLASS = 0; //Possible values: 0 -> trusted user, 1 -> default risk user, 2 -> high risk user.
-    public const PRODUCT_TYPE_DEFAULT = 'DEFAULT'; //DEFAULT, SHIPPINGCOSTS, COUPON
-    public const PRODUCT_RISK_CLASS = 0;
+    public const USER_RISK_CLASS = 1; //Possible values: 0 -> trusted user, 1 -> default risk user, 2 -> high risk user.
+    public const PRODUCT_TYPE_DEFAULT = 'DEFAULT';
+    public const PRODUCT_TYPE_SHIPPING_COSTS = 'SHIPPINGCOSTS';
+    public const PRODUCT_TYPE_COUPON = 'COUPON';
+    public const PRODUCT_RISK_CLASS = 1;
 
     public const EXTERNAL_PAYMENT_METHOD_BILL = 'BILL';
     public const EXTERNAL_PAYMENT_METHOD_CASH_ON_DELIVERY = 'COD';
@@ -81,6 +83,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getProductTypeDefault(): string
     {
         return static::PRODUCT_TYPE_DEFAULT;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductTypeShippingCosts(): string
+    {
+        return static::PRODUCT_TYPE_SHIPPING_COSTS;
     }
 
     /**
