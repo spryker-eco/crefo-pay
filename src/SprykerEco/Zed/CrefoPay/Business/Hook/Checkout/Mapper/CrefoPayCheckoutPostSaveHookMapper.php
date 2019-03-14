@@ -65,7 +65,7 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
             ->setMerchantID($this->config->getMerchantId())
             ->setStoreID($this->config->getStoreId())
             ->setOrderID($quoteTransfer->getCrefoPayTransaction()->getCrefoPayOrderId())
-            ->setPaymentMethod($this->getPaymentMethodNew($quoteTransfer))
+            ->setPaymentMethod($this->getPaymentMethod($quoteTransfer))
             ->setPaymentInstrumentID($this->getPaymentInstrumentId($quoteTransfer))
             ->setAmount($this->createCrefoPayApiAmountTransfer($quoteTransfer->getTotals()))
             ->setBasketItems($this->createBasket($quoteTransfer));
@@ -96,25 +96,6 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
      * @return string|null
      */
     protected function getPaymentMethod(QuoteTransfer $quoteTransfer): ?string
-    {
-        $method = sprintf(
-            static::GET_PAYMENT_METHOD_PATTERN,
-            ucfirst($quoteTransfer->getPayment()->getPaymentSelection())
-        );
-
-        if (!method_exists($quoteTransfer->getPayment(), $method)) {
-            return null;
-        }
-
-        return $quoteTransfer->getPayment()->$method()->getPaymentMethod();
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return string|null
-     */
-    protected function getPaymentMethodNew(QuoteTransfer $quoteTransfer): ?string
     {
         $method = sprintf(
             static::GET_PAYMENT_METHOD_PATTERN,

@@ -5,7 +5,18 @@
 } %}
 
 {% block body %}
-    <div class="is-hidden">
-        {{ form_widget(data.form.crefoPaySofort) }}
-    </div>
+    {% set paymentMethodSubForm = data.form.crefoPaySofort %}
+    {% set subFormVars = paymentMethodSubForm.vars %}
+    {% set subFormPlaceholders = subFormVars.secureFieldsPlaceholders %}
+
+    {% include molecule('crefopay-payment-form', 'CrefoPay') with {
+        data: {
+            paymentMethodSubForm: paymentMethodSubForm,
+            shopPublicKey: subFormVars.shopPublicKey,
+            orderId: subFormVars.orderID,
+            fields: [],
+            endpointUrl: subFormVars.secureFieldsApiEndpoint,
+            placeholders: subFormPlaceholders
+        }
+    } only %}
 {% endblock %}

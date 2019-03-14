@@ -12,9 +12,24 @@ use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface;
+use SprykerEco\Yves\CrefoPay\CrefoPayConfig;
+use SprykerEco\Yves\CrefoPay\Form\SofortSubForm;
 
 class SofortFormDataProvider implements StepEngineFormDataProviderInterface
 {
+    /**
+     * @var \SprykerEco\Yves\CrefoPay\CrefoPayConfig
+     */
+    protected $config;
+
+    /**
+     * @param \SprykerEco\Yves\CrefoPay\CrefoPayConfig $config
+     */
+    public function __construct(CrefoPayConfig $config)
+    {
+        $this->config = $config;
+    }
+
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
@@ -42,6 +57,11 @@ class SofortFormDataProvider implements StepEngineFormDataProviderInterface
      */
     public function getOptions(AbstractTransfer $quoteTransfer): array
     {
-        return [];
+        return [
+            SofortSubForm::CREFO_PAY_SHOP_PUBLIC_KEY => $this->config->getPublicKey(),
+            SofortSubForm::CREFO_PAY_ORDER_ID => $quoteTransfer->getCrefoPayTransaction()->getCrefoPayOrderId(),
+            SofortSubForm::CREFO_PAY_SECURE_FIELDS_API_ENDPOINT => $this->config->getSecureFieldsApiEndpoint(),
+            SofortSubForm::CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS => $this->config->getSecureFieldsPlaceholders(),
+        ];
     }
 }

@@ -147,7 +147,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createBillFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new BillFormDataProvider();
+        return new BillFormDataProvider($this->getConfig());
     }
 
     /**
@@ -155,7 +155,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createCashOnDeliveryFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new CashOnDeliveryFormDataProvider();
+        return new CashOnDeliveryFormDataProvider($this->getConfig());
     }
 
     /**
@@ -171,7 +171,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createPayPalFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new PayPalFormDataProvider();
+        return new PayPalFormDataProvider($this->getConfig());
     }
 
     /**
@@ -179,7 +179,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createPrepaidFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new PrepaidFormDataProvider();
+        return new PrepaidFormDataProvider($this->getConfig());
     }
 
     /**
@@ -187,7 +187,7 @@ class CrefoPayFactory extends AbstractFactory
      */
     public function createSofortFormDataProvider(): StepEngineFormDataProviderInterface
     {
-        return new SofortFormDataProvider();
+        return new SofortFormDataProvider($this->getConfig());
     }
 
     /**

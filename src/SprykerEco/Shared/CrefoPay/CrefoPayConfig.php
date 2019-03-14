@@ -13,7 +13,6 @@ class CrefoPayConfig extends AbstractBundleConfig
 {
     public const PROVIDER_NAME = 'crefoPay';
 
-    public const INTEGRATION_TYPE = 'SecureFields'; //Possible values: API, SecureFields, HostedPageBefore, HostedPageAfter.
     public const CONTEXT = 'ONLINE'; //Possible values: ONLINE, OFFLINE.
     public const USER_TYPE = 'PRIVATE'; //Possible values: PRIVATE, BUSINESS.
     public const USER_RISK_CLASS = 1; //Possible values: 0 -> trusted user, 1 -> default risk user, 2 -> high risk user.
@@ -43,14 +42,6 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getProviderName(): string
     {
         return static::PROVIDER_NAME;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIntegrationType(): string
-    {
-        return static::INTEGRATION_TYPE;
     }
 
     /**

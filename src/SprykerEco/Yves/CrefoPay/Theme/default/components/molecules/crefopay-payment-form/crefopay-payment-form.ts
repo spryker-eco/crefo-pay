@@ -14,8 +14,6 @@ export default class CrefopayPaymentForm extends Component {
     protected readyCallback(): void {
         this.paymentForm = <HTMLFormElement>document.querySelector(this.paymentFormSelector);
         this.crefoPayScriptLoader = <ScriptLoader>document.querySelector(`.${this.jsName}__script-loader`);
-        this.paymentInstrumentId = <HTMLInputElement>this.querySelector(this.paymentInstrumentIdSelector);
-        this.errorBlock = <HTMLElement>this.querySelector(`.${this.jsName}__error`);
         this.paymentContainer = <HTMLElement>this.closest(this.paymentContainerSelector);
         this.paymentToggler = <HTMLElement>this.paymentContainer.querySelector(this.paymentTogglerSelector);
 
@@ -47,22 +45,35 @@ export default class CrefopayPaymentForm extends Component {
     }
 
     protected paymentRegisteredCallback(response): void {
-        if(this.paymentToggler.classList.contains(this.classToCheck)) return;
-
-        if (response.resultCode === 0) {
-            this.paymentInstrumentId.value = response.paymentInstrumentId;
-            this.paymentForm.submit();
-        } else {
+        this.findPaymentToggler();
+        if (response.resultCode !== 0) {
             this.errorBlock.classList.remove(this.classToToggle);
+            return;
         }
+
+        if (response.paymentInstrumentId) {
+            this.paymentInstrumentId.value = response.paymentInstrumentId;
+        }
+
+        this.paymentForm.submit();
     }
 
     protected initializationCompleteCallback(response): void {
-        if (response.resultCode === 0) {
-            console.log('initialization success');
-        } else {
+        if (response.resultCode !== 0) {
             console.log('initialization failed');
+            return;
         }
+
+        console.log('initialization success');
+    }
+
+    protected findPaymentToggler(): void {
+        this.paymentForm.querySelectorAll(this.paymentTogglerSelector).forEach((toggler)=>{
+            if (!toggler.classList.contains('is-hidden')) {
+                this.paymentInstrumentId = toggler.querySelector('[name*="paymentInstrumentId"]');
+                this.errorBlock = toggler.querySelector(`.${this.jsName}__error`);
+            }
+        });
     }
 
     get crefopayShopPublicKey() {
@@ -79,10 +90,6 @@ export default class CrefopayPaymentForm extends Component {
 
     get paymentFormSelector() {
         return this.getAttribute('payment-form-selector');
-    }
-
-    get paymentInstrumentIdSelector() {
-        return this.getAttribute('payment-instrument-id-selector');
     }
 
     get classToToggle() {
