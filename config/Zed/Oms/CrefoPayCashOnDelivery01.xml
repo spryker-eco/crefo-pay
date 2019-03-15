@@ -11,6 +11,7 @@
             <state name="authorized" reserved="true" />
             <state name="waiting for capture" reserved="true" />
             <state name="expired" reserved="false" />
+            <state name="capture pending" reserved="true" />
             <state name="captured" reserved="true" />
             <state name="shipped" reserved="true" />
             <state name="done" reserved="false" />
@@ -59,8 +60,13 @@
 
             <transition condition="CrefoPay/IsCaptureCallSuccessful" happy="true">
                 <source>waiting for capture</source>
-                <target>captured</target>
+                <target>capture pending</target>
                 <event>capture</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsPaidReceived" happy="true">
+                <source>capture pending</source>
+                <target>captured</target>
             </transition>
 
             <transition happy="true">
@@ -69,10 +75,9 @@
                 <event>ship</event>
             </transition>
 
-            <transition condition="CrefoPay/IsFinishCallSuccessful" happy="true">
+            <transition condition="CrefoPay/IsDoneReceived" happy="true">
                 <source>shipped</source>
                 <target>done</target>
-                <event>finish</event>
             </transition>
 
             <transition happy="true">
