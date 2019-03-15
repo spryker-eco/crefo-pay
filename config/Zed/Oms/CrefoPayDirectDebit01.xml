@@ -17,10 +17,7 @@
             <state name="capture pending" reserved="true" />
             <state name="captured" reserved="true" />
             <state name="shipped" reserved="true" />
-            <state name="refund pending" reserved="false" />
             <state name="refunded" reserved="false" />
-            <state name="money reducing pending" reserved="false" />
-            <state name="money reduced" reserved="false" />
             <state name="done" reserved="false" />
             <state name="closed" reserved="false" />
         </states>
@@ -103,48 +100,21 @@
             </transition>
 
             <transition condition="CrefoPay/IsRefundCallSuccessful">
-                <source>capture pending</source>
-                <target>money reducing pending</target>
-                <event>refund</event>
-            </transition>
-
-            <transition condition="CrefoPay/IsRefundCallSuccessful">
                 <source>captured</source>
-                <target>refund pending</target>
+                <target>refunded</target>
                 <event>refund</event>
             </transition>
 
-            <transition condition="CrefoPay/IsChargeBackReceived">
-                <source>refund pending</source>
+            <transition condition="CrefoPay/IsFinishCallSuccessful">
+                <source>waiting for capture no cancellation</source>
                 <target>refunded</target>
+                <event>finish</event>
             </transition>
 
             <transition happy="true">
                 <source>captured</source>
                 <target>shipped</target>
                 <event>ship</event>
-            </transition>
-
-            <transition condition="CrefoPay/IsFinishCallSuccessful">
-                <source>waiting for capture no cancellation</source>
-                <target>money reduced</target>
-                <event>finish</event>
-            </transition>
-
-            <transition condition="CrefoPay/IsFinishCallSuccessful">
-                <source>capture pending</source>
-                <target>money reducing pending</target>
-                <event>finish</event>
-            </transition>
-
-            <transition condition="CrefoPay/IsPaidReceived">
-                <source>money reducing pending</source>
-                <target>money reduced</target>
-            </transition>
-
-            <transition condition="CrefoPay/IsDoneReceived">
-                <source>money reduced</source>
-                <target>done</target>
             </transition>
 
             <transition condition="CrefoPay/IsDoneReceived" happy="true">
