@@ -25,6 +25,9 @@ use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface;
 class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterface
 {
     protected const INTEGRATION_TYPE = 'SecureFields';
+    protected const AUTO_CAPTURE = 'false';
+    protected const CONTEXT = 'ONLINE';
+    protected const USER_TYPE = 'PRIVATE';
     protected const SALUTATION_MAPPING = ['Mr' => 'M', 'Ms' => 'F', 'Mrs' => 'F', 'Dr' => 'M'];
     protected const AVAILABLE_LOCALES = ['EN', 'DE', 'ES', 'FR', 'IT', 'NL'];
     protected const DEFAULT_LOCALE = 'EN';
@@ -89,9 +92,9 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
             ->setOrderID($this->generateCrefoPayOrderId($quoteTransfer))
             ->setUserID($quoteTransfer->getCustomerReference())
             ->setIntegrationType(static::INTEGRATION_TYPE)
-            ->setAutoCapture($this->config->getAutoCapture())
-            ->setContext($this->config->getContext())
-            ->setUserType($this->config->getUserType())
+            ->setAutoCapture(static::AUTO_CAPTURE)
+            ->setContext(static::CONTEXT)
+            ->setUserType(static::USER_TYPE)
             ->setUserRiskClass($this->config->getUserRiskClass())
             ->setUserIpAddress($quoteTransfer->getCrefoPayTransaction()->getClientIp())
             ->setUserData($this->createCrefoPayApiPersonTransfer($quoteTransfer))

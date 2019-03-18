@@ -138,7 +138,10 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
      */
     public function createOrderPaymentSaver(): CrefoPayOrderPaymentSaverInterface
     {
-        return new CrefoPayOrderPaymentSaver($this->createWriter());
+        return new CrefoPayOrderPaymentSaver(
+            $this->createWriter(),
+            $this->getConfig()
+        );
     }
 
     /**

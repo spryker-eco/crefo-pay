@@ -13,8 +13,6 @@ class CrefoPayConfig extends AbstractBundleConfig
 {
     public const PROVIDER_NAME = 'crefoPay';
 
-    public const CONTEXT = 'ONLINE'; //Possible values: ONLINE, OFFLINE.
-    public const USER_TYPE = 'PRIVATE'; //Possible values: PRIVATE, BUSINESS.
     public const USER_RISK_CLASS = 1; //Possible values: 0 -> trusted user, 1 -> default risk user, 2 -> high risk user.
     public const PRODUCT_TYPE_DEFAULT = 'DEFAULT';
     public const PRODUCT_TYPE_SHIPPING_COSTS = 'SHIPPINGCOSTS';
@@ -42,22 +40,6 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getProviderName(): string
     {
         return static::PROVIDER_NAME;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContext(): string
-    {
-        return static::CONTEXT;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUserType(): string
-    {
-        return static::USER_TYPE;
     }
 
     /**

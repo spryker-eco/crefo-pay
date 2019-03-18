@@ -74,14 +74,6 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getAutoCapture(): string
-    {
-        return $this->get(CrefoPayConstants::AUTO_CAPTURE);
-    }
-
-    /**
-     * @return string
-     */
     public function getRefundDescription(): string
     {
         return $this->get(CrefoPayConstants::REFUND_DESCRIPTION);
@@ -93,22 +85,6 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getProviderName(): string
     {
         return $this->getSharedConfig()->getProviderName();
-    }
-
-    /**
-     * @return string
-     */
-    public function getContext(): string
-    {
-        return $this->getSharedConfig()->getContext();
-    }
-
-    /**
-     * @return string
-     */
-    public function getUserType(): string
-    {
-        return $this->getSharedConfig()->getUserType();
     }
 
     /**

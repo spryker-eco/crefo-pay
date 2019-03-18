@@ -9,7 +9,7 @@ namespace SprykerEco\Zed\CrefoPay\Business\Payment\Saver;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
-use SprykerEco\Shared\CrefoPay\CrefoPayConfig;
+use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
 
 class CrefoPayOrderPaymentSaver implements CrefoPayOrderPaymentSaverInterface
@@ -20,11 +20,20 @@ class CrefoPayOrderPaymentSaver implements CrefoPayOrderPaymentSaverInterface
     protected $writer;
 
     /**
-     * @param \SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface $writer
+     * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
      */
-    public function __construct(CrefoPayWriterInterface $writer)
-    {
+    protected $config;
+
+    /**
+     * @param \SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface $writer
+     * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
+     */
+    public function __construct(
+        CrefoPayWriterInterface $writer,
+        CrefoPayConfig $config
+    ) {
         $this->writer = $writer;
+        $this->config = $config;
     }
 
     /**
@@ -35,7 +44,7 @@ class CrefoPayOrderPaymentSaver implements CrefoPayOrderPaymentSaverInterface
      */
     public function saveOrderPayment(QuoteTransfer $quoteTransfer, SaveOrderTransfer $saveOrderTransfer): void
     {
-        if ($quoteTransfer->getPayment()->getPaymentProvider() !== CrefoPayConfig::PROVIDER_NAME) {
+        if ($quoteTransfer->getPayment()->getPaymentProvider() !== $this->config->getProviderName()) {
             return;
         }
 
