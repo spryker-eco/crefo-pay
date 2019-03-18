@@ -9,8 +9,6 @@ namespace SprykerEco\Zed\CrefoPay\Business;
 
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer;
-use Generated\Shared\Transfer\CrefoPayToSalesOrderItemTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -19,6 +17,8 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \SprykerEco\Zed\CrefoPay\Business\CrefoPayBusinessFactory getFactory()
+ * @method \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayEntityManagerInterface getEntityManager()
+ * @method \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface getRepository()
  */
 class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
 {

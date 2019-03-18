@@ -16,6 +16,10 @@ use Spryker\Service\Kernel\AbstractService;
 class CrefoPayService extends AbstractService implements CrefoPayServiceInterface
 {
     /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return string

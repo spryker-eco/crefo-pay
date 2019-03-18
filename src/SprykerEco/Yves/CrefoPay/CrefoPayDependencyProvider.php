@@ -13,7 +13,7 @@ use SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToCrefoPayApiServiceBrid
 
 class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
 {
-    const SERVICE_CREFO_PAY_API = 'SERVICE_CREFO_PAY_API';
+    public const SERVICE_CREFO_PAY_API = 'SERVICE_CREFO_PAY_API';
 
     /**
      * @param \Spryker\Yves\Kernel\Container $container
@@ -36,7 +36,7 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
     protected function addCrefoPayApiService(Container $container): Container
     {
         $container[static::SERVICE_CREFO_PAY_API] = function (Container $container) {
-            return new CrefoPayToCrefoPayApiServiceBridge($container->getLocator()->crefoPayApi()->service()) ;
+            return new CrefoPayToCrefoPayApiServiceBridge($container->getLocator()->crefoPayApi()->service());
         };
 
         return $container;

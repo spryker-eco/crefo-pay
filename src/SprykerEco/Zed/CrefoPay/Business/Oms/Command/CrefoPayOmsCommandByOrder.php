@@ -7,8 +7,8 @@
 
 namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command;
 
-use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface;
@@ -93,7 +93,7 @@ class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandByOrderInterface
         $paymentCrefoPayOrderItemCollection = $this->reader
             ->findPaymentCrefoPayOrderItemsBySalesOrderItemIds($salesOrderItemIds);
 
-        return (new CrefoPayOmsCommandTransfer)
+        return (new CrefoPayOmsCommandTransfer())
             ->setOrder($orderTransfer)
             ->setPaymentCrefoPay($paymentCrefoPayTransfer)
             ->setPaymentCrefoPayOrderItemCollection($paymentCrefoPayOrderItemCollection);

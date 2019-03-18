@@ -21,6 +21,7 @@ class CrefoPayToLocaleFacadeBridge implements CrefoPayToLocaleFacadeInterface
     {
         $this->localeFacade = $localeFacade;
     }
+
     /**
      * @return string
      */

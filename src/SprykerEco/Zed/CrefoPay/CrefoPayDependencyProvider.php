@@ -150,7 +150,7 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
     protected function addUtilTextService(Container $container): Container
     {
         $container[static::SERVICE_UTIL_TEXT] = function (Container $container) {
-            return new CrefoPayToUtilTextServiceBridge($container->getLocator()->utilText()->service()) ;
+            return new CrefoPayToUtilTextServiceBridge($container->getLocator()->utilText()->service());
         };
 
         return $container;

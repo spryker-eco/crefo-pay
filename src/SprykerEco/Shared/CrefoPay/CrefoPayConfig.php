@@ -37,6 +37,9 @@ class CrefoPayConfig extends AbstractBundleConfig
     public const CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD = 'crefoPayCreditCard';
     public const CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD_3D = 'crefoPayCreditCard3D';
 
+    /**
+     * @return string
+     */
     public function getProviderName(): string
     {
         return static::PROVIDER_NAME;

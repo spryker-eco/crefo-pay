@@ -15,6 +15,8 @@ use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutHookMa
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Mapper\CrefoPayCheckoutPostSaveHookMapper;
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutHookSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Hook\Checkout\Saver\CrefoPayCheckoutPostSaveHookSaver;
+use SprykerEco\Zed\CrefoPay\Business\Mapper\OmsStatus\CrefoPayOmsStatusMapper;
+use SprykerEco\Zed\CrefoPay\Business\Mapper\OmsStatus\CrefoPayOmsStatusMapperInterface;
 use SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapper;
 use SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CancelOmsCommandRequestBuilder;
@@ -38,26 +40,24 @@ use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\FinishOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\RefundOmsCommandSaver;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\CrefoPayOmsConditionInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsAcknowledgePendingReceivedOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCanceledReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCancelCallSuccessfulOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCiaPendingReceivedOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsPaidReceivedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCanceledReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCaptureCallSuccessfulOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsChargeBackReceivedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsCiaPendingReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsDoneReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsExpiredReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsFinishCallSuccessfulOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsChargeBackReceivedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsMerchantPendingReceivedOmsCondition;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsPaidReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsRefundCallSuccessfulOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsReserveCallSuccessfulOmsCondition;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Condition\IsMerchantPendingReceivedOmsCondition;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilter;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Filter\CrefoPayPaymentMethodFilterInterface;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaver;
 use SprykerEco\Zed\CrefoPay\Business\Payment\Saver\CrefoPayOrderPaymentSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Processor\CrefoPayNotificationProcessor;
 use SprykerEco\Zed\CrefoPay\Business\Processor\CrefoPayNotificationProcessorInterface;
-use SprykerEco\Zed\CrefoPay\Business\Mapper\OmsStatus\CrefoPayOmsStatusMapper;
-use SprykerEco\Zed\CrefoPay\Business\Mapper\OmsStatus\CrefoPayOmsStatusMapperInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpander;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\CrefoPayQuoteExpanderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpanderMapper;
@@ -176,6 +176,9 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
         );
     }
 
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface
+     */
     public function createCrefoPayPaymentMethodMapper(): CrefoPayPaymentMethodMapperInterface
     {
         return new CrefoPayPaymentMethodMapper($this->getConfig());

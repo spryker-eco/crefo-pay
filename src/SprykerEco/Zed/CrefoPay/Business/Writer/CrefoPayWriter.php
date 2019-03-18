@@ -67,7 +67,6 @@ class CrefoPayWriter implements CrefoPayWriterInterface
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
      * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer|null $paymentCrefoPayTransfer
-     *
      * @param int|null $crefoPayApiLogId
      *
      * @return void

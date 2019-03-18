@@ -10,7 +10,6 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder;
 use Generated\Shared\Transfer\CrefoPayApiCancelRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
-use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class CancelOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilderInterface

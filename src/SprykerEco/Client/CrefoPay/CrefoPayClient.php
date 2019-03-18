@@ -17,6 +17,10 @@ use Spryker\Client\Kernel\AbstractClient;
 class CrefoPayClient extends AbstractClient implements CrefoPayClientInterface
 {
     /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
@@ -29,6 +33,10 @@ class CrefoPayClient extends AbstractClient implements CrefoPayClientInterface
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayNotificationTransfer

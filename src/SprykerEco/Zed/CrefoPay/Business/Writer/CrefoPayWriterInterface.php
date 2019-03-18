@@ -29,7 +29,6 @@ interface CrefoPayWriterInterface
     /**
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
      * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer|null $paymentCrefoPayTransfer
-     *
      * @param int|null $crefoPayApiLogId
      *
      * @return void
@@ -42,7 +41,6 @@ interface CrefoPayWriterInterface
 
     /**
      * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
-     *
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
      *
      * @return void

@@ -58,7 +58,6 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
             ->findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(
                 $notificationTransfer->getOrderID(),
                 $notificationTransfer->getCaptureID()
-
             );
 
         $paymentCrefoPayOrderItems = array_map(

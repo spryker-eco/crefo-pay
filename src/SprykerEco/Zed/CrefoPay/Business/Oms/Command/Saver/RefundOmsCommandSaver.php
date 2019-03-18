@@ -8,9 +8,9 @@
 namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver;
 
 use ArrayObject;
+use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
-use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
@@ -46,7 +46,6 @@ class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
      * @param \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToOmsFacadeInterface $omsFacade
      */
     public function __construct(
-
         CrefoPayReaderInterface $reader,
         CrefoPayWriterInterface $writer,
         CrefoPayConfig $config,

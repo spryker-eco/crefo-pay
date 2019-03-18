@@ -13,6 +13,12 @@ use Generated\Shared\Transfer\QuoteTransfer;
 interface CrefoPayClientInterface
 {
     /**
+     * Specification:
+     *  - Starts transaction in CrefoPay system.
+     *  - Expands QuoteTransfer with response from CreateTransaction API call.
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
@@ -20,6 +26,12 @@ interface CrefoPayClientInterface
     public function startCrefoPayTransaction(QuoteTransfer $quoteTransfer): QuoteTransfer;
 
     /**
+     * Specification:
+     *  - Saves notification.
+     *  - Updates order items status depends on notification transaction/order status.
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayNotificationTransfer

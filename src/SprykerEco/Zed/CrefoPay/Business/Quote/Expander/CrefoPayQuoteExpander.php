@@ -16,7 +16,7 @@ use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterfa
 class CrefoPayQuoteExpander implements CrefoPayQuoteExpanderInterface
 {
     /**
-     * @var |SprykerEco\Zed\CrefoPay\Business\Quote\Mapper\CrefoPayQuoteMapperInterface
+     * @var \SprykerEco\Zed\CrefoPay\Business\Quote\Expander\Mapper\CrefoPayQuoteExpanderMapperInterface
      */
     protected $mapper;
 

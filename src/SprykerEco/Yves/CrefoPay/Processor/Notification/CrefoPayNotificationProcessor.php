@@ -9,7 +9,6 @@ namespace SprykerEco\Yves\CrefoPay\Processor\Notification;
 
 use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use SprykerEco\Client\CrefoPay\CrefoPayClientInterface;
-use SprykerEco\Yves\CrefoPay\CrefoPayConfig;
 use SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToCrefoPayApiServiceInterface;
 use SprykerEco\Yves\CrefoPay\Processor\Notification\Mapper\CrefoPayNotificationProcessorMapperInterface;
 use Symfony\Component\HttpFoundation\Request;

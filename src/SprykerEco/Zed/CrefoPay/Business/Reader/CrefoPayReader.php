@@ -37,7 +37,6 @@ class CrefoPayReader implements CrefoPayReaderInterface
     public function __construct(
         CrefoPayRepositoryInterface $repository,
         CrefoPayConfig $config
-
     ) {
         $this->repository = $repository;
         $this->config = $config;

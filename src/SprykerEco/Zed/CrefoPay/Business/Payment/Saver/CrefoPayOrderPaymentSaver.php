@@ -9,8 +9,8 @@ namespace SprykerEco\Zed\CrefoPay\Business\Payment\Saver;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
-use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
+use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class CrefoPayOrderPaymentSaver implements CrefoPayOrderPaymentSaverInterface
 {

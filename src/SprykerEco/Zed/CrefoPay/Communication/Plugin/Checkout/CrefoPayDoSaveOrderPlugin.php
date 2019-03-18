@@ -15,6 +15,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface getFacade()
  * @method \SprykerEco\Zed\CrefoPay\Communication\CrefoPayCommunicationFactory getFactory()
+ * @method \SprykerEco\Zed\CrefoPay\CrefoPayConfig getConfig()
  */
 class CrefoPayDoSaveOrderPlugin extends AbstractPlugin implements CheckoutDoSaveOrderInterface
 {

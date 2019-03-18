@@ -40,7 +40,6 @@ class CrefoPayPaymentMethodMapper implements CrefoPayPaymentMethodMapperInterfac
         return $paymentMethodNames[$internalPaymentMethodName];
     }
 
-
     /**
      * @return string[]
      */

@@ -12,6 +12,11 @@ use Generated\Shared\Transfer\QuoteTransfer;
 interface CrefoPayServiceInterface
 {
     /**
+     * Specification:
+     *  - Generate unique identifier for order id in CrefoPay system.
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return string
