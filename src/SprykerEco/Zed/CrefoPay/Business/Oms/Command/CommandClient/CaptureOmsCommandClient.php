@@ -5,13 +5,13 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client;
+namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\CommandClient;
 
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterface;
 
-class CancelOmsCommandClient implements CrefoPayOmsCommandClientInterface
+class CaptureOmsCommandClient implements CrefoPayOmsCommandClientInterface
 {
     /**
      * @var \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterface
@@ -34,6 +34,6 @@ class CancelOmsCommandClient implements CrefoPayOmsCommandClientInterface
      */
     public function performApiCall(CrefoPayApiRequestTransfer $requestTransfer): CrefoPayApiResponseTransfer
     {
-        return $this->crefoPayApiFacade->performCancelApiCall($requestTransfer);
+        return $this->crefoPayApiFacade->performCaptureApiCall($requestTransfer);
     }
 }

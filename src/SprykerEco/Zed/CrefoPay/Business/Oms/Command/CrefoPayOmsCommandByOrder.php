@@ -10,7 +10,7 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface;
-use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface;
+use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CommandClient\CrefoPayOmsCommandClientInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 
@@ -27,7 +27,7 @@ class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandByOrderInterface
     protected $reader;
 
     /**
-     * @var \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface
+     * @var \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CommandClient\CrefoPayOmsCommandClientInterface
      */
     protected $omsCommandClient;
 
@@ -39,7 +39,7 @@ class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandByOrderInterface
     /**
      * @param \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface $requestBuilder
      * @param \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface $reader
-     * @param \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Client\CrefoPayOmsCommandClientInterface $omsCommandClient
+     * @param \SprykerEco\Zed\CrefoPay\Business\Oms\Command\CommandClient\CrefoPayOmsCommandClientInterface $omsCommandClient
      * @param \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface $saver
      */
     public function __construct(
