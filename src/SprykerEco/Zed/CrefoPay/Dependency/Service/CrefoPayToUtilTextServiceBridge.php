@@ -10,7 +10,7 @@ namespace SprykerEco\Zed\CrefoPay\Dependency\Service;
 class CrefoPayToUtilTextServiceBridge implements CrefoPayToUtilTextServiceInterface
 {
     /**
-     * @var \SprykerEco\Zed\CrefoPayApi\Business\CrefoPayApiFacadeInterface
+     * @var \Spryker\Service\UtilText\UtilTextServiceInterface
      */
     protected $utilTextService;
 

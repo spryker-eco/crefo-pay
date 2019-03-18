@@ -56,9 +56,9 @@ class CrefoPayConfig extends AbstractBundleConfig
     protected const CREFO_PAY_AUTOMATIC_OMS_TRIGGER = 'CREFO_PAY_AUTOMATIC_OMS_TRIGGER';
 
     /**
-     * @return string
+     * @return int
      */
-    public function getMerchantId(): string
+    public function getMerchantId(): int
     {
         return $this->get(CrefoPayConstants::MERCHANT_ID);
     }
@@ -112,9 +112,9 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getProductRiskClass(): string
+    public function getProductRiskClass(): int
     {
         return $this->getSharedConfig()->getProductRiskClass();
     }

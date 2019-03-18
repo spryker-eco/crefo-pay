@@ -75,6 +75,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      */
     public function findPaymentCrefoPayByIdSalesOrderItem(int $idSalesOrderItem): PaymentCrefoPayTransfer
     {
+        /** @var \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPay|null $paymentCrefoPayEntity */
         $paymentCrefoPayEntity = $this->getPaymentCrefoPayQuery()
             ->useSpyPaymentCrefoPayOrderItemQuery()
                 ->filterByFkSalesOrderItem($idSalesOrderItem)
@@ -101,8 +102,8 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
         string $crefoPayOrderId,
         ?string $captureId = null
     ): PaymentCrefoPayOrderItemCollectionTransfer {
-        $query = $this->getPaymentCrefoPayOrderItemQuery()
-            ->useSpyPaymentCrefoPayQuery()
+        $query = $this->getPaymentCrefoPayOrderItemQuery();
+        $query->useSpyPaymentCrefoPayQuery()
                 ->filterByCrefoPayOrderId($crefoPayOrderId)
             ->endUse();
 

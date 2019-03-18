@@ -141,7 +141,7 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
      */
     protected function calculateExpensesAmount(OrderTransfer $orderTransfer): int
     {
-        return array_sum(
+        return (int)array_sum(
             array_map(
                 function (ExpenseTransfer $expense) {
                     return $expense->getSumPriceToPayAggregation();

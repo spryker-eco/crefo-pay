@@ -112,7 +112,7 @@
         <property name="merchantReference" type="string" />
         <property name="paymentReference" type="string" />
         <property name="userId" type="string" />
-        <property name="amount" type="string" />
+        <property name="amount" type="int" />
         <property name="currency" type="string" />
         <property name="transactionStatus" type="string" />
         <property name="orderStatus" type="string" />

@@ -10,7 +10,7 @@ namespace SprykerEco\Zed\CrefoPay\Dependency\Facade;
 class CrefoPayToOmsFacadeBridge implements CrefoPayToOmsFacadeInterface
 {
     /**
-     * @var \Spryker\Zed\Sales\Business\SalesFacadeInterface
+     * @var \Spryker\Zed\Oms\Business\OmsFacadeInterface
      */
     protected $omsFacade;
 
