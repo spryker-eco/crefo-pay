@@ -1,6 +1,6 @@
 {
   "name": "spryker-eco/crefo-pay",
-  "description": "CrefoPay Module",
+  "description": "CrefoPay module",
   "license": "MIT",
   "require": {
     "php": ">=7.1"
