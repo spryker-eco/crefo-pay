@@ -1,11 +1,20 @@
 <?php
 namespace SprykerEcoTest\Zed\CrefoPay;
 
+use ArrayObject;
+use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
+use Generated\Shared\Transfer\CrefoPayApiCreateTransactionResponseTransfer;
+use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
+use Generated\Shared\Transfer\CrefoPayTransactionTransfer;
+use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
+use Generated\Shared\Transfer\PaymentMethodTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
+use Generated\Shared\Transfer\TaxTotalTransfer;
+use Generated\Shared\Transfer\TotalsTransfer;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 /**
@@ -27,7 +36,35 @@ class CrefoPayZedTester extends \Codeception\Actor
 {
     use _generated\CrefoPayZedTesterActions;
 
-   /**
+    protected const ALLOWED_PAYMENT_METHODS = ['PREPAID', 'CC', 'PAYPAL', 'SU', 'COD'];
+    protected const SPRYKER_PAYMENT_METHODS = [
+        'crefoPayBill',
+        'crefoPayCashOnDelivery',
+        'crefoPayDirectDebit',
+        'crefoPayPayPal',
+        'crefoPayPrepaid',
+        'crefoPaySofort',
+        'crefoPayCreditCard',
+        'crefoPayCreditCard3D',
+    ];
+    protected const CREFO_PAY_API_LOG_ID = 123;
+    protected const RESPONSE_SALT = '1ee1cfcccd6051b2';
+    protected const CUSTOMER_REFERENCE = 'DE-22';
+    protected const CUSTOMER_NAME = 'John';
+    protected const CUSTOMER_SURNAME = 'Doe';
+    protected const CUSTOMER_EMAIL = 'john.doe@mail.com';
+    protected const CUSTOMER_SALUTATION = 'Mr';
+    protected const ADDRESS_STREET = 'Street';
+    protected const ADDRESS_NO = '130';
+    protected const ADDRESS_ADDITIONAL = 'Additional';
+    protected const ADDRESS_ZIP = '20537';
+    protected const ADDRESS_CITY = 'Hamburg';
+    protected const ADDRESS_COUNTRY = 'DE';
+    protected const TOTALS_PRICE_TO_PAY = 26772;
+    protected const TOTALS_TAX_RATE = 19;
+    protected const TOTALS_TAX_AMOUNT = 4275;
+
+    /**
     * Define custom actions here
     */
 
@@ -44,7 +81,62 @@ class CrefoPayZedTester extends \Codeception\Actor
      */
     public function createQuoteTransfer(): QuoteTransfer
     {
-        return new QuoteTransfer();
+        return (new QuoteTransfer())
+            ->setCustomer($this->createCustomerTransfer())
+            ->setBillingAddress($this->createAddressTransfer())
+            ->setShippingAddress($this->createAddressTransfer())
+            ->setTotals($this->createTotalsTransfer())
+            ->setCrefoPayTransaction($this->createCrefoPayTransactionTransfer());
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\CustomerTransfer
+     */
+    public function createCustomerTransfer(): CustomerTransfer
+    {
+        return (new CustomerTransfer())
+            ->setCustomerReference(static::CUSTOMER_REFERENCE)
+            ->setEmail(static::CUSTOMER_EMAIL)
+            ->setFirstName(static::CUSTOMER_NAME)
+            ->setLastName(static::CUSTOMER_SURNAME)
+            ->setSalutation(static::CUSTOMER_SALUTATION);
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\AddressTransfer
+     */
+    public function createAddressTransfer(): AddressTransfer
+    {
+        return (new AddressTransfer())
+            ->setLastName(static::CUSTOMER_NAME)
+            ->setLastName(static::CUSTOMER_SURNAME)
+            ->setSalutation(static::CUSTOMER_SALUTATION)
+            ->setAddress1(static::ADDRESS_STREET)
+            ->setAddress2(static::ADDRESS_NO)
+            ->setAddress3(static::ADDRESS_ADDITIONAL)
+            ->setZipCode(static::ADDRESS_ZIP)
+            ->setCity(static::ADDRESS_CITY)
+            ->setIso2Code(static::ADDRESS_COUNTRY);
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\TotalsTransfer
+     */
+    public function createTotalsTransfer(): TotalsTransfer
+    {
+        return (new TotalsTransfer())
+            ->setPriceToPay(static::TOTALS_PRICE_TO_PAY)
+            ->setTaxTotal($this->createTaxTotalTransfer());
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\TaxTotalTransfer
+     */
+    protected function createTaxTotalTransfer(): TaxTotalTransfer
+    {
+        return (new TaxTotalTransfer())
+            ->setTaxRate(static::TOTALS_TAX_RATE)
+            ->setAmount(static::TOTALS_TAX_AMOUNT);
     }
 
     /**
@@ -52,7 +144,16 @@ class CrefoPayZedTester extends \Codeception\Actor
      */
     public function createPaymentMethodsTransfer(): PaymentMethodsTransfer
     {
-        return new PaymentMethodsTransfer();
+        $paymentMethods = new ArrayObject();
+        foreach (static::SPRYKER_PAYMENT_METHODS as $paymentMethod) {
+            $paymentMethods->append(
+                (new PaymentMethodTransfer())
+                    ->setMethodName($paymentMethod)
+            );
+        }
+
+        return (new PaymentMethodsTransfer())
+            ->setMethods($paymentMethods);
     }
 
     /**
@@ -77,5 +178,37 @@ class CrefoPayZedTester extends \Codeception\Actor
     public function createCheckoutResponseTransfer(): CheckoutResponseTransfer
     {
         return new CheckoutResponseTransfer();
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer
+     */
+    public function createCrefoPayApiResponseTransfer(): CrefoPayApiResponseTransfer
+    {
+        return (new CrefoPayApiResponseTransfer())
+            ->setIsSuccess(true)
+            ->setCrefoPayApiLogId(static::CREFO_PAY_API_LOG_ID)
+            ->setCreateTransactionResponse($this->createCrefoPayApiCreateTransactionResponseTransfer());
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\CrefoPayApiCreateTransactionResponseTransfer
+     */
+    public function createCrefoPayApiCreateTransactionResponseTransfer(): CrefoPayApiCreateTransactionResponseTransfer
+    {
+        return (new CrefoPayApiCreateTransactionResponseTransfer())
+            ->setResultCode(0)
+            ->setAllowedPaymentMethods(static::ALLOWED_PAYMENT_METHODS)
+            ->setErrorDetails(new ArrayObject())
+            ->setSalt(static::RESPONSE_SALT);
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\CrefoPayTransactionTransfer
+     */
+    public function createCrefoPayTransactionTransfer(): CrefoPayTransactionTransfer
+    {
+        return (new CrefoPayTransactionTransfer())
+            ->setAllowedPaymentMethods(static::ALLOWED_PAYMENT_METHODS);
     }
 }

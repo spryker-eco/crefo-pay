@@ -24,8 +24,6 @@ class StartCrefoPayTransactionFacadeTest extends CrefoPayFacadeBaseTest
      */
     public function testStartCrefoPayTransaction(): void
     {
-        $this->markTestSkipped('Will be implemented soon...');
-
         $quoteTransfer = $this->tester->createQuoteTransfer();
         $quoteTransfer = $this->facade->startCrefoPayTransaction($quoteTransfer);
         $this->doTest($quoteTransfer);
@@ -38,5 +36,12 @@ class StartCrefoPayTransactionFacadeTest extends CrefoPayFacadeBaseTest
      */
     public function doTest(QuoteTransfer $quoteTransfer): void
     {
+        $crefoPayTransactionTransfer = $quoteTransfer->getCrefoPayTransaction();
+
+        $this->assertTrue($crefoPayTransactionTransfer->getIsSuccess());
+        $this->assertEquals(0, $crefoPayTransactionTransfer->getResultCode());
+        $this->assertNotEmpty($crefoPayTransactionTransfer->getCrefoPayOrderId());
+        $this->assertNotEmpty($crefoPayTransactionTransfer->getSalt());
+        $this->assertGreaterThan(0, count($crefoPayTransactionTransfer->getAllowedPaymentMethods()));
     }
 }

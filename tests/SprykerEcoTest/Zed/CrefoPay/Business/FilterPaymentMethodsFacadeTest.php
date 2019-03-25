@@ -7,7 +7,6 @@
 
 namespace SprykerEcoTest\Zed\CrefoPay\Business;
 
-use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
@@ -25,20 +24,23 @@ class FilterPaymentMethodsFacadeTest extends CrefoPayFacadeBaseTest
      */
     public function testFilterPaymentMethods(): void
     {
-        $this->markTestSkipped('Will be implemented soon...');
-
         $quoteTransfer = $this->tester->createQuoteTransfer();
         $paymentMethodsTransfer = $this->tester->createPaymentMethodsTransfer();
-        $paymentMethodsTransfer = $this->facade->filterPaymentMethods($paymentMethodsTransfer, $quoteTransfer);
-        $this->doTest($paymentMethodsTransfer);
+        $filteredPaymentMethodsTransfer = $this->facade->filterPaymentMethods($paymentMethodsTransfer, $quoteTransfer);
+        $this->doTest($quoteTransfer, $filteredPaymentMethodsTransfer);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\PaymentMethodsTransfer $paymentMethodsTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\PaymentMethodsTransfer $filteredPaymentMethodsTransfer
      *
      * @return void
      */
-    public function doTest(PaymentMethodsTransfer $paymentMethodsTransfer): void
+    public function doTest(QuoteTransfer $quoteTransfer, PaymentMethodsTransfer $filteredPaymentMethodsTransfer): void
     {
+        $this->assertCount(
+            count($quoteTransfer->getCrefoPayTransaction()->getAllowedPaymentMethods()),
+            $filteredPaymentMethodsTransfer->getMethods()
+        );
     }
 }
