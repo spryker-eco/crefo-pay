@@ -16,6 +16,10 @@ use Generated\Shared\Transfer\SaveOrderTransfer;
 use Generated\Shared\Transfer\TaxTotalTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
+use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayEntityManager;
+use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayEntityManagerInterface;
+use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepository;
+use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface;
 
 /**
  * Inherited Methods
@@ -63,6 +67,13 @@ class CrefoPayZedTester extends \Codeception\Actor
     protected const TOTALS_PRICE_TO_PAY = 26772;
     protected const TOTALS_TAX_RATE = 19;
     protected const TOTALS_TAX_AMOUNT = 4275;
+    protected const ORDER_ID = 'DE--22-5c9098f724af27.85915877';
+    protected const USER_ID = 'DE--22';
+    protected const CURRENCY = 'EUR';
+    protected const TRANSACTION_STATUS = 'MERCHANTPENDING';
+    protected const TIMESTAMP = '1553159430402';
+    protected const API_VERSION = '2.1';
+    protected const REQUEST_MAC = '8a02ab4f5a8ad805e53a38452009c9deaf96976b';
 
     /**
     * Define custom actions here
@@ -74,6 +85,22 @@ class CrefoPayZedTester extends \Codeception\Actor
     public function createConfig(): CrefoPayConfig
     {
         return new CrefoPayConfig();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface
+     */
+    public function createRepository(): CrefoPayRepositoryInterface
+    {
+        return new CrefoPayRepository();
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayEntityManagerInterface
+     */
+    public function createEntityManager(): CrefoPayEntityManagerInterface
+    {
+        return new CrefoPayEntityManager();
     }
 
     /**
@@ -161,7 +188,16 @@ class CrefoPayZedTester extends \Codeception\Actor
      */
     public function createCrefoPayNotificationTransfer(): CrefoPayNotificationTransfer
     {
-        return new CrefoPayNotificationTransfer();
+        return (new CrefoPayNotificationTransfer())
+            ->setOrderID(static::ORDER_ID)
+            ->setCaptureID('')
+            ->setUserID(static::USER_ID)
+            ->setAmount(static::TOTALS_PRICE_TO_PAY)
+            ->setCurrency(static::CURRENCY)
+            ->setTransactionStatus(static::TRANSACTION_STATUS)
+            ->setTimestamp(static::TIMESTAMP)
+            ->setVersion(static::API_VERSION)
+            ->setMac(static::REQUEST_MAC);
     }
 
     /**

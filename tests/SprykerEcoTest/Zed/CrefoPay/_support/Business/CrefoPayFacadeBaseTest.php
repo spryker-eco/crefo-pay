@@ -54,6 +54,8 @@ class CrefoPayFacadeBaseTest extends Test
         $builder->setMethods(
             [
                 'getConfig',
+                'getRepository',
+                'getEntityManager',
                 'getCrefoPayApiFacade',
                 'getLocaleFacade',
                 'getOmsFacade',
@@ -65,6 +67,10 @@ class CrefoPayFacadeBaseTest extends Test
         $stub = $builder->getMock();
         $stub->method('getConfig')
             ->willReturn($this->tester->createConfig());
+        $stub->method('getRepository')
+            ->willReturn($this->tester->createRepository());
+        $stub->method('getEntityManager')
+            ->willReturn($this->tester->createEntityManager());
         $stub->method('getCrefoPayApiFacade')
             ->willReturn($this->getCrefoPayApiFacade());
         $stub->method('getLocaleFacade')

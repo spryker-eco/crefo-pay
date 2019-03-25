@@ -26,8 +26,6 @@ class ProcessNotificationFacadeTest extends CrefoPayFacadeBaseTest
      */
     public function testProcessNotification(): void
     {
-        $this->markTestSkipped('Will be implemented soon...');
-
         $notificationTransfer = $this->tester->createCrefoPayNotificationTransfer();
         $notificationTransfer = $this->facade->processNotification($notificationTransfer);
         $this->doTest($notificationTransfer);
