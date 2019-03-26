@@ -2,6 +2,7 @@
 namespace SprykerEcoTest\Zed\CrefoPay;
 
 use ArrayObject;
+use Codeception\Scenario;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayApiCreateTransactionResponseTransfer;
@@ -74,6 +75,24 @@ class CrefoPayZedTester extends \Codeception\Actor
     protected const TIMESTAMP = '1553159430402';
     protected const API_VERSION = '2.1';
     protected const REQUEST_MAC = '8a02ab4f5a8ad805e53a38452009c9deaf96976b';
+
+    /**
+     * @param \Codeception\Scenario $scenario
+     */
+    public function __construct(Scenario $scenario)
+    {
+        parent::__construct($scenario);
+        $this->setUpConfig();
+    }
+
+    /**
+     * @return void
+     */
+    public function setUpConfig(): void
+    {
+        $this->setConfig('CREFO_PAY:MERCHANT_ID', 123);
+        $this->setConfig('CREFO_PAY:STORE_ID', 'test');
+    }
 
     /**
     * Define custom actions here
