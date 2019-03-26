@@ -88,7 +88,7 @@ class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandByOrderInterface
         array $salesOrderItemIds
     ): CrefoPayOmsCommandTransfer {
         $paymentCrefoPayTransfer = $this->reader
-            ->findPaymentCrefoPayByFkSalesOrder($orderTransfer->getIdSalesOrder());
+            ->findPaymentCrefoPayByIdSalesOrder($orderTransfer->getIdSalesOrder());
 
         $paymentCrefoPayOrderItemCollection = $this->reader
             ->findPaymentCrefoPayOrderItemsBySalesOrderItemIds($salesOrderItemIds);

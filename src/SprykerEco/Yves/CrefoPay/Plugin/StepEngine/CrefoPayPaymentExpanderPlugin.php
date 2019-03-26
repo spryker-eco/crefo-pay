@@ -19,6 +19,10 @@ use Symfony\Component\HttpFoundation\Request;
 class CrefoPayPaymentExpanderPlugin extends AbstractPlugin implements StepHandlerPluginInterface
 {
     /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *

@@ -26,20 +26,11 @@ class CrefoPayReader implements CrefoPayReaderInterface
     protected $repository;
 
     /**
-     * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
-     */
-    protected $config;
-
-    /**
      * @param \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface $repository
-     * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
      */
-    public function __construct(
-        CrefoPayRepositoryInterface $repository,
-        CrefoPayConfig $config
-    ) {
+    public function __construct(CrefoPayRepositoryInterface $repository)
+    {
         $this->repository = $repository;
-        $this->config = $config;
     }
 
     /**
@@ -47,7 +38,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function findPaymentCrefoPayByFkSalesOrder(int $fkSalesOrder): PaymentCrefoPayTransfer
+    public function findPaymentCrefoPayByIdSalesOrder(int $fkSalesOrder): PaymentCrefoPayTransfer
     {
         return $this->repository->findPaymentCrefoPayByFkSalesOrder($fkSalesOrder);
     }
@@ -74,14 +65,11 @@ class CrefoPayReader implements CrefoPayReaderInterface
 
     /**
      * @param string $crefoPayOrderId
-     * @param string|null $captureId
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(
-        string $crefoPayOrderId,
-        ?string $captureId = null
-    ): PaymentCrefoPayOrderItemCollectionTransfer {
+    public function findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer
+    {
         return $this->repository->findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId($crefoPayOrderId);
     }
 
