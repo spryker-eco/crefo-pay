@@ -12,10 +12,13 @@ use Generated\Shared\Transfer\CrefoPayTransactionTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\PaymentMethodTransfer;
+use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
 use Generated\Shared\Transfer\TaxTotalTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
+use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayNotificationQuery;
+use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToCrefoPayNotificationQuery;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayEntityManager;
 use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayEntityManagerInterface;
@@ -75,6 +78,9 @@ class CrefoPayZedTester extends \Codeception\Actor
     protected const TIMESTAMP = '1553159430402';
     protected const API_VERSION = '2.1';
     protected const REQUEST_MAC = '8a02ab4f5a8ad805e53a38452009c9deaf96976b';
+    protected const STATE_MACHINE_PROCESS_NAME = 'CrefoPayCreditCard01';
+    protected const PAYMENT_PROVIDER = 'CrefoPay';
+    protected const PAYEMNT_METHOD = 'crefoPayCreditCard';
 
     /**
      * @param \Codeception\Scenario $scenario
@@ -123,16 +129,55 @@ class CrefoPayZedTester extends \Codeception\Actor
     }
 
     /**
+     * @return \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayNotificationQuery
+     */
+    public function createPaymentCrefoPayNotificationQuery(): SpyPaymentCrefoPayNotificationQuery
+    {
+        return SpyPaymentCrefoPayNotificationQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToCrefoPayNotificationQuery
+     */
+    public function createPaymentCrefoPayOrderItemToCrefoPayNotificationQuery(): SpyPaymentCrefoPayOrderItemToCrefoPayNotificationQuery
+    {
+        return SpyPaymentCrefoPayOrderItemToCrefoPayNotificationQuery::create();
+    }
+
+    /**
+     * @return void
+     */
+    public function createCrefoPayEntities()
+    {
+        $this->haveCrefoPayEntities(
+            $this->createQuoteTransfer(),
+            $this->createOrder()
+        );
+    }
+
+    /**
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
     public function createQuoteTransfer(): QuoteTransfer
     {
         return (new QuoteTransfer())
+            ->setPayment($this->createPaymentTransfer())
             ->setCustomer($this->createCustomerTransfer())
             ->setBillingAddress($this->createAddressTransfer())
             ->setShippingAddress($this->createAddressTransfer())
             ->setTotals($this->createTotalsTransfer())
             ->setCrefoPayTransaction($this->createCrefoPayTransactionTransfer());
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\PaymentTransfer
+     */
+    public function createPaymentTransfer(): PaymentTransfer
+    {
+        return (new PaymentTransfer)
+            ->setPaymentProvider(static::PAYMENT_PROVIDER)
+            ->setPaymentMethod(static::PAYEMNT_METHOD)
+            ->setPaymentSelection(static::PAYEMNT_METHOD);
     }
 
     /**
@@ -265,5 +310,19 @@ class CrefoPayZedTester extends \Codeception\Actor
     {
         return (new CrefoPayTransactionTransfer())
             ->setAllowedPaymentMethods(static::ALLOWED_PAYMENT_METHODS);
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\SaveOrderTransfer
+     */
+    public function createOrder(): SaveOrderTransfer
+    {
+        return $this->haveOrder(
+            [
+                'unitPrice' => static::TOTALS_PRICE_TO_PAY,
+                'sumPrice' => static::TOTALS_PRICE_TO_PAY,
+            ],
+            static::STATE_MACHINE_PROCESS_NAME
+        );
     }
 }

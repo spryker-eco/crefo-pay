@@ -7,10 +7,8 @@
 
 namespace SprykerEcoTest\Zed\CrefoPay\Business;
 
-use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
-use Generated\Shared\Transfer\PaymentMethodsTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
+use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayNotification;
 
 /**
  * @group Functional
@@ -26,6 +24,7 @@ class ProcessNotificationFacadeTest extends CrefoPayFacadeBaseTest
      */
     public function testProcessNotification(): void
     {
+        $this->tester->createCrefoPayEntities();
         $notificationTransfer = $this->tester->createCrefoPayNotificationTransfer();
         $notificationTransfer = $this->facade->processNotification($notificationTransfer);
         $this->doTest($notificationTransfer);
@@ -38,5 +37,13 @@ class ProcessNotificationFacadeTest extends CrefoPayFacadeBaseTest
      */
     public function doTest(CrefoPayNotificationTransfer $notificationTransfer): void
     {
+        /** @var \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayNotification $notification */
+        $notification = $this->tester->createPaymentCrefoPayNotificationQuery()
+            ->filterByCrefoPayOrderId($notificationTransfer->getOrderID())
+            ->findOne();
+
+        $this->assertInstanceOf(SpyPaymentCrefoPayNotification::class, $notification);
+        $this->assertEquals($notificationTransfer->getTransactionStatus(), $notification->getTransactionStatus());
+        $this->assertEquals($notificationTransfer->getOrderStatus(), $notification->getOrderStatus());
     }
 }
