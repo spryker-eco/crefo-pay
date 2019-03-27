@@ -98,6 +98,8 @@ class CrefoPayZedTester extends \Codeception\Actor
     {
         $this->setConfig('CREFO_PAY:MERCHANT_ID', 123);
         $this->setConfig('CREFO_PAY:STORE_ID', 'test');
+        $this->setConfig('ACTIVE_PROCESSES', ['CrefoPayCreditCard01']);
+        $this->setConfig('PAYMENT_METHOD_STATEMACHINE_MAPPING', ['crefoPayCreditCard' => 'CrefoPayCreditCard01']);
     }
 
     /**
