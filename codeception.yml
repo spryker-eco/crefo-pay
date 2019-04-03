@@ -1,6 +1,7 @@
 namespace: CrefoPay
 
 include:
+    - tests/SprykerEcoTest/Shared/CrefoPay
     - tests/SprykerEcoTest/Zed/CrefoPay
 
 actor: Tester

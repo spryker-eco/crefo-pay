@@ -35,7 +35,7 @@ class CrefoPayDependencyProvider extends AbstractDependencyProvider
      */
     protected function addZedRequestClient(Container $container): Container
     {
-        $container[self::CLIENT_ZED_REQUEST] = function (Container $container) {
+        $container[static::CLIENT_ZED_REQUEST] = function (Container $container) {
             return new CrefoPayToZedRequestClientBridge($container->getLocator()->zedRequest()->client());
         };
 

@@ -500,10 +500,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
      */
     public function createReader(): CrefoPayReaderInterface
     {
-        return new CrefoPayReader(
-            $this->getRepository(),
-            $this->getConfig()
-        );
+        return new CrefoPayReader($this->getRepository());
     }
 
     /**

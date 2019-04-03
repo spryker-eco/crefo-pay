@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Request;
 class CrefoPayQuoteExpanderPlugin extends AbstractPlugin implements StepHandlerPluginInterface
 {
     /**
+     * {@inheritdoc}
+     *
      * @api
      *
      * @param \Symfony\Component\HttpFoundation\Request $request

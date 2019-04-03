@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/spryker-eco/crefo-pay.svg)](https://travis-ci.org/spryker-eco/crefo-pay)
 [![Coverage Status](https://coveralls.io/repos/github/spryker-eco/crefo-pay/badge.svg)](https://coveralls.io/github/spryker-eco/crefo-pay)
 
-{{ADD DESCRIPTION HERE}}
+CrefoPay module provides possibility to place order with different payment methods via CrefoPay payment provider. 
 
 ## Installation
 
