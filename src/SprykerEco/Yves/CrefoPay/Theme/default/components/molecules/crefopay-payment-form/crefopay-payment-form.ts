@@ -68,7 +68,8 @@ export default class CrefopayPaymentForm extends Component {
     }
 
     protected findPaymentToggler(): void {
-        this.paymentForm.querySelectorAll(this.paymentTogglerSelector).forEach((toggler)=>{
+        const paymentTogglers: HTMLElement[] = Array.from(this.paymentForm.querySelectorAll(this.paymentTogglerSelector));
+        paymentTogglers.forEach((toggler: HTMLElement)=>{
             if (!toggler.classList.contains('is-hidden')) {
                 this.paymentInstrumentId = toggler.querySelector('[name*="paymentInstrumentId"]');
                 this.errorBlock = toggler.querySelector(`.${this.jsName}__error`);
