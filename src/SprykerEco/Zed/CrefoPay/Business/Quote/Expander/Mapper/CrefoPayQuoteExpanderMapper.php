@@ -289,8 +289,9 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
      */
     protected function getLocale(): string
     {
-        if (in_array($this->localeFacade->getCurrentLocaleName(), static::AVAILABLE_LOCALES)) {
-            return $this->localeFacade->getCurrentLocaleName();
+        $locale = strtoupper(substr($this->localeFacade->getCurrentLocaleName(), 0, 2));
+        if (in_array($locale, static::AVAILABLE_LOCALES)) {
+            return $locale;
         }
 
         return static::DEFAULT_LOCALE;
