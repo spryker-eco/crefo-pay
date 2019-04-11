@@ -12,7 +12,7 @@
     "spryker/step-engine": "^2.0.0 || ^3.0.0",
     "spryker/symfony": "^3.0.0",
     "spryker/util-text": "^1.0.0",
-    "spryker-shop/checkout-page": "^1.0.0",
+    "spryker-shop/checkout-page": "^1.5.0",
     "spryker/zed-request": "^3.0.0",
     "spryker/locale": "^3.0.0",
     "spryker/shipment": "^6.4.0",

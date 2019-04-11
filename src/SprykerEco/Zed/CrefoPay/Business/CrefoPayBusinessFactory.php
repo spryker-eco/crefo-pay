@@ -97,6 +97,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new CrefoPayQuoteExpanderMapper(
             $this->getCrefoPayService(),
+            $this->getUtilTextService(),
             $this->getConfig(),
             $this->getLocaleFacade()
         );

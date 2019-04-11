@@ -22,6 +22,7 @@ use Spryker\Shared\Shipment\ShipmentConstants;
 use SprykerEco\Service\CrefoPay\CrefoPayServiceInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface;
+use SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface;
 
 class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterface
 {
@@ -34,11 +35,17 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     protected const DEFAULT_LOCALE = 'EN';
     protected const SHIPPING_COSTS_DESCRIPTION = 'Shipping Costs';
     protected const SHIPPING_COSTS_COUNT = 1;
+    protected const GUEST_USER_ID_LENGTH = 6;
 
     /**
      * @var \SprykerEco\Service\CrefoPay\CrefoPayServiceInterface
      */
-    protected $service;
+    protected $crefoPayService;
+
+    /**
+     * @var \SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface
+     */
+    protected $utilTextService;
 
     /**
      * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
@@ -51,16 +58,19 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     protected $localeFacade;
 
     /**
-     * @param \SprykerEco\Service\CrefoPay\CrefoPayServiceInterface $service
+     * @param \SprykerEco\Service\CrefoPay\CrefoPayServiceInterface $crefoPayService
+     * @param \SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $utilTextService
      * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
      * @param \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface $localeFacade
      */
     public function __construct(
-        CrefoPayServiceInterface $service,
+        CrefoPayServiceInterface $crefoPayService,
+        CrefoPayToUtilTextServiceInterface $utilTextService,
         CrefoPayConfig $config,
         CrefoPayToLocaleFacadeInterface $localeFacade
     ) {
-        $this->service = $service;
+        $this->crefoPayService = $crefoPayService;
+        $this->utilTextService = $utilTextService;
         $this->config = $config;
         $this->localeFacade = $localeFacade;
     }
@@ -93,7 +103,7 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
             ->setMerchantID($this->config->getMerchantId())
             ->setStoreID($this->config->getStoreId())
             ->setOrderID($this->generateCrefoPayOrderId($quoteTransfer))
-            ->setUserID($quoteTransfer->getCustomerReference())
+            ->setUserID($this->getUserId($quoteTransfer))
             ->setIntegrationType(static::INTEGRATION_TYPE)
             ->setAutoCapture(static::AUTO_CAPTURE)
             ->setContext(static::CONTEXT)
@@ -115,7 +125,21 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
      */
     protected function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
     {
-        return $this->service->generateCrefoPayOrderId($quoteTransfer);
+        return $this->crefoPayService->generateCrefoPayOrderId($quoteTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return string
+     */
+    protected function getUserId(QuoteTransfer $quoteTransfer): string
+    {
+        if ($quoteTransfer->getCustomer()->getIsGuest()) {
+            return $this->utilTextService->generateRandomString(static::GUEST_USER_ID_LENGTH);
+        }
+
+        return $quoteTransfer->getCustomerReference();
     }
 
     /**
