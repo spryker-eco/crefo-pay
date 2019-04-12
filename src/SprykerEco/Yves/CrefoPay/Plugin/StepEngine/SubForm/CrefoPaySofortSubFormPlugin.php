@@ -14,6 +14,8 @@ use Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginInterface;
 
 /**
  * @method \SprykerEco\Yves\CrefoPay\CrefoPayFactory getFactory()
+ *
+ * @SuppressWarnings(PHPMD.NewPluginExtensionModuleRule)
  */
 class CrefoPaySofortSubFormPlugin extends AbstractPlugin implements SubFormPluginInterface
 {

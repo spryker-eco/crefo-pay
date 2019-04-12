@@ -164,6 +164,7 @@ class CrefoPayZedTester extends \Codeception\Actor
     {
         return (new QuoteTransfer())
             ->setPayment($this->createPaymentTransfer())
+            ->setCustomerReference(static::CUSTOMER_REFERENCE)
             ->setCustomer($this->createCustomerTransfer())
             ->setBillingAddress($this->createAddressTransfer())
             ->setShippingAddress($this->createAddressTransfer())
@@ -188,6 +189,7 @@ class CrefoPayZedTester extends \Codeception\Actor
     public function createCustomerTransfer(): CustomerTransfer
     {
         return (new CustomerTransfer())
+            ->setIsGuest(false)
             ->setCustomerReference(static::CUSTOMER_REFERENCE)
             ->setEmail(static::CUSTOMER_EMAIL)
             ->setFirstName(static::CUSTOMER_NAME)

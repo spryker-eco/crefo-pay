@@ -15,6 +15,8 @@ use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface;
  * @method \SprykerEco\Zed\CrefoPay\CrefoPayConfig getConfig()
  * @method \SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface getFacade()
  * @method \SprykerEco\Zed\CrefoPay\Communication\CrefoPayCommunicationFactory getFactory()
+ *
+ * @SuppressWarnings(PHPMD.NewPluginExtensionModuleRule)
  */
 class IsPaidReceivedPlugin extends AbstractPlugin implements ConditionInterface
 {

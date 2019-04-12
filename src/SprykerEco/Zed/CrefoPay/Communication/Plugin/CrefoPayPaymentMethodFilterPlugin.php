@@ -16,6 +16,8 @@ use Spryker\Zed\Payment\Dependency\Plugin\Payment\PaymentMethodFilterPluginInter
  * @method \SprykerEco\Zed\CrefoPay\Business\CrefoPayFacadeInterface getFacade()
  * @method \SprykerEco\Zed\CrefoPay\Communication\CrefoPayCommunicationFactory getFactory()
  * @method \SprykerEco\Zed\CrefoPay\CrefoPayConfig getConfig()
+ *
+ * @SuppressWarnings(PHPMD.NewPluginExtensionModuleRule)
  */
 class CrefoPayPaymentMethodFilterPlugin extends AbstractPlugin implements PaymentMethodFilterPluginInterface
 {

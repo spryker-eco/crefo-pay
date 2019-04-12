@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @method \SprykerEco\Yves\CrefoPay\CrefoPayFactory getFactory()
+ *
+ * @SuppressWarnings(PHPMD.NewPluginExtensionModuleRule)
  */
 class CrefoPayPaymentExpanderPlugin extends AbstractPlugin implements StepHandlerPluginInterface
 {
