@@ -47,6 +47,7 @@ export default class CrefopayPaymentForm extends Component {
     protected paymentRegisteredCallback(response): void {
         this.findPaymentToggler();
         if (response.resultCode !== 0) {
+            this.errorBlock.innerHTML = response.message;
             this.errorBlock.classList.remove(this.classToToggle);
             return;
         }
