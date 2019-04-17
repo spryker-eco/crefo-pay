@@ -10,6 +10,7 @@ $config[CrefoPayConstants::MERCHANT_ID] = 1; //Merchant ID provided by CrefoPay 
 $config[CrefoPayConstants::STORE_ID] = 'STOREID'; //Store ID provided by CrefoPay string value.
 $config[CrefoPayConstants::REFUND_DESCRIPTION] = 'Refund was performed from Backend office.'; //Refund description that will be shown in merchant backend, required option.
 $config[CrefoPayConstants::SECURE_FIELDS_API_ENDPOINT] = 'https://sandbox.crefopay.de/secureFields/'; //Change it to live version on production.
+$config[CrefoPayConstants::IS_BUSINESS_TO_BUSINESS] = false; //Set to true in case of b2b model.
 $config[CrefoPayConstants::SECURE_FIELDS_PLACEHOLDERS] = [
     'accountHolder' => 'John Doe',
     'number' => '5555555555554444',

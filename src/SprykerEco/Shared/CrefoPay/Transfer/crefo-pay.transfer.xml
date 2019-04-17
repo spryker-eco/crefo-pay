@@ -53,6 +53,7 @@
 
     <transfer name="Quote">
         <property name="crefoPayTransaction" type="CrefoPayTransaction" />
+        <property name="crefoPayCompany" type="CrefoPayApiCompany" />
     </transfer>
 
     <transfer name="Payment">

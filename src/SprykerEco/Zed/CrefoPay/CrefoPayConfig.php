@@ -378,4 +378,12 @@ class CrefoPayConfig extends AbstractBundleConfig
     {
         return static::CREFO_PAY_AUTOMATIC_OMS_TRIGGER;
     }
+
+    /**
+     * @return bool
+     */
+    public function getIsBusinessToBusiness(): bool
+    {
+        return $this->get(CrefoPayConstants::IS_BUSINESS_TO_BUSINESS);
+    }
 }
