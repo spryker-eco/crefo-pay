@@ -37,17 +37,17 @@ class CaptureOmsCommand implements CrefoPayOmsCommandByItemInterface
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItems
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItem
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
      * @return void
      */
-    public function execute(SpySalesOrderItem $salesOrderItems, ReadOnlyArrayObject $data): void
+    public function execute(SpySalesOrderItem $salesOrderItem, ReadOnlyArrayObject $data): void
     {
         $orderTransfer = $this->mapper
-            ->mapSpySalesOrderToOrderTransfer($salesOrderItems->getOrder());
+            ->mapSpySalesOrderToOrderTransfer($salesOrderItem->getOrder());
 
         $this->facade
-            ->executeCaptureOmsCommand($orderTransfer, $salesOrderItems->getIdSalesOrderItem());
+            ->executeCaptureOmsCommand($orderTransfer, $salesOrderItem->getIdSalesOrderItem());
     }
 }

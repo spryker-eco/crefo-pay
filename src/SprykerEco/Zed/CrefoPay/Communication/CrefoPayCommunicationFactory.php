@@ -18,6 +18,7 @@ use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapper;
 use SprykerEco\Zed\CrefoPay\Communication\Oms\CrefoPayOmsMapperInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayDependencyProvider;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCalculationFacadeInterface;
+use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToRefundFacadeInterface;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToSalesFacadeInterface;
 
 /**
@@ -58,7 +59,8 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     {
         return new RefundOmsCommand(
             $this->createCrefoPayOmsMapper(),
-            $this->getFacade()
+            $this->getFacade(),
+            $this->getRefundFacade()
         );
     }
 
@@ -99,5 +101,13 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     public function getCalculationFacade(): CrefoPayToCalculationFacadeInterface
     {
         return $this->getProvidedDependency(CrefoPayDependencyProvider::FACADE_CALCULATION);
+    }
+
+    /**
+     * @return \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToRefundFacadeInterface
+     */
+    public function getRefundFacade(): CrefoPayToRefundFacadeInterface
+    {
+        return $this->getProvidedDependency(CrefoPayDependencyProvider::FACADE_REFUND);
     }
 }

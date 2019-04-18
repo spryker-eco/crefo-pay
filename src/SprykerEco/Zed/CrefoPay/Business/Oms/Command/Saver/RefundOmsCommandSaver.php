@@ -68,26 +68,27 @@ class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             return;
         }
 
+        $paymentCrefoPayOrderItemsCollection = $this->addOmsStatusToOrderItems(
+            $crefoPayOmsCommandTransfer->getPaymentCrefoPayOrderItemCollection()
+        );
+
         $this->writer->updatePaymentEntities(
-            $crefoPayOmsCommandTransfer->getPaymentCrefoPayOrderItemCollection(),
+            $paymentCrefoPayOrderItemsCollection,
             $this->getPaymentCrefoPayTransfer($crefoPayOmsCommandTransfer),
             $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId()
         );
     }
 
     /**
-     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    protected function getPaymentCrefoPayOrderItemCollection(
-        CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+    protected function addOmsStatusToOrderItems(
+        PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
     ): PaymentCrefoPayOrderItemCollectionTransfer {
-        $status = $this->config->getOmsStatusCancellationPending();
-        $paymentCrefoPayOrderItemCollection = $this->reader
-            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(
-                $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId()
-            );
+        $status = $this->config->getOmsStatusRefunded();
+
         $paymentCrefoPayOrderItems = array_map(
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status) {
                 return $paymentCrefoPayOrderItemTransfer->setStatus($status);
@@ -111,6 +112,6 @@ class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
         $requestedToRefundAmount = $crefoPayOmsCommandTransfer->getRequest()->getRefundRequest()->getAmount()->getAmount();
 
         return $paymentCrefoPayTransfer
-            ->setCapturedAmount($refundedAmount + $requestedToRefundAmount);
+            ->setRefundedAmount($refundedAmount + $requestedToRefundAmount);
     }
 }
