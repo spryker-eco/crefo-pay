@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<statemachine
+        xmlns="spryker:oms-01"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="spryker:oms-01 http://static.spryker.com/oms-01.xsd">
+
+    <process name="CrefoPayCreditCard01" main="true">
+        <states>
+            <state name="new" reserved="true" />
+            <state name="reserved" reserved="true" />
+            <state name="authorized" reserved="true" />
+            <state name="waiting for capture" reserved="true" />
+            <state name="waiting for capture no cancellation" reserved="true" />
+            <state name="expired" reserved="false" />
+            <state name="cancellation pending" reserved="false" />
+            <state name="canceled" reserved="false" />
+            <state name="capture pending" reserved="true" />
+            <state name="captured" reserved="true" />
+            <state name="shipped" reserved="true" />
+            <state name="refunded" reserved="false" />
+            <state name="done" reserved="false" />
+            <state name="closed" reserved="false" />
+        </states>
+
+        <events>
+            <event name="cancel" manual="true" command="CrefoPay/Cancel" />
+            <event name="capture" manual="true" command="CrefoPay/Capture" />
+            <event name="no cancellation" />
+            <event name="ship" manual="true" />
+            <event name="refund" manual="true" command="CrefoPay/Refund" />
+            <event name="finish" manual="true" command="CrefoPay/Finish" />
+            <event name="close" manual="true" />
+        </events>
+
+        <transitions>
+
+            <transition condition="CrefoPay/IsReserveCallSuccessful" happy="true">
+                <source>new</source>
+                <target>reserved</target>
+            </transition>
+
+            <transition condition="CrefoPay/IsAcknowledgePendingReceived" happy="true">
+                <source>reserved</source>
+                <target>authorized</target>
+            </transition>
+
+            <transition condition="CrefoPay/IsExpiredReceived">
+                <source>new</source>
+                <target>expired</target>
+            </transition>
+
+            <transition condition="CrefoPay/IsMerchantPendingReceived" happy="true">
+                <source>authorized</source>
+                <target>waiting for capture</target>
+            </transition>
+
+            <transition condition="CrefoPay/IsExpiredReceived">
+                <source>authorized</source>
+                <target>expired</target>
+            </transition>
+
+            <transition>
+                <source>expired</source>
+                <target>closed</target>
+                <event>close</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsCancelCallSuccessful">
+                <source>waiting for capture</source>
+                <target>cancellation pending</target>
+                <event>cancel</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsCanceledReceived">
+                <source>cancellation pending</source>
+                <target>canceled</target>
+            </transition>
+
+            <transition condition="CrefoPay/IsCaptureCallSuccessful" happy="true">
+                <source>waiting for capture</source>
+                <target>capture pending</target>
+                <event>capture</event>
+            </transition>
+
+            <transition happy="true">
+                <source>waiting for capture</source>
+                <target>waiting for capture no cancellation</target>
+                <event>no cancellation</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsCaptureCallSuccessful" happy="true">
+                <source>waiting for capture no cancellation</source>
+                <target>capture pending</target>
+                <event>capture</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsPaidReceived" happy="true">
+                <source>capture pending</source>
+                <target>captured</target>
+            </transition>
+
+            <transition condition="CrefoPay/IsRefundCallSuccessful">
+                <source>captured</source>
+                <target>refunded</target>
+                <event>refund</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsFinishCallSuccessful">
+                <source>waiting for capture no cancellation</source>
+                <target>refunded</target>
+                <event>finish</event>
+            </transition>
+
+            <transition happy="true">
+                <source>captured</source>
+                <target>shipped</target>
+                <event>ship</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsDoneReceived" happy="true">
+                <source>shipped</source>
+                <target>done</target>
+            </transition>
+
+            <transition>
+                <source>canceled</source>
+                <target>closed</target>
+                <event>close</event>
+            </transition>
+
+            <transition condition="CrefoPay/IsDoneReceived">
+                <source>refunded</source>
+                <target>done</target>
+            </transition>
+
+            <transition happy="true">
+                <source>done</source>
+                <target>closed</target>
+                <event>close</event>
+            </transition>
+
+        </transitions>
+    </process>
+</statemachine>
