@@ -1,7 +1,14 @@
 <?php
+
+/**
+ * MIT License
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
 namespace SprykerEcoTest\Zed\CrefoPay;
 
 use ArrayObject;
+use Codeception\Actor;
 use Codeception\Scenario;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
@@ -39,8 +46,8 @@ use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface;
  * @method \Codeception\Lib\Friend haveFriend($name, $actorClass = NULL)
  *
  * @SuppressWarnings(PHPMD)
-*/
-class CrefoPayZedTester extends \Codeception\Actor
+ */
+class CrefoPayZedTester extends Actor
 {
     use _generated\CrefoPayZedTesterActions;
 
@@ -80,7 +87,7 @@ class CrefoPayZedTester extends \Codeception\Actor
     protected const REQUEST_MAC = '8a02ab4f5a8ad805e53a38452009c9deaf96976b';
     protected const STATE_MACHINE_PROCESS_NAME = 'CrefoPayCreditCard01';
     protected const PAYMENT_PROVIDER = 'CrefoPay';
-    protected const PAYEMNT_METHOD = 'crefoPayCreditCard';
+    protected const PAYMENT_METHOD = 'crefoPayCreditCard';
 
     /**
      * @param \Codeception\Scenario $scenario
@@ -98,13 +105,10 @@ class CrefoPayZedTester extends \Codeception\Actor
     {
         $this->setConfig('CREFO_PAY:MERCHANT_ID', 123);
         $this->setConfig('CREFO_PAY:STORE_ID', 'test');
+        $this->setConfig('CREFO_PAY:IS_BUSINESS_TO_BUSINESS', false);
         $this->setConfig('ACTIVE_PROCESSES', ['CrefoPayCreditCard01']);
         $this->setConfig('PAYMENT_METHOD_STATEMACHINE_MAPPING', ['crefoPayCreditCard' => 'CrefoPayCreditCard01']);
     }
-
-    /**
-    * Define custom actions here
-    */
 
     /**
      * @return \SprykerEco\Zed\CrefoPay\CrefoPayConfig
@@ -177,10 +181,10 @@ class CrefoPayZedTester extends \Codeception\Actor
      */
     public function createPaymentTransfer(): PaymentTransfer
     {
-        return (new PaymentTransfer)
+        return (new PaymentTransfer())
             ->setPaymentProvider(static::PAYMENT_PROVIDER)
-            ->setPaymentMethod(static::PAYEMNT_METHOD)
-            ->setPaymentSelection(static::PAYEMNT_METHOD);
+            ->setPaymentMethod(static::PAYMENT_METHOD)
+            ->setPaymentSelection(static::PAYMENT_METHOD);
     }
 
     /**
