@@ -1,0 +1,153 @@
+<?php
+
+/**
+ * MIT License
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder;
+
+use Generated\Shared\Transfer\CrefoPayApiAmountTransfer;
+use Generated\Shared\Transfer\CrefoPayApiCaptureRequestTransfer;
+use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
+use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
+use Generated\Shared\Transfer\ExpenseTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
+use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
+use SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface;
+
+class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilderInterface
+{
+    /**
+     * @var \SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface
+     */
+    protected $utilTextService;
+
+    /**
+     * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
+     */
+    protected $config;
+
+    /**
+     * @param \SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $utilTextService
+     * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
+     */
+    public function __construct(
+        CrefoPayToUtilTextServiceInterface $utilTextService,
+        CrefoPayConfig $config
+    ) {
+        $this->utilTextService = $utilTextService;
+        $this->config = $config;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
+     */
+    public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer
+    {
+        $captureRequestTransfer = $this->createCaptureRequestTransfer($crefoPayOmsCommandTransfer);
+        $amountToCapture = $this->getOrderItemAmount($crefoPayOmsCommandTransfer);
+        $captureRequestTransfer->setAmount($this->createAmountTransfer($amountToCapture));
+        $requestTransfer = (new CrefoPayApiRequestTransfer())
+            ->setCaptureRequest($captureRequestTransfer);
+
+        $crefoPayOmsCommandTransfer->setRequest($requestTransfer);
+
+        if ($this->isFirstCapture($crefoPayOmsCommandTransfer)) {
+            $crefoPayOmsCommandTransfer = $this->addExpensesRequest($crefoPayOmsCommandTransfer);
+        }
+
+        return $crefoPayOmsCommandTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayApiCaptureRequestTransfer
+     */
+    protected function createCaptureRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiCaptureRequestTransfer
+    {
+        return (new CrefoPayApiCaptureRequestTransfer())
+            ->setMerchantID($this->config->getMerchantId())
+            ->setStoreID($this->config->getStoreId())
+            ->setOrderID($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId())
+            ->setCaptureID(
+                $this->utilTextService->generateRandomString(
+                    $this->config->getCrefoPayApiCaptureIdLength()
+                )
+            );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @return bool
+     */
+    protected function isFirstCapture(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): bool
+    {
+        return $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCapturedAmount() === 0;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
+     */
+    protected function addExpensesRequest(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer
+    {
+        $captureExpenseRequestTransfer = $this->createCaptureRequestTransfer($crefoPayOmsCommandTransfer);
+        $expensesAmountToCapture = $this->calculateExpensesAmount($crefoPayOmsCommandTransfer->getOrder());
+        $captureExpenseRequestTransfer->setAmount($this->createAmountTransfer($expensesAmountToCapture));
+        $expensesRequestTransfer = (new CrefoPayApiRequestTransfer())
+            ->setCaptureRequest($captureExpenseRequestTransfer);
+
+        return $crefoPayOmsCommandTransfer
+            ->setExpensesRequest($expensesRequestTransfer);
+    }
+
+    /**
+     * @param int $amount
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayApiAmountTransfer
+     */
+    protected function createAmountTransfer(int $amount): CrefoPayApiAmountTransfer
+    {
+        return (new CrefoPayApiAmountTransfer())
+            ->setAmount($amount);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @return int
+     */
+    protected function getOrderItemAmount(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): int
+    {
+        /** @var \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer */
+        $paymentCrefoPayOrderItemTransfer = $crefoPayOmsCommandTransfer
+            ->getPaymentCrefoPayOrderItemCollection()
+            ->getCrefoPayOrderItems()
+            ->offsetGet(0);
+
+        return $paymentCrefoPayOrderItemTransfer->getAmount();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return int
+     */
+    protected function calculateExpensesAmount(OrderTransfer $orderTransfer): int
+    {
+        return (int)array_sum(
+            array_map(
+                function (ExpenseTransfer $expense) {
+                    return $expense->getSumPriceToPayAggregation();
+                },
+                $orderTransfer->getExpenses()->getArrayCopy()
+            )
+        );
+    }
+}

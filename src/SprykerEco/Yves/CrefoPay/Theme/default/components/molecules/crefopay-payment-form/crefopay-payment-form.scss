@@ -1,0 +1,19 @@
+@mixin crefopay-payment-form($name: '.crefopay-payment-form'){
+    #{$name}{
+        &__input-container {
+            height: 31px;
+            width: 100%;
+            border: 1px solid $setting-color-input-border;
+            padding-left: 0.5rem;
+            
+            iframe {
+                max-height: 100%;
+            }
+        }
+
+        &__error {
+            color: map_get($setting-color-actions, alert);
+        }
+    }
+}
+@include crefopay-payment-form();
