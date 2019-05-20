@@ -174,7 +174,7 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     protected function getAffectedSalesOrderItemIds(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): array
     {
         $paymentCrefoPayOrderItemCollection = $this->reader
-            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(
+            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderId(
                 $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId()
             );
 

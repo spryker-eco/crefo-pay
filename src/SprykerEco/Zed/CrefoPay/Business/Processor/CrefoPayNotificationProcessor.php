@@ -9,6 +9,7 @@ namespace SprykerEco\Zed\CrefoPay\Business\Processor;
 
 use ArrayObject;
 use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Mapper\OmsStatus\CrefoPayOmsStatusMapperInterface;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
@@ -54,10 +55,7 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
     public function processNotification(CrefoPayNotificationTransfer $notificationTransfer): CrefoPayNotificationTransfer
     {
         $status = $this->getOmsStatus($notificationTransfer);
-        $paymentCrefoPayOrderItemsCollection = $this->reader
-            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(
-                $notificationTransfer->getOrderID()
-            );
+        $paymentCrefoPayOrderItemsCollection = $this->getCrefoPayOrderItemCollection($notificationTransfer);
 
         $paymentCrefoPayOrderItems = array_map(
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status) {
@@ -98,5 +96,31 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
         }
 
         return $status ?? null;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
+     */
+    protected function getCrefoPayOrderItemCollection(CrefoPayNotificationTransfer $notificationTransfer): PaymentCrefoPayOrderItemCollectionTransfer
+    {
+        if ($this->isCaptureRelatedNotification($notificationTransfer)) {
+            return $this->reader
+                ->findPaymentCrefoPayOrderItemsByCaptureId($notificationTransfer->getCaptureID());
+        }
+
+        return $this->reader
+            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderId($notificationTransfer->getOrderID());
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayNotificationTransfer $notificationTransfer
+     *
+     * @return bool
+     */
+    protected function isCaptureRelatedNotification(CrefoPayNotificationTransfer $notificationTransfer): bool
+    {
+        return !empty($notificationTransfer->getCaptureID());
     }
 }

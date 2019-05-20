@@ -67,9 +67,19 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer
+    public function findPaymentCrefoPayOrderItemsByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        return $this->repository->findPaymentCrefoPayOrderItemsByCrefoPayOrderIdAndCaptureId($crefoPayOrderId);
+        return $this->repository->findPaymentCrefoPayOrderItemsByCrefoPayOrderId($crefoPayOrderId);
+    }
+
+    /**
+     * @param string $captureId
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
+     */
+    public function findPaymentCrefoPayOrderItemsByCaptureId(string $captureId): PaymentCrefoPayOrderItemCollectionTransfer
+    {
+        return $this->repository->findPaymentCrefoPayOrderItemsByCaptureId($captureId);
     }
 
     /**
