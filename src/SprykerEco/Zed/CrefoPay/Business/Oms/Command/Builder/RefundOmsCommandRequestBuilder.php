@@ -61,7 +61,7 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
             ->setOrderID($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId())
             ->setCaptureID($paymentCrefoPayOrderItemTransfer->getCaptureId())
             ->setAmount($this->createAmountTransfer($crefoPayOmsCommandTransfer))
-            ->setRefundDescription($crefoPayOmsCommandTransfer->getRefund()->getComment() ?? $this->config->getRefundDescription());
+            ->setRefundDescription($this->getRefundDescription($crefoPayOmsCommandTransfer));
     }
 
     /**
@@ -73,5 +73,15 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
     {
         return (new CrefoPayApiAmountTransfer())
             ->setAmount($crefoPayOmsCommandTransfer->getRefund()->getAmount());
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @return string|null
+     */
+    protected function getRefundDescription(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): ?string
+    {
+        return $crefoPayOmsCommandTransfer->getRefund()->getComment() ?? $this->config->getRefundDescription();
     }
 }
