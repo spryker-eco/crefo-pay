@@ -97,8 +97,13 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
      */
     protected function addExpensesRequest(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer
     {
-        $captureExpenseRequestTransfer = $this->createCaptureRequestTransfer($crefoPayOmsCommandTransfer);
         $expensesAmountToCapture = $this->calculateExpensesAmount($crefoPayOmsCommandTransfer->getOrder());
+
+        if ($expensesAmountToCapture <= 0) {
+            return $crefoPayOmsCommandTransfer;
+        }
+
+        $captureExpenseRequestTransfer = $this->createCaptureRequestTransfer($crefoPayOmsCommandTransfer);
         $captureExpenseRequestTransfer->setAmount($this->createAmountTransfer($expensesAmountToCapture));
         $expensesRequestTransfer = (new CrefoPayApiRequestTransfer())
             ->setCaptureRequest($captureExpenseRequestTransfer);

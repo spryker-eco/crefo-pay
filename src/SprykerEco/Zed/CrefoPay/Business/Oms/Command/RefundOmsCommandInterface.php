@@ -8,14 +8,16 @@
 namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command;
 
 use Generated\Shared\Transfer\OrderTransfer;
+use Generated\Shared\Transfer\RefundTransfer;
 
-interface CrefoPayOmsCommandByItemInterface
+interface RefundOmsCommandInterface
 {
     /**
+     * @param \Generated\Shared\Transfer\RefundTransfer $refundTransfer
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int $idSalesOrderItem
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function execute(OrderTransfer $orderTransfer, int $idSalesOrderItem): void;
+    public function execute(RefundTransfer $refundTransfer, OrderTransfer $orderTransfer, array $salesOrderItemIds): void;
 }
