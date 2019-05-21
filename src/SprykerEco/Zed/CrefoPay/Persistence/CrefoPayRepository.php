@@ -99,26 +99,17 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      */
     public function findPaymentCrefoPayOrderItemsByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        $query = $this->getPaymentCrefoPayOrderItemQuery();
-        $query->useSpyPaymentCrefoPayQuery()
+        /** @var \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
+        $paymentCrefoPayOrderItemEntities = $this->getPaymentCrefoPayOrderItemQuery()
+            ->useSpyPaymentCrefoPayQuery()
                 ->filterByCrefoPayOrderId($crefoPayOrderId)
-            ->endUse();
+            ->endUse()
+            ->find();
 
-        $paymentCrefoPayOrderItemEntities = $query->find();
-
-        $mapper = $this->getMapper();
-        $result = new ArrayObject();
-
-        foreach ($paymentCrefoPayOrderItemEntities as $paymentCrefoPayOrderItemEntity) {
-            $paymentCrefoPayOrderItemTransfer = $mapper->mapEntityToPaymentCrefoPayOrderItemTransfer(
-                $paymentCrefoPayOrderItemEntity,
-                new PaymentCrefoPayOrderItemTransfer()
-            );
-            $result->append($paymentCrefoPayOrderItemTransfer);
-        }
-
-        return (new PaymentCrefoPayOrderItemCollectionTransfer())
-            ->setCrefoPayOrderItems($result);
+        return $this->mapOrderItemEntitiesToOrderItemCollection(
+            $paymentCrefoPayOrderItemEntities,
+            new PaymentCrefoPayOrderItemCollectionTransfer()
+        );
     }
 
     /**
@@ -128,24 +119,15 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      */
     public function findPaymentCrefoPayOrderItemsByCaptureId(string $captureId): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        $query = $this->getPaymentCrefoPayOrderItemQuery();
-        $query->filterByCaptureId($captureId);
+        /** @var \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
+        $paymentCrefoPayOrderItemEntities = $this->getPaymentCrefoPayOrderItemQuery()
+            ->filterByCaptureId($captureId)
+            ->find();
 
-        $paymentCrefoPayOrderItemEntities = $query->find();
-
-        $mapper = $this->getMapper();
-        $result = new ArrayObject();
-
-        foreach ($paymentCrefoPayOrderItemEntities as $paymentCrefoPayOrderItemEntity) {
-            $paymentCrefoPayOrderItemTransfer = $mapper->mapEntityToPaymentCrefoPayOrderItemTransfer(
-                $paymentCrefoPayOrderItemEntity,
-                new PaymentCrefoPayOrderItemTransfer()
-            );
-            $result->append($paymentCrefoPayOrderItemTransfer);
-        }
-
-        return (new PaymentCrefoPayOrderItemCollectionTransfer())
-            ->setCrefoPayOrderItems($result);
+        return $this->mapOrderItemEntitiesToOrderItemCollection(
+            $paymentCrefoPayOrderItemEntities,
+            new PaymentCrefoPayOrderItemCollectionTransfer()
+        );
     }
 
     /**
@@ -155,23 +137,15 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      */
     public function findPaymentCrefoPayOrderItemsBySalesOrderItemIds(array $salesOrderItemIds): PaymentCrefoPayOrderItemCollectionTransfer
     {
+        /** @var \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
         $paymentCrefoPayOrderItemEntities = $this->getPaymentCrefoPayOrderItemQuery()
             ->filterByFkSalesOrderItem_In($salesOrderItemIds)
             ->find();
 
-        $mapper = $this->getMapper();
-        $result = new ArrayObject();
-
-        foreach ($paymentCrefoPayOrderItemEntities as $paymentCrefoPayOrderItemEntity) {
-            $paymentCrefoPayOrderItemTransfer = $mapper->mapEntityToPaymentCrefoPayOrderItemTransfer(
-                $paymentCrefoPayOrderItemEntity,
-                new PaymentCrefoPayOrderItemTransfer()
-            );
-            $result->append($paymentCrefoPayOrderItemTransfer);
-        }
-
-        return (new PaymentCrefoPayOrderItemCollectionTransfer())
-            ->setCrefoPayOrderItems($result);
+        return $this->mapOrderItemEntitiesToOrderItemCollection(
+            $paymentCrefoPayOrderItemEntities,
+            new PaymentCrefoPayOrderItemCollectionTransfer()
+        );
     }
 
     /**
@@ -271,6 +245,31 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
                 $paymentCrefoPayOrderItemToCrefoPayNotificationEntity,
                 $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer
             );
+    }
+
+    /**
+     * @param \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $crefoPayOrderItemCollectionTransfer
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
+     */
+    protected function mapOrderItemEntitiesToOrderItemCollection(
+        array $paymentCrefoPayOrderItemEntities,
+        PaymentCrefoPayOrderItemCollectionTransfer $crefoPayOrderItemCollectionTransfer
+    ): PaymentCrefoPayOrderItemCollectionTransfer {
+        $mapper = $this->getMapper();
+        $result = new ArrayObject();
+
+        foreach ($paymentCrefoPayOrderItemEntities as $paymentCrefoPayOrderItemEntity) {
+            $paymentCrefoPayOrderItemTransfer = $mapper->mapEntityToPaymentCrefoPayOrderItemTransfer(
+                $paymentCrefoPayOrderItemEntity,
+                new PaymentCrefoPayOrderItemTransfer()
+            );
+            $result->append($paymentCrefoPayOrderItemTransfer);
+        }
+
+        return $crefoPayOrderItemCollectionTransfer
+            ->setCrefoPayOrderItems($result);
     }
 
     /**
