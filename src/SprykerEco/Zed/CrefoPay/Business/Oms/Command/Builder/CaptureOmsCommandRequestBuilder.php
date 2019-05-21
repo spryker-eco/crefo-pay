@@ -13,6 +13,7 @@ use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
 use Generated\Shared\Transfer\ExpenseTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface;
 
@@ -48,7 +49,7 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
     public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer
     {
         $captureRequestTransfer = $this->createCaptureRequestTransfer($crefoPayOmsCommandTransfer);
-        $amountToCapture = $this->getOrderItemAmount($crefoPayOmsCommandTransfer);
+        $amountToCapture = $this->getOrderItemsAmount($crefoPayOmsCommandTransfer);
         $captureRequestTransfer->setAmount($this->createAmountTransfer($amountToCapture));
         $requestTransfer = (new CrefoPayApiRequestTransfer())
             ->setCaptureRequest($captureRequestTransfer);
@@ -128,15 +129,19 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
      *
      * @return int
      */
-    protected function getOrderItemAmount(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): int
+    protected function getOrderItemsAmount(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): int
     {
-        /** @var \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer */
-        $paymentCrefoPayOrderItemTransfer = $crefoPayOmsCommandTransfer
-            ->getPaymentCrefoPayOrderItemCollection()
-            ->getCrefoPayOrderItems()
-            ->offsetGet(0);
-
-        return $paymentCrefoPayOrderItemTransfer->getAmount();
+        return (int)array_sum(
+            array_map(
+                function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
+                    return $paymentCrefoPayOrderItemTransfer->getAmount();
+                },
+                $crefoPayOmsCommandTransfer
+                    ->getPaymentCrefoPayOrderItemCollection()
+                    ->getCrefoPayOrderItems()
+                    ->getArrayCopy()
+            )
+        );
     }
 
     /**

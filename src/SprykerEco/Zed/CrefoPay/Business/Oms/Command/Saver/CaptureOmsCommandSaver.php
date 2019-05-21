@@ -77,23 +77,13 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             return;
         }
 
-        $isFirstCommandExecution = $this->isFirstCommandExecution($crefoPayOmsCommandTransfer);
-
         $this->writer->updatePaymentEntities(
             $this->getPaymentCrefoPayOrderItemsToCapture($crefoPayOmsCommandTransfer),
             $this->getPaymentCrefoPayTransfer($crefoPayOmsCommandTransfer),
             $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId()
         );
 
-        if (!$this->isSingleOrderItemCommandExecution($crefoPayOmsCommandTransfer) || !$isFirstCommandExecution) {
-            return;
-        }
-
-        $this->omsFacade->triggerEventForOrderItems(
-            $this->config->getOmsEventNoCancellation(),
-            $this->getAffectedSalesOrderItemIds($crefoPayOmsCommandTransfer),
-            [$this->config->getCrefoPayAutomaticOmsTrigger()]
-        );
+        $this->triggerRemainingOrderItems($crefoPayOmsCommandTransfer);
     }
 
     /**
@@ -110,7 +100,6 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
                 $crefoPayOmsCommandTransfer->getResponse()->getCaptureResponse()->getStatus()
             );
         $captureId = $crefoPayOmsCommandTransfer->getRequest()->getCaptureRequest()->getCaptureID();
-        $paymentCrefoPayOrderItemCollection = $crefoPayOmsCommandTransfer->getPaymentCrefoPayOrderItemCollection();
 
         $paymentCrefoPayOrderItems = array_map(
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status, $captureId) {
@@ -118,11 +107,17 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
                     ->setStatus($status)
                     ->setCaptureId($captureId);
             },
-            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy()
+            $crefoPayOmsCommandTransfer
+                ->getPaymentCrefoPayOrderItemCollection()
+                ->getCrefoPayOrderItems()
+                ->getArrayCopy()
         );
 
-        return $paymentCrefoPayOrderItemCollection
-            ->setCrefoPayOrderItems(new ArrayObject($paymentCrefoPayOrderItems));
+        return $crefoPayOmsCommandTransfer
+            ->getPaymentCrefoPayOrderItemCollection()
+            ->setCrefoPayOrderItems(
+                new ArrayObject($paymentCrefoPayOrderItems)
+            );
     }
 
     /**
@@ -147,55 +142,47 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     /**
      * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
-     * @return bool
+     * @return void
      */
-    protected function isSingleOrderItemCommandExecution(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): bool
+    protected function triggerRemainingOrderItems(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): void
     {
-        $paymentCrefoPayOrderItemCollection = $crefoPayOmsCommandTransfer->getPaymentCrefoPayOrderItemCollection();
+        $remainingOrderItems = $this->getRemainingOrderItems($crefoPayOmsCommandTransfer);
 
-        return $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->count() === 1;
+        if (count($remainingOrderItems) === 0) {
+            return;
+        }
+
+        $affectedSalesOrderItemIds = array_map(
+            function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
+                return $paymentCrefoPayOrderItemTransfer->getFkSalesOrderItem();
+            },
+            $remainingOrderItems
+        );
+
+        $this->omsFacade->triggerEventForOrderItems(
+            $this->config->getOmsEventNoCancellation(),
+            $affectedSalesOrderItemIds,
+            [$this->config->getCrefoPayAutomaticOmsTrigger()]
+        );
     }
 
     /**
      * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
-     * @return bool
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer[]
      */
-    protected function isFirstCommandExecution(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): bool
-    {
-        return $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCapturedAmount() === 0;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
-     *
-     * @return int[]
-     */
-    protected function getAffectedSalesOrderItemIds(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): array
+    protected function getRemainingOrderItems(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): array
     {
         $paymentCrefoPayOrderItemCollection = $this->reader
             ->findPaymentCrefoPayOrderItemsByCrefoPayOrderId(
                 $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId()
             );
 
-        /** @var \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer */
-        $paymentCrefoPayOrderItemTransfer = $crefoPayOmsCommandTransfer
-            ->getPaymentCrefoPayOrderItemCollection()
-            ->getCrefoPayOrderItems()
-            ->offsetGet(0);
-
-        $affectedSalesOrderItemIds = array_map(
+        return array_filter(
+            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy(),
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
-                return $paymentCrefoPayOrderItemTransfer->getFkSalesOrderItem();
-            },
-            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy()
+                return $paymentCrefoPayOrderItemTransfer->getStatus() === $this->config->getOmsStatusWaitingForCapture();
+            }
         );
-
-        $key = array_search($paymentCrefoPayOrderItemTransfer->getFkSalesOrderItem(), $affectedSalesOrderItemIds);
-        if ($key !== false) {
-            unset($affectedSalesOrderItemIds[$key]);
-        }
-
-        return $affectedSalesOrderItemIds;
     }
 }
