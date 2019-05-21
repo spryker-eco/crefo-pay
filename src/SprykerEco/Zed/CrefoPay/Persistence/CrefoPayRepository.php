@@ -18,6 +18,7 @@ use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToCrefoPayApiLogQuer
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToCrefoPayNotificationQuery;
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayQuery;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery;
+use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 use SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapperInterface;
 
@@ -99,7 +100,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      */
     public function findPaymentCrefoPayOrderItemsByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        /** @var \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
+        /** @var \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
         $paymentCrefoPayOrderItemEntities = $this->getPaymentCrefoPayOrderItemQuery()
             ->useSpyPaymentCrefoPayQuery()
                 ->filterByCrefoPayOrderId($crefoPayOrderId)
@@ -119,7 +120,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      */
     public function findPaymentCrefoPayOrderItemsByCaptureId(string $captureId): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        /** @var \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
+        /** @var \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
         $paymentCrefoPayOrderItemEntities = $this->getPaymentCrefoPayOrderItemQuery()
             ->filterByCaptureId($captureId)
             ->find();
@@ -137,7 +138,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      */
     public function findPaymentCrefoPayOrderItemsBySalesOrderItemIds(array $salesOrderItemIds): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        /** @var \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
+        /** @var \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
         $paymentCrefoPayOrderItemEntities = $this->getPaymentCrefoPayOrderItemQuery()
             ->filterByFkSalesOrderItem_In($salesOrderItemIds)
             ->find();
@@ -248,13 +249,13 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
     }
 
     /**
-     * @param \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities
+     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $crefoPayOrderItemCollectionTransfer
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
     protected function mapOrderItemEntitiesToOrderItemCollection(
-        array $paymentCrefoPayOrderItemEntities,
+        ObjectCollection $paymentCrefoPayOrderItemEntities,
         PaymentCrefoPayOrderItemCollectionTransfer $crefoPayOrderItemCollectionTransfer
     ): PaymentCrefoPayOrderItemCollectionTransfer {
         $mapper = $this->getMapper();
