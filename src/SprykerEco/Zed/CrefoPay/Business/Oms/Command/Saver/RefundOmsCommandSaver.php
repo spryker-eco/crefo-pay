@@ -15,7 +15,7 @@ use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
-use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToOmsFacadeInterface;
+use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToRefundFacadeInterface;
 
 class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
 {
@@ -35,26 +35,26 @@ class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     protected $config;
 
     /**
-     * @var \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToOmsFacadeInterface
+     * @var \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToRefundFacadeInterface
      */
-    protected $omsFacade;
+    protected $refundFacade;
 
     /**
      * @param \SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface $reader
      * @param \SprykerEco\Zed\CrefoPay\Business\Writer\CrefoPayWriterInterface $writer
      * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
-     * @param \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToOmsFacadeInterface $omsFacade
+     * @param \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToRefundFacadeInterface $refundFacade
      */
     public function __construct(
         CrefoPayReaderInterface $reader,
         CrefoPayWriterInterface $writer,
         CrefoPayConfig $config,
-        CrefoPayToOmsFacadeInterface $omsFacade
+        CrefoPayToRefundFacadeInterface $refundFacade
     ) {
         $this->reader = $reader;
         $this->writer = $writer;
         $this->config = $config;
-        $this->omsFacade = $omsFacade;
+        $this->refundFacade = $refundFacade;
     }
 
     /**
@@ -77,6 +77,10 @@ class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             $this->getPaymentCrefoPayTransfer($crefoPayOmsCommandTransfer),
             $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId()
         );
+
+        if ($crefoPayOmsCommandTransfer->getRefund()->getAmount() > 0) {
+            $this->refundFacade->saveRefund($crefoPayOmsCommandTransfer->getRefund());
+        }
     }
 
     /**

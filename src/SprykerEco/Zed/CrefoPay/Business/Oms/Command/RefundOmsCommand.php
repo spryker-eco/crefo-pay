@@ -9,12 +9,13 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command;
 
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
+use Generated\Shared\Transfer\RefundTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CommandClient\CrefoPayOmsCommandClientInterface;
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 
-class CrefoPayOmsCommandByItem implements CrefoPayOmsCommandByItemInterface
+class RefundOmsCommand implements RefundOmsCommandInterface
 {
     /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface
@@ -55,17 +56,20 @@ class CrefoPayOmsCommandByItem implements CrefoPayOmsCommandByItemInterface
     }
 
     /**
+     * @param \Generated\Shared\Transfer\RefundTransfer $refundTransfer
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int $idSalesOrderItem
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function execute(OrderTransfer $orderTransfer, int $idSalesOrderItem): void
+    public function execute(RefundTransfer $refundTransfer, OrderTransfer $orderTransfer, array $salesOrderItemIds): void
     {
         $crefoPayOmsCommandTransfer = $this->createCrefoPayOmsCommandTransfer(
             $orderTransfer,
-            $idSalesOrderItem
+            $salesOrderItemIds
         );
+        $crefoPayOmsCommandTransfer->setRefund($refundTransfer);
+
         $crefoPayOmsCommandTransfer = $this->requestBuilder
             ->buildRequestTransfer($crefoPayOmsCommandTransfer);
         $crefoPayOmsCommandTransfer = $this->performApiCall($crefoPayOmsCommandTransfer);
@@ -74,17 +78,19 @@ class CrefoPayOmsCommandByItem implements CrefoPayOmsCommandByItemInterface
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int $idSalesOrderItem
+     * @param int[] $salesOrderItemIds
      *
      * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
      */
-    protected function createCrefoPayOmsCommandTransfer(OrderTransfer $orderTransfer, int $idSalesOrderItem): CrefoPayOmsCommandTransfer
-    {
+    protected function createCrefoPayOmsCommandTransfer(
+        OrderTransfer $orderTransfer,
+        array $salesOrderItemIds
+    ): CrefoPayOmsCommandTransfer {
         $paymentCrefoPayTransfer = $this->reader
-            ->findPaymentCrefoPayByIdSalesOrderItem($idSalesOrderItem);
+            ->findPaymentCrefoPayByIdSalesOrder($orderTransfer->getIdSalesOrder());
 
         $paymentCrefoPayOrderItemCollection = $this->reader
-            ->findPaymentCrefoPayOrderItemsBySalesOrderItemIds([$idSalesOrderItem]);
+            ->findPaymentCrefoPayOrderItemsBySalesOrderItemIds($salesOrderItemIds);
 
         return (new CrefoPayOmsCommandTransfer())
             ->setOrder($orderTransfer)
@@ -99,13 +105,6 @@ class CrefoPayOmsCommandByItem implements CrefoPayOmsCommandByItemInterface
      */
     protected function performApiCall(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer
     {
-        if ($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCapturedAmount() === 0) {
-            $expensesResponseTransfer = $this->omsCommandClient
-                ->performApiCall($crefoPayOmsCommandTransfer->getExpensesRequest());
-
-            $crefoPayOmsCommandTransfer->setExpensesResponse($expensesResponseTransfer);
-        }
-
         $responseTransfer = $this->omsCommandClient
             ->performApiCall($crefoPayOmsCommandTransfer->getRequest());
 

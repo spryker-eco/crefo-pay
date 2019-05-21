@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\RefundTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -130,15 +131,15 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int $idSalesOrderItem
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function executeCaptureOmsCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void
+    public function executeCaptureOmsCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void
     {
         $this->getFactory()
             ->createCaptureOmsCommand()
-            ->execute($orderTransfer, $idSalesOrderItem);
+            ->execute($orderTransfer, $salesOrderItemIds);
     }
 
     /**
@@ -146,16 +147,20 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
      *
      * @api
      *
+     * @param \Generated\Shared\Transfer\RefundTransfer $refundTransfer
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int $idSalesOrderItem
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function executeRefundOmsCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void
-    {
+    public function executeRefundOmsCommand(
+        RefundTransfer $refundTransfer,
+        OrderTransfer $orderTransfer,
+        array $salesOrderItemIds
+    ): void {
         $this->getFactory()
             ->createRefundOmsCommand()
-            ->execute($orderTransfer, $idSalesOrderItem);
+            ->execute($refundTransfer, $orderTransfer, $salesOrderItemIds);
     }
 
     /**

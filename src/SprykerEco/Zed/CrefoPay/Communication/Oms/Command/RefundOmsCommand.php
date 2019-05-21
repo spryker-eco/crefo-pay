@@ -56,14 +56,10 @@ class RefundOmsCommand implements CrefoPayOmsCommandByItemInterface
         $orderTransfer = $this->mapper
             ->mapSpySalesOrderToOrderTransfer($salesOrderItem->getOrder());
 
-        $this->facade
-            ->executeRefundOmsCommand($orderTransfer, $salesOrderItem->getIdSalesOrderItem());
-
         $refundTransfer = $this->refundFacade
             ->calculateRefund([$salesOrderItem], $salesOrderItem->getOrder());
 
-        if ($refundTransfer->getAmount() > 0) {
-            $this->refundFacade->saveRefund($refundTransfer);
-        }
+        $this->facade
+            ->executeRefundOmsCommand($refundTransfer, $orderTransfer, [$salesOrderItem->getIdSalesOrderItem()]);
     }
 }

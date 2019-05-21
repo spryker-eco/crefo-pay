@@ -141,6 +141,7 @@
         <property name="paymentCrefoPayOrderItemCollection" type="PaymentCrefoPayOrderItemCollection" />
         <property name="expensesRequest" type="CrefoPayApiRequest" />
         <property name="expensesResponse" type="CrefoPayApiResponse" />
+        <property name="refund" type="Refund" />
     </transfer>
 
 </transfers>

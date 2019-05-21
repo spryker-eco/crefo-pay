@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\RefundTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
 
 interface CrefoPayFacadeInterface
@@ -109,11 +110,11 @@ interface CrefoPayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int $idSalesOrderItem
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function executeCaptureOmsCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void;
+    public function executeCaptureOmsCommand(OrderTransfer $orderTransfer, array $salesOrderItemIds): void;
 
     /**
      * Specification:
@@ -122,12 +123,17 @@ interface CrefoPayFacadeInterface
      *
      * @api
      *
+     * @param \Generated\Shared\Transfer\RefundTransfer $refundTransfer
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int $idSalesOrderItem
+     * @param int[] $salesOrderItemIds
      *
      * @return void
      */
-    public function executeRefundOmsCommand(OrderTransfer $orderTransfer, int $idSalesOrderItem): void;
+    public function executeRefundOmsCommand(
+        RefundTransfer $refundTransfer,
+        OrderTransfer $orderTransfer,
+        array $salesOrderItemIds
+    ): void;
 
     /**
      * Specification:

@@ -42,6 +42,7 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addOmsFacade($container);
         $container = $this->addCrefoPayService($container);
         $container = $this->addUtilTextService($container);
+        $container = $this->addRefundFacade($container);
 
         return $container;
     }

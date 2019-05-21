@@ -11,7 +11,6 @@ use Generated\Shared\Transfer\CrefoPayApiAmountTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRefundRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
-use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilderInterface
@@ -61,18 +60,28 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
             ->setStoreID($this->config->getStoreId())
             ->setOrderID($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId())
             ->setCaptureID($paymentCrefoPayOrderItemTransfer->getCaptureId())
-            ->setAmount($this->createAmountTransfer($paymentCrefoPayOrderItemTransfer))
-            ->setRefundDescription($this->config->getRefundDescription());
+            ->setAmount($this->createAmountTransfer($crefoPayOmsCommandTransfer))
+            ->setRefundDescription($this->getRefundDescription($crefoPayOmsCommandTransfer));
     }
 
     /**
-     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiAmountTransfer
      */
-    protected function createAmountTransfer(PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer): CrefoPayApiAmountTransfer
+    protected function createAmountTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiAmountTransfer
     {
         return (new CrefoPayApiAmountTransfer())
-            ->setAmount($paymentCrefoPayOrderItemTransfer->getRefundableAmount());
+            ->setAmount($crefoPayOmsCommandTransfer->getRefund()->getAmount());
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @return string|null
+     */
+    protected function getRefundDescription(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): ?string
+    {
+        return $crefoPayOmsCommandTransfer->getRefund()->getComment() ?? $this->config->getRefundDescription();
     }
 }

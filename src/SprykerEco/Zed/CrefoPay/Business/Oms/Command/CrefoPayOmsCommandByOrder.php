@@ -14,7 +14,7 @@ use SprykerEco\Zed\CrefoPay\Business\Oms\Command\CommandClient\CrefoPayOmsComman
 use SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver\CrefoPayOmsCommandSaverInterface;
 use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 
-class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandByOrderInterface
+class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandInterface
 {
     /**
      * @var \SprykerEco\Zed\CrefoPay\Business\Oms\Command\Builder\CrefoPayOmsCommandRequestBuilderInterface
@@ -66,14 +66,9 @@ class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandByOrderInterface
             $orderTransfer,
             $salesOrderItemIds
         );
-
         $crefoPayOmsCommandTransfer = $this->requestBuilder
             ->buildRequestTransfer($crefoPayOmsCommandTransfer);
-        $responseTransfer = $this->omsCommandClient
-            ->performApiCall($crefoPayOmsCommandTransfer->getRequest());
-
-        $crefoPayOmsCommandTransfer->setResponse($responseTransfer);
-
+        $crefoPayOmsCommandTransfer = $this->performApiCall($crefoPayOmsCommandTransfer);
         $this->saver->savePaymentEntities($crefoPayOmsCommandTransfer);
     }
 
@@ -97,5 +92,20 @@ class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandByOrderInterface
             ->setOrder($orderTransfer)
             ->setPaymentCrefoPay($paymentCrefoPayTransfer)
             ->setPaymentCrefoPayOrderItemCollection($paymentCrefoPayOrderItemCollection);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
+     */
+    protected function performApiCall(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer
+    {
+        $responseTransfer = $this->omsCommandClient
+            ->performApiCall($crefoPayOmsCommandTransfer->getRequest());
+
+        $crefoPayOmsCommandTransfer->setResponse($responseTransfer);
+
+        return $crefoPayOmsCommandTransfer;
     }
 }

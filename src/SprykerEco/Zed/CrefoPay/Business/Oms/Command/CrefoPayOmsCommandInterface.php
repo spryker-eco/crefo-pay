@@ -9,7 +9,7 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command;
 
 use Generated\Shared\Transfer\OrderTransfer;
 
-interface CrefoPayOmsCommandByOrderInterface
+interface CrefoPayOmsCommandInterface
 {
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
