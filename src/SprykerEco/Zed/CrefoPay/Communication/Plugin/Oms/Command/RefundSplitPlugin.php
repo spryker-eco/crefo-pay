@@ -7,10 +7,10 @@
 
 namespace SprykerEco\Zed\CrefoPay\Communication\Plugin\Oms\Command;
 
-use Orm\Zed\Sales\Persistence\SpySalesOrder;
+use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
-use Spryker\Zed\Oms\Dependency\Plugin\Command\CommandByOrderInterface;
+use Spryker\Zed\Oms\Dependency\Plugin\Command\CommandByItemInterface;
 
 /**
  * @method \SprykerEco\Zed\CrefoPay\CrefoPayConfig getConfig()
@@ -19,24 +19,23 @@ use Spryker\Zed\Oms\Dependency\Plugin\Command\CommandByOrderInterface;
  *
  * @SuppressWarnings(PHPMD.NewPluginExtensionModuleRule)
  */
-class RefundPlugin extends AbstractPlugin implements CommandByOrderInterface
+class RefundSplitPlugin extends AbstractPlugin implements CommandByItemInterface
 {
     /**
      * {@inheritdoc}
      *
      * @api
      *
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $orderItems
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItem
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
      * @return array
      */
-    public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): array
+    public function run(SpySalesOrderItem $orderItem, ReadOnlyArrayObject $data): array
     {
         $this->getFactory()
-            ->createRefundOmsCommand()
-            ->execute($orderItems, $orderEntity, $data);
+            ->createRefundSplitOmsCommand()
+            ->execute($orderItem, $data);
 
         return [];
     }

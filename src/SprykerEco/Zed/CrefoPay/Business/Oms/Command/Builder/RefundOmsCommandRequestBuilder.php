@@ -11,10 +11,14 @@ use Generated\Shared\Transfer\CrefoPayApiAmountTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRefundRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
+use SprykerEco\Zed\CrefoPay\Business\Exception\InvalidItemsToRefundAggregationException;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilderInterface
 {
+    protected const INVALID_ITEMS_AGGREGATION_MESSAGE = 'Order items to refund have to have same captureId.';
+
     /**
      * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
      */
@@ -49,19 +53,41 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
      */
     protected function createRefundRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayApiRefundRequestTransfer
     {
-        /** @var \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer */
-        $paymentCrefoPayOrderItemTransfer = $crefoPayOmsCommandTransfer
-            ->getPaymentCrefoPayOrderItemCollection()
-            ->getCrefoPayOrderItems()
-            ->offsetGet(0);
-
         return (new CrefoPayApiRefundRequestTransfer())
             ->setMerchantID($this->config->getMerchantId())
             ->setStoreID($this->config->getStoreId())
             ->setOrderID($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId())
-            ->setCaptureID($paymentCrefoPayOrderItemTransfer->getCaptureId())
+            ->setCaptureID($this->getCaptureId($crefoPayOmsCommandTransfer))
             ->setAmount($this->createAmountTransfer($crefoPayOmsCommandTransfer))
             ->setRefundDescription($this->getRefundDescription($crefoPayOmsCommandTransfer));
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @throws \SprykerEco\Zed\CrefoPay\Business\Exception\InvalidItemsToRefundAggregationException
+     *
+     * @return string
+     */
+    protected function getCaptureId(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): string
+    {
+        $orderItemCaptureIds = array_unique(
+            array_map(
+                function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
+                    return $paymentCrefoPayOrderItemTransfer->getCaptureId();
+                },
+                $crefoPayOmsCommandTransfer
+                    ->getPaymentCrefoPayOrderItemCollection()
+                    ->getCrefoPayOrderItems()
+                    ->getArrayCopy()
+            )
+        );
+
+        if (count($orderItemCaptureIds) !== 1) {
+            throw new InvalidItemsToRefundAggregationException(static::INVALID_ITEMS_AGGREGATION_MESSAGE);
+        }
+
+        return reset($orderItemCaptureIds);
     }
 
     /**
