@@ -386,4 +386,12 @@ class CrefoPayConfig extends AbstractBundleConfig
     {
         return $this->get(CrefoPayConstants::IS_BUSINESS_TO_BUSINESS);
     }
+
+    /**
+     * @return bool
+     */
+    public function getCaptureExpensesSeparately(): bool
+    {
+        return $this->get(CrefoPayConstants::CAPTURE_EXPENSES_SEPARATELY);
+    }
 }
