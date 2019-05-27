@@ -132,7 +132,21 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
         $capturedAmount += $crefoPayOmsCommandTransfer->getRequest()->getCaptureRequest()->getAmount()->getAmount();
 
         if ($crefoPayOmsCommandTransfer->getExpensesResponse() && $crefoPayOmsCommandTransfer->getExpensesResponse()->getIsSuccess()) {
-            $capturedAmount += $crefoPayOmsCommandTransfer->getExpensesRequest()->getCaptureRequest()->getAmount()->getAmount();
+            $expensesCaptureRequest = $crefoPayOmsCommandTransfer->getExpensesRequest()->getCaptureRequest();
+            $paymentCrefoPayTransfer
+                ->setExpensesCapturedAmount(
+                    $expensesCaptureRequest
+                        ->getAmount()
+                        ->getAmount()
+                )
+                ->setExpensesCaptureId(
+                    $crefoPayOmsCommandTransfer
+                        ->getExpensesRequest()
+                        ->getCaptureRequest()
+                        ->getCaptureID()
+                );
+
+            $capturedAmount += $expensesCaptureRequest->getAmount()->getAmount();
         }
 
         return $paymentCrefoPayTransfer

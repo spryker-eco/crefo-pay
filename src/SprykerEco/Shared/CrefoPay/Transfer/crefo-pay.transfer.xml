@@ -74,6 +74,8 @@
         <property name="crefoPayPayPal" type="CrefoPayPayment" />
         <property name="crefoPayPrepaid" type="CrefoPayPayment" />
         <property name="crefoPaySofort" type="CrefoPayPayment" />
+        <property name="crefoPayCreditCard" type="CrefoPayPayment" />
+        <property name="crefoPayCreditCard3D" type="CrefoPayPayment" />
     </transfer>
 
     <transfer name="PaymentCrefoPay">
@@ -87,6 +89,9 @@
         <property name="authorizedAmount" type="int" />
         <property name="capturedAmount" type="int" />
         <property name="refundedAmount" type="int" />
+        <property name="expensesCapturedAmount" type="int" />
+        <property name="expensesRefundedAmount" type="int" />
+        <property name="expensesCaptureId" type="string" />
     </transfer>
 
     <transfer name="PaymentCrefoPayOrderItem">
