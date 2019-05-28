@@ -20,7 +20,7 @@ use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayQuery;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery;
 use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
-use SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapperInterface;
+use SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapper;
 
 /**
  * @method \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayPersistenceFactory getFactory()
@@ -274,9 +274,9 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapperInterface
+     * @return \SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapper
      */
-    protected function getMapper(): CrefoPayPersistenceMapperInterface
+    protected function getMapper(): CrefoPayPersistenceMapper
     {
         return $this->getFactory()->createCrefoPayPersistenceMapper();
     }

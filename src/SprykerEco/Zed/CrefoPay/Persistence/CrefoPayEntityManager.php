@@ -13,7 +13,7 @@ use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTran
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
-use SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapperInterface;
+use SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapper;
 
 /**
  * @method \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayPersistenceFactory getFactory()
@@ -159,9 +159,9 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapperInterface
+     * @return \SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapper
      */
-    protected function getMapper(): CrefoPayPersistenceMapperInterface
+    protected function getMapper(): CrefoPayPersistenceMapper
     {
         return $this->getFactory()->createCrefoPayPersistenceMapper();
     }

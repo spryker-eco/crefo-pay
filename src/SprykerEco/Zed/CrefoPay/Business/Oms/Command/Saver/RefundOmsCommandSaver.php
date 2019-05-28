@@ -113,7 +113,23 @@ class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     {
         $paymentCrefoPayTransfer = $crefoPayOmsCommandTransfer->getPaymentCrefoPay();
         $refundedAmount = $paymentCrefoPayTransfer->getRefundedAmount();
-        $requestedToRefundAmount = $crefoPayOmsCommandTransfer->getRequest()->getRefundRequest()->getAmount()->getAmount();
+        $requestedToRefundAmount = $crefoPayOmsCommandTransfer
+            ->getRequest()
+            ->getRefundRequest()
+            ->getAmount()
+            ->getAmount();
+
+        if ($crefoPayOmsCommandTransfer->getExpensesResponse() && $crefoPayOmsCommandTransfer->getExpensesResponse()->getIsSuccess()) {
+            $expensesRefundAmount = $crefoPayOmsCommandTransfer
+                ->getExpensesRequest()
+                ->getRefundRequest()
+                ->getAmount()
+                ->getAmount();
+
+            $requestedToRefundAmount += $expensesRefundAmount;
+
+            $paymentCrefoPayTransfer->setExpensesRefundedAmount($expensesRefundAmount);
+        }
 
         return $paymentCrefoPayTransfer
             ->setRefundedAmount($refundedAmount + $requestedToRefundAmount);
