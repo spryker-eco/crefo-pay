@@ -9,6 +9,8 @@ namespace SprykerEco\Zed\CrefoPay\Business\Oms\Command\Saver;
 
 use ArrayObject;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
+use Generated\Shared\Transfer\ExpenseTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
@@ -128,31 +130,29 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     protected function getPaymentCrefoPayTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): PaymentCrefoPayTransfer
     {
         $paymentCrefoPayTransfer = $crefoPayOmsCommandTransfer->getPaymentCrefoPay();
+        $captureRequest = $crefoPayOmsCommandTransfer->getRequest()->getCaptureRequest();
         $capturedAmount = $paymentCrefoPayTransfer->getCapturedAmount();
-        $capturedAmount += $crefoPayOmsCommandTransfer->getRequest()->getCaptureRequest()->getAmount()->getAmount();
 
-        if ($crefoPayOmsCommandTransfer->getExpensesResponse() !== null
-            && $crefoPayOmsCommandTransfer->getExpensesResponse()->getIsSuccess()
-        ) {
+        if ($this->isExpensesCaptureRequestPerformedSuccessfully($crefoPayOmsCommandTransfer)) {
             $expensesCaptureRequest = $crefoPayOmsCommandTransfer->getExpensesRequest()->getCaptureRequest();
-            $paymentCrefoPayTransfer
-                ->setExpensesCapturedAmount(
-                    $expensesCaptureRequest
-                        ->getAmount()
-                        ->getAmount()
-                )
-                ->setExpensesCaptureId(
-                    $crefoPayOmsCommandTransfer
-                        ->getExpensesRequest()
-                        ->getCaptureRequest()
-                        ->getCaptureID()
-                );
             $paymentCrefoPayTransfer
                 ->setExpensesCaptureId($expensesCaptureRequest->getCaptureID())
                 ->setExpensesCapturedAmount($expensesCaptureRequest->getAmount()->getAmount());
 
             $capturedAmount += $expensesCaptureRequest->getAmount()->getAmount();
         }
+
+        if ($capturedAmount === 0 && !$this->config->getCaptureExpensesSeparately()) {
+            $paymentCrefoPayTransfer
+                ->setExpensesCaptureId($captureRequest->getCaptureID())
+                ->setExpensesCapturedAmount(
+                    $this->calculateExpensesAmount(
+                        $crefoPayOmsCommandTransfer->getOrder()
+                    )
+                );
+        }
+
+        $capturedAmount += $captureRequest->getAmount()->getAmount();
 
         return $paymentCrefoPayTransfer
             ->setCapturedAmount($capturedAmount);
@@ -202,6 +202,33 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
                 return $paymentCrefoPayOrderItemTransfer->getStatus() === $this->config->getOmsStatusWaitingForCapture();
             }
+        );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @return bool
+     */
+    protected function isExpensesCaptureRequestPerformedSuccessfully(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): bool
+    {
+        return $crefoPayOmsCommandTransfer->getExpensesResponse() !== null && $crefoPayOmsCommandTransfer->getExpensesResponse()->getIsSuccess();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return int
+     */
+    protected function calculateExpensesAmount(OrderTransfer $orderTransfer): int
+    {
+        return (int)array_sum(
+            array_map(
+                function (ExpenseTransfer $expense) {
+                    return $expense->getSumPriceToPayAggregation();
+                },
+                $orderTransfer->getExpenses()->getArrayCopy()
+            )
         );
     }
 }

@@ -105,19 +105,7 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
         }
 
         if (!$this->config->getCaptureExpensesSeparately()) {
-            $orderItemsAmountToCapture = $crefoPayOmsCommandTransfer
-                ->getRequest()
-                ->getCaptureRequest()
-                ->getAmount()
-                ->getAmount();
-
-            $crefoPayOmsCommandTransfer
-                ->getRequest()
-                ->getCaptureRequest()
-                ->getAmount()
-                ->setAmount($orderItemsAmountToCapture + $expensesAmountToCapture);
-
-            return $crefoPayOmsCommandTransfer;
+            return $this->addExpensesAmountToCaptureRequest($crefoPayOmsCommandTransfer, $expensesAmountToCapture);
         }
 
         $captureExpenseRequestTransfer = $this->createCaptureRequestTransfer($crefoPayOmsCommandTransfer);
@@ -175,5 +163,30 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
                 $orderTransfer->getExpenses()->getArrayCopy()
             )
         );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     * @param int $expensesAmountToCapture
+     *
+     * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
+     */
+    protected function addExpensesAmountToCaptureRequest(
+        CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer,
+        int $expensesAmountToCapture
+    ): CrefoPayOmsCommandTransfer {
+        $orderItemsAmountToCapture = $crefoPayOmsCommandTransfer
+            ->getRequest()
+            ->getCaptureRequest()
+            ->getAmount()
+            ->getAmount();
+
+        $crefoPayOmsCommandTransfer
+            ->getRequest()
+            ->getCaptureRequest()
+            ->getAmount()
+            ->setAmount($orderItemsAmountToCapture + $expensesAmountToCapture);
+
+        return $crefoPayOmsCommandTransfer;
     }
 }
