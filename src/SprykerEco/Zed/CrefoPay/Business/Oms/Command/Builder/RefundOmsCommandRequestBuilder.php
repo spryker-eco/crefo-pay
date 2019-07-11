@@ -11,6 +11,7 @@ use Generated\Shared\Transfer\CrefoPayApiAmountTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRefundRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\CrefoPayOmsCommandTransfer;
+use Generated\Shared\Transfer\ExpenseTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use SprykerEco\Zed\CrefoPay\Business\Exception\InvalidItemsToRefundAggregationException;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
@@ -40,17 +41,20 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
     public function buildRequestTransfer(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer
     {
         $refundRequest = $this->createRefundRequestTransfer($crefoPayOmsCommandTransfer);
+        $amountToRefund = $this->calculateItemsAmountToRefund($crefoPayOmsCommandTransfer);
         $refundRequest
             ->setCaptureID($this->getCaptureId($crefoPayOmsCommandTransfer))
             ->setAmount(
-                $this->createAmountTransfer($crefoPayOmsCommandTransfer->getRefund()->getAmount())
+                $this->createAmountTransfer($amountToRefund)
             );
 
         $requestTransfer = (new CrefoPayApiRequestTransfer())
             ->setRefundRequest($refundRequest);
 
-        return $crefoPayOmsCommandTransfer
+        $crefoPayOmsCommandTransfer
             ->setRequest($requestTransfer);
+
+        return $this->addExpensesRequest($crefoPayOmsCommandTransfer);
     }
 
     /**
@@ -64,12 +68,12 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
             return $crefoPayOmsCommandTransfer;
         }
 
+        $amountToRefund = $this->calculateExpensesAmountToRefund($crefoPayOmsCommandTransfer);
+
         $refundExpenseRequestTransfer = $this->createRefundRequestTransfer($crefoPayOmsCommandTransfer);
         $refundExpenseRequestTransfer
             ->setCaptureID($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getExpensesCaptureId())
-            ->setAmount(
-                $this->createAmountTransfer($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getExpensesCapturedAmount())
-            );
+            ->setAmount($this->createAmountTransfer($amountToRefund));
 
         $expensesRequestTransfer = (new CrefoPayApiRequestTransfer())
             ->setRefundRequest($refundExpenseRequestTransfer);
@@ -121,6 +125,42 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
     }
 
     /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @return int
+     */
+    protected function calculateItemsAmountToRefund(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): int
+    {
+        $totalAmountToRefund = $crefoPayOmsCommandTransfer->getRefund()->getAmount();
+
+        if (!$this->isLastRefund($crefoPayOmsCommandTransfer)) {
+            return $totalAmountToRefund;
+        }
+
+        return $totalAmountToRefund - $this->calculateExpensesAmountToRefund($crefoPayOmsCommandTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
+     *
+     * @return int
+     */
+    protected function calculateExpensesAmountToRefund(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): int
+    {
+        return (int)array_sum(
+            array_map(
+                function (ExpenseTransfer $expenseTransfer) {
+                    return $expenseTransfer->getSumPriceToPayAggregation();
+                },
+                $crefoPayOmsCommandTransfer
+                    ->getRefund()
+                    ->getExpenses()
+                    ->getArrayCopy()
+            )
+        );
+    }
+
+    /**
      * @param int $amount
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiAmountTransfer
@@ -148,20 +188,24 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
      */
     protected function isLastRefund(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): bool
     {
-        $refundedAmount = $crefoPayOmsCommandTransfer
-            ->getPaymentCrefoPay()
-            ->getRefundedAmount();
+        $refundableItemAmount = 0;
 
-        $itemsAmountToRefund = $crefoPayOmsCommandTransfer
-            ->getRequest()
-            ->getRefundRequest()
-            ->getAmount()
-            ->getAmount();
+        $itemIdsToRefund = array_map(
+            function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
+                return $paymentCrefoPayOrderItemTransfer->getFkSalesOrderItem();
+            },
+            $crefoPayOmsCommandTransfer
+                ->getPaymentCrefoPayOrderItemCollection()
+                ->getCrefoPayOrderItems()
+                ->getArrayCopy()
+        );
 
-        $expensesAmountToRefund = $crefoPayOmsCommandTransfer
-            ->getPaymentCrefoPay()
-            ->getExpensesCapturedAmount();
+        foreach ($crefoPayOmsCommandTransfer->getOrder()->getItems() as $itemTransfer) {
+            if (!in_array($itemTransfer->getIdSalesOrderItem(), $itemIdsToRefund)) {
+                $refundableItemAmount += (int)$itemTransfer->getRefundableAmount();
+            }
+        }
 
-        return $refundedAmount + $itemsAmountToRefund + $expensesAmountToRefund === $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCapturedAmount();
+        return $refundableItemAmount === 0;
     }
 }
