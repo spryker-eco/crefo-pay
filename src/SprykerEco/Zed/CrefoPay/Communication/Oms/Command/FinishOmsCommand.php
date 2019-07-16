@@ -47,25 +47,25 @@ class FinishOmsCommand implements CrefoPayOmsCommandByOrderInterface
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $orderItems
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
      * @return void
      */
-    public function execute(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data): void
+    public function execute(array $salesOrderItems, SpySalesOrder $salesOrderEntity, ReadOnlyArrayObject $data): void
     {
         if (array_search($this->config->getCrefoPayAutomaticOmsTrigger(), $data->getArrayCopy()) !== false) {
             return;
         }
 
-        $orderTransfer = $this->mapper->mapSpySalesOrderToOrderTransfer($orderEntity);
+        $orderTransfer = $this->mapper->mapSpySalesOrderToOrderTransfer($salesOrderEntity);
 
         $salesOrderItemIds = array_map(
             function (SpySalesOrderItem $orderItem) {
                 return $orderItem->getIdSalesOrderItem();
             },
-            $orderItems
+            $salesOrderItems
         );
 
         $this->facade->executeFinishOmsCommand($orderTransfer, $salesOrderItemIds);
