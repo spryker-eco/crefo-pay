@@ -22,7 +22,7 @@ class CrefoPayNotificationProcessorMapper implements CrefoPayNotificationProcess
         Request $request,
         CrefoPayNotificationTransfer $notificationTransfer
     ): CrefoPayNotificationTransfer {
-        return (new CrefoPayNotificationTransfer())
+        return $notificationTransfer
             ->fromArray($request->request->all(), true);
     }
 }
