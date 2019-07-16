@@ -18,7 +18,7 @@ use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem;
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToCrefoPayApiLog;
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToCrefoPayNotification;
 
-class CrefoPayPersistenceMapper implements CrefoPayPersistenceMapperInterface
+class CrefoPayPersistenceMapper
 {
     /**
      * @param \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPay $paymentCrefoPayEntity

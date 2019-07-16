@@ -110,6 +110,13 @@ class RefundOmsCommand implements RefundOmsCommandInterface
 
         $crefoPayOmsCommandTransfer->setResponse($responseTransfer);
 
+        if ($crefoPayOmsCommandTransfer->getExpensesRequest() !== null) {
+            $expensesResponseTransfer = $this->omsCommandClient
+                ->performApiCall($crefoPayOmsCommandTransfer->getExpensesRequest());
+
+            $crefoPayOmsCommandTransfer->setExpensesResponse($expensesResponseTransfer);
+        }
+
         return $crefoPayOmsCommandTransfer;
     }
 }

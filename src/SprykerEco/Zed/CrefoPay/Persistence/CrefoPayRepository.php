@@ -17,10 +17,9 @@ use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemQuery;
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToCrefoPayApiLogQuery;
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToCrefoPayNotificationQuery;
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayQuery;
-use Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery;
 use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
-use SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapperInterface;
+use SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapper;
 
 /**
  * @method \SprykerEco\Zed\CrefoPay\Persistence\CrefoPayPersistenceFactory getFactory()
@@ -274,9 +273,9 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapperInterface
+     * @return \SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapper
      */
-    protected function getMapper(): CrefoPayPersistenceMapperInterface
+    protected function getMapper(): CrefoPayPersistenceMapper
     {
         return $this->getFactory()->createCrefoPayPersistenceMapper();
     }
@@ -311,13 +310,5 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
     protected function getPaymentCrefoPayOrderItemToCrefoPayNotificationQuery(): SpyPaymentCrefoPayOrderItemToCrefoPayNotificationQuery
     {
         return $this->getFactory()->createPaymentCrefoPayOrderItemToCrefoPayNotificationQuery();
-    }
-
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery
-     */
-    protected function getSalesOrderItemQuery(): SpySalesOrderItemQuery
-    {
-        return $this->getFactory()->createSpySalesOrderItemQuery();
     }
 }

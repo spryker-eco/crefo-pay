@@ -15,7 +15,6 @@ use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayQuery;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 use SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapper;
-use SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapperInterface;
 
 /**
  * @method \SprykerEco\Zed\CrefoPay\CrefoPayConfig getConfig()
@@ -75,9 +74,9 @@ class CrefoPayPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapperInterface
+     * @return \SprykerEco\Zed\CrefoPay\Persistence\Mapper\CrefoPayPersistenceMapper
      */
-    public function createCrefoPayPersistenceMapper(): CrefoPayPersistenceMapperInterface
+    public function createCrefoPayPersistenceMapper(): CrefoPayPersistenceMapper
     {
         return new CrefoPayPersistenceMapper();
     }

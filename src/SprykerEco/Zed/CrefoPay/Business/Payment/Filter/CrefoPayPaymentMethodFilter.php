@@ -27,11 +27,6 @@ class CrefoPayPaymentMethodFilter implements CrefoPayPaymentMethodFilterInterfac
     protected $config;
 
     /**
-     * @var string[]
-     */
-    protected $availableMethods = [];
-
-    /**
      * @param \SprykerEco\Zed\CrefoPay\Business\Mapper\PaymentMethod\CrefoPayPaymentMethodMapperInterface $paymentMethodMapper
      * @param \SprykerEco\Zed\CrefoPay\CrefoPayConfig $config
      */
