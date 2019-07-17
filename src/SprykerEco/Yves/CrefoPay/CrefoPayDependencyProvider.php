@@ -35,9 +35,9 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addCrefoPayApiService(Container $container): Container
     {
-        $container[static::SERVICE_CREFO_PAY_API] = function (Container $container) {
+        $container->set(static::SERVICE_CREFO_PAY_API, function (Container $container) {
             return new CrefoPayToCrefoPayApiServiceBridge($container->getLocator()->crefoPayApi()->service());
-        };
+        });
 
         return $container;
     }

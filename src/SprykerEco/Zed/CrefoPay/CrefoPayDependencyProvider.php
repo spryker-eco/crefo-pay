@@ -69,9 +69,9 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addCrefoPayApiFacade(Container $container): Container
     {
-        $container[static::FACADE_CREFO_APY_API] = function (Container $container) {
+        $container->set(static::FACADE_CREFO_APY_API, function (Container $container) {
             return new CrefoPayToCrefoPayApiFacadeBridge($container->getLocator()->crefoPayApi()->facade());
-        };
+        });
 
         return $container;
     }
@@ -83,9 +83,9 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addSalesFacade(Container $container): Container
     {
-        $container[static::FACADE_SALES] = function (Container $container) {
+        $container->set(static::FACADE_SALES, function (Container $container) {
             return new CrefoPayToSalesFacadeBridge($container->getLocator()->sales()->facade());
-        };
+        });
 
         return $container;
     }
@@ -97,9 +97,9 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addCalculationFacade(Container $container): Container
     {
-        $container[static::FACADE_CALCULATION] = function (Container $container) {
+        $container->set(static::FACADE_CALCULATION, function (Container $container) {
             return new CrefoPayToCalculationFacadeBridge($container->getLocator()->calculation()->facade());
-        };
+        });
 
         return $container;
     }
@@ -111,9 +111,9 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addLocaleFacade(Container $container): Container
     {
-        $container[static::FACADE_LOCALE] = function (Container $container) {
+        $container->set(static::FACADE_LOCALE, function (Container $container) {
             return new CrefoPayToLocaleFacadeBridge($container->getLocator()->locale()->facade());
-        };
+        });
 
         return $container;
     }
@@ -125,9 +125,9 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addOmsFacade(Container $container): Container
     {
-        $container[static::FACADE_OMS] = function (Container $container) {
+        $container->set(static::FACADE_OMS, function (Container $container) {
             return new CrefoPayToOmsFacadeBridge($container->getLocator()->oms()->facade());
-        };
+        });
 
         return $container;
     }
@@ -139,9 +139,9 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addRefundFacade(Container $container): Container
     {
-        $container[static::FACADE_REFUND] = function (Container $container) {
+        $container->set(static::FACADE_REFUND, function (Container $container) {
             return new CrefoPayToRefundFacadeBridge($container->getLocator()->refund()->facade());
-        };
+        });
 
         return $container;
     }
@@ -153,9 +153,9 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addCrefoPayService(Container $container): Container
     {
-        $container[static::SERVICE_CREFO_PAY] = function (Container $container) {
+        $container->set(static::SERVICE_CREFO_PAY, function (Container $container) {
             return $container->getLocator()->crefoPay()->service();
-        };
+        });
 
         return $container;
     }
@@ -167,9 +167,9 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addUtilTextService(Container $container): Container
     {
-        $container[static::SERVICE_UTIL_TEXT] = function (Container $container) {
+        $container->set(static::SERVICE_UTIL_TEXT, function (Container $container) {
             return new CrefoPayToUtilTextServiceBridge($container->getLocator()->utilText()->service());
-        };
+        });
 
         return $container;
     }
