@@ -13,21 +13,6 @@ class CrefoPayConfig extends AbstractBundleConfig
 {
     public const PROVIDER_NAME = 'crefoPay';
 
-    public const USER_RISK_CLASS = 1; //Possible values: 0 -> trusted user, 1 -> default risk user, 2 -> high risk user.
-    public const PRODUCT_TYPE_DEFAULT = 'DEFAULT';
-    public const PRODUCT_TYPE_SHIPPING_COSTS = 'SHIPPINGCOSTS';
-    public const PRODUCT_TYPE_COUPON = 'COUPON';
-    public const PRODUCT_RISK_CLASS = 1;
-
-    public const EXTERNAL_PAYMENT_METHOD_BILL = 'BILL';
-    public const EXTERNAL_PAYMENT_METHOD_CASH_ON_DELIVERY = 'COD';
-    public const EXTERNAL_PAYMENT_METHOD_DIRECT_DEBIT = 'DD';
-    public const EXTERNAL_PAYMENT_METHOD_PAYPAL = 'PAYPAL';
-    public const EXTERNAL_PAYMENT_METHOD_PREPAID = 'PREPAID';
-    public const EXTERNAL_PAYMENT_METHOD_SOFORT = 'SU';
-    public const EXTERNAL_PAYMENT_METHOD_CREDIT_CARD = 'CC';
-    public const EXTERNAL_PAYMENT_METHOD_CREDIT_CARD_3D = 'CC3D';
-
     public const CREFO_PAY_PAYMENT_METHOD_BILL = 'crefoPayBill';
     public const CREFO_PAY_PAYMENT_METHOD_CASH_ON_DELIVERY = 'crefoPayCashOnDelivery';
     public const CREFO_PAY_PAYMENT_METHOD_DIRECT_DEBIT = 'crefoPayDirectDebit';
@@ -36,6 +21,22 @@ class CrefoPayConfig extends AbstractBundleConfig
     public const CREFO_PAY_PAYMENT_METHOD_SOFORT = 'crefoPaySofort';
     public const CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD = 'crefoPayCreditCard';
     public const CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD_3D = 'crefoPayCreditCard3D';
+
+    protected const USER_RISK_CLASS = 1; //Possible values: 0 -> trusted user, 1 -> default risk user, 2 -> high risk user.
+    protected const PRODUCT_TYPE_DEFAULT = 'DEFAULT';
+    protected const PRODUCT_TYPE_SHIPPING_COSTS = 'SHIPPINGCOSTS';
+    protected const PRODUCT_TYPE_COUPON = 'COUPON';
+
+    protected const PRODUCT_RISK_CLASS = 1;
+    protected const EXTERNAL_PAYMENT_METHOD_BILL = 'BILL';
+    protected const EXTERNAL_PAYMENT_METHOD_CASH_ON_DELIVERY = 'COD';
+    protected const EXTERNAL_PAYMENT_METHOD_DIRECT_DEBIT = 'DD';
+    protected const EXTERNAL_PAYMENT_METHOD_PAYPAL = 'PAYPAL';
+    protected const EXTERNAL_PAYMENT_METHOD_PREPAID = 'PREPAID';
+    protected const EXTERNAL_PAYMENT_METHOD_SOFORT = 'SU';
+    protected const EXTERNAL_PAYMENT_METHOD_CREDIT_CARD = 'CC';
+
+    protected const EXTERNAL_PAYMENT_METHOD_CREDIT_CARD_3D = 'CC3D';
 
     /**
      * @return string

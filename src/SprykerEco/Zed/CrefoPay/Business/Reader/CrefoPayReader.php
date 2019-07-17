@@ -33,13 +33,13 @@ class CrefoPayReader implements CrefoPayReaderInterface
     }
 
     /**
-     * @param int $fkSalesOrder
+     * @param int $idSalesOrder
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function findPaymentCrefoPayByIdSalesOrder(int $fkSalesOrder): PaymentCrefoPayTransfer
+    public function findPaymentCrefoPayByIdSalesOrder(int $idSalesOrder): PaymentCrefoPayTransfer
     {
-        return $this->repository->findPaymentCrefoPayByFkSalesOrder($fkSalesOrder);
+        return $this->repository->findPaymentCrefoPayByFkSalesOrder($idSalesOrder);
     }
 
     /**

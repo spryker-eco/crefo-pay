@@ -16,11 +16,11 @@ use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 interface CrefoPayReaderInterface
 {
     /**
-     * @param int $fkSalesOrder
+     * @param int $idSalesOrder
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function findPaymentCrefoPayByIdSalesOrder(int $fkSalesOrder): PaymentCrefoPayTransfer;
+    public function findPaymentCrefoPayByIdSalesOrder(int $idSalesOrder): PaymentCrefoPayTransfer;
 
     /**
      * @param string $crefoPayOrderId
