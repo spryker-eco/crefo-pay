@@ -113,7 +113,6 @@ class CashOnDeliverySubForm extends AbstractSubFormType implements SubFormInterf
             ChoiceType::class,
             [
                 'choices' => [static::FORM_FIELD_PAYMENT_METHOD_DATA],
-                'choices_as_values' => true,
                 'expanded' => true,
             ]
         );

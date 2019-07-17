@@ -117,7 +117,6 @@ class CreditCard3DSubForm extends AbstractSubFormType implements SubFormInterfac
             ChoiceType::class,
             [
                 'choices' => [static::FORM_FIELD_PAYMENT_METHOD_DATA],
-                'choices_as_values' => true,
                 'expanded' => true,
             ]
         );
