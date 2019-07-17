@@ -23,6 +23,8 @@ class CaptureSplitPlugin extends AbstractPlugin implements CommandByItemInterfac
 {
     /**
      * {@inheritdoc}
+     * - Makes capture request to CrefoPay API. All order items have separate payment transaction.
+     * - Updates order items status.
      *
      * @api
      *

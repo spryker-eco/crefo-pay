@@ -22,6 +22,7 @@ class IsCiaPendingReceivedPlugin extends AbstractPlugin implements ConditionInte
 {
     /**
      * {@inheritdoc}
+     * - Checks if CIAPENDING notification was received for given order item.
      *
      * @api
      *

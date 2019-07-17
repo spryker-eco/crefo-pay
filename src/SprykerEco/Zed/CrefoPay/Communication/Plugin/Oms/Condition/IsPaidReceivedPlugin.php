@@ -22,6 +22,7 @@ class IsPaidReceivedPlugin extends AbstractPlugin implements ConditionInterface
 {
     /**
      * {@inheritdoc}
+     * - Checks if PAID notification was received for given order item.
      *
      * @api
      *

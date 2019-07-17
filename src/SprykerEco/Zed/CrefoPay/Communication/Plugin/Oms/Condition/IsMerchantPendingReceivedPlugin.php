@@ -22,6 +22,7 @@ class IsMerchantPendingReceivedPlugin extends AbstractPlugin implements Conditio
 {
     /**
      * {@inheritdoc}
+     * - Checks if MERCHANTPENDING notification was received for given order item.
      *
      * @api
      *

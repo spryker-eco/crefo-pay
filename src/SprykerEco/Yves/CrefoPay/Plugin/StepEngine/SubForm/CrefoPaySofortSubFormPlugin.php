@@ -21,6 +21,7 @@ class CrefoPaySofortSubFormPlugin extends AbstractPlugin implements SubFormPlugi
 {
     /**
      * {@inheritdoc}
+     * - Creates sub form for Sofort payment method.
      *
      * @api
      *
@@ -33,6 +34,7 @@ class CrefoPaySofortSubFormPlugin extends AbstractPlugin implements SubFormPlugi
 
     /**
      * {@inheritdoc}
+     * - Creates data provider for Sofort payment method.
      *
      * @api
      *

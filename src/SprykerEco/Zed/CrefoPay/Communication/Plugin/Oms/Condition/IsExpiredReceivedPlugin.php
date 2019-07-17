@@ -22,6 +22,7 @@ class IsExpiredReceivedPlugin extends AbstractPlugin implements ConditionInterfa
 {
     /**
      * {@inheritdoc}
+     * - Checks if EXPIRED notification was received for given order item.
      *
      * @api
      *

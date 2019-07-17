@@ -23,6 +23,8 @@ class CrefoPayDoSaveOrderPlugin extends AbstractPlugin implements CheckoutDoSave
 {
     /**
      * {@inheritdoc}
+     * - Creates payment entities and saves them to DB.
+     * - Saves order payment method data according to quote and checkout response transfer data.
      *
      * @api
      *

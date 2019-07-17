@@ -21,6 +21,7 @@ class CrefoPayPayPalSubFormPlugin extends AbstractPlugin implements SubFormPlugi
 {
     /**
      * {@inheritdoc}
+     * - Creates sub form for PayPal payment method.
      *
      * @api
      *
@@ -33,6 +34,7 @@ class CrefoPayPayPalSubFormPlugin extends AbstractPlugin implements SubFormPlugi
 
     /**
      * {@inheritdoc}
+     * - Creates data provider for PayPal payment method.
      *
      * @api
      *

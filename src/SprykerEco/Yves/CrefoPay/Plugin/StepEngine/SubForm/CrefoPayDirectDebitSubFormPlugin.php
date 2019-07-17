@@ -21,6 +21,7 @@ class CrefoPayDirectDebitSubFormPlugin extends AbstractPlugin implements SubForm
 {
     /**
      * {@inheritdoc}
+     * - Creates sub form for DirectDebit payment method.
      *
      * @api
      *
@@ -33,6 +34,7 @@ class CrefoPayDirectDebitSubFormPlugin extends AbstractPlugin implements SubForm
 
     /**
      * {@inheritdoc}
+     * - Creates data provider for DirectDebit payment method.
      *
      * @api
      *

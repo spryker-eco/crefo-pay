@@ -22,6 +22,7 @@ class IsCancelCallSuccessfulPlugin extends AbstractPlugin implements ConditionIn
 {
     /**
      * {@inheritdoc}
+     * - Checks if cancel api call was successfully performed for given order item.
      *
      * @api
      *

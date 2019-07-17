@@ -23,6 +23,8 @@ class FinishPlugin extends AbstractPlugin implements CommandByOrderInterface
 {
     /**
      * {@inheritdoc}
+     * - Makes finish request to CrefoPay API.
+     * - Updates order items status.
      *
      * @api
      *

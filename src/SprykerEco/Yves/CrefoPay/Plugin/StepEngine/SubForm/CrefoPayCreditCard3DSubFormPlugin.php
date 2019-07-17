@@ -21,6 +21,7 @@ class CrefoPayCreditCard3DSubFormPlugin extends AbstractPlugin implements SubFor
 {
     /**
      * {@inheritdoc}
+     * - Creates sub form for CreditCard3D payment method.
      *
      * @api
      *
@@ -33,6 +34,7 @@ class CrefoPayCreditCard3DSubFormPlugin extends AbstractPlugin implements SubFor
 
     /**
      * {@inheritdoc}
+     * - Creates data provider for CreditCard3D payment method.
      *
      * @api
      *

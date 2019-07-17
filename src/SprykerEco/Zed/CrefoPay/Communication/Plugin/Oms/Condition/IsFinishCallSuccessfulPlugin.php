@@ -22,6 +22,7 @@ class IsFinishCallSuccessfulPlugin extends AbstractPlugin implements ConditionIn
 {
     /**
      * {@inheritdoc}
+     * - Checks if finish API call was successfully performed for given order item.
      *
      * @api
      *

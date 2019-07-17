@@ -22,6 +22,7 @@ class IsDoneReceivedPlugin extends AbstractPlugin implements ConditionInterface
 {
     /**
      * {@inheritdoc}
+     * - Checks if DONE notification was received for given order item.
      *
      * @api
      *

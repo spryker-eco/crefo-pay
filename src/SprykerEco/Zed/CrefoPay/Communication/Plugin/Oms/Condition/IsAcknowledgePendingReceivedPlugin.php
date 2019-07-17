@@ -22,6 +22,7 @@ class IsAcknowledgePendingReceivedPlugin extends AbstractPlugin implements Condi
 {
     /**
      * {@inheritdoc}
+     * - Checks if ACKNOWLEDGEPENDING notification was received for given order item.
      *
      * @api
      *

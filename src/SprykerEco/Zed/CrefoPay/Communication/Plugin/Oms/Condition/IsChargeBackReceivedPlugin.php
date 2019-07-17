@@ -22,6 +22,7 @@ class IsChargeBackReceivedPlugin extends AbstractPlugin implements ConditionInte
 {
     /**
      * {@inheritdoc}
+     * - Checks if CHARGEBACK notification was received for given order item.
      *
      * @api
      *

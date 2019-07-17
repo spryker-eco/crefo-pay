@@ -22,6 +22,7 @@ class IsCaptureCallSuccessfulPlugin extends AbstractPlugin implements ConditionI
 {
     /**
      * {@inheritdoc}
+     * - Checks if capture API call was successfully performed for given order item.
      *
      * @api
      *

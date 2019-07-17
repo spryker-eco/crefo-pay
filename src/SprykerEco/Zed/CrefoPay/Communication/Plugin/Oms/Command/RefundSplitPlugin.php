@@ -23,6 +23,8 @@ class RefundSplitPlugin extends AbstractPlugin implements CommandByItemInterface
 {
     /**
      * {@inheritdoc}
+     * - Makes refund request to CrefoPay API. All order items have separate payment transaction.
+     * - Updates order items status.
      *
      * @api
      *

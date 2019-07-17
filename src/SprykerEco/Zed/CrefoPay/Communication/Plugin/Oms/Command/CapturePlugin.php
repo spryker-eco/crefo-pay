@@ -23,6 +23,8 @@ class CapturePlugin extends AbstractPlugin implements CommandByOrderInterface
 {
     /**
      * {@inheritdoc}
+     * - Makes capture request to CrefoPay API. All order items combined in one payment transaction.
+     * - Updates order items status.
      *
      * @api
      *

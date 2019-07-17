@@ -22,6 +22,7 @@ class CrefoPayPaymentExpanderPlugin extends AbstractPlugin implements StepHandle
 {
     /**
      * {@inheritdoc}
+     * - Expands `PaymentTransfer` with payment provider and payment selection.
      *
      * @api
      *

@@ -22,6 +22,7 @@ class IsRefundCallSuccessfulPlugin extends AbstractPlugin implements ConditionIn
 {
     /**
      * {@inheritdoc}
+     * - Checks if refund API call was successfully performed for given order item.
      *
      * @api
      *

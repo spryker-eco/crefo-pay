@@ -21,6 +21,7 @@ class CrefoPayQuoteExpanderPlugin extends AbstractPlugin implements StepHandlerP
 {
     /**
      * {@inheritdoc}
+     * - Expands `QuoteTransfer` with response from CreateTransaction API call.
      *
      * @api
      *

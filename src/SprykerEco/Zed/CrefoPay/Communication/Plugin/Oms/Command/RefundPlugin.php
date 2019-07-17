@@ -23,6 +23,8 @@ class RefundPlugin extends AbstractPlugin implements CommandByOrderInterface
 {
     /**
      * {@inheritdoc}
+     * - Makes refund request to CrefoPay API. All order items combined in one payment transaction.
+     * - Updates order items status.
      *
      * @api
      *

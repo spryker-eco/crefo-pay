@@ -22,6 +22,7 @@ class IsReserveCallSuccessfulPlugin extends AbstractPlugin implements ConditionI
 {
     /**
      * {@inheritdoc}
+     * - Checks if reserve api call was successfully performed for given order item.
      *
      * @api
      *

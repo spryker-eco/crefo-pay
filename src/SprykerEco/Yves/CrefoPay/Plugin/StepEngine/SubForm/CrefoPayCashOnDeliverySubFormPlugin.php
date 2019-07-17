@@ -21,6 +21,7 @@ class CrefoPayCashOnDeliverySubFormPlugin extends AbstractPlugin implements SubF
 {
     /**
      * {@inheritdoc}
+     * - Creates sub form for CashOnDelivery payment method.
      *
      * @api
      *
@@ -33,6 +34,7 @@ class CrefoPayCashOnDeliverySubFormPlugin extends AbstractPlugin implements SubF
 
     /**
      * {@inheritdoc}
+     * - Creates data provider for CashOnDelivery payment method.
      *
      * @api
      *

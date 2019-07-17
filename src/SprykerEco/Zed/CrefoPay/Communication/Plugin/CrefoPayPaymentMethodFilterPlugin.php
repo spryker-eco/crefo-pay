@@ -22,8 +22,9 @@ use Spryker\Zed\Payment\Dependency\Plugin\Payment\PaymentMethodFilterPluginInter
 class CrefoPayPaymentMethodFilterPlugin extends AbstractPlugin implements PaymentMethodFilterPluginInterface
 {
     /**
-     * Specification:
-     * - Returns filtered by set of plugins array object of payments
+     * {@inheritdoc}
+     * - Takes allowed payment methods from the QuoteTransfer received in CreateTransaction API call.
+     * - Filters payment methods based on allowed payment methods.
      *
      * @api
      *

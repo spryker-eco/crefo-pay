@@ -21,6 +21,7 @@ class CrefoPayPrepaidSubFormPlugin extends AbstractPlugin implements SubFormPlug
 {
     /**
      * {@inheritdoc}
+     * - Creates sub form for Prepaid payment method.
      *
      * @api
      *
@@ -33,6 +34,7 @@ class CrefoPayPrepaidSubFormPlugin extends AbstractPlugin implements SubFormPlug
 
     /**
      * {@inheritdoc}
+     * - Creates data provider for Prepaid payment method.
      *
      * @api
      *

@@ -22,6 +22,7 @@ class IsCanceledReceivedPlugin extends AbstractPlugin implements ConditionInterf
 {
     /**
      * {@inheritdoc}
+     * - Checks if CANCELLED notification was received for given order item.
      *
      * @api
      *

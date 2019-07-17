@@ -23,6 +23,8 @@ class CancelPlugin extends AbstractPlugin implements CommandByOrderInterface
 {
     /**
      * {@inheritdoc}
+     * - Makes cancel request to CrefoPay API.
+     * - Updates order items status.
      *
      * @api
      *
