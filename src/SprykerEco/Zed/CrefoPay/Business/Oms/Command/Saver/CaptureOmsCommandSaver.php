@@ -193,7 +193,7 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     protected function getRemainingOrderItems(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): array
     {
         $paymentCrefoPayOrderItemCollection = $this->reader
-            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderId(
+            ->getPaymentCrefoPayOrderItemCollectionByCrefoPayOrderId(
                 $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId()
             );
 

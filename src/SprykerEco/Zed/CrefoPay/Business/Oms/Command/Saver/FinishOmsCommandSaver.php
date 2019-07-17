@@ -99,7 +99,7 @@ class FinishOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     ): PaymentCrefoPayOrderItemCollectionTransfer {
         $status = $this->config->getOmsStatusMoneyReduced();
         $paymentCrefoPayOrderItemCollection = $this->reader
-            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderId(
+            ->getPaymentCrefoPayOrderItemCollectionByCrefoPayOrderId(
                 $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId()
             );
         $paymentCrefoPayOrderItems = array_map(

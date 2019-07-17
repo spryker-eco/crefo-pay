@@ -7,7 +7,9 @@
 
 namespace SprykerEco\Zed\CrefoPay\Persistence\Mapper;
 
+use ArrayObject;
 use Generated\Shared\Transfer\PaymentCrefoPayNotificationTransfer;
+use Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
@@ -17,9 +19,34 @@ use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayNotification;
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem;
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToCrefoPayApiLog;
 use Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItemToCrefoPayNotification;
+use Propel\Runtime\Collection\ObjectCollection;
 
 class CrefoPayPersistenceMapper
 {
+    /**
+     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities
+     * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $crefoPayOrderItemCollectionTransfer
+     *
+     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
+     */
+    public function mapOrderItemEntitiesToOrderItemCollection(
+        ObjectCollection $paymentCrefoPayOrderItemEntities,
+        PaymentCrefoPayOrderItemCollectionTransfer $crefoPayOrderItemCollectionTransfer
+    ): PaymentCrefoPayOrderItemCollectionTransfer {
+        $result = new ArrayObject();
+
+        foreach ($paymentCrefoPayOrderItemEntities as $paymentCrefoPayOrderItemEntity) {
+            $paymentCrefoPayOrderItemTransfer = $this->mapEntityToPaymentCrefoPayOrderItemTransfer(
+                $paymentCrefoPayOrderItemEntity,
+                new PaymentCrefoPayOrderItemTransfer()
+            );
+            $result->append($paymentCrefoPayOrderItemTransfer);
+        }
+
+        return $crefoPayOrderItemCollectionTransfer
+            ->setCrefoPayOrderItems($result);
+    }
+
     /**
      * @param \Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPay $paymentCrefoPayEntity
      * @param \Generated\Shared\Transfer\PaymentCrefoPayTransfer $paymentCrefoPayTransfer

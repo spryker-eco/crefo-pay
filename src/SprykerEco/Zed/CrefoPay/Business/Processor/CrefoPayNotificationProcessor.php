@@ -107,11 +107,11 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
     {
         if ($this->isCaptureRelatedNotification($notificationTransfer)) {
             return $this->reader
-                ->findPaymentCrefoPayOrderItemsByCaptureId($notificationTransfer->getCaptureID());
+                ->getPaymentCrefoPayOrderItemCollectionByCaptureId($notificationTransfer->getCaptureID());
         }
 
         return $this->reader
-            ->findPaymentCrefoPayOrderItemsByCrefoPayOrderId($notificationTransfer->getOrderID());
+            ->getPaymentCrefoPayOrderItemCollectionByCrefoPayOrderId($notificationTransfer->getOrderID());
     }
 
     /**

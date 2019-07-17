@@ -20,42 +20,42 @@ interface CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function findPaymentCrefoPayByIdSalesOrder(int $idSalesOrder): PaymentCrefoPayTransfer;
+    public function getPaymentCrefoPayByIdSalesOrder(int $idSalesOrder): PaymentCrefoPayTransfer;
 
     /**
      * @param string $crefoPayOrderId
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function findPaymentCrefoPayByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayTransfer;
+    public function getPaymentCrefoPayByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayTransfer;
 
     /**
      * @param int $idSalesOrderItem
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function findPaymentCrefoPayByIdSalesOrderItem(int $idSalesOrderItem): PaymentCrefoPayTransfer;
+    public function getPaymentCrefoPayByIdSalesOrderItem(int $idSalesOrderItem): PaymentCrefoPayTransfer;
 
     /**
      * @param string $crefoPayOrderId
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer;
+    public function getPaymentCrefoPayOrderItemCollectionByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer;
 
     /**
      * @param string $captureId
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsByCaptureId(string $captureId): PaymentCrefoPayOrderItemCollectionTransfer;
+    public function getPaymentCrefoPayOrderItemCollectionByCaptureId(string $captureId): PaymentCrefoPayOrderItemCollectionTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsByCrefoPayToSalesOrderItemsCollection(
+    public function getPaymentCrefoPayOrderItemCollectionByCrefoPayToSalesOrderItemsCollection(
         CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
     ): PaymentCrefoPayOrderItemCollectionTransfer;
 
@@ -64,7 +64,7 @@ interface CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsBySalesOrderItemIds(array $salesOrderItemIds): PaymentCrefoPayOrderItemCollectionTransfer;
+    public function getPaymentCrefoPayOrderItemCollectionBySalesOrderItemIds(array $salesOrderItemIds): PaymentCrefoPayOrderItemCollectionTransfer;
 
     /**
      * @param int $idSalesOrderItem
@@ -72,7 +72,7 @@ interface CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer
      */
-    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
+    public function getPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
         int $idSalesOrderItem,
         string $apiLogRequestType
     ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer;
@@ -83,7 +83,7 @@ interface CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer
      */
-    public function findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
+    public function getPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
         int $idSalesOrderItem,
         string $notificationTransactionStatus
     ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer;
@@ -94,7 +94,7 @@ interface CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer
      */
-    public function findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
+    public function getPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
         int $idSalesOrderItem,
         string $notificationOrderStatus
     ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer;

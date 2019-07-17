@@ -34,7 +34,7 @@ class IsFinishCallSuccessfulOmsCondition implements CrefoPayOmsConditionInterfac
     public function check(int $idSalesOrderItem): bool
     {
         $relationTransfer = $this->reader
-            ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
+            ->getPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
                 $idSalesOrderItem,
                 static::REQUEST_TYPE
             );

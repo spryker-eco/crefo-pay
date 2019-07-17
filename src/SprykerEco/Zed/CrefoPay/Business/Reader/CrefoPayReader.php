@@ -37,9 +37,9 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function findPaymentCrefoPayByIdSalesOrder(int $idSalesOrder): PaymentCrefoPayTransfer
+    public function getPaymentCrefoPayByIdSalesOrder(int $idSalesOrder): PaymentCrefoPayTransfer
     {
-        return $this->repository->findPaymentCrefoPayByFkSalesOrder($idSalesOrder);
+        return $this->repository->findPaymentCrefoPayByIdSalesOrder($idSalesOrder) ?? new PaymentCrefoPayTransfer();
     }
 
     /**
@@ -47,9 +47,9 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function findPaymentCrefoPayByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayTransfer
+    public function getPaymentCrefoPayByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayTransfer
     {
-        return $this->repository->findPaymentCrefoPayByCrefoPayOrderId($crefoPayOrderId);
+        return $this->repository->findPaymentCrefoPayByCrefoPayOrderId($crefoPayOrderId) ?? new PaymentCrefoPayTransfer();
     }
 
     /**
@@ -57,9 +57,9 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayTransfer
      */
-    public function findPaymentCrefoPayByIdSalesOrderItem(int $idSalesOrderItem): PaymentCrefoPayTransfer
+    public function getPaymentCrefoPayByIdSalesOrderItem(int $idSalesOrderItem): PaymentCrefoPayTransfer
     {
-        return $this->repository->findPaymentCrefoPayByIdSalesOrderItem($idSalesOrderItem);
+        return $this->repository->findPaymentCrefoPayByIdSalesOrderItem($idSalesOrderItem) ?? new PaymentCrefoPayTransfer();
     }
 
     /**
@@ -67,9 +67,9 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer
+    public function getPaymentCrefoPayOrderItemCollectionByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        return $this->repository->findPaymentCrefoPayOrderItemsByCrefoPayOrderId($crefoPayOrderId);
+        return $this->repository->getPaymentCrefoPayOrderItemCollectionByCrefoPayOrderId($crefoPayOrderId);
     }
 
     /**
@@ -77,9 +77,9 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsByCaptureId(string $captureId): PaymentCrefoPayOrderItemCollectionTransfer
+    public function getPaymentCrefoPayOrderItemCollectionByCaptureId(string $captureId): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        return $this->repository->findPaymentCrefoPayOrderItemsByCaptureId($captureId);
+        return $this->repository->getPaymentCrefoPayOrderItemCollectionByCaptureId($captureId);
     }
 
     /**
@@ -87,7 +87,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsByCrefoPayToSalesOrderItemsCollection(
+    public function getPaymentCrefoPayOrderItemCollectionByCrefoPayToSalesOrderItemsCollection(
         CrefoPayToSalesOrderItemsCollectionTransfer $crefoPayToSalesOrderItemsCollection
     ): PaymentCrefoPayOrderItemCollectionTransfer {
         $salesOrderItemIds = array_map(
@@ -97,7 +97,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
             $crefoPayToSalesOrderItemsCollection->getCrefoPayToSalesOrderItems()->getArrayCopy()
         );
 
-        return $this->repository->findPaymentCrefoPayOrderItemsBySalesOrderItemIds($salesOrderItemIds);
+        return $this->repository->getPaymentCrefoPayOrderItemCollectionBySalesOrderItemIds($salesOrderItemIds);
     }
 
     /**
@@ -105,9 +105,9 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
-    public function findPaymentCrefoPayOrderItemsBySalesOrderItemIds(array $salesOrderItemIds): PaymentCrefoPayOrderItemCollectionTransfer
+    public function getPaymentCrefoPayOrderItemCollectionBySalesOrderItemIds(array $salesOrderItemIds): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        return $this->repository->findPaymentCrefoPayOrderItemsBySalesOrderItemIds($salesOrderItemIds);
+        return $this->repository->getPaymentCrefoPayOrderItemCollectionBySalesOrderItemIds($salesOrderItemIds);
     }
 
     /**
@@ -116,7 +116,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer
      */
-    public function findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
+    public function getPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
         int $idSalesOrderItem,
         string $apiLogRequestType
     ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer {
@@ -125,7 +125,8 @@ class CrefoPayReader implements CrefoPayReaderInterface
                 $idSalesOrderItem,
                 $apiLogRequestType,
                 static::SUCCESS_RESULT_CODES
-            );
+            )
+            ?? new PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer();
     }
 
     /**
@@ -134,7 +135,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer
      */
-    public function findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
+    public function getPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
         int $idSalesOrderItem,
         string $notificationTransactionStatus
     ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer {
@@ -142,7 +143,8 @@ class CrefoPayReader implements CrefoPayReaderInterface
             ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $idSalesOrderItem,
                 $notificationTransactionStatus
-            );
+            )
+            ?? new PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer();
     }
 
     /**
@@ -151,7 +153,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer
      */
-    public function findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
+    public function getPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
         int $idSalesOrderItem,
         string $notificationOredrStatus
     ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer {
@@ -159,6 +161,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
             ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
                 $idSalesOrderItem,
                 $notificationOredrStatus
-            );
+            )
+            ?? new PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer();
     }
 }

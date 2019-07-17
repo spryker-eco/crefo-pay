@@ -87,10 +87,10 @@ class RefundOmsCommand implements RefundOmsCommandInterface
         array $salesOrderItemIds
     ): CrefoPayOmsCommandTransfer {
         $paymentCrefoPayTransfer = $this->reader
-            ->findPaymentCrefoPayByIdSalesOrder($orderTransfer->getIdSalesOrder());
+            ->getPaymentCrefoPayByIdSalesOrder($orderTransfer->getIdSalesOrder());
 
         $paymentCrefoPayOrderItemCollection = $this->reader
-            ->findPaymentCrefoPayOrderItemsBySalesOrderItemIds($salesOrderItemIds);
+            ->getPaymentCrefoPayOrderItemCollectionBySalesOrderItemIds($salesOrderItemIds);
 
         return (new CrefoPayOmsCommandTransfer())
             ->setOrder($orderTransfer)
