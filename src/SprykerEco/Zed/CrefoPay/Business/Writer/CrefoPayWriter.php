@@ -131,7 +131,7 @@ class CrefoPayWriter implements CrefoPayWriterInterface
         SaveOrderTransfer $saveOrderTransfer
     ): PaymentCrefoPayTransfer {
         $paymentCrefoPayTransfer = (new PaymentCrefoPayTransfer())
-            ->setFkSalesOrder($saveOrderTransfer->getIdSalesOrder())
+            ->setIdSalesOrder($saveOrderTransfer->getIdSalesOrder())
             ->setOrderReference($saveOrderTransfer->getOrderReference())
             ->setCrefoPayOrderId($quoteTransfer->getCrefoPayTransaction()->getCrefoPayOrderId())
             ->setPaymentMethod($quoteTransfer->getPayment()->getPaymentSelection())
@@ -151,8 +151,8 @@ class CrefoPayWriter implements CrefoPayWriterInterface
         ItemTransfer $orderItem
     ): PaymentCrefoPayOrderItemTransfer {
         $paymentCrefoPayOrderItemTransfer = (new PaymentCrefoPayOrderItemTransfer())
-            ->setFkSalesOrderItem($orderItem->getIdSalesOrderItem())
-            ->setFkPaymentCrefoPay($paymentCrefoPayTransfer->getIdPaymentCrefoPay())
+            ->setIdSalesOrderItem($orderItem->getIdSalesOrderItem())
+            ->setIdPaymentCrefoPay($paymentCrefoPayTransfer->getIdPaymentCrefoPay())
             ->setAmount($orderItem->getSumPriceToPayAggregation())
             ->setVatAmount($orderItem->getSumTaxAmountFullAggregation())
             ->setVatRate($orderItem->getTaxRate())
@@ -197,8 +197,8 @@ class CrefoPayWriter implements CrefoPayWriterInterface
         int $idPaymentCrefoPayApiLog
     ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer {
         $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer = (new PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer())
-            ->setFkPaymentCrefoPayOrderItem($idPaymentCrefoPayOrderItem)
-            ->setFkPaymentCrefoPayApiLog($idPaymentCrefoPayApiLog);
+            ->setIdPaymentCrefoPayOrderItem($idPaymentCrefoPayOrderItem)
+            ->setIdPaymentCrefoPayApiLog($idPaymentCrefoPayApiLog);
 
         return $this->entityManager
             ->savePaymentCrefoPayOrderItemToCrefoPayApiLogEntity($paymentCrefoPayOrderItemToCrefoPayApiLogTransfer);
@@ -215,8 +215,8 @@ class CrefoPayWriter implements CrefoPayWriterInterface
         int $idPaymentCrefoPayNotification
     ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer {
         $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer = (new PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer())
-            ->setFkPaymentCrefoPayOrderItem($idPaymentCrefoPayOrderItem)
-            ->setFkPaymentCrefoPayNotification($idPaymentCrefoPayNotification);
+            ->setIdPaymentCrefoPayOrderItem($idPaymentCrefoPayOrderItem)
+            ->setIdPaymentCrefoPayNotification($idPaymentCrefoPayNotification);
 
         return $this->entityManager
             ->savePaymentCrefoPayOrderItemToCrefoPayNotificationEntity($paymentCrefoPayOrderItemToCrefoPayNotificationTransfer);

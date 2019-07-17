@@ -192,7 +192,7 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
 
         $itemIdsToRefund = array_map(
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
-                return $paymentCrefoPayOrderItemTransfer->getFkSalesOrderItem();
+                return $paymentCrefoPayOrderItemTransfer->getIdSalesOrderItem();
             },
             $crefoPayOmsCommandTransfer
                 ->getPaymentCrefoPayOrderItemCollection()

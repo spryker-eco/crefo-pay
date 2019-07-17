@@ -60,7 +60,7 @@ class CrefoPayPersistenceMapper
         $paymentCrefoPayTransfer->fromArray(
             $paymentCrefoPayEntity->toArray(),
             true
-        );
+        )->setIdSalesOrder($paymentCrefoPayEntity->getFkSalesOrder());
 
         return $paymentCrefoPayTransfer;
     }
@@ -75,10 +75,10 @@ class CrefoPayPersistenceMapper
         SpyPaymentCrefoPayOrderItem $paymentCrefoPayOrderItemEntity,
         PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer
     ): PaymentCrefoPayOrderItemTransfer {
-        $paymentCrefoPayOrderItemTransfer->fromArray(
-            $paymentCrefoPayOrderItemEntity->toArray(),
-            true
-        );
+        $paymentCrefoPayOrderItemTransfer
+            ->fromArray($paymentCrefoPayOrderItemEntity->toArray(), true)
+            ->setIdPaymentCrefoPay($paymentCrefoPayOrderItemEntity->getFkPaymentCrefoPay())
+            ->setIdSalesOrderItem($paymentCrefoPayOrderItemEntity->getFkSalesOrderItem());
 
         return $paymentCrefoPayOrderItemTransfer;
     }
@@ -111,10 +111,10 @@ class CrefoPayPersistenceMapper
         SpyPaymentCrefoPayOrderItemToCrefoPayApiLog $paymentCrefoPayOrderItemToCrefoPayApiLogEntity,
         PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer
     ): PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer {
-        $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer->fromArray(
-            $paymentCrefoPayOrderItemToCrefoPayApiLogEntity->toArray(),
-            true
-        );
+        $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer
+            ->fromArray($paymentCrefoPayOrderItemToCrefoPayApiLogEntity->toArray(), true)
+            ->setIdPaymentCrefoPayOrderItem($paymentCrefoPayOrderItemToCrefoPayApiLogEntity->getFkPaymentCrefoPayOrderItem())
+            ->setIdPaymentCrefoPayApiLog($paymentCrefoPayOrderItemToCrefoPayApiLogEntity->getFkPaymentCrefoPayApiLog());
 
         return $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer;
     }
@@ -129,10 +129,10 @@ class CrefoPayPersistenceMapper
         SpyPaymentCrefoPayOrderItemToCrefoPayNotification $paymentCrefoPayOrderItemToCrefoPayNotificationEntity,
         PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer
     ): PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer {
-        $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer->fromArray(
-            $paymentCrefoPayOrderItemToCrefoPayNotificationEntity->toArray(),
-            true
-        );
+        $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer
+            ->fromArray($paymentCrefoPayOrderItemToCrefoPayNotificationEntity->toArray(), true)
+            ->setIdPaymentCrefoPayOrderItem($paymentCrefoPayOrderItemToCrefoPayNotificationEntity->getFkPaymentCrefoPayOrderItem())
+            ->setIdPaymentCrefoPayNotification($paymentCrefoPayOrderItemToCrefoPayNotificationEntity->getFkPaymentCrefoPayNotification());
 
         return $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer;
     }

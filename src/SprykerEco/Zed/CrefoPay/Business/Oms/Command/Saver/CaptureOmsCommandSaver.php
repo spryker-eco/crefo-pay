@@ -173,7 +173,7 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
 
         $affectedSalesOrderItemIds = array_map(
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
-                return $paymentCrefoPayOrderItemTransfer->getFkSalesOrderItem();
+                return $paymentCrefoPayOrderItemTransfer->getIdSalesOrderItem();
             },
             $remainingOrderItems
         );

@@ -137,7 +137,7 @@ class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     ): array {
         $affectedSalesOrderItemIds = array_map(
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
-                return $paymentCrefoPayOrderItemTransfer->getFkSalesOrderItem();
+                return $paymentCrefoPayOrderItemTransfer->getIdSalesOrderItem();
             },
             $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy()
         );
@@ -148,7 +148,7 @@ class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             ->getCrefoPayOrderItems()
             ->offsetGet(0);
 
-        $key = array_search($paymentCrefoPayOrderItemTransfer->getFkSalesOrderItem(), $affectedSalesOrderItemIds);
+        $key = array_search($paymentCrefoPayOrderItemTransfer->getIdSalesOrderItem(), $affectedSalesOrderItemIds);
         if ($key !== false) {
             unset($affectedSalesOrderItemIds[$key]);
         }

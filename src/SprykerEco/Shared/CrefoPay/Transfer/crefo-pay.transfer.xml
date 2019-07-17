@@ -80,7 +80,7 @@
 
     <transfer name="PaymentCrefoPay">
         <property name="idPaymentCrefoPay" type="int" />
-        <property name="fkSalesOrder" type="int" />
+        <property name="idSalesOrder" type="int" />
         <property name="orderReference" type="string" />
         <property name="crefoPayOrderId" type="string" />
         <property name="paymentMethod" type="string" />
@@ -96,8 +96,8 @@
 
     <transfer name="PaymentCrefoPayOrderItem">
         <property name="idPaymentCrefoPayOrderItem" type="int" />
-        <property name="fkPaymentCrefoPay" type="int" />
-        <property name="fkSalesOrderItem" type="int" />
+        <property name="idPaymentCrefoPay" type="int" />
+        <property name="idSalesOrderItem" type="int" />
         <property name="amount" type="int" />
         <property name="vatAmount" type="int" />
         <property name="vatRate" type="float" />
@@ -128,14 +128,14 @@
 
     <transfer name="PaymentCrefoPayOrderItemToCrefoPayApiLog">
         <property name="idPaymentCrefoPayOrderItemToCrefoPayApiLog" type="int" />
-        <property name="fkPaymentCrefoPayOrderItem" type="int" />
-        <property name="fkPaymentCrefoPayApiLog" type="int" />
+        <property name="idPaymentCrefoPayOrderItem" type="int" />
+        <property name="idPaymentCrefoPayApiLog" type="int" />
     </transfer>
 
     <transfer name="PaymentCrefoPayOrderItemToCrefoPayNotification">
         <property name="idPaymentCrefoPayOrderItemToCrefoPayNotification" type="int" />
-        <property name="fkPaymentCrefoPayOrderItem" type="int" />
-        <property name="fkPaymentCrefoPayNotification" type="int" />
+        <property name="idPaymentCrefoPayOrderItem" type="int" />
+        <property name="idPaymentCrefoPayNotification" type="int" />
     </transfer>
 
     <transfer name="CrefoPayOmsCommand">
