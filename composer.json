@@ -18,7 +18,7 @@
     "spryker/zed-request": "^3.0.0",
     "spryker/locale": "^3.0.0",
     "spryker/shipment": "^6.4.0",
-    "spryker-eco/crefo-pay-api": "dev-feature/eco-2295/master"
+    "spryker-eco/crefo-pay-api": "^1.0.0"
   },
   "autoload": {
     "psr-4": {
