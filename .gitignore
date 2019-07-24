@@ -8,7 +8,14 @@
 *.AppleDouble
 *.AppleDB
 *.AppleDesktop
-/vendor/
-composer.lock
+
+# OS
+.DS_Store
+
+/vendor
+/composer.lock
 composer.phar
+
 phpunit.phar
+/tests/_output/*
+!/tests/_output/.gitkeep
