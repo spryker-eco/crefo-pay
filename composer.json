@@ -48,6 +48,7 @@
   },
   "require-dev": {
     "spryker/checkout": "*",
+    "spryker/code-sniffer": "*",
     "spryker/payment": "*",
     "spryker/propel": "*",
     "spryker/testify": "*",
