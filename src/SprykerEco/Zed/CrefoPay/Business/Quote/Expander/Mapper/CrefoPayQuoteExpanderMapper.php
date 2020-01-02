@@ -18,7 +18,6 @@ use Generated\Shared\Transfer\CrefoPayApiRequestTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
-use Spryker\Shared\Shipment\ShipmentConstants;
 use SprykerEco\Service\CrefoPay\CrefoPayServiceInterface;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface;
@@ -40,6 +39,7 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     protected const GUEST_USER_ID_PATTERN = 'GUEST-USER-%s';
     protected const USER_ID_B2B_SUFFIX = '-B2B';
     protected const USER_ID_B2C_SUFFIX = '-B2C';
+    protected const SHIPMENT_EXPENSE_TYPE = 'SHIPMENT_EXPENSE_TYPE';
 
     /**
      * @var \SprykerEco\Service\CrefoPay\CrefoPayServiceInterface
@@ -342,7 +342,7 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     protected function getShippingAmount(QuoteTransfer $quoteTransfer): ?CrefoPayApiAmountTransfer
     {
         foreach ($quoteTransfer->getExpenses() as $expenseTransfer) {
-            if ($expenseTransfer->getType() === ShipmentConstants::SHIPMENT_EXPENSE_TYPE) {
+            if ($expenseTransfer->getType() === static::SHIPMENT_EXPENSE_TYPE) {
                 return (new CrefoPayApiAmountTransfer())
                     ->setAmount($expenseTransfer->getSumPriceToPayAggregation())
                     ->setVatRate($expenseTransfer->getTaxRate())
