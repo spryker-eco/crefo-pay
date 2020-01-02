@@ -22,7 +22,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 class CrefoPayPostSaveHookPlugin extends AbstractPlugin implements CheckoutPostSaveHookInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Makes reserve request to CrefoPay API.
      * - Updates payment entities and saves them to DB.
      * - Updates order items with necessary OMS statuses.

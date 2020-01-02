@@ -34,6 +34,7 @@ use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface;
 
 /**
  * Inherited Methods
+ *
  * @method void wantToTest($text)
  * @method void wantTo($text)
  * @method void execute($callable)
@@ -153,7 +154,7 @@ class CrefoPayZedTester extends Actor
     /**
      * @return void
      */
-    public function createCrefoPayEntities()
+    public function createCrefoPayEntities(): void
     {
         $this->haveCrefoPayEntities(
             $this->createQuoteTransfer(),

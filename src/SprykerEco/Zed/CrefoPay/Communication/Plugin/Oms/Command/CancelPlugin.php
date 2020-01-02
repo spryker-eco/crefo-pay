@@ -22,7 +22,7 @@ use Spryker\Zed\Oms\Dependency\Plugin\Command\CommandByOrderInterface;
 class CancelPlugin extends AbstractPlugin implements CommandByOrderInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Makes cancel request to CrefoPay API.
      * - Updates order items status.
      *

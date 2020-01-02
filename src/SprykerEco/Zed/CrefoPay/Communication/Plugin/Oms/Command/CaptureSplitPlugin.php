@@ -22,7 +22,7 @@ use Spryker\Zed\Oms\Dependency\Plugin\Command\CommandByItemInterface;
 class CaptureSplitPlugin extends AbstractPlugin implements CommandByItemInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Makes capture request to CrefoPay API. All order items have separate payment transaction.
      * - Updates order items status.
      *

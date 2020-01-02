@@ -14,5 +14,5 @@ interface CrefoPayToUtilTextServiceInterface
      *
      * @return string
      */
-    public function generateRandomString($length);
+    public function generateRandomString(int $length): string;
 }

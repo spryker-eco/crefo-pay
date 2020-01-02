@@ -20,7 +20,7 @@ use Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginInterface;
 class CrefoPayCreditCardSubFormPlugin extends AbstractPlugin implements SubFormPluginInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Creates sub form for CreditCard payment method.
      *
      * @api
@@ -33,7 +33,7 @@ class CrefoPayCreditCardSubFormPlugin extends AbstractPlugin implements SubFormP
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Creates data provider for CreditCard payment method.
      *
      * @api

@@ -27,7 +27,7 @@ class CrefoPayToOmsFacadeBridge implements CrefoPayToOmsFacadeInterface
      *
      * @return int
      */
-    public function checkConditions(array $logContext = [])
+    public function checkConditions(array $logContext = []): int
     {
         return $this->omsFacade->checkConditions($logContext);
     }
@@ -39,7 +39,7 @@ class CrefoPayToOmsFacadeBridge implements CrefoPayToOmsFacadeInterface
      *
      * @return array|null
      */
-    public function triggerEventForOrderItems($eventId, array $orderItemIds, array $data = [])
+    public function triggerEventForOrderItems(string $eventId, array $orderItemIds, array $data = []): ?array
     {
         return $this->omsFacade->triggerEventForOrderItems($eventId, $orderItemIds, $data);
     }

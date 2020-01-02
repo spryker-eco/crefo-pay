@@ -14,7 +14,7 @@ interface CrefoPayToOmsFacadeInterface
      *
      * @return int
      */
-    public function checkConditions(array $logContext = []);
+    public function checkConditions(array $logContext = []): int;
 
     /**
      * @param string $eventId
@@ -23,5 +23,5 @@ interface CrefoPayToOmsFacadeInterface
      *
      * @return array|null
      */
-    public function triggerEventForOrderItems($eventId, array $orderItemIds, array $data = []);
+    public function triggerEventForOrderItems(string $eventId, array $orderItemIds, array $data = []): ?array;
 }

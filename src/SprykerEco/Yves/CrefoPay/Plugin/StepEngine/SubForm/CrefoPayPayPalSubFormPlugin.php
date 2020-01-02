@@ -20,7 +20,7 @@ use Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginInterface;
 class CrefoPayPayPalSubFormPlugin extends AbstractPlugin implements SubFormPluginInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Creates sub form for PayPal payment method.
      *
      * @api
@@ -33,7 +33,7 @@ class CrefoPayPayPalSubFormPlugin extends AbstractPlugin implements SubFormPlugi
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Creates data provider for PayPal payment method.
      *
      * @api

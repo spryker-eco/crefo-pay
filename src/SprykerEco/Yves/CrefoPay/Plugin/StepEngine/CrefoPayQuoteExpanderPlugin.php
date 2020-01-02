@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 class CrefoPayQuoteExpanderPlugin extends AbstractPlugin implements StepHandlerPluginInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Expands `QuoteTransfer` with response from CreateTransaction API call.
      *
      * @api

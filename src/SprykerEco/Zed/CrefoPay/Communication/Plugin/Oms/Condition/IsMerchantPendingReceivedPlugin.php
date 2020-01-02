@@ -21,7 +21,7 @@ use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface;
 class IsMerchantPendingReceivedPlugin extends AbstractPlugin implements ConditionInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Checks if MERCHANTPENDING notification was received for given order item.
      *
      * @api

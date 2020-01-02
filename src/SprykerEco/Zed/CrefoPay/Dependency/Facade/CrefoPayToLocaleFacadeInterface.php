@@ -12,5 +12,5 @@ interface CrefoPayToLocaleFacadeInterface
     /**
      * @return string
      */
-    public function getCurrentLocaleName();
+    public function getCurrentLocaleName(): string;
 }

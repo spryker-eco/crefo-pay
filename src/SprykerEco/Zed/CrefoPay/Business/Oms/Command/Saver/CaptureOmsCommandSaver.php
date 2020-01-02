@@ -96,7 +96,6 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     protected function getPaymentCrefoPayOrderItemsToCapture(
         CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
     ): PaymentCrefoPayOrderItemCollectionTransfer {
-
         $status = $this->statusMapper
             ->mapNotificationOrderStatusToOmsStatus(
                 $crefoPayOmsCommandTransfer->getResponse()->getCaptureResponse()->getStatus()

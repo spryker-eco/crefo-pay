@@ -7,7 +7,6 @@
 
 namespace SprykerEcoTest\Zed\CrefoPay\Business;
 
-use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
 /**

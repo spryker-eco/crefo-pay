@@ -20,7 +20,7 @@ use Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginInterface;
 class CrefoPayCashOnDeliverySubFormPlugin extends AbstractPlugin implements SubFormPluginInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Creates sub form for CashOnDelivery payment method.
      *
      * @api
@@ -33,7 +33,7 @@ class CrefoPayCashOnDeliverySubFormPlugin extends AbstractPlugin implements SubF
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Creates data provider for CashOnDelivery payment method.
      *
      * @api

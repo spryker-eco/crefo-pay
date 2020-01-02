@@ -16,7 +16,7 @@ use Spryker\Service\Kernel\AbstractService;
 class CrefoPayService extends AbstractService implements CrefoPayServiceInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *

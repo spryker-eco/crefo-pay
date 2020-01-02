@@ -22,7 +22,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 class CrefoPayDoSaveOrderPlugin extends AbstractPlugin implements CheckoutDoSaveOrderInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Creates payment entities and saves them to DB.
      * - Saves order payment method data according to quote and checkout response transfer data.
      *

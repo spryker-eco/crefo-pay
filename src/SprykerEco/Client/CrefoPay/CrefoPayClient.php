@@ -17,7 +17,7 @@ use Spryker\Client\Kernel\AbstractClient;
 class CrefoPayClient extends AbstractClient implements CrefoPayClientInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -33,7 +33,7 @@ class CrefoPayClient extends AbstractClient implements CrefoPayClientInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *

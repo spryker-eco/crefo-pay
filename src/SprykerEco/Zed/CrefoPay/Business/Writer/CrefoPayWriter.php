@@ -77,7 +77,7 @@ class CrefoPayWriter implements CrefoPayWriterInterface
         ?int $crefoPayApiLogId = null
     ): void {
         $this->getTransactionHandler()->handleTransaction(
-            function () use ($paymentCrefoPayOrderItemCollection, $paymentCrefoPayTransfer, $crefoPayApiLogId) {
+            function () use ($paymentCrefoPayOrderItemCollection, $paymentCrefoPayTransfer, $crefoPayApiLogId): void {
                 if ($paymentCrefoPayTransfer !== null) {
                     $this->entityManager->savePaymentCrefoPayEntity($paymentCrefoPayTransfer);
                 }
@@ -107,7 +107,7 @@ class CrefoPayWriter implements CrefoPayWriterInterface
         PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
     ): void {
         $this->getTransactionHandler()->handleTransaction(
-            function () use ($notificationTransfer, $paymentCrefoPayOrderItemCollection) {
+            function () use ($notificationTransfer, $paymentCrefoPayOrderItemCollection): void {
                 $paymentCrefoPayNotificationTransfer = $this->createPaymentCrefoPayNotificationEntity($notificationTransfer);
                 foreach ($paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems() as $paymentCrefoPayOrderItemTransfer) {
                     $this->entityManager->savePaymentCrefoPayOrderItemEntity($paymentCrefoPayOrderItemTransfer);

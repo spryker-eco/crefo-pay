@@ -24,7 +24,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -40,7 +40,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -59,7 +59,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -75,7 +75,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -92,7 +92,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -109,7 +109,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -126,7 +126,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -143,7 +143,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -164,7 +164,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -181,7 +181,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -197,7 +197,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -213,7 +213,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -229,7 +229,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -245,7 +245,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -261,7 +261,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -277,7 +277,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -293,7 +293,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -309,7 +309,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -325,7 +325,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -341,7 +341,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -357,7 +357,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -373,7 +373,7 @@ class CrefoPayFacade extends AbstractFacade implements CrefoPayFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *

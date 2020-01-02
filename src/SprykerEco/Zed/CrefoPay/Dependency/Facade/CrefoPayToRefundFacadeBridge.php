@@ -31,7 +31,7 @@ class CrefoPayToRefundFacadeBridge implements CrefoPayToRefundFacadeInterface
      *
      * @return \Generated\Shared\Transfer\RefundTransfer
      */
-    public function calculateRefund(array $salesOrderItems, SpySalesOrder $salesOrderEntity)
+    public function calculateRefund(array $salesOrderItems, SpySalesOrder $salesOrderEntity): RefundTransfer
     {
         return $this->refundFacade->calculateRefund($salesOrderItems, $salesOrderEntity);
     }
@@ -41,7 +41,7 @@ class CrefoPayToRefundFacadeBridge implements CrefoPayToRefundFacadeInterface
      *
      * @return bool
      */
-    public function saveRefund(RefundTransfer $refundTransfer)
+    public function saveRefund(RefundTransfer $refundTransfer): bool
     {
         return $this->refundFacade->saveRefund($refundTransfer);
     }

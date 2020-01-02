@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 class CrefoPayPaymentExpanderPlugin extends AbstractPlugin implements StepHandlerPluginInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * - Expands `PaymentTransfer` with payment provider and payment selection.
      *
      * @api
