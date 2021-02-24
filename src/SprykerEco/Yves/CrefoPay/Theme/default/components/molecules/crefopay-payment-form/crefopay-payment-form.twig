@@ -50,7 +50,7 @@
         </div>
 
         {% for field in data.fields %}
-            {{ macro.crefopayField(field.name, field.attribute, config.name) }}
+            {{ macros.crefopayField(field.name, field.attribute, config.name) }}
         {% endfor %}
 
         <div class="{{ config.name }}__error {{ config.jsName }}__error spacing-y is-hidden">
