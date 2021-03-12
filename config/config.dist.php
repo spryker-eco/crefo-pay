@@ -29,3 +29,5 @@ $config[CrefoPayApiConstants::FINISH_API_ENDPOINT] = 'https://sandbox.crefopay.d
 
 $config[CrefoPayApiConstants::PRIVATE_KEY] = 'PRIVATEKEY'; //Private key provided by CrefoPay string value. Used for MAC calculation.
 $config[CrefoPayApiConstants::PUBLIC_KEY] = 'PUBLICKEY'; //Public key provided by CrefoPay string value. Used for sign requests.
+
+$config[CrefoPayConstants::USE_INDEPENDENT_ORDER_ID_FOR_TRANSACTION] = false; //Set to true to use random strings as OrderId in transaction.

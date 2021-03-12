@@ -18,8 +18,9 @@ interface CrefoPayServiceInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param bool $isIndependentGenerations
      *
      * @return string
      */
-    public function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string;
+    public function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer, bool $isIndependentGenerations): string;
 }

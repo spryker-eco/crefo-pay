@@ -21,13 +21,18 @@ class CrefoPayService extends AbstractService implements CrefoPayServiceInterfac
      * @api
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param bool $isIndependentGenerations
      *
      * @return string
      */
-    public function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
+    public function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer, bool $isIndependent): string
     {
-        return $this->getFactory()
-            ->createUniqueIdGenerator()
-            ->generateCrefoPayOrderId($quoteTransfer);
+        /** @var \SprykerEco\Service\CrefoPay\Generator\CrefoPayUniqueIdGeneratorInterface $generator */
+        $generator = $this->getFactory()
+            ->createUniqueIdGenerator();
+
+        return $isIndependent ?
+            $generator->generateCrefoPayOrderIdIndependent() :
+            $generator->generateCrefoPayOrderId($quoteTransfer);
     }
 }

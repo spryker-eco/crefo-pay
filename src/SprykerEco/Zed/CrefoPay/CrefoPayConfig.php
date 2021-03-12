@@ -402,4 +402,12 @@ class CrefoPayConfig extends AbstractBundleConfig
     {
         return $this->get(CrefoPayConstants::REFUND_EXPENSES_WITH_LAST_ITEM);
     }
+
+    /**
+     * @return bool
+     */
+    public function getUseIndependentOrderIdForTransaction(): bool
+    {
+        return $this->get(CrefoPayConstants::USE_INDEPENDENT_ORDER_ID_FOR_TRANSACTION, false);
+    }
 }

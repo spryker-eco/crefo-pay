@@ -18,6 +18,6 @@ class CrefoPayServiceFactory extends AbstractServiceFactory
      */
     public function createUniqueIdGenerator(): CrefoPayUniqueIdGeneratorInterface
     {
-        return new CrefoPayUniqueIdGenerator();
+        return new CrefoPayUniqueIdGenerator($this->getProvidedDependency(CrefoPayDependencyProvider::SERVICE_UTIL_TEXT));
     }
 }

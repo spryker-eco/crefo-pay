@@ -78,4 +78,13 @@ interface CrefoPayConstants
      * @api
      */
     public const REFUND_EXPENSES_WITH_LAST_ITEM = 'CREFO_PAY:REFUND_EXPENSES_WITH_LAST_ITEM';
+
+    /**
+     * Specification:
+     *  - If true OrderId of transaction consists of random string of 30 characters.
+     *  - If false OrderId of transaction consists of CustomerReference and unickid that can be more than 30 characters.
+     *
+     * @api
+     */
+    public const USE_INDEPENDENT_ORDER_ID_FOR_TRANSACTION = 'CREFO_PAY:USE_INDEPENDENT_ORDER_ID_FOR_TRANSACTION';
 }
