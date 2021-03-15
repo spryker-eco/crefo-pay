@@ -14,6 +14,8 @@ use SprykerEco\Shared\CrefoPayApi\CrefoPayApiConstants;
 class CrefoPayConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @return string
      */
     public function getPublicKey(): string
@@ -22,6 +24,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getSecureFieldsApiEndpoint(): string
@@ -30,6 +34,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string[]
      */
     public function getSecureFieldsPlaceholders(): array
