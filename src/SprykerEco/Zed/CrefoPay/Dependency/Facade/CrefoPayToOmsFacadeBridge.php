@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Zed\CrefoPay\Dependency\Facade;
 
+use Generated\Shared\Transfer\OmsCheckConditionsQueryCriteriaTransfer;
+
 class CrefoPayToOmsFacadeBridge implements CrefoPayToOmsFacadeInterface
 {
     /**
@@ -27,7 +29,7 @@ class CrefoPayToOmsFacadeBridge implements CrefoPayToOmsFacadeInterface
      *
      * @return int
      */
-    public function checkConditions(array $logContext = []): int
+    public function checkConditions(array $logContext = [], ?OmsCheckConditionsQueryCriteriaTransfer $omsCheckConditionsQueryCriteriaTransfer = null)
     {
         return $this->omsFacade->checkConditions($logContext);
     }

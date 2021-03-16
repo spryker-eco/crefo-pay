@@ -39,6 +39,10 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     protected const GUEST_USER_ID_PATTERN = 'GUEST-USER-%s';
     protected const USER_ID_B2B_SUFFIX = '-B2B';
     protected const USER_ID_B2C_SUFFIX = '-B2C';
+
+    /**
+     * @uses \Spryker\Shared\Shipment\ShipmentConfig::SHIPMENT_EXPENSE_TYPE
+     */
     protected const SHIPMENT_EXPENSE_TYPE = 'SHIPMENT_EXPENSE_TYPE';
 
     /**

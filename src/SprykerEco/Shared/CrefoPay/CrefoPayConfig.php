@@ -39,6 +39,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     protected const EXTERNAL_PAYMENT_METHOD_CREDIT_CARD_3D = 'CC3D';
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getProviderName(): string
@@ -47,6 +49,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return int
      */
     public function getUserRiskClass(): int
@@ -55,6 +59,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getProductTypeDefault(): string
@@ -63,6 +69,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getProductTypeShippingCosts(): string
@@ -71,6 +79,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return int
      */
     public function getProductRiskClass(): int
@@ -79,6 +89,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getExternalPaymentMethodBill(): string
@@ -87,6 +99,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getExternalPaymentMethodCashOnDelivery(): string
@@ -95,6 +109,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getExternalPaymentMethodDirectDebit(): string
@@ -103,6 +119,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getExternalPaymentMethodPayPal(): string
@@ -111,6 +129,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getExternalPaymentMethodPrepaid(): string
@@ -119,6 +139,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getExternalPaymentMethodSofort(): string
@@ -127,6 +149,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getExternalPaymentMethodCreditCard(): string
@@ -135,6 +159,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getExternalPaymentMethodCreditCard3D(): string
@@ -143,6 +169,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getCrefoPayPaymentMethodBill(): string
@@ -151,6 +179,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getCrefoPayPaymentMethodCashOnDelivery(): string
@@ -159,6 +189,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getCrefoPayPaymentMethodDirectDebit(): string
@@ -167,6 +199,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getCrefoPayPaymentMethodPayPal(): string
@@ -175,6 +209,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getCrefoPayPaymentMethodPrepaid(): string
@@ -183,6 +219,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getCrefoPayPaymentMethodSofort(): string
@@ -191,6 +229,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getCrefoPayPaymentMethodCreditCard(): string
@@ -199,6 +239,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getCrefoPayPaymentMethodCreditCard3D(): string
