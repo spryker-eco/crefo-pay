@@ -13,6 +13,7 @@ interface CrefoPayToOmsFacadeInterface
 {
     /**
      * @param array $logContext
+     * @param \Generated\Shared\Transfer\OmsCheckConditionsQueryCriteriaTransfer|null $omsCheckConditionsQueryCriteriaTransfer
      *
      * @return int
      */
@@ -25,5 +26,5 @@ interface CrefoPayToOmsFacadeInterface
      *
      * @return array|null
      */
-    public function triggerEventForOrderItems(string $eventId, array $orderItemIds, array $data = []): ?array;
+    public function triggerEventForOrderItems($eventId, array $orderItemIds, array $data = []);
 }
