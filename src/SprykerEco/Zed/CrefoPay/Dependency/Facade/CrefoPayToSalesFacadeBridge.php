@@ -7,8 +7,6 @@
 
 namespace SprykerEco\Zed\CrefoPay\Dependency\Facade;
 
-use Generated\Shared\Transfer\OrderTransfer;
-
 class CrefoPayToSalesFacadeBridge implements CrefoPayToSalesFacadeInterface
 {
     /**
@@ -26,8 +24,6 @@ class CrefoPayToSalesFacadeBridge implements CrefoPayToSalesFacadeInterface
 
     /**
      * @param int $idSalesOrder
-     *
-     * @throws \Spryker\Zed\Sales\Business\Exception\InvalidSalesOrderException
      *
      * @return \Generated\Shared\Transfer\OrderTransfer
      */

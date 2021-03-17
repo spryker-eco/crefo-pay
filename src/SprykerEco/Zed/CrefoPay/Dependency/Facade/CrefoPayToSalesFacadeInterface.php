@@ -7,8 +7,6 @@
 
 namespace SprykerEco\Zed\CrefoPay\Dependency\Facade;
 
-use Generated\Shared\Transfer\OrderTransfer;
-
 interface CrefoPayToSalesFacadeInterface
 {
     /**
