@@ -13,24 +13,25 @@ use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceBrid
 
 class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
 {
-    public const SERVICE_UTIL_TEXT = 'SERVICE.SERVICE_UTIL_TEXT';
+    public const SERVICE_UTIL_TEXT = 'SERVICE_UTIL_TEXT';
 
     /**
-     * @param Container $container
+     * @param \Spryker\Service\Kernel\Container  $container
      *
-     * @return Container
+     * @return \Spryker\Service\Kernel\Container
      */
-    public function provideServiceDependencies(Container $container)
+    public function provideServiceDependencies(Container $container): Container
     {
         $container = parent::provideServiceDependencies($container);
+        $container = $this->addUtilTextService($container);
 
-        return $this->addUtilTextService($container);
+        return $container;
     }
 
     /**
-     * @param \Spryker\Zed\Kernel\Container $container
+     * @param \Spryker\Service\Kernel\Container $container
      *
-     * @return \Spryker\Zed\Kernel\Container
+     * @return \Spryker\Service\Kernel\Container
      */
     protected function addUtilTextService(Container $container): Container
     {

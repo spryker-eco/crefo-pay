@@ -11,6 +11,9 @@ use Spryker\Service\Kernel\AbstractServiceFactory;
 use SprykerEco\Service\CrefoPay\Generator\CrefoPayUniqueIdGenerator;
 use SprykerEco\Service\CrefoPay\Generator\CrefoPayUniqueIdGeneratorInterface;
 
+/**
+ * @method \SprykerEco\Service\CrefoPay\CrefoPayConfig getConfig()
+ */
 class CrefoPayServiceFactory extends AbstractServiceFactory
 {
     /**
@@ -18,6 +21,9 @@ class CrefoPayServiceFactory extends AbstractServiceFactory
      */
     public function createUniqueIdGenerator(): CrefoPayUniqueIdGeneratorInterface
     {
-        return new CrefoPayUniqueIdGenerator($this->getProvidedDependency(CrefoPayDependencyProvider::SERVICE_UTIL_TEXT));
+        return new CrefoPayUniqueIdGenerator(
+            $this->getConfig(),
+            $this->getProvidedDependency(CrefoPayDependencyProvider::SERVICE_UTIL_TEXT)
+        );
     }
 }

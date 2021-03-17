@@ -27,7 +27,7 @@ class CrefoPayToUtilTextServiceBridge implements CrefoPayToUtilTextServiceInterf
      *
      * @return string
      */
-    public function generateRandomString(int $length): string
+    public function generateRandomString($length)
     {
         return $this->utilTextService->generateRandomString($length);
     }

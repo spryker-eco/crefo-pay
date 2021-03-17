@@ -130,10 +130,7 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
      */
     protected function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
     {
-        return $this->crefoPayService->generateCrefoPayOrderId(
-            $quoteTransfer,
-            $this->config->getUseIndependentOrderIdForTransaction()
-        );
+        return $this->crefoPayService->generateCrefoPayOrderId($quoteTransfer);
     }
 
     /**
