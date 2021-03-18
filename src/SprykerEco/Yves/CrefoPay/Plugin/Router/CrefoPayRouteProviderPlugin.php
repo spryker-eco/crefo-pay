@@ -13,14 +13,16 @@ use Spryker\Yves\Router\Route\RouteCollection;
 class CrefoPayRouteProviderPlugin extends AbstractRouteProviderPlugin
 {
     protected const BUNDLE_NAME = 'CrefoPay';
-    protected const CALLBACK_CONTROLLER_NAME = 'Callback';
-    protected const NOTIFICATION_CONTROLLER_NAME = 'Notification';
-    protected const CREFO_PAY_NOTIFICATION = 'crefo-pay-notification';
-    protected const CREFO_PAY_CONFIRMATION = 'crefo-pay-confirmation';
-    protected const CREFO_PAY_SUCCESS = 'crefo-pay-success';
-    protected const CREFO_PAY_FAILURE = 'crefo-pay-failure';
+    protected const CONTROLLER_NAME_CALLBACK = 'Callback';
+    protected const CONTROLLER_NAME_NOTIFICATION = 'Notification';
+    protected const ROUTE_NAME_CREFO_PAY_NOTIFICATION = 'crefo-pay-notification';
+    protected const ROUTE_NAME_CREFO_PAY_CONFIRMATION = 'crefo-pay-confirmation';
+    protected const ROUTE_NAME_CREFO_PAY_SUCCESS = 'crefo-pay-success';
+    protected const ROUTE_NAME_CREFO_PAY_FAILURE = 'crefo-pay-failure';
 
     /**
+     * {@inheritDoc}
+     *
      * @param \Spryker\Yves\Router\Route\RouteCollection $routeCollection
      *
      * @return \Spryker\Yves\Router\Route\RouteCollection
@@ -42,10 +44,8 @@ class CrefoPayRouteProviderPlugin extends AbstractRouteProviderPlugin
      */
     protected function addCrefoPayNotificationRoute(RouteCollection $routeCollection): RouteCollection
     {
-        $routeCollection->add(
-            static::CREFO_PAY_NOTIFICATION,
-            $this->buildPostRoute('/crefo-pay/notification', static::BUNDLE_NAME, static::NOTIFICATION_CONTROLLER_NAME, 'index')
-        );
+        $route = $this->buildPostRoute('/crefo-pay/notification', static::BUNDLE_NAME, static::CONTROLLER_NAME_NOTIFICATION, 'index');
+        $routeCollection->add(static::ROUTE_NAME_CREFO_PAY_NOTIFICATION, $route);
 
         return $routeCollection;
     }
@@ -57,10 +57,8 @@ class CrefoPayRouteProviderPlugin extends AbstractRouteProviderPlugin
      */
     protected function addCrefoPayConfirmationRoute(RouteCollection $routeCollection): RouteCollection
     {
-        $routeCollection->add(
-            static::CREFO_PAY_CONFIRMATION,
-            $this->buildPostRoute('/crefo-pay/callback/confirmation', static::BUNDLE_NAME, static::CALLBACK_CONTROLLER_NAME, 'confirmation')
-        );
+        $route = $this->buildPostRoute('/crefo-pay/callback/confirmation', static::BUNDLE_NAME, static::CONTROLLER_NAME_CALLBACK, 'confirmation');
+        $routeCollection->add(static::ROUTE_NAME_CREFO_PAY_CONFIRMATION, $route);
 
         return $routeCollection;
     }
@@ -72,10 +70,8 @@ class CrefoPayRouteProviderPlugin extends AbstractRouteProviderPlugin
      */
     protected function addCrefoPaySuccessRoute(RouteCollection $routeCollection): RouteCollection
     {
-        $routeCollection->add(
-            static::CREFO_PAY_SUCCESS,
-            $this->buildPostRoute('/crefo-pay/callback/success', static::BUNDLE_NAME, static::CALLBACK_CONTROLLER_NAME, 'success')
-        );
+        $route = $this->buildPostRoute('/crefo-pay/callback/success', static::BUNDLE_NAME, static::CONTROLLER_NAME_CALLBACK, 'success');
+        $routeCollection->add(static::ROUTE_NAME_CREFO_PAY_SUCCESS, $route);
 
         return $routeCollection;
     }
@@ -87,10 +83,8 @@ class CrefoPayRouteProviderPlugin extends AbstractRouteProviderPlugin
      */
     protected function addCrefoPayFailureRoute(RouteCollection $routeCollection): RouteCollection
     {
-        $routeCollection->add(
-            static::CREFO_PAY_FAILURE,
-            $this->buildPostRoute('/crefo-pay/callback/failure', static::BUNDLE_NAME, static::CALLBACK_CONTROLLER_NAME, 'failure')
-        );
+        $route = $this->buildPostRoute('/crefo-pay/callback/failure', static::BUNDLE_NAME, static::CONTROLLER_NAME_CALLBACK, 'failure');
+        $routeCollection->add(static::ROUTE_NAME_CREFO_PAY_FAILURE, $route);
 
         return $routeCollection;
     }
