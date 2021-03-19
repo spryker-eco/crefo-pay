@@ -71,6 +71,10 @@ class CrefoPayPaymentMethodFilter implements CrefoPayPaymentMethodFilterInterfac
      */
     protected function isAvailable(PaymentMethodTransfer $paymentMethodTransfer, QuoteTransfer $quoteTransfer): bool
     {
+        if (!$quoteTransfer->getCrefoPayTransaction()) {
+            return false;
+        }
+
         $allowedPaymentMethods = $quoteTransfer->getCrefoPayTransaction()->getAllowedPaymentMethods();
         $externalPaymentMethodName = $this->paymentMethodMapper
             ->mapInternalToExternalPaymentMethodName(

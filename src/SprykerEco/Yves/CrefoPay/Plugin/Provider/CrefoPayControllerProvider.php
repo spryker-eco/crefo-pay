@@ -10,6 +10,9 @@ namespace SprykerEco\Yves\CrefoPay\Plugin\Provider;
 use Silex\Application;
 use SprykerShop\Yves\ShopApplication\Plugin\Provider\AbstractYvesControllerProvider;
 
+/**
+ * @deprecated Use {@link \SprykerEco\Yves\CrefoPay\Plugin\Router\CrefoPayRouteProviderPlugin} instead.
+ */
 class CrefoPayControllerProvider extends AbstractYvesControllerProvider
 {
     protected const BUNDLE_NAME = 'CrefoPay';
