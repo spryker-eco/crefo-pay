@@ -16,7 +16,7 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
     public const SERVICE_UTIL_TEXT = 'SERVICE_UTIL_TEXT';
 
     /**
-     * @param \Spryker\Service\Kernel\Container  $container
+     * @param \Spryker\Service\Kernel\Container $container
      *
      * @return \Spryker\Service\Kernel\Container
      */

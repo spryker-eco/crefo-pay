@@ -15,6 +15,8 @@ use Spryker\Service\Kernel\AbstractBundleConfig;
 class CrefoPayConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @return bool
      */
     public function getUseIndependentOrderIdForTransaction(): bool
