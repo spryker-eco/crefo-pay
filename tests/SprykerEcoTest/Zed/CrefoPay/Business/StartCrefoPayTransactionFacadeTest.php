@@ -27,7 +27,7 @@ class StartCrefoPayTransactionFacadeTest extends CrefoPayFacadeBaseTest
         // Arrange
         $mockConfig = $this->tester->mockEnvironmentConfig(
             CrefoPayConstants::USE_INDEPENDENT_ORDER_ID_FOR_TRANSACTION,
-            true
+            false
         );
         $quoteTransfer = $this->tester->createQuoteTransfer();
 
