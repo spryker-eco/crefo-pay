@@ -7,8 +7,6 @@
 
 namespace SprykerEco\Zed\CrefoPay\Dependency\Facade;
 
-use Generated\Shared\Transfer\OrderTransfer;
-
 class CrefoPayToSalesFacadeBridge implements CrefoPayToSalesFacadeInterface
 {
     /**
@@ -29,7 +27,7 @@ class CrefoPayToSalesFacadeBridge implements CrefoPayToSalesFacadeInterface
      *
      * @return \Generated\Shared\Transfer\OrderTransfer
      */
-    public function getOrderByIdSalesOrder(int $idSalesOrder): OrderTransfer
+    public function getOrderByIdSalesOrder($idSalesOrder)
     {
         return $this->salesFacade->getOrderByIdSalesOrder($idSalesOrder);
     }

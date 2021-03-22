@@ -18,7 +18,8 @@ class CaptureOmsCommand extends CrefoPayOmsCommandByOrder implements CrefoPayOms
      */
     protected function performApiCall(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): CrefoPayOmsCommandTransfer
     {
-        if ($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCapturedAmount() === 0
+        if (
+            $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCapturedAmount() === 0
             && $crefoPayOmsCommandTransfer->getExpensesRequest() !== null
         ) {
             $expensesResponseTransfer = $this->omsCommandClient

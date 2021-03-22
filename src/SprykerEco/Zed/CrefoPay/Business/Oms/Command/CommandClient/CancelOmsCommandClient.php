@@ -28,6 +28,8 @@ class CancelOmsCommandClient implements CrefoPayOmsCommandClientInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param \Generated\Shared\Transfer\CrefoPayApiRequestTransfer $requestTransfer
      *
      * @return \Generated\Shared\Transfer\CrefoPayApiResponseTransfer

@@ -56,6 +56,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     protected const CREFO_PAY_AUTOMATIC_OMS_TRIGGER = 'CREFO_PAY_AUTOMATIC_OMS_TRIGGER';
 
     /**
+     * @api
+     *
      * @return int
      */
     public function getMerchantId(): int
@@ -64,6 +66,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getStoreId(): string
@@ -72,6 +76,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getRefundDescription(): string
@@ -80,6 +86,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getProviderName(): string
@@ -88,6 +96,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return int
      */
     public function getUserRiskClass(): int
@@ -96,6 +106,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getProductTypeDefault(): string
@@ -104,6 +116,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getProductTypeShippingCosts(): string
@@ -112,6 +126,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return int
      */
     public function getProductRiskClass(): int
@@ -120,6 +136,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string[]
      */
     public function getInternalToExternalPaymentMethodNamesMapping(): array
@@ -137,6 +155,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getNotificationTransactionStatusAcknowledgePending(): string
@@ -145,6 +165,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getNotificationTransactionStatusMerchantPending(): string
@@ -153,6 +175,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getNotificationTransactionStatusCiaPending(): string
@@ -161,6 +185,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getNotificationTransactionStatusCancelled(): string
@@ -169,6 +195,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getNotificationTransactionStatusExpired(): string
@@ -177,6 +205,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getNotificationTransactionStatusDone(): string
@@ -185,6 +215,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getNotificationOrderStatusPayPending(): string
@@ -193,6 +225,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getNotificationOrderStatusPaid(): string
@@ -201,6 +235,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getNotificationOrderStatusChargeBack(): string
@@ -209,6 +245,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusNew(): string
@@ -217,6 +255,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusReserved(): string
@@ -225,6 +265,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusAuthorized(): string
@@ -233,6 +275,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusWaitingForCapture(): string
@@ -241,6 +285,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusWaitingForCash(): string
@@ -249,6 +295,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusCapturePending(): string
@@ -257,6 +305,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusCaptured(): string
@@ -265,6 +315,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusCancellationPending(): string
@@ -273,6 +325,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusCanceled(): string
@@ -281,6 +335,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusRefunded(): string
@@ -289,6 +345,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusMoneyReduced(): string
@@ -297,6 +355,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusExpired(): string
@@ -305,6 +365,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsStatusDone(): string
@@ -313,6 +375,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsEventCancel(): string
@@ -321,6 +385,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsEventNoCancellation(): string
@@ -329,6 +395,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getOmsEventFinish(): string
@@ -337,6 +405,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string[]
      */
     public function getNotificationTransactionToOmsStatusMapping(): array
@@ -352,6 +422,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string[]
      */
     public function getNotificationOrderToOmsStatusMapping(): array
@@ -364,6 +436,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return int
      */
     public function getCrefoPayApiCaptureIdLength(): int
@@ -372,6 +446,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getCrefoPayAutomaticOmsTrigger(): string
@@ -380,6 +456,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return bool
      */
     public function getIsBusinessToBusiness(): bool
@@ -388,6 +466,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return bool
      */
     public function getCaptureExpensesSeparately(): bool
@@ -396,6 +476,8 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return bool
      */
     public function getRefundExpensesWithLastItem(): bool
