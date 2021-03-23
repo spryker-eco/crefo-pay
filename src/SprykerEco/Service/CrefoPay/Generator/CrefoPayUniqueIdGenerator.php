@@ -16,25 +16,25 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
     protected const CREFO_PAY_ORDER_ID_INDEPENDENT_LENGTH = 30;
 
     /**
-     * @var \SprykerEco\Service\CrefoPay\CrefoPayConfig $config
+     * @var \SprykerEco\Service\CrefoPay\CrefoPayConfig $crefoPayConfig
      */
-    protected $config;
+    protected $crefoPayConfig;
 
     /**
-     * @var \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $crefoPayUniqueIdGeneratorBridge
+     * @var \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $utilTextService
      */
-    protected $crefoPayToUtilTextServiceBridge;
+    protected $utilTextService;
 
     /**
-     * @param \SprykerEco\Service\CrefoPay\CrefoPayConfig $config
-     * @param \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $crefoPayToUtilTextServiceBridge
+     * @param \SprykerEco\Service\CrefoPay\CrefoPayConfig $crefoPayConfig
+     * @param \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $utilTextService
      */
     public function __construct(
-        CrefoPayConfig $config,
-        CrefoPayToUtilTextServiceInterface $crefoPayToUtilTextServiceBridge
+        CrefoPayConfig $crefoPayConfig,
+        CrefoPayToUtilTextServiceInterface $utilTextService
     ) {
-        $this->config = $config;
-        $this->crefoPayToUtilTextServiceBridge = $crefoPayToUtilTextServiceBridge;
+        $this->crefoPayConfig = $crefoPayConfig;
+        $this->utilTextService = $utilTextService;
     }
 
     /**
@@ -44,7 +44,7 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
      */
     public function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
     {
-        return $this->config->getUseIndependentOrderIdForTransaction() ?
+        return $this->crefoPayConfig->getUseIndependentOrderIdForTransaction() ?
             $this->generateCrefoPayOrderIdIndependent() :
             $this->generateCrefoPayOrderIdBasedOnCustomerReference($quoteTransfer);
     }
@@ -66,6 +66,6 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
      */
     protected function generateCrefoPayOrderIdIndependent(): string
     {
-        return $this->crefoPayToUtilTextServiceBridge->generateRandomString(self::CREFO_PAY_ORDER_ID_INDEPENDENT_LENGTH);
+        return $this->utilTextService->generateRandomString(static::CREFO_PAY_ORDER_ID_INDEPENDENT_LENGTH);
     }
 }
