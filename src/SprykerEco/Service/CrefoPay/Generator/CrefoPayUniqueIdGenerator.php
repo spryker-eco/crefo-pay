@@ -13,6 +13,8 @@ use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInte
 
 class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
 {
+    protected const CREFO_PAY_ORDER_ID_INDEPENDENT_LENGTH = 30;
+
     /**
      * @var \SprykerEco\Service\CrefoPay\CrefoPayConfig $config
      */
@@ -64,6 +66,6 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
      */
     protected function generateCrefoPayOrderIdIndependent(): string
     {
-        return $this->crefoPayToUtilTextServiceBridge->generateRandomString(30);
+        return $this->crefoPayToUtilTextServiceBridge->generateRandomString(self::CREFO_PAY_ORDER_ID_INDEPENDENT_LENGTH);
     }
 }
