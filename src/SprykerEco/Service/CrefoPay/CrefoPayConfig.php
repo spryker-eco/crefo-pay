@@ -8,6 +8,7 @@
 namespace SprykerEco\Service\CrefoPay;
 
 use Spryker\Service\Kernel\AbstractBundleConfig;
+use SprykerEco\Shared\CrefoPay\CrefoPayConstants;
 
 /**
  * @method \SprykerEco\Shared\CrefoPay\CrefoPayConfig getSharedConfig()
@@ -21,6 +22,6 @@ class CrefoPayConfig extends AbstractBundleConfig
      */
     public function getUseIndependentOrderIdForTransaction(): bool
     {
-        return $this->getSharedConfig()->getUseIndependentOrderIdForTransaction();
+        return $this->get(CrefoPayConstants::USE_INDEPENDENT_ORDER_ID_FOR_TRANSACTION, false);
     }
 }

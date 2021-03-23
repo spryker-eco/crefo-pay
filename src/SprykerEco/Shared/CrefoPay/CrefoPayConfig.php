@@ -247,14 +247,4 @@ class CrefoPayConfig extends AbstractBundleConfig
     {
         return static::CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD_3D;
     }
-
-    /**
-     * @api
-     *
-     * @return bool
-     */
-    public function getUseIndependentOrderIdForTransaction(): bool
-    {
-        return $this->get(CrefoPayConstants::USE_INDEPENDENT_ORDER_ID_FOR_TRANSACTION, false);
-    }
 }
