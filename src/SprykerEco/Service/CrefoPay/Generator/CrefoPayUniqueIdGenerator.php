@@ -8,7 +8,6 @@
 namespace SprykerEco\Service\CrefoPay\Generator;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use SprykerEco\Service\CrefoPay\CrefoPayConfig;
 use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface;
 
 class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
@@ -16,24 +15,15 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
     protected const CREFO_PAY_ORDER_ID_INDEPENDENT_LENGTH = 30;
 
     /**
-     * @var \SprykerEco\Service\CrefoPay\CrefoPayConfig $crefoPayConfig
-     */
-    protected $crefoPayConfig;
-
-    /**
      * @var \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $utilTextService
      */
     protected $utilTextService;
 
     /**
-     * @param \SprykerEco\Service\CrefoPay\CrefoPayConfig $crefoPayConfig
      * @param \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $utilTextService
      */
-    public function __construct(
-        CrefoPayConfig $crefoPayConfig,
-        CrefoPayToUtilTextServiceInterface $utilTextService
-    ) {
-        $this->crefoPayConfig = $crefoPayConfig;
+    public function __construct(CrefoPayToUtilTextServiceInterface $utilTextService)
+    {
         $this->utilTextService = $utilTextService;
     }
 
@@ -44,28 +34,12 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
      */
     public function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
     {
-        return $this->crefoPayConfig->getUseIndependentOrderIdForTransaction() ?
-            $this->generateCrefoPayOrderIdIndependent() :
-            $this->generateCrefoPayOrderIdBasedOnCustomerReference($quoteTransfer);
-    }
+        $randomStringLength = static::CREFO_PAY_ORDER_ID_INDEPENDENT_LENGTH - strlen($quoteTransfer->getCustomerReference()) - 1;
 
-    /**
-     * @deprecated Use {@link \SprykerEco\Service\CrefoPay\Generator\CrefoPayUniqueIdGenerator::generateCrefoPayOrderIdIndependent()} instead.
-     *
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return string
-     */
-    protected function generateCrefoPayOrderIdBasedOnCustomerReference(QuoteTransfer $quoteTransfer): string
-    {
-        return uniqid($quoteTransfer->getCustomerReference() . '-', true);
-    }
-
-    /**
-     * @return string
-     */
-    protected function generateCrefoPayOrderIdIndependent(): string
-    {
-        return $this->utilTextService->generateRandomString(static::CREFO_PAY_ORDER_ID_INDEPENDENT_LENGTH);
+        return sprintf(
+            '%s-%s',
+            $this->utilTextService->generateRandomString($randomStringLength),
+            $quoteTransfer->getCustomerReference()
+        );
     }
 }

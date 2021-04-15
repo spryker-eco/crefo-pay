@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Service\CrefoPay\Dependency\Service;
 
+use Spryker\Service\UtilText\UtilTextServiceInterface;
+
 class CrefoPayToUtilTextServiceBridge implements CrefoPayToUtilTextServiceInterface
 {
     /**
@@ -17,7 +19,7 @@ class CrefoPayToUtilTextServiceBridge implements CrefoPayToUtilTextServiceInterf
     /**
      * @param \Spryker\Service\UtilText\UtilTextServiceInterface $utilTextService
      */
-    public function __construct($utilTextService)
+    public function __construct(UtilTextServiceInterface $utilTextService)
     {
         $this->utilTextService = $utilTextService;
     }
@@ -27,7 +29,7 @@ class CrefoPayToUtilTextServiceBridge implements CrefoPayToUtilTextServiceInterf
      *
      * @return string
      */
-    public function generateRandomString($length)
+    public function generateRandomString(int $length): string
     {
         return $this->utilTextService->generateRandomString($length);
     }

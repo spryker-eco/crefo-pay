@@ -25,10 +25,6 @@ class StartCrefoPayTransactionFacadeTest extends CrefoPayFacadeBaseTest
     public function testStartCrefoPayTransaction(): void
     {
         // Arrange
-        $mockConfig = $this->tester->mockEnvironmentConfig(
-            CrefoPayConstants::USE_INDEPENDENT_ORDER_ID_FOR_TRANSACTION,
-            false
-        );
         $quoteTransfer = $this->tester->createQuoteTransfer();
 
         // Act
@@ -37,39 +33,6 @@ class StartCrefoPayTransactionFacadeTest extends CrefoPayFacadeBaseTest
 
         //Assert
         $this->doTest($quoteTransfer);
-        $this->assertStringContainsString(
-            $quoteTransfer->getCustomer()->getCustomerReference(),
-            $crefoPayTransactionTransfer->getCrefoPayOrderId()
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testStartCrefoPayTransactionWithIndependentTransactionOrderId(): void
-    {
-        // Arrange
-        $mockConfig = $this->tester->mockEnvironmentConfig(
-            CrefoPayConstants::USE_INDEPENDENT_ORDER_ID_FOR_TRANSACTION,
-            true
-        );
-        $quoteTransfer = $this->tester->createQuoteTransfer();
-
-        // Act
-        $quoteTransfer = $this->facade->startCrefoPayTransaction($quoteTransfer);
-        $crefoPayTransactionTransfer = $quoteTransfer->getCrefoPayTransaction();
-
-        //Assert
-        $this->doTest($quoteTransfer);
-        $this->assertStringNotContainsString(
-            $quoteTransfer->getCustomer()->getCustomerReference(),
-            $crefoPayTransactionTransfer->getCrefoPayOrderId()
-        );
-        $this->assertEquals(
-            30,
-            strlen($crefoPayTransactionTransfer->getCrefoPayOrderId()),
-            'OrderId has to consist of 30 characters.'
-        );
     }
 
     /**
@@ -86,5 +49,10 @@ class StartCrefoPayTransactionFacadeTest extends CrefoPayFacadeBaseTest
         $this->assertNotEmpty($crefoPayTransactionTransfer->getCrefoPayOrderId());
         $this->assertNotEmpty($crefoPayTransactionTransfer->getSalt());
         $this->assertGreaterThan(0, count($crefoPayTransactionTransfer->getAllowedPaymentMethods()));
+        $this->assertEquals(
+            30,
+            strlen($crefoPayTransactionTransfer->getCrefoPayOrderId()),
+            'OrderId has to consist of 30 characters.'
+        );
     }
 }
