@@ -12,7 +12,7 @@ use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInte
 
 class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
 {
-    protected const CREFO_PAY_ORDER_ID_INDEPENDENT_LENGTH = 30;
+    protected const CREFO_PAY_ORDER_ID_LENGTH = 30;
 
     /**
      * @var \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $utilTextService
@@ -34,7 +34,7 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
      */
     public function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
     {
-        $randomStringLength = static::CREFO_PAY_ORDER_ID_INDEPENDENT_LENGTH - strlen($quoteTransfer->getCustomerReference()) - 1;
+        $randomStringLength = static::CREFO_PAY_ORDER_ID_LENGTH - strlen($quoteTransfer->getCustomerReference()) - 1;
 
         return sprintf(
             '%s-%s',
