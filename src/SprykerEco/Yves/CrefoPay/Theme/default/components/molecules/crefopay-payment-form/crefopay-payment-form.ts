@@ -10,12 +10,14 @@ export default class CrefopayPaymentForm extends Component {
     protected errorBlock: HTMLElement;
     protected paymentContainer: HTMLElement;
     protected paymentToggler: HTMLElement;
+    protected buttons: HTMLButtonElement[];
 
     protected readyCallback(): void {
         this.paymentForm = <HTMLFormElement>document.querySelector(this.paymentFormSelector);
         this.crefoPayScriptLoader = <ScriptLoader>document.querySelector(`.${this.jsName}__script-loader`);
         this.paymentContainer = <HTMLElement>this.closest(this.paymentContainerSelector);
         this.paymentToggler = <HTMLElement>this.paymentContainer.querySelector(this.paymentTogglerSelector);
+        this.buttons = <HTMLButtonElement[]>Array.from(this.paymentForm.getElementsByTagName('button'));
 
         this.mapEvents();
     }
@@ -49,6 +51,7 @@ export default class CrefopayPaymentForm extends Component {
         if (response.resultCode !== 0) {
             this.errorBlock.innerHTML = response.message;
             this.errorBlock.classList.remove(this.classToToggle);
+            this.enableSubmitButtons();
             return;
         }
 
@@ -74,6 +77,17 @@ export default class CrefopayPaymentForm extends Component {
             if (!toggler.classList.contains('is-hidden')) {
                 this.paymentInstrumentId = toggler.querySelector('[name*="paymentInstrumentId"]');
                 this.errorBlock = toggler.querySelector(`.${this.jsName}__error`);
+            }
+        });
+    }
+
+    protected enableSubmitButtons(): void {
+        this.buttons.forEach((button) => {
+            const isSubmitType: boolean = button.getAttribute('type') == 'submit';
+            const isDisabled: boolean = button.hasAttribute('disabled');
+
+            if (isSubmitType && isDisabled) {
+                button.removeAttribute('disabled');
             }
         });
     }
