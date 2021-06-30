@@ -44,14 +44,15 @@
     {% endmacro %}
 
     {% block requestForm %}
-        {% import _self as macros %}
-
         <div class="is-hidden">
             {{ form_widget(data.paymentMethodSubForm) }}
         </div>
 
         {% for field in data.fields %}
-            {{ macros.crefopayField(field.name, field.attribute, config.name) }}
+            {% block requestFormField %}
+                {% import _self as macros %}
+                {{ macros.crefopayField(field.name, field.attribute, config.name) }}
+            {% endblock %}
         {% endfor %}
 
         <div class="{{ config.name }}__error {{ config.jsName }}__error spacing-y is-hidden">

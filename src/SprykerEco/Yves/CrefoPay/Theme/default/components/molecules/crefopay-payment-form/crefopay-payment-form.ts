@@ -51,7 +51,7 @@ export default class CrefopayPaymentForm extends Component {
         if (response.resultCode !== 0) {
             this.errorBlock.innerHTML = response.message;
             this.errorBlock.classList.remove(this.classToToggle);
-            this.enableSubmitButtons();
+            setTimeout(() => this.enableSubmitButtons(), 0);
             return;
         }
 
