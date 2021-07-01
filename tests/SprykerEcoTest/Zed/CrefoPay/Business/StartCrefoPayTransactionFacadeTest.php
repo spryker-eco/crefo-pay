@@ -8,7 +8,6 @@
 namespace SprykerEcoTest\Zed\CrefoPay\Business;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use SprykerEco\Shared\CrefoPay\CrefoPayConstants;
 
 /**
  * @group Functional

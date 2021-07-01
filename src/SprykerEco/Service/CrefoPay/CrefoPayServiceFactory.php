@@ -9,8 +9,8 @@ namespace SprykerEco\Service\CrefoPay;
 
 use Spryker\Service\Kernel\AbstractServiceFactory;
 use SprykerEco\Service\CrefoPay\Generator\CrefoPayUniqueIdGenerator;
-use SprykerEco\Service\CrefoPay\Generator\CrefoPayUniqueIdGeneratorInterface;
 use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface;
+use SprykerEco\Service\CrefoPay\Generator\CrefoPayUniqueIdGeneratorInterface;
 
 class CrefoPayServiceFactory extends AbstractServiceFactory
 {
