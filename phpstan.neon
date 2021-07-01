@@ -2,8 +2,10 @@ parameters:
     checkGenericClassInNonGenericObjectType: false
     checkMissingIterableValueType: false
     ignoreErrors:
-        - '#Call to method .+\(\) on an unknown class Generated\\Service\\Ide\\AutoCompletion#'
+        - '#Call to method .+\(\) on an unknown class Generated\\.+#'
+        - '#Call to method .+\(\) on an unknown class Orm\\.+#'
         - '#Parameter \$.+ of method .+ has invalid typehint type Generated\\.+#'
+        - '#Parameter \$.+ of method .+ has invalid typehint type Orm\\.+#'
         - '#Return typehint of method .+ has invalid type Generated\\.+#'
         - '#PHPDoc tag @var for variable.+contains unknown class Generated\\.+#'
         - '#.+Transfer.+#'
