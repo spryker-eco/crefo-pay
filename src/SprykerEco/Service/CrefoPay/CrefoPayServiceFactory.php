@@ -23,7 +23,7 @@ class CrefoPayServiceFactory extends AbstractServiceFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface
+     * @return \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface
      */
     protected function getUtilTextService(): CrefoPayToUtilTextServiceInterface
     {
