@@ -11,7 +11,7 @@ parameters:
         - '#PHPDoc tag @var for variable.+contains unknown class Generated\\.+#'
         - '#PHPDoc tag @var for variable.+contains unknown class Orm\\.+#'
         - '#Parameter \$.+ of anonymous function has invalid typehint type Orm\\.+#'
-        - '#Call to static method \$.+ on an unknown class Orm\\.+#'
+        - '#Call to static method .+\(\)+ on an unknown class Orm\\.+#'
         - '#.+Transfer.+#'
     excludePaths:
         - src/SprykerEco/Zed/CrefoPay/Persistence/Propel/Abstract*.php
