@@ -27,7 +27,7 @@
         {% block requestFormField %}
             <div class="spacing-y">
                 <label class="label label--required">{{ field.name | trans }}</label>
-                <input class="input input--expand" type="text" data-crefopay="{{ field.attribute }}" placeholder="{{ field.placeholder | trans }}">
+                <input class="input input--expand" data-crefopay="{{ field.attribute }}" placeholder="{{ field.placeholder | trans }}">
             </div>
         {% endblock %}
     {% endembed %}
