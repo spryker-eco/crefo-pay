@@ -25,7 +25,7 @@
         },
     } only %}
         {% block requestFormField %}
-            <input class="input input--expand" type="text" data-crefopay="{{ field.attribute }}" placeholder="{{ field.placeholder | trans }}">
+            <input class="input input--expand" data-crefopay="{{ field.attribute }}" placeholder="{{ field.placeholder | trans }}">
         {% endblock %}
     {% endembed %}
 {% endblock %}
