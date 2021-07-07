@@ -14,14 +14,18 @@
         {name: "crefopay.bic", attribute: "paymentInstrument.bic", placeholder: subFormPlaceholders.bic}
     ] %}
 
-    {% include molecule('crefopay-payment-form', 'CrefoPay') with {
+    {% embed molecule('crefopay-payment-form', 'CrefoPay') with {
         data: {
             paymentMethodSubForm: paymentMethodSubForm,
             shopPublicKey: subFormVars.shopPublicKey,
             orderId: subFormVars.orderID,
             fields: crefopayFields,
             endpointUrl: subFormVars.secureFieldsApiEndpoint,
-            placeholders: subFormPlaceholders
+            placeholders: subFormPlaceholders,
         },
     } only %}
+        {% block requestFormField %}
+            <input class="input input--expand" data-crefopay="{{ field.attribute }}" placeholder="{{ field.placeholder | trans }}">
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
