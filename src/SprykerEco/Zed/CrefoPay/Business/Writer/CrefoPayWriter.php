@@ -17,6 +17,7 @@ use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
+use Spryker\DecimalObject\Decimal;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayEntityManagerInterface;
@@ -150,12 +151,17 @@ class CrefoPayWriter implements CrefoPayWriterInterface
         PaymentCrefoPayTransfer $paymentCrefoPayTransfer,
         ItemTransfer $orderItem
     ): PaymentCrefoPayOrderItemTransfer {
+        $taxRate = $orderItem->getTaxRate();
+        if (is_a($taxRate, Decimal::class)) {
+            $taxRate = $taxRate->toFloat();
+        }
+
         $paymentCrefoPayOrderItemTransfer = (new PaymentCrefoPayOrderItemTransfer())
             ->setIdSalesOrderItem($orderItem->getIdSalesOrderItem())
             ->setIdPaymentCrefoPay($paymentCrefoPayTransfer->getIdPaymentCrefoPay())
             ->setAmount($orderItem->getSumPriceToPayAggregation())
             ->setVatAmount($orderItem->getSumTaxAmountFullAggregation())
-            ->setVatRate($orderItem->getTaxRate())
+            ->setVatRate($taxRate)
             ->setRefundableAmount($orderItem->getRefundableAmount())
             ->setQuantity($orderItem->getQuantity())
             ->setStatus($this->config->getOmsStatusNew());
