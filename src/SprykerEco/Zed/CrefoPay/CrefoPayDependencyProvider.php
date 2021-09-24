@@ -19,14 +19,38 @@ use SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceBridge;
 
 class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_CREFO_APY_API = 'FACADE_CREFO_APY_API';
+    /**
+     * @var string
+     */
     public const FACADE_SALES = 'FACADE_SALES';
+    /**
+     * @var string
+     */
     public const FACADE_CALCULATION = 'FACADE_CALCULATION';
+    /**
+     * @var string
+     */
     public const FACADE_LOCALE = 'FACADE_LOCALE';
+    /**
+     * @var string
+     */
     public const FACADE_OMS = 'FACADE_OMS';
+    /**
+     * @var string
+     */
     public const FACADE_REFUND = 'FACADE_REFUND';
 
+    /**
+     * @var string
+     */
     public const SERVICE_CREFO_PAY = 'SERVICE_CREFO_PAY';
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_TEXT = 'SERVICE_UTIL_TEXT';
 
     /**

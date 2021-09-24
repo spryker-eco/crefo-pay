@@ -15,12 +15,33 @@ use SprykerShop\Yves\ShopApplication\Plugin\Provider\AbstractYvesControllerProvi
  */
 class CrefoPayControllerProvider extends AbstractYvesControllerProvider
 {
+    /**
+     * @var string
+     */
     protected const BUNDLE_NAME = 'CrefoPay';
+    /**
+     * @var string
+     */
     protected const CALLBACK_CONTROLLER_NAME = 'Callback';
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_CONTROLLER_NAME = 'Notification';
+    /**
+     * @var string
+     */
     protected const CREFO_PAY_NOTIFICATION = 'crefo-pay-notification';
+    /**
+     * @var string
+     */
     protected const CREFO_PAY_CONFIRMATION = 'crefo-pay-confirmation';
+    /**
+     * @var string
+     */
     protected const CREFO_PAY_SUCCESS = 'crefo-pay-success';
+    /**
+     * @var string
+     */
     protected const CREFO_PAY_FAILURE = 'crefo-pay-failure';
 
     /**

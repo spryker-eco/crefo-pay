@@ -19,7 +19,13 @@ use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterfa
 
 class CrefoPayCheckoutPostSaveHook implements CrefoPayCheckoutHookInterface
 {
+    /**
+     * @var string
+     */
     protected const ERROR_TYPE_PAYMENT_FAILED = 'payment failed';
+    /**
+     * @var string
+     */
     protected const ERROR_MESSAGE_PAYMENT_FAILED = 'Something went wrong with your payment. Try again!';
 
     /**

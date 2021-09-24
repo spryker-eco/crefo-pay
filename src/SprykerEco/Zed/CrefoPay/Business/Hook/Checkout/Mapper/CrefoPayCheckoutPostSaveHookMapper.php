@@ -16,6 +16,9 @@ use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperInterface
 {
+    /**
+     * @var string
+     */
     protected const GET_PAYMENT_METHOD_PATTERN = 'get%s';
 
     /**

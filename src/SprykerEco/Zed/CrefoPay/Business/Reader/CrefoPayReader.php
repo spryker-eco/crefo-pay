@@ -17,6 +17,9 @@ use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface;
 
 class CrefoPayReader implements CrefoPayReaderInterface
 {
+    /**
+     * @var array
+     */
     protected const SUCCESS_RESULT_CODES = [0, 1];
 
     /**
@@ -101,7 +104,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
     }
 
     /**
-     * @param int[] $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */

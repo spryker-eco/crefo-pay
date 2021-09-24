@@ -129,7 +129,7 @@ class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
      * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      * @param \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer $paymentCrefoPayOrderItemCollection
      *
-     * @return int[]
+     * @return array<int>
      */
     protected function getAffectedSalesOrderItemIds(
         CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer,

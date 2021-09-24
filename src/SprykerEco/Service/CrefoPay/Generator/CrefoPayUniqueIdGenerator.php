@@ -12,6 +12,9 @@ use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInte
 
 class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
 {
+    /**
+     * @var int
+     */
     protected const CREFO_PAY_ORDER_ID_LENGTH = 30;
 
     /**

@@ -50,7 +50,7 @@ interface CrefoPayRepositoryInterface
     public function getPaymentCrefoPayOrderItemCollectionByCaptureId(string $captureId): PaymentCrefoPayOrderItemCollectionTransfer;
 
     /**
-     * @param int[] $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
@@ -59,7 +59,7 @@ interface CrefoPayRepositoryInterface
     /**
      * @param int $idSalesOrderItem
      * @param string $apiLogRequestType
-     * @param int[] $resultCodes
+     * @param array<int> $resultCodes
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer|null
      */

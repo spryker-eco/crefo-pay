@@ -52,7 +52,13 @@ class CrefoPayZedTester extends Actor
 {
     use _generated\CrefoPayZedTesterActions;
 
+    /**
+     * @var array
+     */
     protected const ALLOWED_PAYMENT_METHODS = ['PREPAID', 'CC', 'PAYPAL', 'SU', 'COD'];
+    /**
+     * @var array
+     */
     protected const SPRYKER_PAYMENT_METHODS = [
         'crefoPayBill',
         'crefoPayCashOnDelivery',
@@ -63,31 +69,109 @@ class CrefoPayZedTester extends Actor
         'crefoPayCreditCard',
         'crefoPayCreditCard3D',
     ];
+    /**
+     * @var int
+     */
     protected const CREFO_PAY_API_LOG_ID = 123;
+    /**
+     * @var string
+     */
     protected const RESPONSE_SALT = '1ee1cfcccd6051b2';
+    /**
+     * @var string
+     */
     protected const CUSTOMER_REFERENCE = 'DE-22';
+    /**
+     * @var string
+     */
     protected const CUSTOMER_NAME = 'John';
+    /**
+     * @var string
+     */
     protected const CUSTOMER_SURNAME = 'Doe';
+    /**
+     * @var string
+     */
     protected const CUSTOMER_EMAIL = 'john.doe@mail.com';
+    /**
+     * @var string
+     */
     protected const CUSTOMER_SALUTATION = 'Mr';
+    /**
+     * @var string
+     */
     protected const ADDRESS_STREET = 'Street';
+    /**
+     * @var string
+     */
     protected const ADDRESS_NO = '130';
+    /**
+     * @var string
+     */
     protected const ADDRESS_ADDITIONAL = 'Additional';
+    /**
+     * @var string
+     */
     protected const ADDRESS_ZIP = '20537';
+    /**
+     * @var string
+     */
     protected const ADDRESS_CITY = 'Hamburg';
+    /**
+     * @var string
+     */
     protected const ADDRESS_COUNTRY = 'DE';
+    /**
+     * @var int
+     */
     protected const TOTALS_PRICE_TO_PAY = 26772;
+    /**
+     * @var int
+     */
     protected const TOTALS_TAX_RATE = 19;
+    /**
+     * @var int
+     */
     protected const TOTALS_TAX_AMOUNT = 4275;
+    /**
+     * @var string
+     */
     protected const ORDER_ID = 'DE--22-5c9098f724af27.85915877';
+    /**
+     * @var string
+     */
     protected const USER_ID = 'DE--22';
+    /**
+     * @var string
+     */
     protected const CURRENCY = 'EUR';
+    /**
+     * @var string
+     */
     protected const TRANSACTION_STATUS = 'MERCHANTPENDING';
+    /**
+     * @var string
+     */
     protected const TIMESTAMP = '1553159430402';
+    /**
+     * @var string
+     */
     protected const API_VERSION = '2.1';
+    /**
+     * @var string
+     */
     protected const REQUEST_MAC = '8a02ab4f5a8ad805e53a38452009c9deaf96976b';
+    /**
+     * @var string
+     */
     protected const STATE_MACHINE_PROCESS_NAME = 'CrefoPayCreditCard01';
+    /**
+     * @var string
+     */
     protected const PAYMENT_PROVIDER = 'CrefoPay';
+    /**
+     * @var string
+     */
     protected const PAYMENT_METHOD = 'crefoPayCreditCard';
 
     /**

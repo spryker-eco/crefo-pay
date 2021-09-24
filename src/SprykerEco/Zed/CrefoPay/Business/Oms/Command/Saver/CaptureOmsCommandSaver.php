@@ -187,7 +187,7 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     /**
      * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer[]
+     * @return array<\Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer>
      */
     protected function getRemainingOrderItems(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): array
     {

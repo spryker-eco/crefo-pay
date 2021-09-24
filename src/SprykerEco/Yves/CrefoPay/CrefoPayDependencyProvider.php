@@ -13,6 +13,9 @@ use SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToCrefoPayApiServiceBrid
 
 class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_CREFO_PAY_API = 'SERVICE_CREFO_PAY_API';
 
     /**

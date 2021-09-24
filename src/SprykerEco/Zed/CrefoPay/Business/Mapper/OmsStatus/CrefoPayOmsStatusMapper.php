@@ -57,7 +57,7 @@ class CrefoPayOmsStatusMapper implements CrefoPayOmsStatusMapperInterface
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     protected function getNotificationTransactionToOmsStatusMapping(): array
     {
@@ -65,7 +65,7 @@ class CrefoPayOmsStatusMapper implements CrefoPayOmsStatusMapperInterface
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     protected function getNotificationOrderToOmsStatusMapping(): array
     {

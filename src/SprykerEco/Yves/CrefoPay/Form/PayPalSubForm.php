@@ -20,13 +20,34 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PayPalSubForm extends AbstractSubFormType implements SubFormInterface, SubFormProviderNameInterface
 {
+    /**
+     * @var string
+     */
     public const CREFO_PAY_SHOP_PUBLIC_KEY = 'shopPublicKey';
+    /**
+     * @var string
+     */
     public const CREFO_PAY_ORDER_ID = 'orderID';
+    /**
+     * @var string
+     */
     public const CREFO_PAY_SECURE_FIELDS_API_ENDPOINT = 'secureFieldsApiEndpoint';
+    /**
+     * @var string
+     */
     public const CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS = 'secureFieldsPlaceholders';
 
+    /**
+     * @var string
+     */
     protected const PAYMENT_METHOD = 'paypal';
+    /**
+     * @var string
+     */
     protected const FORM_FIELD_PAYMENT_METHOD = 'paymentMethod';
+    /**
+     * @var string
+     */
     protected const FORM_FIELD_PAYMENT_METHOD_DATA = 'PAYPAL';
 
     /**

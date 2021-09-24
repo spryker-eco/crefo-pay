@@ -25,23 +25,66 @@ use SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterfac
 
 class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterface
 {
+    /**
+     * @var string
+     */
     protected const INTEGRATION_TYPE = 'SecureFields';
+    /**
+     * @var string
+     */
     protected const AUTO_CAPTURE = 'false';
+    /**
+     * @var string
+     */
     protected const CONTEXT = 'ONLINE';
+    /**
+     * @var string
+     */
     protected const USER_TYPE_PRIVATE = 'PRIVATE';
+    /**
+     * @var string
+     */
     protected const USER_TYPE_BUSINESS = 'BUSINESS';
+    /**
+     * @var array
+     */
     protected const SALUTATION_MAPPING = ['Mr' => 'M', 'Ms' => 'F', 'Mrs' => 'F', 'Dr' => 'M'];
+    /**
+     * @var array
+     */
     protected const AVAILABLE_LOCALES = ['EN', 'DE', 'ES', 'FR', 'IT', 'NL'];
+    /**
+     * @var string
+     */
     protected const DEFAULT_LOCALE = 'EN';
+    /**
+     * @var string
+     */
     protected const SHIPPING_COSTS_DESCRIPTION = 'Shipping Costs';
+    /**
+     * @var int
+     */
     protected const SHIPPING_COSTS_COUNT = 1;
+    /**
+     * @var int
+     */
     protected const GUEST_USER_ID_LENGTH = 6;
+    /**
+     * @var string
+     */
     protected const GUEST_USER_ID_PATTERN = 'GUEST-USER-%s';
+    /**
+     * @var string
+     */
     protected const USER_ID_B2B_SUFFIX = '-B2B';
+    /**
+     * @var string
+     */
     protected const USER_ID_B2C_SUFFIX = '-B2C';
 
     /**
      * @uses \Spryker\Shared\Shipment\ShipmentConfig::SHIPMENT_EXPENSE_TYPE
+     * @var string
      */
     protected const SHIPMENT_EXPENSE_TYPE = 'SHIPMENT_EXPENSE_TYPE';
 

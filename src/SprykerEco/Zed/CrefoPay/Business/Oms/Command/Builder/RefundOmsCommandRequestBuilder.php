@@ -18,6 +18,9 @@ use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilderInterface
 {
+    /**
+     * @var string
+     */
     protected const INVALID_ITEMS_AGGREGATION_MESSAGE = 'Order items to refund have to have same captureId.';
 
     /**

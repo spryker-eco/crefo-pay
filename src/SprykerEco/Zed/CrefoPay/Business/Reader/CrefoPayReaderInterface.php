@@ -60,7 +60,7 @@ interface CrefoPayReaderInterface
     ): PaymentCrefoPayOrderItemCollectionTransfer;
 
     /**
-     * @param int[] $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */

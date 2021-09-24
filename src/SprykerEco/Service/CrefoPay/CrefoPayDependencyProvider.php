@@ -13,6 +13,9 @@ use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceBrid
 
 class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_UTIL_TEXT = 'SERVICE_UTIL_TEXT';
 
     /**
