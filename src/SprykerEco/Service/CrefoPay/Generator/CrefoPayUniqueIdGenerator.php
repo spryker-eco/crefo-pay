@@ -18,7 +18,7 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
     protected const CREFO_PAY_ORDER_ID_LENGTH = 30;
 
     /**
-     * \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $utilTextService
+     * @var \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface
      */
     protected $utilTextService;
 
