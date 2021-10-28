@@ -42,7 +42,7 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
         return sprintf(
             '%s-%s',
             $this->utilTextService->generateRandomString($randomStringLength),
-            $quoteTransfer->getCustomerReference()
+            $quoteTransfer->getCustomerReference(),
         );
     }
 }

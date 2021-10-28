@@ -52,7 +52,7 @@ class CaptureOmsCommand implements CrefoPayOmsCommandByOrderInterface
             function (SpySalesOrderItem $orderItem) {
                 return $orderItem->getIdSalesOrderItem();
             },
-            $salesOrderItems
+            $salesOrderItems,
         );
 
         $this->facade

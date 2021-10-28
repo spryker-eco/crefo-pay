@@ -11,6 +11,9 @@ use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Yves\Kernel\Container;
 use SprykerEco\Yves\CrefoPay\Dependency\Service\CrefoPayToCrefoPayApiServiceBridge;
 
+/**
+ * @method \SprykerEco\Yves\CrefoPay\CrefoPayConfig getConfig()
+ */
 class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
 {
     /**

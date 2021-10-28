@@ -100,7 +100,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
         return $this->getMapper()
             ->mapOrderItemEntitiesToOrderItemCollection(
                 $paymentCrefoPayOrderItemEntities,
-                new PaymentCrefoPayOrderItemCollectionTransfer()
+                new PaymentCrefoPayOrderItemCollectionTransfer(),
             );
     }
 
@@ -119,7 +119,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
         return $this->getMapper()
             ->mapOrderItemEntitiesToOrderItemCollection(
                 $paymentCrefoPayOrderItemEntities,
-                new PaymentCrefoPayOrderItemCollectionTransfer()
+                new PaymentCrefoPayOrderItemCollectionTransfer(),
             );
     }
 
@@ -138,7 +138,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
         return $this->getMapper()
             ->mapOrderItemEntitiesToOrderItemCollection(
                 $paymentCrefoPayOrderItemEntities,
-                new PaymentCrefoPayOrderItemCollectionTransfer()
+                new PaymentCrefoPayOrderItemCollectionTransfer(),
             );
     }
 
@@ -171,7 +171,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
         return $this->getMapper()
             ->mapEntityToPaymentCrefoPayOrderItemToCrefoPayApiLogTransfer(
                 $paymentCrefoPayOrderItemToCrefoPayApiLogEntity,
-                new PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer()
+                new PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer(),
             );
     }
 
@@ -201,7 +201,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
         return $this->getMapper()
             ->mapEntityToPaymentCrefoPayOrderItemToCrefoPayNotificationTransfer(
                 $paymentCrefoPayOrderItemToCrefoPayNotificationEntity,
-                new PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer()
+                new PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer(),
             );
     }
 
@@ -231,7 +231,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
         return $this->getMapper()
             ->mapEntityToPaymentCrefoPayOrderItemToCrefoPayNotificationTransfer(
                 $paymentCrefoPayOrderItemToCrefoPayNotificationEntity,
-                new PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer()
+                new PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer(),
             );
     }
 

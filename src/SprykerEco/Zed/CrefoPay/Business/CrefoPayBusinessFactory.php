@@ -88,7 +88,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new CrefoPayQuoteExpander(
             $this->createQuoteExpanderMapper(),
-            $this->getCrefoPayApiFacade()
+            $this->getCrefoPayApiFacade(),
         );
     }
 
@@ -101,7 +101,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
             $this->getCrefoPayService(),
             $this->getUtilTextService(),
             $this->getConfig(),
-            $this->getLocaleFacade()
+            $this->getLocaleFacade(),
         );
     }
 
@@ -112,7 +112,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new CrefoPayPaymentMethodFilter(
             $this->createCrefoPayPaymentMethodMapper(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -124,7 +124,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayNotificationProcessor(
             $this->createCrefoPayOmsStatusMapper(),
             $this->createReader(),
-            $this->createWriter()
+            $this->createWriter(),
         );
     }
 
@@ -143,7 +143,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new CrefoPayOrderPaymentSaver(
             $this->createWriter(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -155,7 +155,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayCheckoutPostSaveHook(
             $this->getCrefoPayApiFacade(),
             $this->createCheckoutPostSaveHookMapper(),
-            $this->createCheckoutPostSaveHookSaver()
+            $this->createCheckoutPostSaveHookSaver(),
         );
     }
 
@@ -175,7 +175,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
         return new CrefoPayCheckoutPostSaveHookSaver(
             $this->createReader(),
             $this->createWriter(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -196,7 +196,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
             $this->createCaptureOmsCommandRequestBuilder(),
             $this->createReader(),
             $this->createCaptureOmsCommandClient(),
-            $this->createCaptureOmsCommandSaver()
+            $this->createCaptureOmsCommandSaver(),
         );
     }
 
@@ -209,7 +209,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
             $this->createCancelOmsCommandRequestBuilder(),
             $this->createReader(),
             $this->createCancelOmsCommandClient(),
-            $this->createCancelOmsCommandSaver()
+            $this->createCancelOmsCommandSaver(),
         );
     }
 
@@ -222,7 +222,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
             $this->createRefundOmsCommandRequestBuilder(),
             $this->createReader(),
             $this->createRefundOmsCommandClient(),
-            $this->createRefundOmsCommandSaver()
+            $this->createRefundOmsCommandSaver(),
         );
     }
 
@@ -235,7 +235,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
             $this->createFinishOmsCommandRequestBuilder(),
             $this->createReader(),
             $this->createFinishOmsCommandClient(),
-            $this->createFinishOmsCommandSaver()
+            $this->createFinishOmsCommandSaver(),
         );
     }
 
@@ -246,7 +246,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new CaptureOmsCommandRequestBuilder(
             $this->getUtilTextService(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -316,7 +316,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
             $this->createWriter(),
             $this->getConfig(),
             $this->getOmsFacade(),
-            $this->createCrefoPayOmsStatusMapper()
+            $this->createCrefoPayOmsStatusMapper(),
         );
     }
 
@@ -329,7 +329,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
             $this->createReader(),
             $this->createWriter(),
             $this->getConfig(),
-            $this->getOmsFacade()
+            $this->getOmsFacade(),
         );
     }
 
@@ -342,7 +342,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
             $this->createReader(),
             $this->createWriter(),
             $this->getConfig(),
-            $this->getRefundFacade()
+            $this->getRefundFacade(),
         );
     }
 
@@ -355,7 +355,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
             $this->createReader(),
             $this->createWriter(),
             $this->getConfig(),
-            $this->getOmsFacade()
+            $this->getOmsFacade(),
         );
     }
 
@@ -374,7 +374,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new IsAcknowledgePendingReceivedOmsCondition(
             $this->createReader(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -385,7 +385,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new IsMerchantPendingReceivedOmsCondition(
             $this->createReader(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -396,7 +396,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new IsCiaPendingReceivedOmsCondition(
             $this->createReader(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -415,7 +415,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new IsCanceledReceivedOmsCondition(
             $this->createReader(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -426,7 +426,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new IsExpiredReceivedOmsCondition(
             $this->createReader(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -445,7 +445,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new IsPaidReceivedOmsCondition(
             $this->createReader(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -472,7 +472,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new IsChargeBackReceivedOmsCondition(
             $this->createReader(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -483,7 +483,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new IsDoneReceivedOmsCondition(
             $this->createReader(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -494,7 +494,7 @@ class CrefoPayBusinessFactory extends AbstractBusinessFactory
     {
         return new CrefoPayWriter(
             $this->getEntityManager(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 

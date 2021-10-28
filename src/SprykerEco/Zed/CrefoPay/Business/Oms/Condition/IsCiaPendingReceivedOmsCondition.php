@@ -44,7 +44,7 @@ class IsCiaPendingReceivedOmsCondition implements CrefoPayOmsConditionInterface
         $relationTransfer = $this->reader
             ->getPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $idSalesOrderItem,
-                $this->config->getNotificationTransactionStatusCiaPending()
+                $this->config->getNotificationTransactionStatusCiaPending(),
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;

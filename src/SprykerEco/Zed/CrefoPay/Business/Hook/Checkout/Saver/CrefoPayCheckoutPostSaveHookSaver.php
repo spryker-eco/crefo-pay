@@ -66,7 +66,7 @@ class CrefoPayCheckoutPostSaveHookSaver implements CrefoPayCheckoutHookSaverInte
         $this->writer->updatePaymentEntities(
             $this->getPaymentCrefoPayOrderItemCollectionTransfer($requestTransfer),
             $this->getPaymentCrefoPayTransfer($requestTransfer, $responseTransfer),
-            $responseTransfer->getCrefoPayApiLogId()
+            $responseTransfer->getCrefoPayApiLogId(),
         );
     }
 
@@ -82,16 +82,16 @@ class CrefoPayCheckoutPostSaveHookSaver implements CrefoPayCheckoutHookSaverInte
     ): ?PaymentCrefoPayTransfer {
         $paymentCrefoPayTransfer = $this->reader
             ->getPaymentCrefoPayByCrefoPayOrderId(
-                $requestTransfer->getReserveRequest()->getOrderID()
+                $requestTransfer->getReserveRequest()->getOrderID(),
             );
 
         $paymentCrefoPayTransfer->setAuthorizedAmount(
-            $requestTransfer->getReserveRequest()->getAmount()->getAmount()
+            $requestTransfer->getReserveRequest()->getAmount()->getAmount(),
         );
 
         if ($responseTransfer->getReserveResponse()->getAdditionalData() !== null) {
             $paymentCrefoPayTransfer->setAdditionalData(
-                $responseTransfer->getReserveResponse()->getAdditionalData()->serialize()
+                $responseTransfer->getReserveResponse()->getAdditionalData()->serialize(),
             );
         }
 
@@ -107,7 +107,7 @@ class CrefoPayCheckoutPostSaveHookSaver implements CrefoPayCheckoutHookSaverInte
     {
         $paymentCrefoPayOrderItemCollection = $this->reader
             ->getPaymentCrefoPayOrderItemCollectionByCrefoPayOrderId(
-                $requestTransfer->getReserveRequest()->getOrderID()
+                $requestTransfer->getReserveRequest()->getOrderID(),
             );
 
         return $this->setOrderItemsStatus($paymentCrefoPayOrderItemCollection);
@@ -126,7 +126,7 @@ class CrefoPayCheckoutPostSaveHookSaver implements CrefoPayCheckoutHookSaverInte
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status) {
                 return $paymentCrefoPayOrderItemTransfer->setStatus($status);
             },
-            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy()
+            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy(),
         );
 
         return $paymentCrefoPayOrderItemCollection

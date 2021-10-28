@@ -44,7 +44,7 @@ class IsCanceledReceivedOmsCondition implements CrefoPayOmsConditionInterface
         $relationTransfer = $this->reader
             ->getPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $idSalesOrderItem,
-                $this->config->getNotificationTransactionStatusCancelled()
+                $this->config->getNotificationTransactionStatusCancelled(),
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;

@@ -39,7 +39,7 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
         return new CancelOmsCommand(
             $this->createCrefoPayOmsMapper(),
             $this->getFacade(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -50,7 +50,7 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     {
         return new CaptureOmsCommand(
             $this->createCrefoPayOmsMapper(),
-            $this->getFacade()
+            $this->getFacade(),
         );
     }
 
@@ -61,7 +61,7 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     {
         return new CaptureSplitOmsCommand(
             $this->createCrefoPayOmsMapper(),
-            $this->getFacade()
+            $this->getFacade(),
         );
     }
 
@@ -73,7 +73,7 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
         return new RefundOmsCommand(
             $this->createCrefoPayOmsMapper(),
             $this->getFacade(),
-            $this->getRefundFacade()
+            $this->getRefundFacade(),
         );
     }
 
@@ -85,7 +85,7 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
         return new RefundSplitOmsCommand(
             $this->createCrefoPayOmsMapper(),
             $this->getFacade(),
-            $this->getRefundFacade()
+            $this->getRefundFacade(),
         );
     }
 
@@ -97,7 +97,7 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
         return new FinishOmsCommand(
             $this->createCrefoPayOmsMapper(),
             $this->getFacade(),
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 
@@ -108,7 +108,7 @@ class CrefoPayCommunicationFactory extends AbstractCommunicationFactory
     {
         return new CrefoPayOmsMapper(
             $this->getSalesFacade(),
-            $this->getCalculationFacade()
+            $this->getCalculationFacade(),
         );
     }
 

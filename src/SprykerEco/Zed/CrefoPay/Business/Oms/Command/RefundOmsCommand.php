@@ -66,7 +66,7 @@ class RefundOmsCommand implements RefundOmsCommandInterface
     {
         $crefoPayOmsCommandTransfer = $this->createCrefoPayOmsCommandTransfer(
             $orderTransfer,
-            $salesOrderItemIds
+            $salesOrderItemIds,
         );
         $crefoPayOmsCommandTransfer->setRefund($refundTransfer);
 

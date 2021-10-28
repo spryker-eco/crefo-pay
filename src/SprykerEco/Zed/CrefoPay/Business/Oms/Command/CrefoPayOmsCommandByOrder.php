@@ -64,7 +64,7 @@ class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandInterface
     {
         $crefoPayOmsCommandTransfer = $this->createCrefoPayOmsCommandTransfer(
             $orderTransfer,
-            $salesOrderItemIds
+            $salesOrderItemIds,
         );
         $crefoPayOmsCommandTransfer = $this->requestBuilder
             ->buildRequestTransfer($crefoPayOmsCommandTransfer);

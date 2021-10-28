@@ -25,18 +25,22 @@ class CreditCard3DSubForm extends AbstractSubFormType implements SubFormInterfac
      * @var string
      */
     public const CREFO_PAY_SHOP_PUBLIC_KEY = 'shopPublicKey';
+
     /**
      * @var string
      */
     public const CREFO_PAY_ORDER_ID = 'orderID';
+
     /**
      * @var string
      */
     public const CREFO_PAY_SECURE_FIELDS_API_ENDPOINT = 'secureFieldsApiEndpoint';
+
     /**
      * @var string
      */
     public const CREFO_PAY_SECURE_FIELDS_LIBRARY_URL = 'secureFieldsLibraryUrl';
+
     /**
      * @var string
      */
@@ -46,14 +50,17 @@ class CreditCard3DSubForm extends AbstractSubFormType implements SubFormInterfac
      * @var string
      */
     protected const PAYMENT_METHOD = 'credit-card-3d';
+
     /**
      * @var string
      */
     protected const FORM_FIELD_PAYMENT_METHOD = 'paymentMethod';
+
     /**
      * @var string
      */
     protected const FORM_FIELD_PAYMENT_METHOD_DATA = 'CC3D';
+
     /**
      * @var string
      */
@@ -145,7 +152,7 @@ class CreditCard3DSubForm extends AbstractSubFormType implements SubFormInterfac
             [
                 'choices' => [static::FORM_FIELD_PAYMENT_METHOD_DATA],
                 'expanded' => true,
-            ]
+            ],
         );
 
         return $this;
@@ -161,7 +168,7 @@ class CreditCard3DSubForm extends AbstractSubFormType implements SubFormInterfac
         $builder->add(
             static::FORM_FIELD_PAYMENT_INSTRUMENT_ID,
             HiddenType::class,
-            ['label' => false]
+            ['label' => false],
         );
 
         return $this;

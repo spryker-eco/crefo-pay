@@ -61,14 +61,14 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status) {
                 return $paymentCrefoPayOrderItemTransfer->setStatus($status);
             },
-            $paymentCrefoPayOrderItemsCollection->getCrefoPayOrderItems()->getArrayCopy()
+            $paymentCrefoPayOrderItemsCollection->getCrefoPayOrderItems()->getArrayCopy(),
         );
 
         $paymentCrefoPayOrderItemsCollection->setCrefoPayOrderItems(new ArrayObject($paymentCrefoPayOrderItems));
 
         $this->writer->createNotificationEntities(
             $notificationTransfer,
-            $paymentCrefoPayOrderItemsCollection
+            $paymentCrefoPayOrderItemsCollection,
         );
 
         return $notificationTransfer;
@@ -84,14 +84,14 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
         if (!empty($notificationTransfer->getTransactionStatus())) {
             $status = $this->statusMapper
                 ->mapNotificationTransactionStatusToOmsStatus(
-                    $notificationTransfer->getTransactionStatus()
+                    $notificationTransfer->getTransactionStatus(),
                 );
         }
 
         if (!empty($notificationTransfer->getOrderStatus())) {
             $status = $this->statusMapper
                 ->mapNotificationOrderStatusToOmsStatus(
-                    $notificationTransfer->getOrderStatus()
+                    $notificationTransfer->getOrderStatus(),
                 );
         }
 

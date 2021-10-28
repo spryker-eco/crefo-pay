@@ -20,30 +20,37 @@ class CrefoPayConfig extends AbstractBundleConfig
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_BILL = 'crefoPayBill';
+
     /**
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_CASH_ON_DELIVERY = 'crefoPayCashOnDelivery';
+
     /**
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_DIRECT_DEBIT = 'crefoPayDirectDebit';
+
     /**
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_PAY_PAL = 'crefoPayPayPal';
+
     /**
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_PREPAID = 'crefoPayPrepaid';
+
     /**
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_SOFORT = 'crefoPaySofort';
+
     /**
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD = 'crefoPayCreditCard';
+
     /**
      * @var string
      */
@@ -53,14 +60,17 @@ class CrefoPayConfig extends AbstractBundleConfig
      * @var int
      */
     protected const USER_RISK_CLASS = 1; //Possible values: 0 -> trusted user, 1 -> default risk user, 2 -> high risk user.
+
     /**
      * @var string
      */
     protected const PRODUCT_TYPE_DEFAULT = 'DEFAULT';
+
     /**
      * @var string
      */
     protected const PRODUCT_TYPE_SHIPPING_COSTS = 'SHIPPINGCOSTS';
+
     /**
      * @var string
      */
@@ -70,30 +80,37 @@ class CrefoPayConfig extends AbstractBundleConfig
      * @var int
      */
     protected const PRODUCT_RISK_CLASS = 1;
+
     /**
      * @var string
      */
     protected const EXTERNAL_PAYMENT_METHOD_BILL = 'BILL';
+
     /**
      * @var string
      */
     protected const EXTERNAL_PAYMENT_METHOD_CASH_ON_DELIVERY = 'COD';
+
     /**
      * @var string
      */
     protected const EXTERNAL_PAYMENT_METHOD_DIRECT_DEBIT = 'DD';
+
     /**
      * @var string
      */
     protected const EXTERNAL_PAYMENT_METHOD_PAYPAL = 'PAYPAL';
+
     /**
      * @var string
      */
     protected const EXTERNAL_PAYMENT_METHOD_PREPAID = 'PREPAID';
+
     /**
      * @var string
      */
     protected const EXTERNAL_PAYMENT_METHOD_SOFORT = 'SU';
+
     /**
      * @var string
      */

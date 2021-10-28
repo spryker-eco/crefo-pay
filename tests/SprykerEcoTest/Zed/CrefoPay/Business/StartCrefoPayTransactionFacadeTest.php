@@ -51,7 +51,7 @@ class StartCrefoPayTransactionFacadeTest extends CrefoPayFacadeBaseTest
         $this->assertEquals(
             30,
             strlen($crefoPayTransactionTransfer->getCrefoPayOrderId()),
-            'OrderId has to consist of 30 characters.'
+            'OrderId has to consist of 30 characters.',
         );
     }
 }

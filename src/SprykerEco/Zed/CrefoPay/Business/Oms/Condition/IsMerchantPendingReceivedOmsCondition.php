@@ -44,7 +44,7 @@ class IsMerchantPendingReceivedOmsCondition implements CrefoPayOmsConditionInter
         $relationTransfer = $this->reader
             ->getPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $idSalesOrderItem,
-                $this->config->getNotificationTransactionStatusMerchantPending()
+                $this->config->getNotificationTransactionStatusMerchantPending(),
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;

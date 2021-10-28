@@ -38,7 +38,7 @@ class CrefoPayPersistenceMapper
         foreach ($paymentCrefoPayOrderItemEntities as $paymentCrefoPayOrderItemEntity) {
             $paymentCrefoPayOrderItemTransfer = $this->mapEntityToPaymentCrefoPayOrderItemTransfer(
                 $paymentCrefoPayOrderItemEntity,
-                new PaymentCrefoPayOrderItemTransfer()
+                new PaymentCrefoPayOrderItemTransfer(),
             );
             $result->append($paymentCrefoPayOrderItemTransfer);
         }
@@ -59,7 +59,7 @@ class CrefoPayPersistenceMapper
     ): PaymentCrefoPayTransfer {
         $paymentCrefoPayTransfer->fromArray(
             $paymentCrefoPayEntity->toArray(),
-            true
+            true,
         )->setIdSalesOrder($paymentCrefoPayEntity->getFkSalesOrder());
 
         return $paymentCrefoPayTransfer;
@@ -95,7 +95,7 @@ class CrefoPayPersistenceMapper
     ): PaymentCrefoPayNotificationTransfer {
         $paymentCrefoPayNotificationTransfer->fromArray(
             $paymentCrefoPayNotificationEntity->toArray(),
-            true
+            true,
         );
 
         return $paymentCrefoPayNotificationTransfer;

@@ -69,13 +69,13 @@ class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
         }
 
         $paymentCrefoPayOrderItemsCollection = $this->addOmsStatusToOrderItems(
-            $crefoPayOmsCommandTransfer->getPaymentCrefoPayOrderItemCollection()
+            $crefoPayOmsCommandTransfer->getPaymentCrefoPayOrderItemCollection(),
         );
 
         $this->writer->updatePaymentEntities(
             $paymentCrefoPayOrderItemsCollection,
             $this->getPaymentCrefoPayTransfer($crefoPayOmsCommandTransfer),
-            $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId()
+            $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId(),
         );
 
         if ($crefoPayOmsCommandTransfer->getRefund()->getAmount() > 0) {
@@ -97,7 +97,7 @@ class RefundOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status) {
                 return $paymentCrefoPayOrderItemTransfer->setStatus($status);
             },
-            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy()
+            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy(),
         );
 
         return $paymentCrefoPayOrderItemCollection

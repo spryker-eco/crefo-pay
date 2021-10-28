@@ -89,11 +89,11 @@ class CrefoPayWriter implements CrefoPayWriterInterface
                     if ($crefoPayApiLogId !== null) {
                         $this->createPaymentCrefoPayOrderItemToCrefoPayApiLogEntity(
                             $paymentCrefoPayOrderItemTransfer->getIdPaymentCrefoPayOrderItem(),
-                            $crefoPayApiLogId
+                            $crefoPayApiLogId,
                         );
                     }
                 }
-            }
+            },
         );
     }
 
@@ -114,10 +114,10 @@ class CrefoPayWriter implements CrefoPayWriterInterface
                     $this->entityManager->savePaymentCrefoPayOrderItemEntity($paymentCrefoPayOrderItemTransfer);
                     $this->createPaymentCrefoPayOrderItemToCrefoPayNotificationEntity(
                         $paymentCrefoPayOrderItemTransfer->getIdPaymentCrefoPayOrderItem(),
-                        $paymentCrefoPayNotificationTransfer->getIdPaymentCrefoPayNotification()
+                        $paymentCrefoPayNotificationTransfer->getIdPaymentCrefoPayNotification(),
                     );
                 }
-            }
+            },
         );
     }
 

@@ -23,6 +23,7 @@ class CrefoPayCheckoutPostSaveHook implements CrefoPayCheckoutHookInterface
      * @var string
      */
     protected const ERROR_TYPE_PAYMENT_FAILED = 'payment failed';
+
     /**
      * @var string
      */
@@ -73,7 +74,7 @@ class CrefoPayCheckoutPostSaveHook implements CrefoPayCheckoutHookInterface
         $requestTransfer = $this->mapper
             ->mapQuoteTransferToRequestTransfer(
                 $quoteTransfer,
-                new CrefoPayApiRequestTransfer()
+                new CrefoPayApiRequestTransfer(),
             );
 
         $responseTransfer = $this->crefoPayApiFacade->performReserveApiCall($requestTransfer);
@@ -114,7 +115,7 @@ class CrefoPayCheckoutPostSaveHook implements CrefoPayCheckoutHookInterface
     ): void {
         $checkoutResponseTransfer->setIsExternalRedirect(true);
         $checkoutResponseTransfer->setRedirectUrl(
-            $responseTransfer->getReserveResponse()->getRedirectUrl()
+            $responseTransfer->getReserveResponse()->getRedirectUrl(),
         );
     }
 

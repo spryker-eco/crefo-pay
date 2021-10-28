@@ -29,54 +29,67 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
      * @var string
      */
     protected const INTEGRATION_TYPE = 'SecureFields';
+
     /**
      * @var string
      */
     protected const AUTO_CAPTURE = 'false';
+
     /**
      * @var string
      */
     protected const CONTEXT = 'ONLINE';
+
     /**
      * @var string
      */
     protected const USER_TYPE_PRIVATE = 'PRIVATE';
+
     /**
      * @var string
      */
     protected const USER_TYPE_BUSINESS = 'BUSINESS';
+
     /**
      * @var array
      */
     protected const SALUTATION_MAPPING = ['Mr' => 'M', 'Ms' => 'F', 'Mrs' => 'F', 'Dr' => 'M'];
+
     /**
      * @var array
      */
     protected const AVAILABLE_LOCALES = ['EN', 'DE', 'ES', 'FR', 'IT', 'NL'];
+
     /**
      * @var string
      */
     protected const DEFAULT_LOCALE = 'EN';
+
     /**
      * @var string
      */
     protected const SHIPPING_COSTS_DESCRIPTION = 'Shipping Costs';
+
     /**
      * @var int
      */
     protected const SHIPPING_COSTS_COUNT = 1;
+
     /**
      * @var int
      */
     protected const GUEST_USER_ID_LENGTH = 6;
+
     /**
      * @var string
      */
     protected const GUEST_USER_ID_PATTERN = 'GUEST-USER-%s';
+
     /**
      * @var string
      */
     protected const USER_ID_B2B_SUFFIX = '-B2B';
+
     /**
      * @var string
      */
@@ -84,6 +97,7 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
 
     /**
      * @uses \Spryker\Shared\Shipment\ShipmentConfig::SHIPMENT_EXPENSE_TYPE
+     *
      * @var string
      */
     protected const SHIPMENT_EXPENSE_TYPE = 'SHIPMENT_EXPENSE_TYPE';
@@ -137,7 +151,7 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
         CrefoPayApiRequestTransfer $requestTransfer
     ): CrefoPayApiRequestTransfer {
         $requestTransfer->setCreateTransactionRequest(
-            $this->createCreateTransactionRequestTransfer($quoteTransfer)
+            $this->createCreateTransactionRequestTransfer($quoteTransfer),
         );
 
         return $requestTransfer;
@@ -203,7 +217,7 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     {
         return sprintf(
             static::GUEST_USER_ID_PATTERN,
-            $this->utilTextService->generateRandomString(static::GUEST_USER_ID_LENGTH)
+            $this->utilTextService->generateRandomString(static::GUEST_USER_ID_LENGTH),
         );
     }
 
@@ -245,14 +259,14 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     ): CrefoPayApiCreateTransactionRequestTransfer {
         if ($this->config->getIsBusinessToBusiness()) {
             $createTransactionRequestTransfer->setCompanyData(
-                $quoteTransfer->getCrefoPayCompany()
+                $quoteTransfer->getCrefoPayCompany(),
             );
 
             return $createTransactionRequestTransfer;
         }
 
         $createTransactionRequestTransfer->setUserData(
-            $this->createCrefoPayApiPersonTransfer($quoteTransfer)
+            $this->createCrefoPayApiPersonTransfer($quoteTransfer),
         );
 
         return $createTransactionRequestTransfer;
@@ -358,7 +372,7 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
                     ->setBasketItemCount($itemTransfer->getQuantity())
                     ->setBasketItemAmount($amount);
             },
-            $quoteTransfer->getItems()->getArrayCopy()
+            $quoteTransfer->getItems()->getArrayCopy(),
         );
 
         $basket = new ArrayObject($items);

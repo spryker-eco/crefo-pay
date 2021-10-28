@@ -44,7 +44,7 @@ class IsPaidReceivedOmsCondition implements CrefoPayOmsConditionInterface
         $relationTransfer = $this->reader
             ->getPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
                 $idSalesOrderItem,
-                $this->config->getNotificationOrderStatusPaid()
+                $this->config->getNotificationOrderStatusPaid(),
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;

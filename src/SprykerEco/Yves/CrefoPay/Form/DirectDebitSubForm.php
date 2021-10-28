@@ -25,14 +25,17 @@ class DirectDebitSubForm extends AbstractSubFormType implements SubFormInterface
      * @var string
      */
     public const CREFO_PAY_SHOP_PUBLIC_KEY = 'shopPublicKey';
+
     /**
      * @var string
      */
     public const CREFO_PAY_ORDER_ID = 'orderID';
+
     /**
      * @var string
      */
     public const CREFO_PAY_SECURE_FIELDS_API_ENDPOINT = 'secureFieldsApiEndpoint';
+
     /**
      * @var string
      */
@@ -42,14 +45,17 @@ class DirectDebitSubForm extends AbstractSubFormType implements SubFormInterface
      * @var string
      */
     protected const PAYMENT_METHOD = 'direct-debit';
+
     /**
      * @var string
      */
     protected const FORM_FIELD_PAYMENT_METHOD = 'paymentMethod';
+
     /**
      * @var string
      */
     protected const FORM_FIELD_PAYMENT_METHOD_DATA = 'DD';
+
     /**
      * @var string
      */
@@ -141,7 +147,7 @@ class DirectDebitSubForm extends AbstractSubFormType implements SubFormInterface
             [
                 'choices' => [static::FORM_FIELD_PAYMENT_METHOD_DATA],
                 'expanded' => true,
-            ]
+            ],
         );
 
         return $this;
@@ -157,7 +163,7 @@ class DirectDebitSubForm extends AbstractSubFormType implements SubFormInterface
         $builder->add(
             static::FORM_FIELD_PAYMENT_INSTRUMENT_ID,
             HiddenType::class,
-            ['label' => false]
+            ['label' => false],
         );
 
         return $this;

@@ -17,28 +17,36 @@ use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToRefundFacadeBridge;
 use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToSalesFacadeBridge;
 use SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceBridge;
 
+/**
+ * @method \SprykerEco\Zed\CrefoPay\CrefoPayConfig getConfig()
+ */
 class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
 {
     /**
      * @var string
      */
     public const FACADE_CREFO_APY_API = 'FACADE_CREFO_APY_API';
+
     /**
      * @var string
      */
     public const FACADE_SALES = 'FACADE_SALES';
+
     /**
      * @var string
      */
     public const FACADE_CALCULATION = 'FACADE_CALCULATION';
+
     /**
      * @var string
      */
     public const FACADE_LOCALE = 'FACADE_LOCALE';
+
     /**
      * @var string
      */
     public const FACADE_OMS = 'FACADE_OMS';
+
     /**
      * @var string
      */
@@ -48,6 +56,7 @@ class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
      * @var string
      */
     public const SERVICE_CREFO_PAY = 'SERVICE_CREFO_PAY';
+
     /**
      * @var string
      */

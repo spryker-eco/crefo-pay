@@ -44,7 +44,7 @@ class IsAcknowledgePendingReceivedOmsCondition implements CrefoPayOmsConditionIn
         $relationTransfer = $this->reader
             ->getPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $idSalesOrderItem,
-                $this->config->getNotificationTransactionStatusAcknowledgePending()
+                $this->config->getNotificationTransactionStatusAcknowledgePending(),
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;

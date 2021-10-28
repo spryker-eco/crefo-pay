@@ -64,7 +64,7 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
         $notificationTransfer = $this->mapper
             ->mapRequestToNotificationTransfer(
                 $request,
-                new CrefoPayNotificationTransfer()
+                new CrefoPayNotificationTransfer(),
             );
 
         $this->crefoPayClient->processNotification($notificationTransfer);

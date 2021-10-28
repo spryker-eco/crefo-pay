@@ -16,26 +16,32 @@ class CrefoPayRouteProviderPlugin extends AbstractRouteProviderPlugin
      * @var string
      */
     protected const BUNDLE_NAME = 'CrefoPay';
+
     /**
      * @var string
      */
     protected const CONTROLLER_NAME_CALLBACK = 'Callback';
+
     /**
      * @var string
      */
     protected const CONTROLLER_NAME_NOTIFICATION = 'Notification';
+
     /**
      * @var string
      */
     protected const ROUTE_NAME_CREFO_PAY_NOTIFICATION = 'crefo-pay-notification';
+
     /**
      * @var string
      */
     protected const ROUTE_NAME_CREFO_PAY_CONFIRMATION = 'crefo-pay-confirmation';
+
     /**
      * @var string
      */
     protected const ROUTE_NAME_CREFO_PAY_SUCCESS = 'crefo-pay-success';
+
     /**
      * @var string
      */

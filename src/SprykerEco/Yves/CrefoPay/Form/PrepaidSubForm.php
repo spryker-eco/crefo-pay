@@ -24,14 +24,17 @@ class PrepaidSubForm extends AbstractSubFormType implements SubFormInterface, Su
      * @var string
      */
     public const CREFO_PAY_SHOP_PUBLIC_KEY = 'shopPublicKey';
+
     /**
      * @var string
      */
     public const CREFO_PAY_ORDER_ID = 'orderID';
+
     /**
      * @var string
      */
     public const CREFO_PAY_SECURE_FIELDS_API_ENDPOINT = 'secureFieldsApiEndpoint';
+
     /**
      * @var string
      */
@@ -41,10 +44,12 @@ class PrepaidSubForm extends AbstractSubFormType implements SubFormInterface, Su
      * @var string
      */
     protected const PAYMENT_METHOD = 'prepaid';
+
     /**
      * @var string
      */
     protected const FORM_FIELD_PAYMENT_METHOD = 'paymentMethod';
+
     /**
      * @var string
      */
@@ -135,7 +140,7 @@ class PrepaidSubForm extends AbstractSubFormType implements SubFormInterface, Su
             [
                 'choices' => [static::FORM_FIELD_PAYMENT_METHOD_DATA],
                 'expanded' => true,
-            ]
+            ],
         );
 
         return $this;

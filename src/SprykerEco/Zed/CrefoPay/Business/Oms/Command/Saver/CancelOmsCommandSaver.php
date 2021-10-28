@@ -70,7 +70,7 @@ class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
         $this->writer->updatePaymentEntities(
             $paymentCrefoPayOrderItemCollection,
             null,
-            $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId()
+            $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId(),
         );
 
         if (!$this->isSingleOrderItemCommandExecution($crefoPayOmsCommandTransfer)) {
@@ -79,13 +79,13 @@ class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
 
         $affectedSalesOrderItemIds = $this->getAffectedSalesOrderItemIds(
             $crefoPayOmsCommandTransfer,
-            $paymentCrefoPayOrderItemCollection
+            $paymentCrefoPayOrderItemCollection,
         );
 
         $this->omsFacade->triggerEventForOrderItems(
             $this->config->getOmsEventCancel(),
             $affectedSalesOrderItemIds,
-            [$this->config->getCrefoPayAutomaticOmsTrigger()]
+            [$this->config->getCrefoPayAutomaticOmsTrigger()],
         );
     }
 
@@ -100,13 +100,13 @@ class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
         $status = $this->config->getOmsStatusCancellationPending();
         $paymentCrefoPayOrderItemCollection = $this->reader
             ->getPaymentCrefoPayOrderItemCollectionByCrefoPayOrderId(
-                $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId()
+                $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId(),
             );
         $paymentCrefoPayOrderItems = array_map(
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) use ($status) {
                 return $paymentCrefoPayOrderItemTransfer->setStatus($status);
             },
-            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy()
+            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy(),
         );
 
         return $paymentCrefoPayOrderItemCollection
@@ -139,7 +139,7 @@ class CancelOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
                 return $paymentCrefoPayOrderItemTransfer->getIdSalesOrderItem();
             },
-            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy()
+            $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy(),
         );
 
         /** @var \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer */
