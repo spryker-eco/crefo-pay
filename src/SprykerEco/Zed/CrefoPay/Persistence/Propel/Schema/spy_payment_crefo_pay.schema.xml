@@ -13,7 +13,7 @@
         <column name="crefo_pay_order_id" required="true" type="VARCHAR" size="255" />
         <column name="payment_method" required="true" type="VARCHAR" size="255" />
         <column name="client_ip" required="true" type="VARCHAR" size="255" />
-        <column name="additional_data" required="false" type="VARCHAR" size="255" />
+        <column name="additional_data" required="false" type="VARCHAR" size="1024" />
         <column name="authorized_amount" required="false" type="INTEGER" defaultValue="0" />
         <column name="captured_amount" required="false" type="INTEGER" defaultValue="0" />
         <column name="refunded_amount" required="false" type="INTEGER" defaultValue="0" />

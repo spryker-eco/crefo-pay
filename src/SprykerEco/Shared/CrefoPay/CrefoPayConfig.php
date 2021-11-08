@@ -57,9 +57,14 @@ class CrefoPayConfig extends AbstractBundleConfig
     public const CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD_3D = 'crefoPayCreditCard3D';
 
     /**
+     * Possible values:
+     * 0 -> trusted user
+     * 1 -> default risk user
+     * 2 -> high risk user
+     *
      * @var int
      */
-    protected const USER_RISK_CLASS = 1; //Possible values: 0 -> trusted user, 1 -> default risk user, 2 -> high risk user.
+    protected const USER_RISK_CLASS = 1;
 
     /**
      * @var string
