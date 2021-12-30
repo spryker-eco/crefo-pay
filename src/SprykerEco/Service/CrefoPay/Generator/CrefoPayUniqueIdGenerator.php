@@ -14,12 +14,12 @@ use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInte
 class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
 {
     /**
-     * \SprykerEco\Service\CrefoPay\CrefoPayConfig $crefoPayConfig
+     * @var \SprykerEco\Service\CrefoPay\CrefoPayConfig
      */
     protected $crefoPayConfig;
 
     /**
-     * \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $utilTextService
+     * @var \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface
      */
     protected $utilTextService;
 
