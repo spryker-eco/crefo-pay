@@ -13,20 +13,24 @@ use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInte
 class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
 {
     /**
-     * @var int
+     * @var \SprykerEco\Service\CrefoPay\CrefoPayConfig $crefoPayConfig
      */
-    protected const CREFO_PAY_ORDER_ID_LENGTH = 30;
+    protected $crefoPayConfig;
 
     /**
-     * @var \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface
+     * @var \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $utilTextService
      */
     protected $utilTextService;
 
     /**
+     * @param \SprykerEco\Service\CrefoPay\CrefoPayConfig $crefoPayConfig
      * @param \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface $utilTextService
      */
-    public function __construct(CrefoPayToUtilTextServiceInterface $utilTextService)
-    {
+    public function __construct(
+        CrefoPayConfig $crefoPayConfig,
+        CrefoPayToUtilTextServiceInterface $utilTextService
+    ) {
+        $this->crefoPayConfig = $crefoPayConfig;
         $this->utilTextService = $utilTextService;
     }
 
@@ -37,7 +41,8 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
      */
     public function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
     {
-        $randomStringLength = static::CREFO_PAY_ORDER_ID_LENGTH - strlen($quoteTransfer->getCustomerReference()) - 1;
+        $crefoPayOrderIdLength = $this->crefoPayConfig->getCrefoPayOrderIdLength();
+        $randomStringLength = $crefoPayOrderIdLength - strlen($quoteTransfer->getCustomerReference()) - 1;
 
         return sprintf(
             '%s-%s',

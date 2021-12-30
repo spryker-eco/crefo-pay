@@ -127,6 +127,11 @@ class CrefoPayConfig extends AbstractBundleConfig
     protected const EXTERNAL_PAYMENT_METHOD_CREDIT_CARD_3D = 'CC3D';
 
     /**
+     * @var int
+     */
+    protected const CREFO_PAY_ORDER_ID_LENGTH = 30;
+
+    /**
      * @api
      *
      * @return string
@@ -334,5 +339,15 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getCrefoPayPaymentMethodCreditCard3D(): string
     {
         return static::CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD_3D;
+    }
+
+    /**
+     * @api
+     *
+     * @return int
+     */
+    public function getCrefoPayOrderIdLength(): int
+    {
+        return static::CREFO_PAY_ORDER_ID_LENGTH;
     }
 }

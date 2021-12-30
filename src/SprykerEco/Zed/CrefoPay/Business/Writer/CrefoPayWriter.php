@@ -151,10 +151,7 @@ class CrefoPayWriter implements CrefoPayWriterInterface
         PaymentCrefoPayTransfer $paymentCrefoPayTransfer,
         ItemTransfer $orderItem
     ): PaymentCrefoPayOrderItemTransfer {
-        $taxRate = $orderItem->getTaxRate();
-        if (is_a($taxRate, Decimal::class)) {
-            $taxRate = $taxRate->toFloat();
-        }
+        $taxRate = $this->getTaxRate($orderItem);
 
         $paymentCrefoPayOrderItemTransfer = (new PaymentCrefoPayOrderItemTransfer())
             ->setIdSalesOrderItem($orderItem->getIdSalesOrderItem())
@@ -226,5 +223,20 @@ class CrefoPayWriter implements CrefoPayWriterInterface
 
         return $this->entityManager
             ->savePaymentCrefoPayOrderItemToCrefoPayNotificationEntity($paymentCrefoPayOrderItemToCrefoPayNotificationTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ItemTransfer $orderItem
+     *
+     * @return float|null
+     */
+    protected function getTaxRate(ItemTransfer $orderItem): ?float
+    {
+        $taxRate = $orderItem->getTaxRate();
+        if (!is_a($taxRate, Decimal::class)) {
+            return $taxRate;
+        }
+
+        return $taxRate->toFloat();
     }
 }

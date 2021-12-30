@@ -12,6 +12,9 @@ use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInte
 use SprykerEco\Service\CrefoPay\Generator\CrefoPayUniqueIdGenerator;
 use SprykerEco\Service\CrefoPay\Generator\CrefoPayUniqueIdGeneratorInterface;
 
+/**
+ * @method \SprykerEco\Shared\CrefoPay\CrefoPayConfig getConfig()
+ */
 class CrefoPayServiceFactory extends AbstractServiceFactory
 {
     /**
@@ -19,7 +22,10 @@ class CrefoPayServiceFactory extends AbstractServiceFactory
      */
     public function createUniqueIdGenerator(): CrefoPayUniqueIdGeneratorInterface
     {
-        return new CrefoPayUniqueIdGenerator($this->getUtilTextService());
+        return new CrefoPayUniqueIdGenerator(
+            $this->getConfig(),
+            $this->getUtilTextService()
+        );
     }
 
     /**
