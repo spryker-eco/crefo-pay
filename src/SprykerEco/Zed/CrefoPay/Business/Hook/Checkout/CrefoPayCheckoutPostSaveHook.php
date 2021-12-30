@@ -100,7 +100,7 @@ class CrefoPayCheckoutPostSaveHook implements CrefoPayCheckoutHookInterface
      */
     protected function isMethodWithRedirect(CrefoPayApiResponseTransfer $responseTransfer): bool
     {
-        return !empty($responseTransfer->getReserveResponse()->getRedirectUrl());
+        return (bool)$responseTransfer->getReserveResponse()->getRedirectUrl();
     }
 
     /**

@@ -11,6 +11,9 @@ use Spryker\Service\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Service\Kernel\Container;
 use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceBridge;
 
+/**
+ * @method \SprykerEco\Service\CrefoPay\CrefoPayConfig getConfig()
+ */
 class CrefoPayDependencyProvider extends AbstractBundleDependencyProvider
 {
     /**

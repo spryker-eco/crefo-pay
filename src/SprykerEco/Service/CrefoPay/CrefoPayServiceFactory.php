@@ -24,7 +24,7 @@ class CrefoPayServiceFactory extends AbstractServiceFactory
     {
         return new CrefoPayUniqueIdGenerator(
             $this->getConfig(),
-            $this->getUtilTextService()
+            $this->getUtilTextService(),
         );
     }
 
