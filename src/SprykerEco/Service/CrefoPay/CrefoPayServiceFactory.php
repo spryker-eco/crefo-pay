@@ -13,7 +13,7 @@ use SprykerEco\Service\CrefoPay\Generator\CrefoPayUniqueIdGenerator;
 use SprykerEco\Service\CrefoPay\Generator\CrefoPayUniqueIdGeneratorInterface;
 
 /**
- * @method \SprykerEco\Shared\CrefoPay\CrefoPayConfig getConfig()
+ * @method \SprykerEco\Service\CrefoPay\CrefoPayConfig getConfig()
  */
 class CrefoPayServiceFactory extends AbstractServiceFactory
 {

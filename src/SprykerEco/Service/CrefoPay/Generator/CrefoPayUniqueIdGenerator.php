@@ -8,6 +8,7 @@
 namespace SprykerEco\Service\CrefoPay\Generator;
 
 use Generated\Shared\Transfer\QuoteTransfer;
+use SprykerEco\Service\CrefoPay\CrefoPayConfig;
 use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface;
 
 class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
