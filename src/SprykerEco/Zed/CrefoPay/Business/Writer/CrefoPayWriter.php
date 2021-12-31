@@ -151,14 +151,12 @@ class CrefoPayWriter implements CrefoPayWriterInterface
         PaymentCrefoPayTransfer $paymentCrefoPayTransfer,
         ItemTransfer $orderItem
     ): PaymentCrefoPayOrderItemTransfer {
-        $taxRate = $this->getTaxRate($orderItem);
-
         $paymentCrefoPayOrderItemTransfer = (new PaymentCrefoPayOrderItemTransfer())
             ->setIdSalesOrderItem($orderItem->getIdSalesOrderItem())
             ->setIdPaymentCrefoPay($paymentCrefoPayTransfer->getIdPaymentCrefoPay())
             ->setAmount($orderItem->getSumPriceToPayAggregation())
             ->setVatAmount($orderItem->getSumTaxAmountFullAggregation())
-            ->setVatRate($taxRate)
+            ->setVatRate($this->getTaxRate($orderItem))
             ->setRefundableAmount($orderItem->getRefundableAmount())
             ->setQuantity($orderItem->getQuantity())
             ->setStatus($this->config->getOmsStatusNew());
