@@ -30,7 +30,7 @@ class CrefoPayToOmsFacadeBridge implements CrefoPayToOmsFacadeInterface
      *
      * @return int
      */
-    public function checkConditions(array $logContext = [], ?OmsCheckConditionsQueryCriteriaTransfer $omsCheckConditionsQueryCriteriaTransfer = null)
+    public function checkConditions(array $logContext = [], ?OmsCheckConditionsQueryCriteriaTransfer $omsCheckConditionsQueryCriteriaTransfer = null): int
     {
         return $this->omsFacade->checkConditions($logContext);
     }
@@ -42,7 +42,7 @@ class CrefoPayToOmsFacadeBridge implements CrefoPayToOmsFacadeInterface
      *
      * @return array|null
      */
-    public function triggerEventForOrderItems($eventId, array $orderItemIds, array $data = [])
+    public function triggerEventForOrderItems($eventId, array $orderItemIds, array $data = []): ?array
     {
         return $this->omsFacade->triggerEventForOrderItems($eventId, $orderItemIds, $data);
     }

@@ -12,46 +12,64 @@ use Spryker\Shared\Kernel\AbstractBundleConfig;
 class CrefoPayConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @var string
      */
     public const PROVIDER_NAME = 'crefoPay';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_BILL = 'crefoPayBill';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_CASH_ON_DELIVERY = 'crefoPayCashOnDelivery';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_DIRECT_DEBIT = 'crefoPayDirectDebit';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_PAY_PAL = 'crefoPayPayPal';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_PREPAID = 'crefoPayPrepaid';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_SOFORT = 'crefoPaySofort';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD = 'crefoPayCreditCard';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD_3D = 'crefoPayCreditCard3D';

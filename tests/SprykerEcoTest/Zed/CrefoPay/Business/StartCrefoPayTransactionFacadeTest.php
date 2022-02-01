@@ -30,7 +30,7 @@ class StartCrefoPayTransactionFacadeTest extends CrefoPayFacadeBaseTest
         $quoteTransfer = $this->facade->startCrefoPayTransaction($quoteTransfer);
         $crefoPayTransactionTransfer = $quoteTransfer->getCrefoPayTransaction();
 
-        //Assert
+        // Assert
         $this->doTest($quoteTransfer);
     }
 
