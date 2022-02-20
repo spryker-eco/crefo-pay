@@ -48,7 +48,7 @@ class StartCrefoPayTransactionFacadeTest extends CrefoPayFacadeBaseTest
         $this->assertNotEmpty($crefoPayTransactionTransfer->getCrefoPayOrderId());
         $this->assertNotEmpty($crefoPayTransactionTransfer->getSalt());
         $this->assertGreaterThan(0, count($crefoPayTransactionTransfer->getAllowedPaymentMethods()));
-        $this->assertEquals(
+        $this->assertSame(
             30,
             strlen($crefoPayTransactionTransfer->getCrefoPayOrderId()),
             'OrderId has to consist of 30 characters.',
