@@ -15,4 +15,4 @@ composer require spryker-eco/crefo-pay
 
 ## Documentation
 
-[Spryker Documentation](https://docs.spryker.com/developing_with_spryker/module_guide/modules.html)
+[Spryker Documentation](https://docs.spryker.com/docs/scos/user/technology-partners/202108.0/payment-partners/crefopay.html)

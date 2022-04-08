@@ -23,7 +23,7 @@
     },
     "require-dev": {
         "codeception/module-asserts": "^1.3.0",
-        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan": "^1.2.0",
         "spryker-shop/shop-application": "*",
         "spryker/checkout": "*",
         "spryker/code-sniffer": "*",
@@ -49,11 +49,11 @@
     "autoload-dev": {
         "psr-4": {
             "SprykerEcoTest\\": "tests/SprykerEcoTest/",
-            "Config\\Module\\": "vendor/spryker/config/tests/_support/Module",
-            "Oms\\Module\\": "vendor/spryker/oms/tests/_support/Module",
-            "Propel\\Module\\": "vendor/spryker/propel/tests/_support/Module",
-            "Sales\\Module\\": "vendor/spryker/sales/tests/_support/Module",
-            "Transfer\\Module\\": "vendor/spryker/transfer/tests/_support/Module"
+            "Config\\Module\\": "vendor/spryker/config/tests/_support/Module/",
+            "Oms\\Module\\": "vendor/spryker/oms/tests/_support/Module/",
+            "Propel\\Module\\": "vendor/spryker/propel/tests/_support/Module/",
+            "Sales\\Module\\": "vendor/spryker/sales/tests/_support/Module/",
+            "Transfer\\Module\\": "vendor/spryker/transfer/tests/_support/Module/"
         }
     },
     "minimum-stability": "dev",
