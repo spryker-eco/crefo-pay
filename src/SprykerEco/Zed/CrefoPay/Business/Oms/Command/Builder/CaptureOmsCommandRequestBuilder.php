@@ -72,8 +72,8 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
             ->setOrderID($crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId())
             ->setCaptureID(
                 $this->utilTextService->generateRandomString(
-                    $this->config->getCrefoPayApiCaptureIdLength()
-                )
+                    $this->config->getCrefoPayApiCaptureIdLength(),
+                ),
             );
     }
 
@@ -143,8 +143,8 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
                 $crefoPayOmsCommandTransfer
                     ->getPaymentCrefoPayOrderItemCollection()
                     ->getCrefoPayOrderItems()
-                    ->getArrayCopy()
-            )
+                    ->getArrayCopy(),
+            ),
         );
     }
 
@@ -160,8 +160,8 @@ class CaptureOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilde
                 function (ExpenseTransfer $expense) {
                     return $expense->getSumPriceToPayAggregation();
                 },
-                $orderTransfer->getExpenses()->getArrayCopy()
-            )
+                $orderTransfer->getExpenses()->getArrayCopy(),
+            ),
         );
     }
 

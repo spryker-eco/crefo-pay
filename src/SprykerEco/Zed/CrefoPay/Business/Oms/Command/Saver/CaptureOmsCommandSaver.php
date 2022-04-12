@@ -82,7 +82,7 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
         $this->writer->updatePaymentEntities(
             $this->getPaymentCrefoPayOrderItemsToCapture($crefoPayOmsCommandTransfer),
             $this->getPaymentCrefoPayTransfer($crefoPayOmsCommandTransfer),
-            $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId()
+            $crefoPayOmsCommandTransfer->getResponse()->getCrefoPayApiLogId(),
         );
 
         $this->triggerRemainingOrderItems($crefoPayOmsCommandTransfer);
@@ -98,7 +98,7 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
     ): PaymentCrefoPayOrderItemCollectionTransfer {
         $status = $this->statusMapper
             ->mapNotificationOrderStatusToOmsStatus(
-                $crefoPayOmsCommandTransfer->getResponse()->getCaptureResponse()->getStatus()
+                $crefoPayOmsCommandTransfer->getResponse()->getCaptureResponse()->getStatus(),
             );
         $captureId = $crefoPayOmsCommandTransfer->getRequest()->getCaptureRequest()->getCaptureID();
 
@@ -111,13 +111,13 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             $crefoPayOmsCommandTransfer
                 ->getPaymentCrefoPayOrderItemCollection()
                 ->getCrefoPayOrderItems()
-                ->getArrayCopy()
+                ->getArrayCopy(),
         );
 
         return $crefoPayOmsCommandTransfer
             ->getPaymentCrefoPayOrderItemCollection()
             ->setCrefoPayOrderItems(
-                new ArrayObject($paymentCrefoPayOrderItems)
+                new ArrayObject($paymentCrefoPayOrderItems),
             );
     }
 
@@ -146,8 +146,8 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
                 ->setExpensesCaptureId($captureRequest->getCaptureID())
                 ->setExpensesCapturedAmount(
                     $this->calculateExpensesAmount(
-                        $crefoPayOmsCommandTransfer->getOrder()
-                    )
+                        $crefoPayOmsCommandTransfer->getOrder(),
+                    ),
                 );
         }
 
@@ -174,33 +174,33 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
                 return $paymentCrefoPayOrderItemTransfer->getIdSalesOrderItem();
             },
-            $remainingOrderItems
+            $remainingOrderItems,
         );
 
         $this->omsFacade->triggerEventForOrderItems(
             $this->config->getOmsEventNoCancellation(),
             $affectedSalesOrderItemIds,
-            [$this->config->getCrefoPayAutomaticOmsTrigger()]
+            [$this->config->getCrefoPayAutomaticOmsTrigger()],
         );
     }
 
     /**
      * @param \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer
      *
-     * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer[]
+     * @return array<\Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer>
      */
     protected function getRemainingOrderItems(CrefoPayOmsCommandTransfer $crefoPayOmsCommandTransfer): array
     {
         $paymentCrefoPayOrderItemCollection = $this->reader
             ->getPaymentCrefoPayOrderItemCollectionByCrefoPayOrderId(
-                $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId()
+                $crefoPayOmsCommandTransfer->getPaymentCrefoPay()->getCrefoPayOrderId(),
             );
 
         return array_filter(
             $paymentCrefoPayOrderItemCollection->getCrefoPayOrderItems()->getArrayCopy(),
             function (PaymentCrefoPayOrderItemTransfer $paymentCrefoPayOrderItemTransfer) {
                 return $paymentCrefoPayOrderItemTransfer->getStatus() === $this->config->getOmsStatusWaitingForCapture();
-            }
+            },
         );
     }
 
@@ -226,8 +226,8 @@ class CaptureOmsCommandSaver implements CrefoPayOmsCommandSaverInterface
                 function (ExpenseTransfer $expense) {
                     return $expense->getSumPriceToPayAggregation();
                 },
-                $orderTransfer->getExpenses()->getArrayCopy()
-            )
+                $orderTransfer->getExpenses()->getArrayCopy(),
+            ),
         );
     }
 }

@@ -47,7 +47,7 @@ class FinishOmsCommand implements CrefoPayOmsCommandByOrderInterface
     }
 
     /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $salesOrderItems
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
@@ -65,7 +65,7 @@ class FinishOmsCommand implements CrefoPayOmsCommandByOrderInterface
             function (SpySalesOrderItem $orderItem) {
                 return $orderItem->getIdSalesOrderItem();
             },
-            $salesOrderItems
+            $salesOrderItems,
         );
 
         $this->facade->executeFinishOmsCommand($orderTransfer, $salesOrderItemIds);

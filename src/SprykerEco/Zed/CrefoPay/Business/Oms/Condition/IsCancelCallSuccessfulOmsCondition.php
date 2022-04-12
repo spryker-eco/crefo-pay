@@ -11,6 +11,9 @@ use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 
 class IsCancelCallSuccessfulOmsCondition implements CrefoPayOmsConditionInterface
 {
+    /**
+     * @var string
+     */
     protected const REQUEST_TYPE = 'cancel';
 
     /**
@@ -36,7 +39,7 @@ class IsCancelCallSuccessfulOmsCondition implements CrefoPayOmsConditionInterfac
         $relationTransfer = $this->reader
             ->getPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
                 $idSalesOrderItem,
-                static::REQUEST_TYPE
+                static::REQUEST_TYPE,
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayApiLog() !== null;

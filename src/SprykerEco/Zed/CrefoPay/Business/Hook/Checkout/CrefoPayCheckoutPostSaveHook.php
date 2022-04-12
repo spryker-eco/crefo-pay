@@ -19,7 +19,14 @@ use SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToCrefoPayApiFacadeInterfa
 
 class CrefoPayCheckoutPostSaveHook implements CrefoPayCheckoutHookInterface
 {
+    /**
+     * @var string
+     */
     protected const ERROR_TYPE_PAYMENT_FAILED = 'payment failed';
+
+    /**
+     * @var string
+     */
     protected const ERROR_MESSAGE_PAYMENT_FAILED = 'Something went wrong with your payment. Try again!';
 
     /**
@@ -67,7 +74,7 @@ class CrefoPayCheckoutPostSaveHook implements CrefoPayCheckoutHookInterface
         $requestTransfer = $this->mapper
             ->mapQuoteTransferToRequestTransfer(
                 $quoteTransfer,
-                new CrefoPayApiRequestTransfer()
+                new CrefoPayApiRequestTransfer(),
             );
 
         $responseTransfer = $this->crefoPayApiFacade->performReserveApiCall($requestTransfer);
@@ -93,7 +100,7 @@ class CrefoPayCheckoutPostSaveHook implements CrefoPayCheckoutHookInterface
      */
     protected function isMethodWithRedirect(CrefoPayApiResponseTransfer $responseTransfer): bool
     {
-        return !empty($responseTransfer->getReserveResponse()->getRedirectUrl());
+        return (bool)$responseTransfer->getReserveResponse()->getRedirectUrl();
     }
 
     /**
@@ -108,7 +115,7 @@ class CrefoPayCheckoutPostSaveHook implements CrefoPayCheckoutHookInterface
     ): void {
         $checkoutResponseTransfer->setIsExternalRedirect(true);
         $checkoutResponseTransfer->setRedirectUrl(
-            $responseTransfer->getReserveResponse()->getRedirectUrl()
+            $responseTransfer->getReserveResponse()->getRedirectUrl(),
         );
     }
 

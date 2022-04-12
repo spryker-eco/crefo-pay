@@ -11,31 +11,137 @@ use Spryker\Shared\Kernel\AbstractBundleConfig;
 
 class CrefoPayConfig extends AbstractBundleConfig
 {
+    /**
+     * @api
+     *
+     * @var string
+     */
     public const PROVIDER_NAME = 'crefoPay';
 
+    /**
+     * @api
+     *
+     * @var string
+     */
     public const CREFO_PAY_PAYMENT_METHOD_BILL = 'crefoPayBill';
+
+    /**
+     * @api
+     *
+     * @var string
+     */
     public const CREFO_PAY_PAYMENT_METHOD_CASH_ON_DELIVERY = 'crefoPayCashOnDelivery';
+
+    /**
+     * @api
+     *
+     * @var string
+     */
     public const CREFO_PAY_PAYMENT_METHOD_DIRECT_DEBIT = 'crefoPayDirectDebit';
+
+    /**
+     * @api
+     *
+     * @var string
+     */
     public const CREFO_PAY_PAYMENT_METHOD_PAY_PAL = 'crefoPayPayPal';
+
+    /**
+     * @api
+     *
+     * @var string
+     */
     public const CREFO_PAY_PAYMENT_METHOD_PREPAID = 'crefoPayPrepaid';
+
+    /**
+     * @api
+     *
+     * @var string
+     */
     public const CREFO_PAY_PAYMENT_METHOD_SOFORT = 'crefoPaySofort';
+
+    /**
+     * @api
+     *
+     * @var string
+     */
     public const CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD = 'crefoPayCreditCard';
+
+    /**
+     * @api
+     *
+     * @var string
+     */
     public const CREFO_PAY_PAYMENT_METHOD_CREDIT_CARD_3D = 'crefoPayCreditCard3D';
 
-    protected const USER_RISK_CLASS = 1; //Possible values: 0 -> trusted user, 1 -> default risk user, 2 -> high risk user.
+    /**
+     * Possible values:
+     * 0 -> trusted user
+     * 1 -> default risk user
+     * 2 -> high risk user
+     *
+     * @var int
+     */
+    protected const USER_RISK_CLASS = 1;
+
+    /**
+     * @var string
+     */
     protected const PRODUCT_TYPE_DEFAULT = 'DEFAULT';
+
+    /**
+     * @var string
+     */
     protected const PRODUCT_TYPE_SHIPPING_COSTS = 'SHIPPINGCOSTS';
+
+    /**
+     * @var string
+     */
     protected const PRODUCT_TYPE_COUPON = 'COUPON';
 
+    /**
+     * @var int
+     */
     protected const PRODUCT_RISK_CLASS = 1;
+
+    /**
+     * @var string
+     */
     protected const EXTERNAL_PAYMENT_METHOD_BILL = 'BILL';
+
+    /**
+     * @var string
+     */
     protected const EXTERNAL_PAYMENT_METHOD_CASH_ON_DELIVERY = 'COD';
+
+    /**
+     * @var string
+     */
     protected const EXTERNAL_PAYMENT_METHOD_DIRECT_DEBIT = 'DD';
+
+    /**
+     * @var string
+     */
     protected const EXTERNAL_PAYMENT_METHOD_PAYPAL = 'PAYPAL';
+
+    /**
+     * @var string
+     */
     protected const EXTERNAL_PAYMENT_METHOD_PREPAID = 'PREPAID';
+
+    /**
+     * @var string
+     */
     protected const EXTERNAL_PAYMENT_METHOD_SOFORT = 'SU';
+
+    /**
+     * @var string
+     */
     protected const EXTERNAL_PAYMENT_METHOD_CREDIT_CARD = 'CC';
 
+    /**
+     * @var string
+     */
     protected const EXTERNAL_PAYMENT_METHOD_CREDIT_CARD_3D = 'CC3D';
 
     /**

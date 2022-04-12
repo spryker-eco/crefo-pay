@@ -41,7 +41,7 @@ class CrefoPayQuoteExpander implements CrefoPayQuoteExpanderInterface
         }
 
         $quoteTransfer->setCrefoPayTransaction(
-            $this->createCrefoPayTransactionTransfer($request)
+            $this->createCrefoPayTransactionTransfer($request),
         );
 
         return $this->client->startCrefoPayTransaction($quoteTransfer);

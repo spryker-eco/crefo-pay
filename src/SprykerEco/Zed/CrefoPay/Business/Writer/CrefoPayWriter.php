@@ -17,6 +17,7 @@ use Generated\Shared\Transfer\PaymentCrefoPayOrderItemTransfer;
 use Generated\Shared\Transfer\PaymentCrefoPayTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
+use Spryker\DecimalObject\Decimal;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayEntityManagerInterface;
@@ -88,11 +89,11 @@ class CrefoPayWriter implements CrefoPayWriterInterface
                     if ($crefoPayApiLogId !== null) {
                         $this->createPaymentCrefoPayOrderItemToCrefoPayApiLogEntity(
                             $paymentCrefoPayOrderItemTransfer->getIdPaymentCrefoPayOrderItem(),
-                            $crefoPayApiLogId
+                            $crefoPayApiLogId,
                         );
                     }
                 }
-            }
+            },
         );
     }
 
@@ -113,10 +114,10 @@ class CrefoPayWriter implements CrefoPayWriterInterface
                     $this->entityManager->savePaymentCrefoPayOrderItemEntity($paymentCrefoPayOrderItemTransfer);
                     $this->createPaymentCrefoPayOrderItemToCrefoPayNotificationEntity(
                         $paymentCrefoPayOrderItemTransfer->getIdPaymentCrefoPayOrderItem(),
-                        $paymentCrefoPayNotificationTransfer->getIdPaymentCrefoPayNotification()
+                        $paymentCrefoPayNotificationTransfer->getIdPaymentCrefoPayNotification(),
                     );
                 }
-            }
+            },
         );
     }
 
@@ -155,7 +156,7 @@ class CrefoPayWriter implements CrefoPayWriterInterface
             ->setIdPaymentCrefoPay($paymentCrefoPayTransfer->getIdPaymentCrefoPay())
             ->setAmount($orderItem->getSumPriceToPayAggregation())
             ->setVatAmount($orderItem->getSumTaxAmountFullAggregation())
-            ->setVatRate($orderItem->getTaxRate())
+            ->setVatRate($this->getTaxRate($orderItem))
             ->setRefundableAmount($orderItem->getRefundableAmount())
             ->setQuantity($orderItem->getQuantity())
             ->setStatus($this->config->getOmsStatusNew());
@@ -220,5 +221,20 @@ class CrefoPayWriter implements CrefoPayWriterInterface
 
         return $this->entityManager
             ->savePaymentCrefoPayOrderItemToCrefoPayNotificationEntity($paymentCrefoPayOrderItemToCrefoPayNotificationTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ItemTransfer $orderItem
+     *
+     * @return float|null
+     */
+    protected function getTaxRate(ItemTransfer $orderItem): ?float
+    {
+        $taxRate = $orderItem->getTaxRate();
+        if (!is_a($taxRate, Decimal::class)) {
+            return $taxRate;
+        }
+
+        return $taxRate->toFloat();
     }
 }

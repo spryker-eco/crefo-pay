@@ -15,12 +15,39 @@ use SprykerShop\Yves\ShopApplication\Plugin\Provider\AbstractYvesControllerProvi
  */
 class CrefoPayControllerProvider extends AbstractYvesControllerProvider
 {
+    /**
+     * @var string
+     */
     protected const BUNDLE_NAME = 'CrefoPay';
+
+    /**
+     * @var string
+     */
     protected const CALLBACK_CONTROLLER_NAME = 'Callback';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_CONTROLLER_NAME = 'Notification';
+
+    /**
+     * @var string
+     */
     protected const CREFO_PAY_NOTIFICATION = 'crefo-pay-notification';
+
+    /**
+     * @var string
+     */
     protected const CREFO_PAY_CONFIRMATION = 'crefo-pay-confirmation';
+
+    /**
+     * @var string
+     */
     protected const CREFO_PAY_SUCCESS = 'crefo-pay-success';
+
+    /**
+     * @var string
+     */
     protected const CREFO_PAY_FAILURE = 'crefo-pay-failure';
 
     /**
@@ -35,7 +62,7 @@ class CrefoPayControllerProvider extends AbstractYvesControllerProvider
             static::CREFO_PAY_NOTIFICATION,
             static::BUNDLE_NAME,
             static::NOTIFICATION_CONTROLLER_NAME,
-            'index'
+            'index',
         );
 
         $this->createController(
@@ -43,7 +70,7 @@ class CrefoPayControllerProvider extends AbstractYvesControllerProvider
             static::CREFO_PAY_CONFIRMATION,
             static::BUNDLE_NAME,
             static::CALLBACK_CONTROLLER_NAME,
-            'confirmation'
+            'confirmation',
         );
 
         $this->createController(
@@ -51,7 +78,7 @@ class CrefoPayControllerProvider extends AbstractYvesControllerProvider
             static::CREFO_PAY_SUCCESS,
             static::BUNDLE_NAME,
             static::CALLBACK_CONTROLLER_NAME,
-            'success'
+            'success',
         );
 
         $this->createController(
@@ -59,7 +86,7 @@ class CrefoPayControllerProvider extends AbstractYvesControllerProvider
             static::CREFO_PAY_FAILURE,
             static::BUNDLE_NAME,
             static::CALLBACK_CONTROLLER_NAME,
-            'failure'
+            'failure',
         );
     }
 }

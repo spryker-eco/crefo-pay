@@ -47,7 +47,7 @@ class CrefoPayQuoteExpander implements CrefoPayQuoteExpanderInterface
         $requestTransfer = $this->mapper
             ->mapQuoteTransferToRequestTransfer(
                 $quoteTransfer,
-                new CrefoPayApiRequestTransfer()
+                new CrefoPayApiRequestTransfer(),
             );
 
         $quoteTransfer->getCrefoPayTransaction()
@@ -74,7 +74,7 @@ class CrefoPayQuoteExpander implements CrefoPayQuoteExpanderInterface
     ): QuoteTransfer {
         $quoteTransfer->getCrefoPayTransaction()->fromArray(
             $responseTransfer->getCreateTransactionResponse()->toArray(true, true),
-            true
+            true,
         )
         ->setIsSuccess($responseTransfer->getIsSuccess());
 

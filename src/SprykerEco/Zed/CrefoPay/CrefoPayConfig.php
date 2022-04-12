@@ -15,44 +15,174 @@ use SprykerEco\Shared\CrefoPay\CrefoPayConstants;
  */
 class CrefoPayConfig extends AbstractBundleConfig
 {
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_TRANSACTION_STATUS_ACKNOWLEDGE_PENDING = 'ACKNOWLEDGEPENDING';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_TRANSACTION_STATUS_FRAUD_PENDING = 'FRAUDPENDING';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_TRANSACTION_STATUS_FRAUD_CANCELLED = 'FRAUDCANCELLED';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_TRANSACTION_STATUS_CIA_PENDING = 'CIAPENDING';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_TRANSACTION_STATUS_MERCHANT_PENDING = 'MERCHANTPENDING';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_TRANSACTION_STATUS_CANCELLED = 'CANCELLED';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_TRANSACTION_STATUS_EXPIRED = 'EXPIRED';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_TRANSACTION_STATUS_IN_PROGRESS = 'INPROGRESS';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_TRANSACTION_STATUS_DONE = 'DONE';
 
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_ORDER_STATUS_PAY_PENDING = 'PAYPENDING';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_ORDER_STATUS_PAID = 'PAID';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_ORDER_STATUS_CLEARED = 'CLEARED';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_ORDER_STATUS_PAYMENT_FAILED = 'PAYMENTFAILED';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_ORDER_STATUS_CHARGE_BACK = 'CHARGEBACK';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_ORDER_STATUS_IN_DUNNING = 'INDUNNING';
+
+    /**
+     * @var string
+     */
     protected const NOTIFICATION_ORDER_STATUS_IN_COLLECTION = 'IN_COLLECTION';
 
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_NEW = 'new';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_RESERVED = 'reserved';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_AUTHORIZED = 'authorized';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_WAITING_FOR_CAPTURE = 'waiting for capture';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_WAITING_FOR_CASH = 'waiting for cash';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_CAPTURE_PENDING = 'capture pending';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_CAPTURED = 'captured';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_CANCELLATION_PENDING = 'cancellation pending';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_CANCELED = 'canceled';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_REFUNDED = 'refunded';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_MONEY_REDUCED = 'money reduced';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_EXPIRED = 'expired';
+
+    /**
+     * @var string
+     */
     protected const OMS_STATUS_DONE = 'done';
 
+    /**
+     * @var string
+     */
     protected const OMS_EVENT_CANCEL = 'cancel';
+
+    /**
+     * @var string
+     */
     protected const OMS_EVENT_NO_CANCELLATION = 'no cancellation';
+
+    /**
+     * @var string
+     */
     protected const OMS_EVENT_FINISH = 'finish';
 
+    /**
+     * @var int
+     */
     protected const CREFO_PAY_API_CAPTURE_ID_LENGTH = 30;
 
+    /**
+     * @var string
+     */
     protected const CREFO_PAY_AUTOMATIC_OMS_TRIGGER = 'CREFO_PAY_AUTOMATIC_OMS_TRIGGER';
 
     /**
@@ -138,7 +268,7 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @api
      *
-     * @return string[]
+     * @return array<string>
      */
     public function getInternalToExternalPaymentMethodNamesMapping(): array
     {
@@ -407,7 +537,7 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @api
      *
-     * @return string[]
+     * @return array<string>
      */
     public function getNotificationTransactionToOmsStatusMapping(): array
     {
@@ -424,7 +554,7 @@ class CrefoPayConfig extends AbstractBundleConfig
     /**
      * @api
      *
-     * @return string[]
+     * @return array<string>
      */
     public function getNotificationOrderToOmsStatusMapping(): array
     {

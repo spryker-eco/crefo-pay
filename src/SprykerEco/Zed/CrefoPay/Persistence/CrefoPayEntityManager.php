@@ -34,7 +34,7 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
             ->findOneOrCreate();
 
         $paymentCrefoPayEntity->fromArray(
-            $paymentCrefoPayTransfer->modifiedToArray()
+            $paymentCrefoPayTransfer->modifiedToArray(),
         );
         $paymentCrefoPayEntity->setFkSalesOrder($paymentCrefoPayTransfer->getIdSalesOrder());
 
@@ -43,7 +43,7 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
         return $this->getMapper()
             ->mapEntityToPaymentCrefoPayTransfer(
                 $paymentCrefoPayEntity,
-                $paymentCrefoPayTransfer
+                $paymentCrefoPayTransfer,
             );
     }
 
@@ -62,7 +62,7 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
             ->findOneOrCreate();
 
         $paymentCrefoPayOrderItemEntity->fromArray(
-            $paymentCrefoPayOrderItemTransfer->modifiedToArray()
+            $paymentCrefoPayOrderItemTransfer->modifiedToArray(),
         );
         $paymentCrefoPayOrderItemEntity->setFkPaymentCrefoPay($paymentCrefoPayOrderItemTransfer->getIdPaymentCrefoPay());
         $paymentCrefoPayOrderItemEntity->setFkSalesOrderItem($paymentCrefoPayOrderItemTransfer->getIdSalesOrderItem());
@@ -72,7 +72,7 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
         return $this->getMapper()
             ->mapEntityToPaymentCrefoPayOrderItemTransfer(
                 $paymentCrefoPayOrderItemEntity,
-                $paymentCrefoPayOrderItemTransfer
+                $paymentCrefoPayOrderItemTransfer,
             );
     }
 
@@ -87,19 +87,19 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
         $paymentCrefoPayNotificationEntity = $this->getFactory()
             ->createPaymentCrefoPayNotificationQuery()
             ->filterByIdPaymentCrefoPayNotification(
-                $paymentCrefoPayNotificationTransfer->getIdPaymentCrefoPayNotification()
+                $paymentCrefoPayNotificationTransfer->getIdPaymentCrefoPayNotification(),
             )
             ->findOneOrCreate();
 
         $paymentCrefoPayNotificationEntity->fromArray(
-            $paymentCrefoPayNotificationTransfer->modifiedToArray()
+            $paymentCrefoPayNotificationTransfer->modifiedToArray(),
         );
         $paymentCrefoPayNotificationEntity->save();
 
         return $this->getMapper()
             ->mapEntityToPaymentCrefoPayNotificationTransfer(
                 $paymentCrefoPayNotificationEntity,
-                $paymentCrefoPayNotificationTransfer
+                $paymentCrefoPayNotificationTransfer,
             );
     }
 
@@ -114,21 +114,21 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
         $paymentCrefoPayOrderItemToCrefoPayApiLogEntity = $this->getFactory()
             ->createPaymentCrefoPayOrderItemToCrefoPayApiLogQuery()
             ->filterByFkPaymentCrefoPayApiLog(
-                $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer->getIdPaymentCrefoPayApiLog()
+                $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer->getIdPaymentCrefoPayApiLog(),
             )
             ->filterByFkPaymentCrefoPayOrderItem(
-                $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer->getIdPaymentCrefoPayOrderItem()
+                $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer->getIdPaymentCrefoPayOrderItem(),
             )
             ->findOneOrCreate();
 
         $paymentCrefoPayOrderItemToCrefoPayApiLogEntity->fromArray(
-            $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer->modifiedToArray()
+            $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer->modifiedToArray(),
         );
         $paymentCrefoPayOrderItemToCrefoPayApiLogEntity->setFkPaymentCrefoPayOrderItem(
-            $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer->getIdPaymentCrefoPayOrderItem()
+            $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer->getIdPaymentCrefoPayOrderItem(),
         );
         $paymentCrefoPayOrderItemToCrefoPayApiLogEntity->setFkPaymentCrefoPayApiLog(
-            $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer->getIdPaymentCrefoPayApiLog()
+            $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer->getIdPaymentCrefoPayApiLog(),
         );
 
         $paymentCrefoPayOrderItemToCrefoPayApiLogEntity->save();
@@ -136,7 +136,7 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
         return $this->getMapper()
             ->mapEntityToPaymentCrefoPayOrderItemToCrefoPayApiLogTransfer(
                 $paymentCrefoPayOrderItemToCrefoPayApiLogEntity,
-                $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer
+                $paymentCrefoPayOrderItemToCrefoPayApiLogTransfer,
             );
     }
 
@@ -151,21 +151,21 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
         $paymentCrefoPayOrderItemToCrefoPayNotificationEntity = $this->getFactory()
             ->createPaymentCrefoPayOrderItemToCrefoPayNotificationQuery()
             ->filterByFkPaymentCrefoPayNotification(
-                $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer->getIdPaymentCrefoPayNotification()
+                $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer->getIdPaymentCrefoPayNotification(),
             )
             ->filterByFkPaymentCrefoPayOrderItem(
-                $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer->getIdPaymentCrefoPayOrderItem()
+                $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer->getIdPaymentCrefoPayOrderItem(),
             )
             ->findOneOrCreate();
 
         $paymentCrefoPayOrderItemToCrefoPayNotificationEntity->fromArray(
-            $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer->modifiedToArray()
+            $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer->modifiedToArray(),
         );
         $paymentCrefoPayOrderItemToCrefoPayNotificationEntity->setFkPaymentCrefoPayOrderItem(
-            $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer->getIdPaymentCrefoPayOrderItem()
+            $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer->getIdPaymentCrefoPayOrderItem(),
         );
         $paymentCrefoPayOrderItemToCrefoPayNotificationEntity->setFkPaymentCrefoPayNotification(
-            $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer->getIdPaymentCrefoPayNotification()
+            $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer->getIdPaymentCrefoPayNotification(),
         );
 
         $paymentCrefoPayOrderItemToCrefoPayNotificationEntity->save();
@@ -173,7 +173,7 @@ class CrefoPayEntityManager extends AbstractEntityManager implements CrefoPayEnt
         return $this->getMapper()
             ->mapEntityToPaymentCrefoPayOrderItemToCrefoPayNotificationTransfer(
                 $paymentCrefoPayOrderItemToCrefoPayNotificationEntity,
-                $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer
+                $paymentCrefoPayOrderItemToCrefoPayNotificationTransfer,
             );
     }
 

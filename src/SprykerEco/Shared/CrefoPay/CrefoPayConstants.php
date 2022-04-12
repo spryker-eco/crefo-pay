@@ -17,6 +17,8 @@ interface CrefoPayConstants
      *  - Merchant ID provided by CrefoPay, int value.
      *
      * @api
+     *
+     * @var string
      */
     public const MERCHANT_ID = 'CREFO_PAY:MERCHANT_ID';
 
@@ -25,6 +27,8 @@ interface CrefoPayConstants
      *  - Store ID provided by CrefoPay, string value.
      *
      * @api
+     *
+     * @var string
      */
     public const STORE_ID = 'CREFO_PAY:STORE_ID';
 
@@ -34,6 +38,8 @@ interface CrefoPayConstants
      *  - Will be taken if comment is not present in RefundTransfer.
      *
      * @api
+     *
+     * @var string
      */
     public const REFUND_DESCRIPTION = 'CREFO_PAY:REFUND_DESCRIPTION';
 
@@ -42,6 +48,8 @@ interface CrefoPayConstants
      *  - Url for secureFields API requests.
      *
      * @api
+     *
+     * @var string
      */
     public const SECURE_FIELDS_API_ENDPOINT = 'CREFO_PAY:SECURE_FIELDS_API_ENDPOINT';
 
@@ -50,6 +58,8 @@ interface CrefoPayConstants
      *  - Placeholders that will be shown in Credit Card form and Direct Debit form, array value.
      *
      * @api
+     *
+     * @var string
      */
     public const SECURE_FIELDS_PLACEHOLDERS = 'CREFO_PAY:SECURE_FIELDS_PLACEHOLDERS';
 
@@ -58,6 +68,8 @@ interface CrefoPayConstants
      *  - Represents integration model: true in case of b2b and false in case of b2c, bool value.
      *
      * @api
+     *
+     * @var string
      */
     public const IS_BUSINESS_TO_BUSINESS = 'CREFO_PAY:IS_BUSINESS_TO_BUSINESS';
 
@@ -67,6 +79,8 @@ interface CrefoPayConstants
      *  - If false makes capture for expenses with first captured order item.
      *
      * @api
+     *
+     * @var string
      */
     public const CAPTURE_EXPENSES_SEPARATELY = 'CREFO_PAY:CAPTURE_EXPENSES_SEPARATELY';
 
@@ -76,6 +90,8 @@ interface CrefoPayConstants
      *  - If false does not perform any actions related to expenses refund.
      *
      * @api
+     *
+     * @var string
      */
     public const REFUND_EXPENSES_WITH_LAST_ITEM = 'CREFO_PAY:REFUND_EXPENSES_WITH_LAST_ITEM';
 }

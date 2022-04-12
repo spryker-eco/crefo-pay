@@ -17,6 +17,9 @@ use SprykerEco\Zed\CrefoPay\Persistence\CrefoPayRepositoryInterface;
 
 class CrefoPayReader implements CrefoPayReaderInterface
 {
+    /**
+     * @var array
+     */
     protected const SUCCESS_RESULT_CODES = [0, 1];
 
     /**
@@ -94,14 +97,14 @@ class CrefoPayReader implements CrefoPayReaderInterface
             function (CrefoPayToSalesOrderItemTransfer $crefoPayToSalesOrderItemTransfer) {
                 return $crefoPayToSalesOrderItemTransfer->getIdSalesOrderItem();
             },
-            $crefoPayToSalesOrderItemsCollection->getCrefoPayToSalesOrderItems()->getArrayCopy()
+            $crefoPayToSalesOrderItemsCollection->getCrefoPayToSalesOrderItems()->getArrayCopy(),
         );
 
         return $this->repository->getPaymentCrefoPayOrderItemCollectionBySalesOrderItemIds($salesOrderItemIds);
     }
 
     /**
-     * @param int[] $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return \Generated\Shared\Transfer\PaymentCrefoPayOrderItemCollectionTransfer
      */
@@ -124,7 +127,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
             ->findPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndResultCodes(
                 $idSalesOrderItem,
                 $apiLogRequestType,
-                static::SUCCESS_RESULT_CODES
+                static::SUCCESS_RESULT_CODES,
             )
             ?? new PaymentCrefoPayOrderItemToCrefoPayApiLogTransfer();
     }
@@ -142,7 +145,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
         return $this->repository
             ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $idSalesOrderItem,
-                $notificationTransactionStatus
+                $notificationTransactionStatus,
             )
             ?? new PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer();
     }
@@ -160,7 +163,7 @@ class CrefoPayReader implements CrefoPayReaderInterface
         return $this->repository
             ->findPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndOrderStatus(
                 $idSalesOrderItem,
-                $notificationOredrStatus
+                $notificationOredrStatus,
             )
             ?? new PaymentCrefoPayOrderItemToCrefoPayNotificationTransfer();
     }

@@ -78,7 +78,7 @@ class CrefoPayPaymentMethodFilter implements CrefoPayPaymentMethodFilterInterfac
         $allowedPaymentMethods = $quoteTransfer->getCrefoPayTransaction()->getAllowedPaymentMethods();
         $externalPaymentMethodName = $this->paymentMethodMapper
             ->mapInternalToExternalPaymentMethodName(
-                $paymentMethodTransfer->getMethodName()
+                $paymentMethodTransfer->getMethodName(),
             );
 
         return in_array($externalPaymentMethodName, $allowedPaymentMethods);

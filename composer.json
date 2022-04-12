@@ -4,23 +4,26 @@
     "description": "CrefoPay module",
     "license": "MIT",
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "spryker-eco/crefo-pay-api": "^1.0.0",
         "spryker-shop/checkout-page": "^1.5.0 || ^2.0.0 || ^3.0.0",
         "spryker/calculation": "^4.0.0",
         "spryker/checkout-extension": "^1.0.0",
+        "spryker/decimal-object": "^1.0.0",
         "spryker/kernel": "^3.30.0",
         "spryker/locale": "^3.0.0",
         "spryker/oms": "^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
         "spryker/propel-orm": "^1.6.0",
         "spryker/refund": "^5.0.0",
-        "spryker/sales": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^10.0.0 || ^11.0.0",
-        "spryker/step-engine": "^2.0.0 || ^3.0.0",
+        "spryker/sales": "^8.5.0 || ^10.0.0 || ^11.0.0",
+        "spryker/step-engine": "^3.1.0",
         "spryker/symfony": "^3.0.0",
         "spryker/util-text": "^1.0.0",
         "spryker/zed-request": "^3.0.0"
     },
     "require-dev": {
+        "codeception/module-asserts": "^1.3.0",
+        "phpstan/phpstan": "^1.2.0",
         "spryker-shop/shop-application": "*",
         "spryker/checkout": "*",
         "spryker/code-sniffer": "*",
@@ -28,7 +31,8 @@
         "spryker/propel": "*",
         "spryker/router": "*",
         "spryker/silex": "*",
-        "spryker/testify": "*"
+        "spryker/testify": "*",
+        "spryker/transfer": "^3.30.2"
     },
     "suggest": {
         "spryker/checkout": "CheckoutPostSaveHookInterface is used.",
@@ -44,14 +48,23 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SprykerEcoTest\\": "tests/SprykerEcoTest/"
+            "SprykerEcoTest\\": "tests/SprykerEcoTest/",
+            "Config\\Module\\": "vendor/spryker/config/tests/_support/Module/",
+            "Oms\\Module\\": "vendor/spryker/oms/tests/_support/Module/",
+            "Propel\\Module\\": "vendor/spryker/propel/tests/_support/Module/",
+            "Sales\\Module\\": "vendor/spryker/sales/tests/_support/Module/",
+            "Transfer\\Module\\": "vendor/spryker/transfer/tests/_support/Module/"
         }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "cs-check": "phpcs -p -s --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml src/ tests/",
-        "cs-fix": "phpcbf -p --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml src/ tests/"
+        "test": "vendor/bin/codecept run",
+        "cs-check": "phpcs -p -s --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml --ignore=/tests/app/ src/ tests/",
+        "cs-fix": "phpcbf -p --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml --ignore=/tests/app/ src/ tests/",
+        "stan": "phpstan analyse",
+        "lowest": "validate-prefer-lowest",
+        "lowest-setup": "composer update --prefer-lowest --prefer-stable --prefer-dist --no-interaction && cp composer.json composer.backup && composer require --dev dereuromark/composer-prefer-lowest && mv composer.backup composer.json"
     },
     "extra": {
         "branch-alias": {
@@ -64,6 +77,9 @@
         "process-timeout": 600,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "platform": {
+            "php": "7.4.15"
         }
     }
 }

@@ -18,6 +18,9 @@ use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilderInterface
 {
+    /**
+     * @var string
+     */
     protected const INVALID_ITEMS_AGGREGATION_MESSAGE = 'Order items to refund have to have same captureId.';
 
     /**
@@ -45,7 +48,7 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
         $refundRequest
             ->setCaptureID($this->getCaptureId($crefoPayOmsCommandTransfer))
             ->setAmount(
-                $this->createAmountTransfer($amountToRefund)
+                $this->createAmountTransfer($amountToRefund),
             );
 
         $requestTransfer = (new CrefoPayApiRequestTransfer())
@@ -113,8 +116,8 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
                 $crefoPayOmsCommandTransfer
                     ->getPaymentCrefoPayOrderItemCollection()
                     ->getCrefoPayOrderItems()
-                    ->getArrayCopy()
-            )
+                    ->getArrayCopy(),
+            ),
         );
 
         if (count($orderItemCaptureIds) !== 1) {
@@ -155,8 +158,8 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
                 $crefoPayOmsCommandTransfer
                     ->getRefund()
                     ->getExpenses()
-                    ->getArrayCopy()
-            )
+                    ->getArrayCopy(),
+            ),
         );
     }
 
@@ -197,7 +200,7 @@ class RefundOmsCommandRequestBuilder implements CrefoPayOmsCommandRequestBuilder
             $crefoPayOmsCommandTransfer
                 ->getPaymentCrefoPayOrderItemCollection()
                 ->getCrefoPayOrderItems()
-                ->getArrayCopy()
+                ->getArrayCopy(),
         );
 
         foreach ($crefoPayOmsCommandTransfer->getOrder()->getItems() as $itemTransfer) {

@@ -21,14 +21,44 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface, SubFormProviderNameInterface
 {
+    /**
+     * @var string
+     */
     public const CREFO_PAY_SHOP_PUBLIC_KEY = 'shopPublicKey';
+
+    /**
+     * @var string
+     */
     public const CREFO_PAY_ORDER_ID = 'orderID';
+
+    /**
+     * @var string
+     */
     public const CREFO_PAY_SECURE_FIELDS_API_ENDPOINT = 'secureFieldsApiEndpoint';
+
+    /**
+     * @var string
+     */
     public const CREFO_PAY_SECURE_FIELDS_PLACEHOLDERS = 'secureFieldsPlaceholders';
 
+    /**
+     * @var string
+     */
     protected const PAYMENT_METHOD = 'credit-card';
+
+    /**
+     * @var string
+     */
     protected const FORM_FIELD_PAYMENT_METHOD = 'paymentMethod';
+
+    /**
+     * @var string
+     */
     protected const FORM_FIELD_PAYMENT_METHOD_DATA = 'CC';
+
+    /**
+     * @var string
+     */
     protected const FORM_FIELD_PAYMENT_INSTRUMENT_ID = 'paymentInstrumentId';
 
     /**
@@ -117,7 +147,7 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
             [
                 'choices' => [static::FORM_FIELD_PAYMENT_METHOD_DATA],
                 'expanded' => true,
-            ]
+            ],
         );
 
         return $this;
@@ -133,7 +163,7 @@ class CreditCardSubForm extends AbstractSubFormType implements SubFormInterface,
         $builder->add(
             static::FORM_FIELD_PAYMENT_INSTRUMENT_ID,
             HiddenType::class,
-            ['label' => false]
+            ['label' => false],
         );
 
         return $this;

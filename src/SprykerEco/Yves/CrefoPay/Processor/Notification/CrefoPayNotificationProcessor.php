@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInterface
 {
+    /**
+     * @var string
+     */
     protected const API_FIELD_MAC = 'mac';
 
     /**
@@ -61,7 +64,7 @@ class CrefoPayNotificationProcessor implements CrefoPayNotificationProcessorInte
         $notificationTransfer = $this->mapper
             ->mapRequestToNotificationTransfer(
                 $request,
-                new CrefoPayNotificationTransfer()
+                new CrefoPayNotificationTransfer(),
             );
 
         $this->crefoPayClient->processNotification($notificationTransfer);

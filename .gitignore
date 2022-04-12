@@ -8,6 +8,7 @@
 *.AppleDouble
 *.AppleDB
 *.AppleDesktop
+/tests/app/*
 
 # OS
 .DS_Store
@@ -17,5 +18,8 @@
 composer.phar
 
 phpunit.phar
+
+# tests
+tests/**/_generated/
 /tests/_output/*
 !/tests/_output/.gitkeep

@@ -11,6 +11,9 @@ use SprykerEco\Zed\CrefoPay\Business\Reader\CrefoPayReaderInterface;
 
 class IsReserveCallSuccessfulOmsCondition implements CrefoPayOmsConditionInterface
 {
+    /**
+     * @var string
+     */
     protected const REQUEST_TYPE = 'reserve';
 
     /**
@@ -36,7 +39,7 @@ class IsReserveCallSuccessfulOmsCondition implements CrefoPayOmsConditionInterfa
         $relationTransfer = $this->reader
             ->getPaymentCrefoPayOrderItemToCrefoPayApiLogByIdSalesOrderItemAndRequestTypeAndSuccessResult(
                 $idSalesOrderItem,
-                static::REQUEST_TYPE
+                static::REQUEST_TYPE,
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayApiLog() !== null;

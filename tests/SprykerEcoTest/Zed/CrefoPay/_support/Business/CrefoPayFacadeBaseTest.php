@@ -61,7 +61,7 @@ class CrefoPayFacadeBaseTest extends Test
                 'getOmsFacade',
                 'getCrefoPayService',
                 'getUtilTextService',
-            ]
+            ],
         );
 
         $stub = $builder->getMock();
@@ -100,7 +100,7 @@ class CrefoPayFacadeBaseTest extends Test
     {
         return $this->makeEmpty(
             CrefoPayApiFacade::class,
-            ['performCreateTransactionApiCall' => $this->tester->createCrefoPayApiResponseTransfer()]
+            ['performCreateTransactionApiCall' => $this->tester->createCrefoPayApiResponseTransfer()],
         );
     }
 

@@ -44,7 +44,7 @@ class IsChargeBackReceivedOmsCondition implements CrefoPayOmsConditionInterface
         $relationTransfer = $this->reader
             ->getPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $idSalesOrderItem,
-                $this->config->getNotificationOrderStatusChargeBack()
+                $this->config->getNotificationOrderStatusChargeBack(),
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;

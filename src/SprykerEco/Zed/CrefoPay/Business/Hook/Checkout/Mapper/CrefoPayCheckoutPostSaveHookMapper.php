@@ -16,6 +16,9 @@ use SprykerEco\Zed\CrefoPay\CrefoPayConfig;
 
 class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperInterface
 {
+    /**
+     * @var string
+     */
     protected const GET_PAYMENT_METHOD_PATTERN = 'get%s';
 
     /**
@@ -42,7 +45,7 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
         CrefoPayApiRequestTransfer $requestTransfer
     ): CrefoPayApiRequestTransfer {
         $requestTransfer->setReserveRequest(
-            $this->createReserveRequestTransfer($quoteTransfer)
+            $this->createReserveRequestTransfer($quoteTransfer),
         );
 
         return $requestTransfer;
@@ -73,7 +76,7 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
     {
         $method = sprintf(
             static::GET_PAYMENT_METHOD_PATTERN,
-            ucfirst($quoteTransfer->getPayment()->getPaymentSelection())
+            ucfirst($quoteTransfer->getPayment()->getPaymentSelection()),
         );
 
         if (!method_exists($quoteTransfer->getPayment(), $method)) {
@@ -92,7 +95,7 @@ class CrefoPayCheckoutPostSaveHookMapper implements CrefoPayCheckoutHookMapperIn
     {
         $method = sprintf(
             static::GET_PAYMENT_METHOD_PATTERN,
-            ucfirst($quoteTransfer->getPayment()->getPaymentSelection())
+            ucfirst($quoteTransfer->getPayment()->getPaymentSelection()),
         );
 
         if (!method_exists($quoteTransfer->getPayment(), $method)) {

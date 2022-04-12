@@ -58,7 +58,7 @@ class RefundOmsCommand implements RefundOmsCommandInterface
     /**
      * @param \Generated\Shared\Transfer\RefundTransfer $refundTransfer
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int[] $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return void
      */
@@ -66,7 +66,7 @@ class RefundOmsCommand implements RefundOmsCommandInterface
     {
         $crefoPayOmsCommandTransfer = $this->createCrefoPayOmsCommandTransfer(
             $orderTransfer,
-            $salesOrderItemIds
+            $salesOrderItemIds,
         );
         $crefoPayOmsCommandTransfer->setRefund($refundTransfer);
 
@@ -78,7 +78,7 @@ class RefundOmsCommand implements RefundOmsCommandInterface
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int[] $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
      */

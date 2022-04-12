@@ -56,7 +56,7 @@ class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandInterface
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int[] $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return void
      */
@@ -64,7 +64,7 @@ class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandInterface
     {
         $crefoPayOmsCommandTransfer = $this->createCrefoPayOmsCommandTransfer(
             $orderTransfer,
-            $salesOrderItemIds
+            $salesOrderItemIds,
         );
         $crefoPayOmsCommandTransfer = $this->requestBuilder
             ->buildRequestTransfer($crefoPayOmsCommandTransfer);
@@ -74,7 +74,7 @@ class CrefoPayOmsCommandByOrder implements CrefoPayOmsCommandInterface
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param int[] $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return \Generated\Shared\Transfer\CrefoPayOmsCommandTransfer
      */

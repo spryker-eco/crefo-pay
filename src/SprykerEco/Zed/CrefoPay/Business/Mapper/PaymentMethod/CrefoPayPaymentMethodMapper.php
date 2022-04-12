@@ -41,7 +41,7 @@ class CrefoPayPaymentMethodMapper implements CrefoPayPaymentMethodMapperInterfac
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     protected function getInternalToExternalPaymentMethodNamesMapping(): array
     {

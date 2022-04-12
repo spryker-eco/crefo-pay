@@ -44,7 +44,7 @@ class IsExpiredReceivedOmsCondition implements CrefoPayOmsConditionInterface
         $relationTransfer = $this->reader
             ->getPaymentCrefoPayOrderItemToCrefoPayNotificationByIdSalesOrderItemAndTransactionStatus(
                 $idSalesOrderItem,
-                $this->config->getNotificationTransactionStatusExpired()
+                $this->config->getNotificationTransactionStatusExpired(),
             );
 
         return $relationTransfer->getIdPaymentCrefoPayOrderItemToCrefoPayNotification() !== null;

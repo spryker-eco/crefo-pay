@@ -40,7 +40,7 @@ class FilterPaymentMethodsFacadeTest extends CrefoPayFacadeBaseTest
     {
         $this->assertCount(
             count($quoteTransfer->getCrefoPayTransaction()->getAllowedPaymentMethods()),
-            $filteredPaymentMethodsTransfer->getMethods()
+            $filteredPaymentMethodsTransfer->getMethods(),
         );
     }
 }

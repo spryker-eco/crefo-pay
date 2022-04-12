@@ -23,8 +23,14 @@ class StartCrefoPayTransactionFacadeTest extends CrefoPayFacadeBaseTest
      */
     public function testStartCrefoPayTransaction(): void
     {
+        // Arrange
         $quoteTransfer = $this->tester->createQuoteTransfer();
+
+        // Act
         $quoteTransfer = $this->facade->startCrefoPayTransaction($quoteTransfer);
+        $crefoPayTransactionTransfer = $quoteTransfer->getCrefoPayTransaction();
+
+        // Assert
         $this->doTest($quoteTransfer);
     }
 
@@ -42,5 +48,10 @@ class StartCrefoPayTransactionFacadeTest extends CrefoPayFacadeBaseTest
         $this->assertNotEmpty($crefoPayTransactionTransfer->getCrefoPayOrderId());
         $this->assertNotEmpty($crefoPayTransactionTransfer->getSalt());
         $this->assertGreaterThan(0, count($crefoPayTransactionTransfer->getAllowedPaymentMethods()));
+        $this->assertSame(
+            30,
+            strlen($crefoPayTransactionTransfer->getCrefoPayOrderId()),
+            'OrderId has to consist of 30 characters.',
+        );
     }
 }

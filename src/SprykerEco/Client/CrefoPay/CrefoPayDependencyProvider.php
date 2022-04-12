@@ -13,6 +13,9 @@ use SprykerEco\Client\CrefoPay\Dependency\Client\CrefoPayToZedRequestClientBridg
 
 class CrefoPayDependencyProvider extends AbstractDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_ZED_REQUEST = 'CLIENT_ZED_REQUEST';
 
     /**
