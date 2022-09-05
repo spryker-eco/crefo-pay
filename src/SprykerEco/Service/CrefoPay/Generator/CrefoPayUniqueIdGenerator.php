@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Service\CrefoPay\Generator;
 
+use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use SprykerEco\Service\CrefoPay\CrefoPayConfig;
 use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface;
@@ -14,14 +15,19 @@ use SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInte
 class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
 {
     /**
+     * @var int
+     */
+    protected const RANDOM_STRING_MIN_LENGTH = 3;
+
+    /**
      * @var \SprykerEco\Service\CrefoPay\CrefoPayConfig
      */
-    protected $crefoPayConfig;
+    protected CrefoPayConfig $crefoPayConfig;
 
     /**
      * @var \SprykerEco\Service\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface
      */
-    protected $utilTextService;
+    protected CrefoPayToUtilTextServiceInterface $utilTextService;
 
     /**
      * @param \SprykerEco\Service\CrefoPay\CrefoPayConfig $crefoPayConfig
@@ -42,13 +48,69 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
      */
     public function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
     {
-        $crefoPayOrderIdLength = $this->crefoPayConfig->getCrefoPayOrderIdLength();
-        $randomStringLength = $crefoPayOrderIdLength - strlen($quoteTransfer->getCustomerReference()) - 1;
+        return $this->generateUniqueId(
+            $quoteTransfer->getCustomerReference(),
+            $this->crefoPayConfig->getCrefoPayOrderIdLength(),
+        );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     *
+     * @return string
+     */
+    public function generateBasketItemId(ItemTransfer $itemTransfer): string
+    {
+        $normalizedSku = $this->normalizeBase(
+            $itemTransfer->getSku(),
+            $this->crefoPayConfig->getCrefoPayBasketItemIdMaxLength(),
+        );
+
+        if ($normalizedSku === $itemTransfer->getSku()) {
+            return $itemTransfer->getSku();
+        }
+
+        return $this->generateUniqueId(
+            $itemTransfer->getSku(),
+            $this->crefoPayConfig->getCrefoPayBasketItemIdMaxLength(),
+        );
+    }
+
+    /**
+     * @param string|null $base
+     * @param int $maxLength
+     *
+     * @return string
+     */
+    protected function generateUniqueId(?string $base, int $maxLength): string
+    {
+        $baseMaxLength = $maxLength - static::RANDOM_STRING_MIN_LENGTH - 1;
+        $base = $this->normalizeBase($base, $baseMaxLength);
+        $randomStringLength = $maxLength - strlen($base) - 1;
 
         return sprintf(
             '%s-%s',
             $this->utilTextService->generateRandomString($randomStringLength),
-            $quoteTransfer->getCustomerReference(),
+            $base,
         );
+    }
+
+    /**
+     * @param string|null $base
+     * @param int $maxLength
+     *
+     * @return string
+     */
+    protected function normalizeBase(?string $base, int $maxLength): string
+    {
+        if ($base === null) {
+            return '';
+        }
+
+        if ($maxLength >= strlen($base)) {
+            return $base;
+        }
+
+        return substr($base, 0, $maxLength);
     }
 }

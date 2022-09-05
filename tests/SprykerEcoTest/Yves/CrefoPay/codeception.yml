@@ -1,0 +1,38 @@
+namespace: SprykerEcoTest\Yves\CrefoPay
+
+paths:
+    tests: .
+    data: ../../../_data
+    support: _support
+    log: ../../../_output
+
+coverage:
+    enabled: true
+    remote: false
+    whitelist: { include: [ '../../../../src/*' ] }
+
+suites:
+    Yves:
+        path: .
+        class_name: CrefoPayYvesTester
+        modules:
+            enabled:
+                - Asserts
+                - \SprykerTest\Shared\Testify\Helper\Environment:
+                    isolated: true
+                - \SprykerTest\Shared\Testify\Helper\ConfigHelper
+                - \SprykerTest\Shared\Config\Helper\ConfigInit
+                - \SprykerTest\Yves\Application\Helper\ApplicationHelper
+                - \SprykerTest\Service\Container\Helper\ContainerHelper
+                - \SprykerTest\Shared\Testify\Helper\LocatorHelper:
+                    projectNamespaces:
+                        - 'Spryker'
+                        - 'SprykerTest'
+                        - 'SprykerEco'
+                        - 'SprykerEcoTest'
+                - \SprykerTest\Shared\Transfer\Helper\TransferGenerateHelper:
+                    isolated: true
+                    schemaDirectories:
+                        - src/*/Shared/*/Transfer/
+                        - vendor/spryker/*/src/Spryker/Shared/*/Transfer/
+                        - vendor/spryker-eco/*/src/SprykerEco/Shared/*/Transfer/

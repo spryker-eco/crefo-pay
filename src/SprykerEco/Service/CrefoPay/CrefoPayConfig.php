@@ -8,6 +8,7 @@
 namespace SprykerEco\Service\CrefoPay;
 
 use Spryker\Service\Kernel\AbstractBundleConfig;
+use SprykerEco\Shared\CrefoPay\CrefoPayConstants;
 
 class CrefoPayConfig extends AbstractBundleConfig
 {
@@ -17,6 +18,16 @@ class CrefoPayConfig extends AbstractBundleConfig
     protected const CREFO_PAY_ORDER_ID_LENGTH = 30;
 
     /**
+     * @var int
+     */
+    protected const CREFO_PAY_USER_ID_MAX_LENGTH = 50;
+
+    /**
+     * @var int
+     */
+    protected const CREFO_PAY_BASKET_ITEM_ID_MAX_LENGTH = 20;
+
+    /**
      * @api
      *
      * @return int
@@ -24,5 +35,35 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getCrefoPayOrderIdLength(): int
     {
         return static::CREFO_PAY_ORDER_ID_LENGTH;
+    }
+
+    /**
+     * @api
+     *
+     * @return int
+     */
+    public function getCrefoPayUserIdMaxLength(): int
+    {
+        return static::CREFO_PAY_USER_ID_MAX_LENGTH;
+    }
+
+    /**
+     * @api
+     *
+     * @return int
+     */
+    public function getCrefoPayBasketItemIdMaxLength(): int
+    {
+        return static::CREFO_PAY_BASKET_ITEM_ID_MAX_LENGTH;
+    }
+
+    /**
+     * @api
+     *
+     * @return bool
+     */
+    public function getIsBusinessToBusiness(): bool
+    {
+        return $this->get(CrefoPayConstants::IS_BUSINESS_TO_BUSINESS, false);
     }
 }
