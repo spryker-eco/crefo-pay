@@ -62,7 +62,7 @@ class CrefoPayConfig extends AbstractBundleConfig
      *
      * @return bool
      */
-    public function getIsBusinessToBusiness(): bool
+    public function isBusinessToBusiness(): bool
     {
         return $this->get(CrefoPayConstants::IS_BUSINESS_TO_BUSINESS, false);
     }

@@ -27,7 +27,7 @@ interface CrefoPayServiceInterface
 
     /**
      * Specification:
-     * - If `ItemTransfer.sku` is set and length is lower than max length, return `ItemTransfer.sku`.
+     * - If `ItemTransfer.sku` is set and length is lower than max length, returns `ItemTransfer.sku`.
      * - Otherwise, generates unique basket item ID based on `ItemTransfer.sku`.
      *
      * @api

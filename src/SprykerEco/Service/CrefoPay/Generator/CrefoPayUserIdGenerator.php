@@ -57,26 +57,26 @@ class CrefoPayUserIdGenerator implements CrefoPayUserIdGeneratorInterface
      */
     public function generateUserId(QuoteTransfer $quoteTransfer): string
     {
-        $userId = $quoteTransfer->getCustomerReference();
+        $userIdBase = $quoteTransfer->getCustomerReference();
 
-        if ($userId === null || $quoteTransfer->getCustomerOrFail()->getIsGuest()) {
-            $userId = $this->createGuestUserId();
+        if ($userIdBase === null || $quoteTransfer->getCustomerOrFail()->getIsGuest()) {
+            $userIdBase = $this->createGuestUserIdBase();
         }
 
         $userTypeSuffix = $this->getUserTypeSuffix();
         $maxUserIdLength = $this->crefoPayConfig->getCrefoPayUserIdMaxLength() - strlen($userTypeSuffix);
 
-        if ($maxUserIdLength < strlen($userId)) {
-            $userId = substr($userId, 0, $maxUserIdLength);
+        if ($maxUserIdLength < strlen($userIdBase)) {
+            $userIdBase = substr($userIdBase, 0, $maxUserIdLength);
         }
 
-        return sprintf('%s%s', $userId, $userTypeSuffix);
+        return sprintf('%s%s', $userIdBase, $userTypeSuffix);
     }
 
     /**
      * @return string
      */
-    protected function createGuestUserId(): string
+    protected function createGuestUserIdBase(): string
     {
         return sprintf(
             'GUEST-USER-%s',
@@ -89,6 +89,6 @@ class CrefoPayUserIdGenerator implements CrefoPayUserIdGeneratorInterface
      */
     protected function getUserTypeSuffix(): string
     {
-        return $this->crefoPayConfig->getIsBusinessToBusiness() ? static::USER_ID_B2B_SUFFIX : static::USER_ID_B2C_SUFFIX;
+        return $this->crefoPayConfig->isBusinessToBusiness() ? static::USER_ID_B2B_SUFFIX : static::USER_ID_B2C_SUFFIX;
     }
 }
