@@ -50,8 +50,10 @@ class CrefoPayQuoteExpanderTest extends Unit
     {
         // Arrange
         $clientMock = $this->createClientMock();
-        $clientMock->expects($this->once())->method('startCrefoPayTransaction');
         $crefoPayQuoteExpander = $this->createCrefoPayQuoteExpander($clientMock);
+
+        // Assert
+        $clientMock->expects($this->once())->method('startCrefoPayTransaction');
 
         // Act
         $crefoPayQuoteExpander->expand($this->tester->getRequest(), new QuoteTransfer());
@@ -64,10 +66,12 @@ class CrefoPayQuoteExpanderTest extends Unit
     {
         // Arrange
         $clientMock = $this->createClientMock();
-        $clientMock->expects($this->once())->method('startCrefoPayTransaction');
         $crefoPayQuoteExpander = $this->createCrefoPayQuoteExpander($clientMock);
 
         $quoteTransfer = (new QuoteTransfer())->setCrefoPayTransaction(new CrefoPayTransactionTransfer());
+
+        // Assert
+        $clientMock->expects($this->once())->method('startCrefoPayTransaction');
 
         // Act
         $crefoPayQuoteExpander->expand($this->tester->getRequest(), $quoteTransfer);
@@ -80,11 +84,13 @@ class CrefoPayQuoteExpanderTest extends Unit
     {
         // Arrange
         $clientMock = $this->createClientMock();
-        $clientMock->expects($this->once())->method('startCrefoPayTransaction');
         $crefoPayQuoteExpander = $this->createCrefoPayQuoteExpander($clientMock);
 
         $quoteTransfer = (new QuoteTransfer())
             ->setCrefoPayTransaction((new CrefoPayTransactionTransfer())->setIsSuccess(true));
+
+        // Assert
+        $clientMock->expects($this->once())->method('startCrefoPayTransaction');
 
         // Act
         $crefoPayQuoteExpander->expand($this->tester->getRequest(), $quoteTransfer);
@@ -97,7 +103,6 @@ class CrefoPayQuoteExpanderTest extends Unit
     {
         // Arrange
         $clientMock = $this->createClientMock();
-        $clientMock->expects($this->once())->method('startCrefoPayTransaction');
         $crefoPayQuoteExpander = $this->createCrefoPayQuoteExpander($clientMock);
 
         $crefoPayTransactionTransfer = (new CrefoPayTransactionTransfer())
@@ -107,6 +112,9 @@ class CrefoPayQuoteExpanderTest extends Unit
         $quoteTransfer = (new QuoteTransfer())
             ->setCrefoPayTransaction($crefoPayTransactionTransfer)
             ->setBillingAddress((new AddressTransfer())->setIso2Code(static::COUNTRY_CODE_US));
+
+        // Assert
+        $clientMock->expects($this->once())->method('startCrefoPayTransaction');
 
         // Act
         $crefoPayQuoteExpander->expand($this->tester->getRequest(), $quoteTransfer);
@@ -119,7 +127,6 @@ class CrefoPayQuoteExpanderTest extends Unit
     {
         // Arrange
         $clientMock = $this->createClientMock();
-        $clientMock->expects($this->never())->method('startCrefoPayTransaction');
         $crefoPayQuoteExpander = $this->createCrefoPayQuoteExpander($clientMock);
 
         $crefoPayTransactionTransfer = (new CrefoPayTransactionTransfer())
@@ -129,6 +136,9 @@ class CrefoPayQuoteExpanderTest extends Unit
         $quoteTransfer = (new QuoteTransfer())
             ->setCrefoPayTransaction($crefoPayTransactionTransfer)
             ->setBillingAddress((new AddressTransfer())->setIso2Code(static::COUNTRY_CODE_DE));
+
+        // Assert
+        $clientMock->expects($this->never())->method('startCrefoPayTransaction');
 
         // Act
         $crefoPayQuoteExpander->expand($this->tester->getRequest(), $quoteTransfer);

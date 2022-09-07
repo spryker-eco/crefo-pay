@@ -76,6 +76,6 @@ class CrefoPayQuoteExpander implements CrefoPayQuoteExpanderInterface
             return true;
         }
 
-        return $quoteTransfer->getBillingAddress()->getIso2Code() !== $crefoPayTransaction->getBillingAddress()->getCountry();
+        return $quoteTransfer->getBillingAddressOrFail()->getIso2Code() !== $crefoPayTransaction->getBillingAddressOrFail()->getCountry();
     }
 }

@@ -49,8 +49,8 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
     public function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
     {
         return $this->generateUniqueId(
-            $quoteTransfer->getCustomerReference(),
             $this->crefoPayConfig->getCrefoPayOrderIdLength(),
+            $quoteTransfer->getCustomerReference(),
         );
     }
 
@@ -61,9 +61,10 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
      */
     public function generateBasketItemId(ItemTransfer $itemTransfer): string
     {
+        $basketItemIdMaxLength = $this->crefoPayConfig->getCrefoPayBasketItemIdMaxLength();
         $normalizedSku = $this->normalizeBase(
+            $basketItemIdMaxLength,
             $itemTransfer->getSku(),
-            $this->crefoPayConfig->getCrefoPayBasketItemIdMaxLength(),
         );
 
         if ($normalizedSku === $itemTransfer->getSku()) {
@@ -71,21 +72,21 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
         }
 
         return $this->generateUniqueId(
+            $basketItemIdMaxLength,
             $itemTransfer->getSku(),
-            $this->crefoPayConfig->getCrefoPayBasketItemIdMaxLength(),
         );
     }
 
     /**
-     * @param string|null $base
      * @param int $maxLength
+     * @param string|null $base
      *
      * @return string
      */
-    protected function generateUniqueId(?string $base, int $maxLength): string
+    protected function generateUniqueId(int $maxLength, ?string $base = null): string
     {
         $baseMaxLength = $maxLength - static::RANDOM_STRING_MIN_LENGTH - 1;
-        $base = $this->normalizeBase($base, $baseMaxLength);
+        $base = $this->normalizeBase($baseMaxLength, $base);
         $randomStringLength = $maxLength - strlen($base) - 1;
 
         return sprintf(
@@ -96,12 +97,12 @@ class CrefoPayUniqueIdGenerator implements CrefoPayUniqueIdGeneratorInterface
     }
 
     /**
-     * @param string|null $base
      * @param int $maxLength
+     * @param string|null $base
      *
      * @return string
      */
-    protected function normalizeBase(?string $base, int $maxLength): string
+    protected function normalizeBase(int $maxLength, ?string $base = null): string
     {
         if ($base === null) {
             return '';
