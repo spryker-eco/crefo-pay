@@ -58,6 +58,11 @@ class CrefoPayConfig extends AbstractBundleConfig
     }
 
     /**
+     * Specification:
+     * - Represents the integration model.
+     * - Returns `true` in case of B2B.
+     * - Returns `false` in case of B2C.
+     *
      * @api
      *
      * @return bool
