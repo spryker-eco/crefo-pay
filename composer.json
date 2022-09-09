@@ -18,6 +18,7 @@
         "spryker/sales": "^8.5.0 || ^10.0.0 || ^11.0.0",
         "spryker/step-engine": "^3.1.0",
         "spryker/symfony": "^3.0.0",
+        "spryker/transfer": "^3.25.0",
         "spryker/util-text": "^1.0.0",
         "spryker/zed-request": "^3.0.0"
     },
@@ -25,20 +26,23 @@
         "codeception/module-asserts": "^1.3.0",
         "phpstan/phpstan": "^1.2.0",
         "spryker-shop/shop-application": "*",
+        "spryker/application": "*",
         "spryker/checkout": "*",
         "spryker/code-sniffer": "*",
+        "spryker/config": "*",
+        "spryker/container": "*",
+        "spryker/error-handler": "*",
         "spryker/payment": "*",
         "spryker/propel": "*",
         "spryker/router": "*",
         "spryker/silex": "*",
-        "spryker/testify": "*",
-        "spryker/transfer": "^3.30.2"
+        "spryker/testify": "*"
     },
     "suggest": {
+        "spryker-shop/shop-application": "Abstract Yves controller provider is used.",
         "spryker/checkout": "CheckoutPostSaveHookInterface is used.",
         "spryker/payment": "If you want to use payment method filtering.",
         "spryker/router": "Use this module if you want use the RouterProviderPlugin.",
-        "spryker-shop/shop-application": "Abstract Yves controller provider is used.",
         "spryker/silex": "Silex application is used."
     },
     "autoload": {

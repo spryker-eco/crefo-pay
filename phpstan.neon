@@ -10,6 +10,7 @@ parameters:
         - '#Call to method .+\(\) on an unknown class Generated\\.+#'
         - '#Call to an undefined method .+useSpyPaymentCrefoPayApiLogQuery\(\)\.+#'
         - '#Call to an undefined method .+useSpyPaymentCrefoPayNotificationQuery\(\)\.+#'
-        - '#Parameter \#1 \$object_or_.+ of function is_a expects object\|string, float\|null given.#'
+        - '#Parameter \#1 \$object_or_string of function is_a expects object, float\|null given.#'
+        - '#Unreachable statement - code above always terminates.#'
     excludePaths:
         - src/SprykerEco/Zed/CrefoPay/Persistence/Propel/Abstract*.php

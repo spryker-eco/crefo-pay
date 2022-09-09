@@ -17,6 +17,7 @@ use Generated\Shared\Transfer\CrefoPayApiResponseTransfer;
 use Generated\Shared\Transfer\CrefoPayNotificationTransfer;
 use Generated\Shared\Transfer\CrefoPayTransactionTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
+use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\PaymentMethodsTransfer;
 use Generated\Shared\Transfer\PaymentMethodTransfer;
 use Generated\Shared\Transfer\PaymentTransfer;
@@ -274,13 +275,15 @@ class CrefoPayZedTester extends Actor
     }
 
     /**
+     * @param string|null $customerReference
+     *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    public function createQuoteTransfer(): QuoteTransfer
+    public function createQuoteTransfer(?string $customerReference = null): QuoteTransfer
     {
         return (new QuoteTransfer())
             ->setPayment($this->createPaymentTransfer())
-            ->setCustomerReference(static::CUSTOMER_REFERENCE)
+            ->setCustomerReference($customerReference ?? static::CUSTOMER_REFERENCE)
             ->setCustomer($this->createCustomerTransfer())
             ->setBillingAddress($this->createAddressTransfer())
             ->setShippingAddress($this->createAddressTransfer())
@@ -444,5 +447,15 @@ class CrefoPayZedTester extends Actor
             ],
             static::STATE_MACHINE_PROCESS_NAME,
         );
+    }
+
+    /**
+     * @param array<string, mixed> $seedData
+     *
+     * @return \Generated\Shared\Transfer\ItemTransfer
+     */
+    public function createItemTransfer(array $seedData = []): ItemTransfer
+    {
+        return (new ItemTransfer())->fromArray($seedData, true);
     }
 }

@@ -17,7 +17,7 @@ class CrefoPayQuoteExpander implements CrefoPayQuoteExpanderInterface
     /**
      * @var \SprykerEco\Client\CrefoPay\CrefoPayClientInterface
      */
-    protected $client;
+    protected CrefoPayClientInterface $client;
 
     /**
      * @param \SprykerEco\Client\CrefoPay\CrefoPayClientInterface $client
@@ -35,8 +35,7 @@ class CrefoPayQuoteExpander implements CrefoPayQuoteExpanderInterface
      */
     public function expand(Request $request, QuoteTransfer $quoteTransfer): QuoteTransfer
     {
-        $crefoPayTransaction = $quoteTransfer->getCrefoPayTransaction();
-        if ($crefoPayTransaction !== null && $crefoPayTransaction->getIsSuccess()) {
+        if (!$this->shouldTransactionBeExecuted($quoteTransfer)) {
             return $quoteTransfer;
         }
 
@@ -56,5 +55,27 @@ class CrefoPayQuoteExpander implements CrefoPayQuoteExpanderInterface
     {
         return (new CrefoPayTransactionTransfer())
             ->setClientIp($request->getClientIp());
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return bool
+     */
+    protected function shouldTransactionBeExecuted(QuoteTransfer $quoteTransfer): bool
+    {
+        $crefoPayTransaction = $quoteTransfer->getCrefoPayTransaction();
+        if (
+            $crefoPayTransaction === null
+            || !$crefoPayTransaction->getIsSuccess()
+        ) {
+            return true;
+        }
+
+        if (!$quoteTransfer->getBillingAddress() || !$crefoPayTransaction->getBillingAddress()) {
+            return true;
+        }
+
+        return $quoteTransfer->getBillingAddressOrFail()->getIso2Code() !== $crefoPayTransaction->getBillingAddressOrFail()->getCountry();
     }
 }

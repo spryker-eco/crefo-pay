@@ -186,6 +186,16 @@ class CrefoPayConfig extends AbstractBundleConfig
     protected const CREFO_PAY_AUTOMATIC_OMS_TRIGGER = 'CREFO_PAY_AUTOMATIC_OMS_TRIGGER';
 
     /**
+     * @var array<string, string>
+     */
+    protected const CREFO_PAY_SALUTATION_MAP = [
+        'Mr' => 'M',
+        'Ms' => 'F',
+        'Mrs' => 'F',
+        'Dr' => 'M',
+    ];
+
+    /**
      * @api
      *
      * @return int
@@ -613,5 +623,15 @@ class CrefoPayConfig extends AbstractBundleConfig
     public function getRefundExpensesWithLastItem(): bool
     {
         return $this->get(CrefoPayConstants::REFUND_EXPENSES_WITH_LAST_ITEM);
+    }
+
+    /**
+     * @api
+     *
+     * @return array<string, string>
+     */
+    public function getCrefoPaySalutationMap(): array
+    {
+        return static::CREFO_PAY_SALUTATION_MAP;
     }
 }

@@ -1,4 +1,4 @@
-namespace: SprykerEcoTest\Zed\CrefoPay
+namespace: SprykerEcoTest\Service\CrefoPay
 
 paths:
     tests: .
@@ -12,26 +12,18 @@ coverage:
     whitelist: { include: [ '../../../../src/*' ] }
 
 suites:
-    Zed:
+    Service:
         path: .
-        class_name: CrefoPayZedTester
+        class_name: CrefoPayServiceTester
         modules:
             enabled:
                 - Asserts
-                - \SprykerTest\Zed\Testify\Helper\Business\DependencyProviderHelper
                 - \SprykerTest\Shared\Testify\Helper\Environment:
                     isolated: true
                 - \SprykerTest\Shared\Testify\Helper\ConfigHelper
-                - \SprykerTest\Zed\Testify\Helper\Business\BusinessHelper
-                - \SprykerTest\Service\Container\Helper\ContainerHelper
-                - \SprykerTest\Shared\Propel\Helper\ConnectionHelper
-                - \SprykerTest\Shared\Testify\Helper\DataCleanupHelper
-                - \SprykerTest\Shared\Testify\Helper\DependencyHelper
-                - \SprykerTest\Shared\Propel\Helper\TransactionHelper
+                - \SprykerTest\Service\Testify\Helper\ServiceHelper
+                - \SprykerTest\Service\Testify\Helper\DependencyProviderHelper
                 - \SprykerTest\Shared\Config\Helper\ConfigInit
-                - \SprykerTest\Shared\Sales\Helper\SalesDataHelper
-                - \SprykerEcoTest\Shared\CrefoPay\Helper\CrefoPayDataHelper
-                - \SprykerTest\Zed\Oms\Helper\OmsHelper
                 - \SprykerTest\Shared\UtilText\Helper\UtilTextHelper
                 - \SprykerTest\Shared\Testify\Helper\LocatorHelper:
                     projectNamespaces:
@@ -45,8 +37,3 @@ suites:
                         - src/*/Shared/*/Transfer/
                         - vendor/spryker/*/src/Spryker/Shared/*/Transfer/
                         - vendor/spryker-eco/*/src/SprykerEco/Shared/*/Transfer/
-                - \SprykerTest\Shared\Propel\Helper\PropelHelper:
-                    isolated: true
-                    schemaSourceDirectoryList:
-                        - src/*/Zed/*/Persistence/Propel/Schema
-                        - vendor/*/*/src/*/Zed/*/Persistence/Propel/Schema

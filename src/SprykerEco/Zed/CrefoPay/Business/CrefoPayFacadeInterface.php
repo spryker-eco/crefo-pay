@@ -19,8 +19,9 @@ interface CrefoPayFacadeInterface
 {
     /**
      * Specification:
-     *  - Starts transaction in CrefoPay system.
-     *  - Expands QuoteTransfer with response from CreateTransaction API call.
+     * - Requires `QuoteTransfer.customer` transfer property to be set.
+     * - Starts transaction in CrefoPay system.
+     * - Expands QuoteTransfer with response from CreateTransaction API call.
      *
      * @api
      *

@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Service\CrefoPay\Generator;
 
+use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
 interface CrefoPayUniqueIdGeneratorInterface
@@ -17,4 +18,11 @@ interface CrefoPayUniqueIdGeneratorInterface
      * @return string
      */
     public function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string;
+
+    /**
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     *
+     * @return string
+     */
+    public function generateBasketItemId(ItemTransfer $itemTransfer): string;
 }

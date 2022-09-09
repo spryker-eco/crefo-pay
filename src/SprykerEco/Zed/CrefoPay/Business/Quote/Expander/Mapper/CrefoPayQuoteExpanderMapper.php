@@ -53,11 +53,6 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     /**
      * @var array
      */
-    protected const SALUTATION_MAPPING = ['Mr' => 'M', 'Ms' => 'F', 'Mrs' => 'F', 'Dr' => 'M'];
-
-    /**
-     * @var array
-     */
     protected const AVAILABLE_LOCALES = ['EN', 'DE', 'ES', 'FR', 'IT', 'NL'];
 
     /**
@@ -76,26 +71,6 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     protected const SHIPPING_COSTS_COUNT = 1;
 
     /**
-     * @var int
-     */
-    protected const GUEST_USER_ID_LENGTH = 6;
-
-    /**
-     * @var string
-     */
-    protected const GUEST_USER_ID_PATTERN = 'GUEST-USER-%s';
-
-    /**
-     * @var string
-     */
-    protected const USER_ID_B2B_SUFFIX = '-B2B';
-
-    /**
-     * @var string
-     */
-    protected const USER_ID_B2C_SUFFIX = '-B2C';
-
-    /**
      * @uses \Spryker\Shared\Shipment\ShipmentConfig::SHIPMENT_EXPENSE_TYPE
      *
      * @var string
@@ -105,17 +80,17 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
     /**
      * @var \SprykerEco\Service\CrefoPay\CrefoPayServiceInterface
      */
-    protected $crefoPayService;
+    protected CrefoPayServiceInterface $crefoPayService;
 
     /**
      * @var \SprykerEco\Zed\CrefoPay\Dependency\Service\CrefoPayToUtilTextServiceInterface
      */
-    protected $utilTextService;
+    protected CrefoPayToUtilTextServiceInterface $utilTextService;
 
     /**
      * @var \SprykerEco\Zed\CrefoPay\CrefoPayConfig
      */
-    protected $config;
+    protected CrefoPayConfig $config;
 
     /**
      * @var \SprykerEco\Zed\CrefoPay\Dependency\Facade\CrefoPayToLocaleFacadeInterface
@@ -167,8 +142,8 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
         $createTransactionRequestTransfer = (new CrefoPayApiCreateTransactionRequestTransfer())
             ->setMerchantID($this->config->getMerchantId())
             ->setStoreID($this->config->getStoreId())
-            ->setOrderID($this->generateCrefoPayOrderId($quoteTransfer))
-            ->setUserID($this->getUserId($quoteTransfer))
+            ->setOrderID($this->crefoPayService->generateCrefoPayOrderId($quoteTransfer))
+            ->setUserID($this->crefoPayService->generateCrefoPayUserId($quoteTransfer))
             ->setIntegrationType(static::INTEGRATION_TYPE)
             ->setAutoCapture(static::AUTO_CAPTURE)
             ->setContext(static::CONTEXT)
@@ -182,57 +157,6 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
             ->setLocale($this->getLocale());
 
         return $this->addUserInformation($quoteTransfer, $createTransactionRequestTransfer);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return string
-     */
-    protected function generateCrefoPayOrderId(QuoteTransfer $quoteTransfer): string
-    {
-        return $this->crefoPayService->generateCrefoPayOrderId($quoteTransfer);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return string
-     */
-    protected function getUserId(QuoteTransfer $quoteTransfer): string
-    {
-        $userId = $quoteTransfer->getCustomerReference();
-
-        if ($quoteTransfer->getCustomer()->getIsGuest() || $userId === null) {
-            $userId = $this->createGuestUserId();
-        }
-
-        return $this->addUserTypeSuffix($userId);
-    }
-
-    /**
-     * @return string
-     */
-    protected function createGuestUserId(): string
-    {
-        return sprintf(
-            static::GUEST_USER_ID_PATTERN,
-            $this->utilTextService->generateRandomString(static::GUEST_USER_ID_LENGTH),
-        );
-    }
-
-    /**
-     * @param string $userId
-     *
-     * @return string
-     */
-    protected function addUserTypeSuffix(string $userId): string
-    {
-        if ($this->config->getIsBusinessToBusiness()) {
-            return $userId . static::USER_ID_B2B_SUFFIX;
-        }
-
-        return $userId . static::USER_ID_B2C_SUFFIX;
     }
 
     /**
@@ -294,7 +218,12 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
      */
     protected function getSalutation(QuoteTransfer $quoteTransfer): ?string
     {
-        return static::SALUTATION_MAPPING[$quoteTransfer->getCustomer()->getSalutation()];
+        $salutationMap = $this->config->getCrefoPaySalutationMap();
+        if (array_key_exists($quoteTransfer->getCustomerOrFail()->getSalutation(), $salutationMap)) {
+            return $salutationMap[$quoteTransfer->getCustomerOrFail()->getSalutation()];
+        }
+
+        return null;
     }
 
     /**
@@ -368,14 +297,14 @@ class CrefoPayQuoteExpanderMapper implements CrefoPayQuoteExpanderMapperInterfac
                     ->setBasketItemType($this->config->getProductTypeDefault())
                     ->setBasketItemRiskClass($this->config->getProductRiskClass())
                     ->setBasketItemText($itemTransfer->getName())
-                    ->setBasketItemID($itemTransfer->getSku())
+                    ->setBasketItemID($this->crefoPayService->generateCrefoPayBasketItemId($itemTransfer))
                     ->setBasketItemCount($itemTransfer->getQuantity())
                     ->setBasketItemAmount($amount);
             },
             $quoteTransfer->getItems()->getArrayCopy(),
         );
 
-        $basket = new ArrayObject($items);
+        $basket = new ArrayObject(array_values($items));
         $basket->append($this->createShippingCostItem($quoteTransfer));
 
         return $basket;

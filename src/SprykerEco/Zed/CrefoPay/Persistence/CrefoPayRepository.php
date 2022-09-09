@@ -90,7 +90,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      */
     public function getPaymentCrefoPayOrderItemCollectionByCrefoPayOrderId(string $crefoPayOrderId): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        /** @var \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
+        /** @var \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem> $paymentCrefoPayOrderItemEntities */
         $paymentCrefoPayOrderItemEntities = $this->getPaymentCrefoPayOrderItemQuery()
             ->useSpyPaymentCrefoPayQuery()
                 ->filterByCrefoPayOrderId($crefoPayOrderId)
@@ -111,7 +111,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      */
     public function getPaymentCrefoPayOrderItemCollectionByCaptureId(string $captureId): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        /** @var \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
+        /** @var \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem> $paymentCrefoPayOrderItemEntities */
         $paymentCrefoPayOrderItemEntities = $this->getPaymentCrefoPayOrderItemQuery()
             ->filterByCaptureId($captureId)
             ->find();
@@ -130,7 +130,7 @@ class CrefoPayRepository extends AbstractRepository implements CrefoPayRepositor
      */
     public function getPaymentCrefoPayOrderItemCollectionBySalesOrderItemIds(array $salesOrderItemIds): PaymentCrefoPayOrderItemCollectionTransfer
     {
-        /** @var \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem[] $paymentCrefoPayOrderItemEntities */
+        /** @var \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\CrefoPay\Persistence\SpyPaymentCrefoPayOrderItem> $paymentCrefoPayOrderItemEntities */
         $paymentCrefoPayOrderItemEntities = $this->getPaymentCrefoPayOrderItemQuery()
             ->filterByFkSalesOrderItem_In($salesOrderItemIds)
             ->find();
